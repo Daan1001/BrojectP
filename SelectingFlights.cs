@@ -47,7 +47,7 @@ public class SelectingFlights{
         }
     }
     public static void Pause(){
-        Console.WriteLine("Continue?");
+        Console.WriteLine("*Base price does not include additional costs for seats");
         string yes = Console.ReadLine();
         MainMenu();
     }
