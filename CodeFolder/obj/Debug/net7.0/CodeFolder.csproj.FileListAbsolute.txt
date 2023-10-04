@@ -1,0 +1,17 @@
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.csproj.AssemblyReference.cache
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.AssemblyInfoInputs.cache
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.AssemblyInfo.cs
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.csproj.CoreCompileInputs.cache
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/CodeFolder
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/CodeFolder.deps.json
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/CodeFolder.runtimeconfig.json
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/CodeFolder.dll
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/CodeFolder.pdb
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.csproj.CopyComplete
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.dll
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/refint/CodeFolder.dll
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.pdb
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/CodeFolder.genruntimeconfig.cache
+/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/Debug/net7.0/ref/CodeFolder.dll
