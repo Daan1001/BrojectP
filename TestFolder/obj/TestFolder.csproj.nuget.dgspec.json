@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\TestFolder\\TestFolder.csproj": {}
+    "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\TestFolder\\TestFolder.csproj": {
+    "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\TestFolder\\TestFolder.csproj",
-        "projectName": "TestFolder",
-        "projectPath": "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\TestFolder\\TestFolder.csproj",
-        "packagesPath": "C:\\Users\\daanp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\TestFolder\\obj\\",
+        "projectUniqueName": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj",
+        "projectName": "CodeFolder",
+        "projectPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj",
+        "packagesPath": "/Users/jason/.nuget/packages/",
+        "outputPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\daanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/jason/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,6 +26,63 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj",
+        "projectName": "TestFolder",
+        "projectPath": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj",
+        "packagesPath": "/Users/jason/.nuget/packages/",
+        "outputPath": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/jason/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj": {
+                "projectPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -50,6 +107,10 @@
               "target": "Package",
               "version": "[17.7.1, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "coverlet.collector": {
               "target": "Package",
               "version": "[3.2.0, )"
@@ -71,7 +132,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }
