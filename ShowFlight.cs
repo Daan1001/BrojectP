@@ -55,7 +55,6 @@ public class ShowFlights{
                     string userCountry = options[selectedIndex];
                     var matchingFlights = flights.Where(f => f.Country.Equals(userCountry, StringComparison.OrdinalIgnoreCase)).ToList();
                     DisplayFlights(matchingFlights);
-                    Console.ReadKey();
                     break;
                 }
             }
@@ -104,7 +103,6 @@ public class ShowFlights{
                     string userCity = options[selectedIndex];
                     var matchingFlights = flights.Where(f => f.Destination.Equals(userCity, StringComparison.OrdinalIgnoreCase)).ToList();
                     DisplayFlights(matchingFlights);
-                    Console.ReadKey();
                     break;
                 }
             }
@@ -144,6 +142,7 @@ public class ShowFlights{
                 );
             }
             AnsiConsole.Render(table);
+            Console.WriteLine("*Base price does not include additional costs for seats");
         }
         else{
             Console.WriteLine("No flights to that destination found.");

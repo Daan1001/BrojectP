@@ -27,7 +27,7 @@ public class SelectingFlights{
                 selectedIndex++;
             }
             else if (key.Key == ConsoleKey.Enter){
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("Selected Option: " + options[selectedIndex]);
                 if (options[selectedIndex] == "Search by country"){
                     ShowFlights.SearchFlightsByCountry(flights);
@@ -37,19 +37,15 @@ public class SelectingFlights{
                 }
                 else if (options[selectedIndex] == "Show all flights"){
                     ShowFlights.ViewAllFlights(flights);
-                    Pause();
+                    //Pause();
                 }
                 else if (options[selectedIndex] == "Exit"){
                     Console.WriteLine("Goodbye!");
                     Environment.Exit(0);
                 }
+                Console.ReadKey();
             }
         }
-    }
-    public static void Pause(){
-        Console.WriteLine("*Base price does not include additional costs for seats");
-        string yes = Console.ReadLine();
-        MainMenu();
     }
 }
 
