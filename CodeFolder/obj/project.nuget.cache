@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "F1XbNLIHpd0eK/rCENU+5EuOLRbRAVMeTadtZ27WfJRFj84lXPukRKFlhfzuXHqfMt0Ctcyt936WSuGj3Dzs9A==",
+  "dgSpecHash": "YdkE+iGH3Cg8fNgsgswL6F7cJloqPbJgEXSK4UmWxxONRUxupMut7chB3/Bv6cDDlbfPb8Q63zA85cu2RZM4iA==",
   "success": true,
   "projectFilePath": "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\daanp\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

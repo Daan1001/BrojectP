@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 public class Menu{
     private static int selectedOption = 0;
     private static int hoveringOption = 0;
+    private User user;
     private static string[] options = { "Log in", "Sign in", "Account information","Book a flight", "Leave a review", "Exit"};
     public static ConsoleKeyInfo keyInfo;
     // Seat[,] seats = new Seat[6, 4]; // Initialize an imaginary 6x4 plane seat layout
@@ -37,6 +38,8 @@ public class Menu{
                 case ConsoleKey.Enter:
                     selectedOption = hoveringOption;
                     Action(selectedOption);
+                    Console.WriteLine();
+                    Console.ReadKey();
                     break;
             }
             stop = options[selectedOption] == options[options.Count()-1];
