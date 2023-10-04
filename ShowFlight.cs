@@ -62,7 +62,7 @@ public class ShowFlights{
         }
     }
     // Searches the flights list for matching cities
-    public static void SeachFlghtsByCity(List<Flight>flights){
+    public static void SearchFlghtsByCity(List<Flight>flights){
         // Console.WriteLine("Enter a city: ");
         // string userCity = Console.ReadLine();
         // var matchingFlights = flights.Where(f => f.Destination.Equals(userCity, StringComparison.OrdinalIgnoreCase)).ToList();

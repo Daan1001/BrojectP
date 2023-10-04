@@ -33,7 +33,7 @@ public class SelectingFlights{
                     ShowFlights.SearchFlightsByCountry(flights);
                 }
                 else if(options[selectedIndex] == "Search by city"){
-                    ShowFlights.SeachFlghtsByCity(flights);
+                    ShowFlights.SearchFlghtsByCity(flights);
                 }
                 else if (options[selectedIndex] == "Show all flights"){
                     ShowFlights.ViewAllFlights(flights);
