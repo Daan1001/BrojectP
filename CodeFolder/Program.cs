@@ -2,14 +2,11 @@
 {
     static void Main()
     {
-        GenerateSeat seatGenerator = new GenerateSeat();
-        
-        // Call the FullPlane method
-        seatGenerator.FullPlane();
-
+        Airplane airplane = new();
+        airplane.Boeing737();
+        //DisplaySeating displaySeating = new();
+        //displaySeating.Start();
     }
-    
-
         
     
 }
