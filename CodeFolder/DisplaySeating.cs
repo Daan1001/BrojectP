@@ -20,6 +20,7 @@ public class DisplaySeating
         cursorSeat = 0; 
         InitializeSeats();
         DisplaySeats();
+        
 
         Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
         Console.WriteLine("X: Booked Seat");
