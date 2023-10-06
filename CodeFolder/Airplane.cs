@@ -11,12 +11,14 @@ class Airplane
     public void Airbus330()
     {
         DisplaySeating displaySeating = new('F',50);
+        displaySeating.Start();
 
     } 
 
     public void Boeing787()
     {
         DisplaySeating displaySeating = new('F',38);
+        displaySeating.Start();
     }
 
 }

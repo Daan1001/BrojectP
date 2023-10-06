@@ -79,6 +79,7 @@ public class DisplaySeating
         }
     }
 
+
     public void DisplaySeats()
     {
         Console.Write("  ");
@@ -105,7 +106,14 @@ public class DisplaySeating
                         Console.BackgroundColor = ConsoleColor.Gray;
                     }
 
-                    Console.Write(seat.Booked ? "X " : "O ");
+                    // Set the text color to red if the seat is booked
+                    Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+
+                    // Display the seat letter and number
+                    Console.Write(seat.Booked ? $"X " : $"{letter}{row} ");
+
+                    // Reset text color after printing the current seat
+                    Console.ForegroundColor = ConsoleColor.White;
 
                     // Reset background color after printing the current seat
                     Console.BackgroundColor = ConsoleColor.Black;
@@ -118,9 +126,9 @@ public class DisplaySeating
         Console.WriteLine("  +---------");
     }
 
-    static void SelectAndBookSeat()
+    void SelectAndBookSeat()
     {
-        Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter - 'A' == cursorSeat);
+        Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
         if (selectedSeat != null)
         {
@@ -156,7 +164,7 @@ public class DisplaySeating
 
      void MoveLeft()
     {
-        if (cursorSeat > 'A')
+        if (cursorSeat > 0)
         {
             cursorSeat--;
             RedrawSeats();
@@ -169,7 +177,7 @@ public class DisplaySeating
 
     void MoveRight()
     {
-        if (cursorSeat < LetterSeat)
+        if (cursorSeat < LetterSeat - 'A')
         {
             cursorSeat++;
             RedrawSeats();
@@ -181,7 +189,7 @@ public class DisplaySeating
     }
     void RedrawSeats()
     {
-        Console.Clear();
+        Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
     
