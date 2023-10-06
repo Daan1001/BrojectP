@@ -70,7 +70,7 @@ public class DisplaySeating
 
     void InitializeSeats()
     {
-        for (char letter = 'A'; letter < this.LetterSeat; letter++)
+        for (char letter = 'A'; letter <= this.LetterSeat; letter++)
         {
             for (int row = 1; row <= this.NumberOfRows; row++)
             {
@@ -79,16 +79,22 @@ public class DisplaySeating
         }
     }
 
-    public static void DisplaySeats()
+    public void DisplaySeats()
     {
-        Console.WriteLine("   A B C D");
+        Console.Write("  ");
+        for (char letter = 'A'; letter <= LetterSeat; letter++)
+        {
+            Console.Write($"{letter} ");
+        }
+        Console.WriteLine();
+
         Console.WriteLine("  +---------");
 
-        for (int row = 1; row <=4; row++)
+        for (int row = 1; row <= NumberOfRows; row++)
         {
             Console.Write($" {row}|");
 
-            for (char letter = 'A'; letter <= 'D'; letter++)
+            for (char letter = 'A'; letter <= LetterSeat; letter++)
             {
                 Seat seat = Seat.Seats.Find(s => s.Row == row && s.Letter == letter);
 
@@ -122,7 +128,7 @@ public class DisplaySeating
         }
     }
 
-    static void MoveUp()
+    void MoveUp()
     {
         if (cursorRow > 1)
         {
@@ -135,9 +141,9 @@ public class DisplaySeating
         }
     }
 
-    static void MoveDown()
+    void MoveDown()
     {
-        if (cursorRow < 4)
+        if (cursorRow < this.NumberOfRows)
         {
             cursorRow++;
             RedrawSeats();
@@ -148,9 +154,9 @@ public class DisplaySeating
         }
     }
 
-    static void MoveLeft()
+     void MoveLeft()
     {
-        if (cursorSeat > 0)
+        if (cursorSeat > 'A')
         {
             cursorSeat--;
             RedrawSeats();
@@ -161,9 +167,9 @@ public class DisplaySeating
         }
     }
 
-    static void MoveRight()
+    void MoveRight()
     {
-        if (cursorSeat < 3)
+        if (cursorSeat < LetterSeat)
         {
             cursorSeat++;
             RedrawSeats();
@@ -173,7 +179,7 @@ public class DisplaySeating
             RedrawSeats();
         }
     }
-    static void RedrawSeats()
+    void RedrawSeats()
     {
         Console.Clear();
         DisplaySeats();
