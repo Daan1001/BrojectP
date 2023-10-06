@@ -1,6 +1,6 @@
 using System;
 
-class Airplane
+public class Airplane
 {
     public void Boeing737()
     {

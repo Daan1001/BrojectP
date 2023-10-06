@@ -11,7 +11,6 @@ public class DisplaySeating
         this.LetterSeat = letterseat;
         this.NumberOfRows = numberofrows;
     }
-
     public void Start()
     {
         cursorRow = 1;  
@@ -61,7 +60,7 @@ public class DisplaySeating
         }
     }
 
-    void InitializeSeats()
+    public void InitializeSeats()
     {
         for (char letter = 'A'; letter <= this.LetterSeat; letter++)
         {
@@ -129,7 +128,7 @@ public class DisplaySeating
 
 
 
-    void SelectAndBookSeat()
+    public void SelectAndBookSeat()
     {
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
@@ -139,7 +138,7 @@ public class DisplaySeating
         }
     }
 
-    void MoveUp()
+    public void MoveUp()
     {
         if (cursorRow > 1)
         {
@@ -152,7 +151,7 @@ public class DisplaySeating
         }
     }
 
-    void MoveDown()
+    public void MoveDown()
     {
         if (cursorRow < this.NumberOfRows)
         {
@@ -165,7 +164,7 @@ public class DisplaySeating
         }
     }
 
-     void MoveLeft()
+    public void MoveLeft()
     {
         if (cursorSeat > 0)
         {
@@ -178,7 +177,7 @@ public class DisplaySeating
         }
     }
 
-    void MoveRight()
+    public void MoveRight()
     {
         if (cursorSeat < LetterSeat - 'A')
         {
@@ -190,7 +189,7 @@ public class DisplaySeating
             RedrawSeats();
         }
     }
-    void RedrawSeats()
+    public void RedrawSeats()
     {
         Console.SetCursorPosition(0, 0);
         DisplaySeats();
