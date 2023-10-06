@@ -21,11 +21,6 @@ public class DisplaySeating
         InitializeSeats();
         DisplaySeats();
         
-
-        Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
-        Console.WriteLine("X: Booked Seat");
-        Console.WriteLine("O: Available Seat");
-
         bool isBookingComplete = false;
 
         while (!isBookingComplete)
@@ -78,44 +73,49 @@ public class DisplaySeating
             }
         }
     }
-
-
-    public void DisplaySeats()
+   public void DisplaySeats()
     {
-        Console.Write("  ");
+        // Calculate the total width of the seating arrangement
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+
+        Console.Write("    ");
         for (char letter = 'A'; letter <= LetterSeat; letter++)
         {
-            Console.Write($"{letter} ");
+            Console.Write($"{letter,-7} ");
         }
         Console.WriteLine();
 
-        Console.WriteLine("  +---------");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+
+        // Dictionary to store the maximum length of seat identifier for each column
+        Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
         for (int row = 1; row <= NumberOfRows; row++)
         {
-            Console.Write($" {row}|");
+            Console.Write($" {row,2}|");
 
             for (char letter = 'A'; letter <= LetterSeat; letter++)
             {
-                Seat seat = Seat.Seats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? seat = Seat.Seats.Find(s => s.Row == row && s.Letter == letter);
 
                 if (seat != null)
                 {
                     if (cursorRow == row && cursorSeat == letter - 'A')
                     {
-                        Console.BackgroundColor = ConsoleColor.Gray;
+                        Console.BackgroundColor = ConsoleColor.DarkGray; // Set the background color for the selected seat
                     }
 
                     // Set the text color to red if the seat is booked
                     Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
 
-                    // Display the seat letter and number
-                    Console.Write(seat.Booked ? $"X " : $"{letter}{row} ");
+                    // Display the seat letter and number with dynamic spacing for better alignment
+                    Console.Write(seat.Booked ? $"{letter}{row,-6} " : $"{letter}{row,-6} ");
 
-                    // Reset text color after printing the current seat
+                    // Update the maximum length for the current column
+                    maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
+
+                    // Reset text and background color after printing the current seat
                     Console.ForegroundColor = ConsoleColor.White;
-
-                    // Reset background color after printing the current seat
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
@@ -123,8 +123,13 @@ public class DisplaySeating
             Console.WriteLine();
         }
 
-        Console.WriteLine("  +---------");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
+        Console.WriteLine("'Red': Booked Seat");
+        Console.WriteLine("'White'': Available Seat");
     }
+
+
 
     void SelectAndBookSeat()
     {
