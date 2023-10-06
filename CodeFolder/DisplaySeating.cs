@@ -12,8 +12,6 @@ public class DisplaySeating
         this.NumberOfRows = numberofrows;
     }
 
-    // public GenerateSeat(char letter, int row, bool booked ) 
-    // {}
     public void Start()
     {
         cursorRow = 1;  
