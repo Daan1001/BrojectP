@@ -17,6 +17,12 @@ public class Review{
         String? Subject = Console.ReadLine();
         Console.WriteLine("What is the content of this review?");
         String? Content = Console.ReadLine();
+        if(Subject == ""){
+            Subject = "Reviewer didnt bother to fill this in.";
+        }
+        if(Content == ""){
+            Content = "Reviewer didnt bother to fill this in.";
+        }
         CreateNewReview(Subject!, Content!);
     }
     public static void ShowAllReviews(){
