@@ -84,6 +84,21 @@ public static class OptionSelection{
             case "<-- Go back":
                 MainMenu.Start();
                 break;
+            case "Airport contact details": // dit moet nog in een aparte methode maar ik weet nog niet waar ik die methode neer ga zetten
+                Console.Clear();
+                Console.WriteLine("For help:");
+                Console.WriteLine("-Call: 112 or 911 (We advise 112 for quicker arrival of help)");
+                Console.WriteLine("-Email: INeedHelp.PleaseHelpMe@gmail.com");
+                Console.WriteLine();
+                Console.WriteLine("Some tips to survive this airport longer:");
+                Console.WriteLine("-Avoid creeps");
+                Console.WriteLine("-Keep a 2m distance from everyone");
+                Console.WriteLine("-always carry a weapon (e.g. knife, gun, bow (all wtih ammo ofcourse if needed))");
+                Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, you WILL die within a day)");
+                Console.WriteLine();
+                Console.WriteLine("Press any button to continue");
+                Console.ReadKey();
+                break;
             case "Exit":
                 stop = true;
                 break;

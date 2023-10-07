@@ -16,6 +16,7 @@ public class MainMenu{
             options.Add("Account information");
             options.Add("Log out");
         }
+        options.Add("Airport contact details");
         options.Add("Exit");
         OptionSelection.Start(MainMenu.options);
     }
