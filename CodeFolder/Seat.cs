@@ -36,4 +36,9 @@ public class Seat
         }
     }
 
+    public void ResetBooking()
+    {
+        Booked = false;
+    }
+
 }

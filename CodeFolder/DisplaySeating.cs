@@ -1,7 +1,10 @@
+using Newtonsoft.Json;
+
 public class DisplaySeating 
 {
     static int cursorRow = 0;
     static int cursorSeat = 0;
+    private List<Seat> bookedSeats = new List<Seat>();
 
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }       
@@ -15,6 +18,7 @@ public class DisplaySeating
     {
         cursorRow = 1;  
         cursorSeat = 0; 
+        LoadBookedSeatsFromJson("booked_seats.json"); 
         InitializeSeats();
         DisplaySeats();
         
@@ -50,7 +54,22 @@ public class DisplaySeating
 
                 case ConsoleKey.Escape:
                     isBookingComplete = true;
-                    Console.WriteLine("Booking completed. Thank you!");
+                    bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
+
+                    if (confirmBooking)
+                    {
+                        Console.WriteLine("Booking completed. Thank you!");
+                        SaveBookedSeatsToJson("booked_seats.json"); // Specify the desired file path
+                    }
+                    else
+                    {
+                        // Roll back the booked seats to available
+                        foreach (var seat in bookedSeats)
+                        {
+                            seat.ResetBooking();
+                        }
+                        Console.WriteLine("Booking canceled. Selected seats are now available.");
+                    }
                     break;
 
                 default:
@@ -72,6 +91,7 @@ public class DisplaySeating
     }
    public void DisplaySeats()
     {
+
         // Calculate the total width of the seating arrangement
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
 
@@ -122,8 +142,9 @@ public class DisplaySeating
 
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
         Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
-        Console.WriteLine("'Red': Booked Seat");
-        Console.WriteLine("'White'': Available Seat");
+        Console.WriteLine("'Red': Booked Seat.");
+        Console.WriteLine("'White'': Available Seat.");
+        Console.WriteLine("Press ESC to finish the booking.");
     }
 
 
@@ -134,8 +155,52 @@ public class DisplaySeating
 
         if (selectedSeat != null)
         {
-            selectedSeat.Book();
+            // Display confirmation screen
+            bool isConfirmed = ConfirmBooking();
+
+            if (isConfirmed)
+            {
+                selectedSeat.Book();
+                bookedSeats.Add(selectedSeat); // Add the selected and booked seat to the list
+            }
         }
+    }
+
+    public void LoadBookedSeatsFromJson(string filePath)
+    {
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            // updates current list of seat or starts a new empty list
+            bookedSeats = JsonConvert.DeserializeObject<List<Seat>>(json) ?? new List<Seat>();
+        }
+    }
+
+    public void SaveBookedSeatsToJson(string filePath)
+    {
+        // Save the bookedSeats list to a JSON file
+        string json = JsonConvert.SerializeObject(bookedSeats, Formatting.Indented);
+        File.WriteAllText(filePath, json);
+
+        Console.WriteLine($"Booked seats saved to {filePath}");
+    }
+    public bool ConfirmBooking()
+    {
+        Console.WriteLine("Confirmation Screen:");
+        Console.WriteLine("Selected Seats:");
+
+        foreach (var seat in bookedSeats)
+        {
+            Console.WriteLine(seat);
+            
+            // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
+        }
+
+        Console.Write("Confirm booking? (Y/N): ");
+        ConsoleKeyInfo key = Console.ReadKey();
+
+        // Return true if the user pressed 'Y' (yes), otherwise return false
+        return key.Key == ConsoleKey.Y;
     }
 
     public void MoveUp()
