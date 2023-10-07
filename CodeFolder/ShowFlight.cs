@@ -114,6 +114,7 @@ public class ShowFlights{
     // Method that displays all flights
     public static void ViewAllFlights(List<Flight> flights){
         DisplayFlights(flights);
+        Console.ReadKey(); // alleen tijdens wip nodig
     }
 
     // Method that displays the given flights

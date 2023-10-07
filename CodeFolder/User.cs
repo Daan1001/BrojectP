@@ -12,6 +12,7 @@ public class User{
         String Upassword = Console.ReadLine()!;
         User user = new User(Uname, Upassword);
         Console.WriteLine("New user created!");
+        Console.ReadKey(); // alleen tijdens wip nodig
         // StreamWriter writer = new("Accounts.json");
         // string json = JsonConvert.SerializeObject(selectedSeats);
         

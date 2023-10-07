@@ -1,12 +1,15 @@
+using System.Diagnostics;
+
 public static class OptionSelection{
     private static String? selectedOption;
     private static int hoveringOption;
     public static ConsoleKeyInfo keyInfo;
+    public static Boolean stop = false;
     public static void Start(string[] array){
         hoveringOption = 0;
         selectedOption = "";
+        stop = false;
         Console.CursorVisible = false;
-        Boolean stop = false;
         while(!stop){
             Console.Clear();
             for (int i = 0; i < array.Length; i++){
@@ -31,10 +34,9 @@ public static class OptionSelection{
                     selectedOption = array[hoveringOption];
                     Console.WriteLine();
                     Action(selectedOption);
-                    Console.ReadKey(); // alleen tijdens wip nodig
                     break;
             }
-            stop = selectedOption == "Exit";
+            // stop = selectedOption == "Exit";
         }
     }
     // public static void Start(List<String> list){
@@ -45,18 +47,21 @@ public static class OptionSelection{
         switch (selectedOption){
             case "Log in": // log in
                 Console.WriteLine("Still a W.I.P.");
+                Console.ReadKey(); // alleen tijdens wip nodig
                 break;
             case "Sign in": // sign in
                 User.NewUser();
                 break;
             case "Account information": // account information
                 Console.WriteLine("Still a W.I.P.");
+                Console.ReadKey(); // alleen tijdens wip nodig
                 break;
             case "Book a flight": // booking flight
                 SelectingFlights.MainMenu();
                 break;
             case "Leave a review": // leave a review
                 Console.WriteLine("Still a W.I.P.");
+                Console.ReadKey(); // alleen tijdens wip nodig
                 break;
             case "Search by country":
                 ShowFlights.SearchFlightsByCountry(SelectingFlights.flights);
@@ -72,6 +77,9 @@ public static class OptionSelection{
                 // Console.WriteLine(selectedOption);
                 // Console.ReadKey();
                 Menu.Start();
+                break;
+            case "Exit":
+                stop = true;
                 break;
         }
     }
