@@ -3,6 +3,7 @@ using Spectre.Console;
 
 public class ShowFlights{
     // Loads the JSON into a list
+    private static List<string> options = new List<string>();
     public static List<Flight> LoadFlightsFromJson(string jsonFilePath){
         List<Flight> flights;
         using (StreamReader file = File.OpenText(jsonFilePath)){
@@ -14,101 +15,97 @@ public class ShowFlights{
 
     // Searches the flights list for matching countries
     public static void SearchFlightsByCountry(List<Flight> flights){
-        List<string> options = new List<string>();
+        options.Clear();
         foreach (Flight flight in flights){
-            if(options.Contains(flight.Country)){
-                continue;
-            }
-            else{
+            if(!options.Contains(flight.Country)){
                 options.Add(flight.Country);
             }
         }
         options.Add("<-- Go back");
-        int selectedIndex = 0;
-        Console.CursorVisible = false;
-        while (true){
-            Console.Clear();
-            for (int i = 0; i < options.Count; i++){
-                if (i == selectedIndex){
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                }
+        // int selectedIndex = 0;
+        // Console.CursorVisible = false;
+        // while (true){
+        //     Console.Clear();
+        //     for (int i = 0; i < options.Count; i++){
+        //         if (i == selectedIndex){
+        //             Console.BackgroundColor = ConsoleColor.Gray;
+        //             Console.ForegroundColor = ConsoleColor.Black;
+        //         }
 
-                Console.WriteLine(options[i]);
-                Console.ResetColor();
-            }
+        //         Console.WriteLine(options[i]);
+        //         Console.ResetColor();
+        //     }
 
-            ConsoleKeyInfo key = Console.ReadKey();
-            if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
-                selectedIndex--;
-            }
-            else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
-                selectedIndex++;
-            }
-            else if (key.Key == ConsoleKey.Enter){
-                Console.Clear();
-                Console.WriteLine("Selected Option: " + options[selectedIndex]);
-                if (options[selectedIndex] == "<-- Go back"){
-                    SelectingFlights.MainMenu();
-                }
-                else{
-                    string userCountry = options[selectedIndex];
-                    var matchingFlights = flights.Where(f => f.Country.Equals(userCountry, StringComparison.OrdinalIgnoreCase)).ToList();
-                    DisplayFlights(matchingFlights);
-                    Console.ReadKey();
-                    break;
-                }
-            }
-        }
+        //     ConsoleKeyInfo key = Console.ReadKey();
+        //     if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
+        //         selectedIndex--;
+        //     }
+        //     else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
+        //         selectedIndex++;
+        //     }
+        //     else if (key.Key == ConsoleKey.Enter){
+        //         Console.Clear();
+        //         Console.WriteLine("Selected Option: " + options[selectedIndex]);
+        //         if (options[selectedIndex] == "<-- Go back"){
+        //             SelectingFlights.MainMenu();
+        //         }
+        //         else{
+        //             string userCountry = options[selectedIndex];
+        //             var matchingFlights = flights.Where(f => f.Country.Equals(userCountry, StringComparison.OrdinalIgnoreCase)).ToList();
+        //             DisplayFlights(matchingFlights);
+        //             Console.ReadKey();
+        //             break;
+        //         }
+        //     }
+        // }
+        OptionSelection.Start(options);
     }
     // Searches the flights list for matching cities
     public static void SearchFlghtsByCity(List<Flight>flights){
-        List<string> options = new List<string>();
+        options.Clear();
         foreach (Flight flight in flights){
-            if(options.Contains(flight.Destination)){
-                continue;
-            }
-            else{
+            if(!options.Contains(flight.Destination)){
                 options.Add(flight.Destination);
             }
         }
         options.Add("<-- Go back");
-        int selectedIndex = 0;
-        Console.CursorVisible = false;
-        while (true){
-            Console.Clear();
-            for (int i = 0; i < options.Count; i++){
-                if (i == selectedIndex){
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                }
+        // int selectedIndex = 0;
+        // Console.CursorVisible = false;
+        // while (true){
+        //     Console.Clear();
+        //     for (int i = 0; i < options.Count; i++){
+        //         if (i == selectedIndex){
+        //             Console.BackgroundColor = ConsoleColor.Gray;
+        //             Console.ForegroundColor = ConsoleColor.Black;
+        //         }
 
-                Console.WriteLine(options[i]);
-                Console.ResetColor();
-            }
+        //         Console.WriteLine(options[i]);
+        //         Console.ResetColor();
+        //     }
 
-            ConsoleKeyInfo key = Console.ReadKey();
-            if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
-                selectedIndex--;
-            }
-            else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
-                selectedIndex++;
-            }
-            else if (key.Key == ConsoleKey.Enter){
-                Console.Clear();
-                Console.WriteLine("Selected Option: " + options[selectedIndex]);
-                if (options[selectedIndex] == "<-- Go back"){
-                    SelectingFlights.MainMenu();
-                }
-                else{
-                    string userCity = options[selectedIndex];
-                    var matchingFlights = flights.Where(f => f.Destination.Equals(userCity, StringComparison.OrdinalIgnoreCase)).ToList();
-                    DisplayFlights(matchingFlights);
-                    Console.ReadKey();
-                    break;
-                }
-            }
-        }
+        //     ConsoleKeyInfo key = Console.ReadKey();
+        //     if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
+        //         selectedIndex--;
+        //     }
+        //     else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
+        //         selectedIndex++;
+        //     }
+        //     else if (key.Key == ConsoleKey.Enter){
+        //         Console.Clear();
+        //         Console.WriteLine("Selected Option: " + options[selectedIndex]);
+        //         if (options[selectedIndex] == "<-- Go back"){
+        //             SelectingFlights.MainMenu();
+        //         }
+        //         else{
+        //             string userCity = options[selectedIndex];
+        //             var matchingFlights = flights.Where(f => f.Destination.Equals(userCity, StringComparison.OrdinalIgnoreCase)).ToList();
+        //             DisplayFlights(matchingFlights);
+        //             Console.ReadKey();
+        //             break;
+        //         }
+        //     }
+        // }
+        OptionSelection.Start(options);
     }
 
     // Method that displays all flights

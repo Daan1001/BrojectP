@@ -5,14 +5,14 @@ public static class OptionSelection{
     private static int hoveringOption;
     public static ConsoleKeyInfo keyInfo;
     public static Boolean stop = false;
-    public static void Start(string[] array){
+    public static void Start(List<String> array){
         hoveringOption = 0;
         selectedOption = "";
         stop = false;
         Console.CursorVisible = false;
         while(!stop){
             Console.Clear();
-            for (int i = 0; i < array.Length; i++){
+            for (int i = 0; i < array.Count(); i++){
                 if (i == hoveringOption){
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
@@ -28,7 +28,7 @@ public static class OptionSelection{
                     hoveringOption = Math.Max(0, hoveringOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    hoveringOption = Math.Min(array.Length - 1, hoveringOption + 1);
+                    hoveringOption = Math.Min(array.Count() - 1, hoveringOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     selectedOption = array[hoveringOption];
@@ -36,7 +36,6 @@ public static class OptionSelection{
                     Action(selectedOption);
                     break;
             }
-            // stop = selectedOption == "Exit";
         }
     }
     // public static void Start(List<String> list){
@@ -45,23 +44,33 @@ public static class OptionSelection{
         
     public static void Action(String selectedOption){
         switch (selectedOption){
-            case "Log in": // log in
-                Console.WriteLine("Still a W.I.P.");
-                Console.ReadKey(); // alleen tijdens wip nodig
+            case "Log in":
+                User.LogInInput();
+                MainMenu.Start();
                 break;
             case "Sign in": // sign in
-                User.NewUser();
+                User.NewUserInput();
                 break;
-            case "Account information": // account information
-                Console.WriteLine("Still a W.I.P.");
+            case "Log out":
+                MainMenu.user = null;
+                MainMenu.Start();
+                break;
+            case "Account information":
+                Console.WriteLine("Still a W.I.P. (press any key to continue)");
                 Console.ReadKey(); // alleen tijdens wip nodig
                 break;
-            case "Book a flight": // booking flight
-                SelectingFlights.MainMenu();
+            case "Book a flight":
+                SelectingFlights.Start();
                 break;
-            case "Leave a review": // leave a review
-                Console.WriteLine("Still a W.I.P.");
-                Console.ReadKey(); // alleen tijdens wip nodig
+            case "Leave a review":
+                Review.CreateNewReviewInput();
+                ReviewMenu.Start();
+                break;
+            case "Reviews":
+                ReviewMenu.Start();
+                break;
+            case "Show reviews":
+                Review.ShowAllReviews();
                 break;
             case "Search by country":
                 ShowFlights.SearchFlightsByCountry(SelectingFlights.flights);
@@ -73,13 +82,14 @@ public static class OptionSelection{
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
             case "<-- Go back":
-                // Console.WriteLine(hoveringOption);
-                // Console.WriteLine(selectedOption);
-                // Console.ReadKey();
-                Menu.Start();
+                MainMenu.Start();
                 break;
             case "Exit":
                 stop = true;
+                break;
+            default:
+                Console.WriteLine("Still a W.I.P. (press any key to continue)");
+                Console.ReadKey(); // alleen tijdens wip nodig
                 break;
         }
     }
