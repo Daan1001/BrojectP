@@ -51,31 +51,41 @@ public class DisplaySeating
                     SelectAndBookSeat();
                     DisplaySeats();
                     break;
+                    
+                case ConsoleKey.Backspace:
+                UnselectSeat();
+                break;
 
                 case ConsoleKey.Escape:
                     isBookingComplete = true;
-                    bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
-
-                    if (confirmBooking)
-                    {
-                        Console.WriteLine("Booking completed. Thank you!");
-                        SaveBookedSeatsToJson("booked_seats.json"); // Specify the desired file path
-                    }
-                    else
-                    {
-                        // Roll back the booked seats to available
-                        foreach (var seat in bookedSeats)
-                        {
-                            seat.ResetBooking();
-                        }
-                        Console.WriteLine("Booking canceled. Selected seats are now available.");
-                    }
                     break;
 
                 default:
                     Console.WriteLine("Invalid input. Please use arrow keys to navigate.");
                     break;
             }
+        }
+        bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
+
+        if (confirmBooking)
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("Booking completed. Thank you!");
+            Console.WriteLine();
+            SaveBookedSeatsToJson("booked_seats.json"); // Specify the desired file path
+            
+        }
+        else
+        {
+            // Roll back the booked seats to available
+            foreach (var seat in bookedSeats)
+            {
+                seat.ResetBooking();
+            }
+            Console.Clear();
+            Console.WriteLine("Booking canceled. Selected seats are now available.");
+            Console.WriteLine();
         }
     }
 
@@ -103,7 +113,6 @@ public class DisplaySeating
         Console.WriteLine();
 
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-
         // Dictionary to store the maximum length of seat identifier for each column
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
@@ -155,16 +164,48 @@ public class DisplaySeating
 
         if (selectedSeat != null)
         {
-            // Display confirmation screen
-            bool isConfirmed = ConfirmBooking();
-
-            if (isConfirmed)
-            {
-                selectedSeat.Book();
-                bookedSeats.Add(selectedSeat); // Add the selected and booked seat to the list
-            }
+            selectedSeat.Book();
+            bookedSeats.Add(selectedSeat);
         }
     }
+    // public void SelectAndBookSeat()
+    // {
+    //     Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+
+    //     if (selectedSeat != null)
+    //     {
+    //         // Display confirmation screen after finishing the booking
+    //         bool confirmBooking = ConfirmBooking();
+
+    //         if (confirmBooking)
+    //         {
+    //             selectedSeat.Book();
+    //             bookedSeats.Add(selectedSeat); // Add the selected and booked seat to the list
+    //         }
+    //         else
+    //         {
+    //             Console.WriteLine("Booking canceled. Selected seat is now available.");
+    //         }
+
+    //         DisplaySeats(); // Display the seats again after the booking decision
+    //     }
+    // }    
+
+    public void UnselectSeat()
+    {
+        Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+
+        if (selectedSeat != null)
+        {
+            // Unselect the seat
+            Console.WriteLine($"Seat {selectedSeat} unselected.");
+            selectedSeat.ResetSeat(); // Assuming you have a method to unbook the seat in your Seat class
+            bookedSeats.Remove(selectedSeat); // Remove the seat from the bookedSeats list
+        }
+
+        DisplaySeats(); // Display the seats again without the selection
+    }
+
 
     public void LoadBookedSeatsFromJson(string filePath)
     {
@@ -182,7 +223,7 @@ public class DisplaySeating
         string json = JsonConvert.SerializeObject(bookedSeats, Formatting.Indented);
         File.WriteAllText(filePath, json);
 
-        Console.WriteLine($"Booked seats saved to {filePath}");
+        //Console.WriteLine($"Booked seats saved to {filePath}");
     }
     public bool ConfirmBooking()
     {

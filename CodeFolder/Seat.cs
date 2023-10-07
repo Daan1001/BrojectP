@@ -41,4 +41,11 @@ public class Seat
         Booked = false;
     }
 
+    
+    public void ResetSeat() // used to unselect seat to false since fields are private.
+    {
+        Booked = !Booked;
+        Console.WriteLine($"Seat {this} {(Booked ? "booked" : "unbooked")}");
+    }
+
 }
