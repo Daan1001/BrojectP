@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YdkE+iGH3Cg8fNgsgswL6F7cJloqPbJgEXSK4UmWxxONRUxupMut7chB3/Bv6cDDlbfPb8Q63zA85cu2RZM4iA==",
+  "dgSpecHash": "DUVEjA6ThM/DMg49X7ZIQAqfM3RezW3D9gDMoucwlDhRk4x5V0zUwzWLoKc2UgJaxCpUYToYy4FBClBE+bF57g==",
   "success": true,
   "projectFilePath": "C:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\daanp\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\daanp\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\daanp\\.nuget\\packages\\spectre.console\\0.47.0\\spectre.console.0.47.0.nupkg.sha512",
+    "C:\\Users\\daanp\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512"
   ],
   "logs": []
 }
