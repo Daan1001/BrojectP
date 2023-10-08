@@ -51,7 +51,7 @@ public class DisplaySeating
                     SelectAndBookSeat();
                     DisplaySeats();
                     break;
-                    
+
                 case ConsoleKey.Backspace:
                 UnselectSeat();
                 break;
@@ -86,6 +86,7 @@ public class DisplaySeating
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
+            Start();
         }
     }
 
