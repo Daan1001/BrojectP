@@ -5,7 +5,7 @@ public class Seat
     public char Letter { get; private set; }
     public int Row { get; private set; }
     public bool Booked { get; private set; }
-    
+
 
     public Seat(char letter, int row, bool booked)
     {
@@ -16,7 +16,7 @@ public class Seat
         Seats.Add(this);
     }
 
-    public string ShowSeat()
+    public virtual string ShowSeat()
     {
         return $"Letter: {this.Letter}; Row: {this.Row}; Booked: {this.Booked}";
     }

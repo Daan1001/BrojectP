@@ -6,7 +6,7 @@ public class Airplane
     {
         DisplaySeating displaySeating = new('F',33);
         displaySeating.Start();
-
+        
     }
     public void Airbus330()
     {
