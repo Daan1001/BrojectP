@@ -52,7 +52,9 @@ public static class OptionSelection{
             }
         }
         if(matchingFlights.Count > 0){
+            Console.Clear();
             ShowFlights.DisplayFlights(matchingFlights);
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
         else{
@@ -63,6 +65,7 @@ public static class OptionSelection{
                     break;
                 case "Sign in": // sign in
                     User.NewUserInput();
+                    MainMenu.Start();
                     break;
                 case "Log out":
                     MainMenu.user = null;
@@ -103,13 +106,13 @@ public static class OptionSelection{
                     Console.WriteLine("-Call: 112 or 911 (We advise 112 for quicker arrival of help)");
                     Console.WriteLine("-Email: INeedHelp.PleaseHelpMe@gmail.com");
                     Console.WriteLine();
-                    Console.WriteLine("Some tips to survive this airport longer:");
-                    Console.WriteLine("-Avoid creeps");
-                    Console.WriteLine("-Keep a 2m distance from everyone");
-                    Console.WriteLine("-always carry a weapon (e.g. knife, gun, bow (all wtih ammo ofcourse if needed))");
-                    Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, you WILL die within a day)");
+                    Console.WriteLine("Some tips for a more enjoyable stay:");
+                    Console.WriteLine("-Avoid the restaurants completely (they will empty your wallet before you can no)");
+                    Console.WriteLine("-Keep a 2m distance from everyone (to avoid any kind of bacteria from others)");
+                    Console.WriteLine("-Come prepared for your flight");
+                    Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, you won't make it on the flight)");
                     Console.WriteLine();
-                    Console.WriteLine("Press any button to continue");
+                    Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                     break;
                 case "Exit":

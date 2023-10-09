@@ -38,14 +38,15 @@ public class ShowFlights{
 
     // Method that displays all flights
     public static void ViewAllFlights(List<Flight> flights){
+        Console.Clear();
         DisplayFlights(flights);
+        Console.WriteLine("Press any key to continue...");
         Console.ReadKey(); // alleen tijdens wip nodig
     }
 
     // Method that displays the given flights
     public static void DisplayFlights(List<Flight> flights){
         if (flights.Count > 0){
-            Console.WriteLine("");
             var table = new Table();
             table.Border = TableBorder.Square;;
             table.AddColumn(new TableColumn("Flight ID").Centered());
