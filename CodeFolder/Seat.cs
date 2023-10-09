@@ -5,12 +5,14 @@ public class Seat
     public char Letter { get; private set; }
     public int Row { get; private set; }
     public bool Booked { get; private set; }
+    
 
     public Seat(char letter, int row, bool booked)
     {
         Letter = letter;
         Row = row;
         Booked = booked;
+
         Seats.Add(this);
     }
 

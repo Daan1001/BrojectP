@@ -1,0 +1,7 @@
+maak meer derived classes van Seats dus First class Seat, Busniss en economy
+
+Derived Airplane classes maken en daarvoor specifieke seats
+making want de layout is anders bij per vliegtuig.
+
+Confirmatie moet alleen de seats laten zien die net zijn gekozen. 
+

@@ -154,6 +154,7 @@ public class DisplaySeating
         Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
         Console.WriteLine("'Red': Booked Seat.");
         Console.WriteLine("'White'': Available Seat.");
+        Console.WriteLine("'BACKSPACE': To unselect a seat.");
         Console.WriteLine("Press ESC to finish the booking.");
     }
 
@@ -298,7 +299,7 @@ public class DisplaySeating
     }
     public void RedrawSeats()
     {
-        Console.SetCursorPosition(0, 0);
+        // Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
     

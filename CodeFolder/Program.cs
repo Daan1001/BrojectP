@@ -1,11 +1,13 @@
 ﻿public class Program
 {
+
     static void Main()
     {
         bool booking = true;
 
         while (booking)
         {
+            List<string > Options = new List<string>(){"Book a Seat?","Return to menu","Exit"};
             Console.WriteLine("What would u like to do?");
             Console.WriteLine("[1] Book a Seat?");
             Console.WriteLine("[2] Return to menu");
