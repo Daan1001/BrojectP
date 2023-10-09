@@ -22,42 +22,6 @@ public class ShowFlights{
             }
         }
         options.Add("<-- Go back");
-        // int selectedIndex = 0;
-        // Console.CursorVisible = false;
-        // while (true){
-        //     Console.Clear();
-        //     for (int i = 0; i < options.Count; i++){
-        //         if (i == selectedIndex){
-        //             Console.BackgroundColor = ConsoleColor.Gray;
-        //             Console.ForegroundColor = ConsoleColor.Black;
-        //         }
-
-        //         Console.WriteLine(options[i]);
-        //         Console.ResetColor();
-        //     }
-
-        //     ConsoleKeyInfo key = Console.ReadKey();
-        //     if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
-        //         selectedIndex--;
-        //     }
-        //     else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
-        //         selectedIndex++;
-        //     }
-        //     else if (key.Key == ConsoleKey.Enter){
-        //         Console.Clear();
-        //         Console.WriteLine("Selected Option: " + options[selectedIndex]);
-        //         if (options[selectedIndex] == "<-- Go back"){
-        //             SelectingFlights.MainMenu();
-        //         }
-        //         else{
-        //             string userCountry = options[selectedIndex];
-        //             var matchingFlights = flights.Where(f => f.Country.Equals(userCountry, StringComparison.OrdinalIgnoreCase)).ToList();
-        //             DisplayFlights(matchingFlights);
-        //             Console.ReadKey();
-        //             break;
-        //         }
-        //     }
-        // }
         OptionSelection.Start(options);
     }
     // Searches the flights list for matching cities
@@ -69,42 +33,6 @@ public class ShowFlights{
             }
         }
         options.Add("<-- Go back");
-        // int selectedIndex = 0;
-        // Console.CursorVisible = false;
-        // while (true){
-        //     Console.Clear();
-        //     for (int i = 0; i < options.Count; i++){
-        //         if (i == selectedIndex){
-        //             Console.BackgroundColor = ConsoleColor.Gray;
-        //             Console.ForegroundColor = ConsoleColor.Black;
-        //         }
-
-        //         Console.WriteLine(options[i]);
-        //         Console.ResetColor();
-        //     }
-
-        //     ConsoleKeyInfo key = Console.ReadKey();
-        //     if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0){
-        //         selectedIndex--;
-        //     }
-        //     else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Count - 1){
-        //         selectedIndex++;
-        //     }
-        //     else if (key.Key == ConsoleKey.Enter){
-        //         Console.Clear();
-        //         Console.WriteLine("Selected Option: " + options[selectedIndex]);
-        //         if (options[selectedIndex] == "<-- Go back"){
-        //             SelectingFlights.MainMenu();
-        //         }
-        //         else{
-        //             string userCity = options[selectedIndex];
-        //             var matchingFlights = flights.Where(f => f.Destination.Equals(userCity, StringComparison.OrdinalIgnoreCase)).ToList();
-        //             DisplayFlights(matchingFlights);
-        //             Console.ReadKey();
-        //             break;
-        //         }
-        //     }
-        // }
         OptionSelection.Start(options);
     }
 

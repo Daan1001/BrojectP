@@ -83,7 +83,7 @@ public static class OptionSelection{
                     ReviewMenu.Start();
                     break;
                 case "Show reviews":
-                    // Review.ShowAllReviews();
+                    Review.ShowAllReviews();
                     break;
                 case "Search by country":
                     ShowFlights.SearchFlightsByCountry(SelectingFlights.flights);

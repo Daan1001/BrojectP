@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
+
 public class Review{
-    public static List<Review> reviews = new List<Review>();
+    // public static List<Review> reviews = new List<Review>();
     public String Title{get; set;}
     public String Body{get; set;}
     public Review(String Title, String Body){
@@ -7,7 +9,8 @@ public class Review{
         this.Body = Body;
     }
     public static void CreateNewReview(String Title, String Body){
-        reviews.Add(new Review(Title, Body));
+        JsonFile<Review>.Read("DataSources/Reviews.json");
+        JsonFile<Review>.Write("DataSources/Reviews.json", new Review(Title, Body));
         Console.WriteLine("New Review created! (press any key to continue)");
         Console.ReadKey();
     }
@@ -26,10 +29,11 @@ public class Review{
         CreateNewReview(Subject!, Content!);
     }
     public static void ShowAllReviews(){
-        if(reviews.Count() > 0){
-            for(int i = 0; i < reviews.Count(); i++){
-                Console.WriteLine("Subject: "+reviews[i].Title);
-                Console.WriteLine("Contents: "+reviews[i].Body);
+        JsonFile<Review>.Read("DataSources/Reviews.json");
+        if(JsonFile<Review>.listOfObjects!.Count() > 0){
+            for(int i = 0; i < JsonFile<Review>.listOfObjects!.Count(); i++){
+                Console.WriteLine("Subject: "+JsonFile<Review>.listOfObjects![i].Title);
+                Console.WriteLine("Contents: "+JsonFile<Review>.listOfObjects![i].Body);
                 Console.WriteLine();
             }
         } else {
