@@ -9,4 +9,3 @@ Zodat de First, Business en economy goed staan.
 Confirmatie moet alleen de seats laten zien die net zijn gekozen. 
 
 change the list naar json files. 
-
