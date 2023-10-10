@@ -51,7 +51,7 @@ public class DisplaySeating
                     SelectAndBookSeat();
                     DisplaySeats();
                     break;
-                    
+
                 case ConsoleKey.Backspace:
                 UnselectSeat();
                 break;
@@ -86,6 +86,7 @@ public class DisplaySeating
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
+            Start();
         }
     }
 
@@ -153,6 +154,7 @@ public class DisplaySeating
         Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
         Console.WriteLine("'Red': Booked Seat.");
         Console.WriteLine("'White'': Available Seat.");
+        Console.WriteLine("'BACKSPACE': To unselect a seat.");
         Console.WriteLine("Press ESC to finish the booking.");
     }
 
@@ -167,29 +169,7 @@ public class DisplaySeating
             selectedSeat.Book();
             bookedSeats.Add(selectedSeat);
         }
-    }
-    // public void SelectAndBookSeat()
-    // {
-    //     Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
-
-    //     if (selectedSeat != null)
-    //     {
-    //         // Display confirmation screen after finishing the booking
-    //         bool confirmBooking = ConfirmBooking();
-
-    //         if (confirmBooking)
-    //         {
-    //             selectedSeat.Book();
-    //             bookedSeats.Add(selectedSeat); // Add the selected and booked seat to the list
-    //         }
-    //         else
-    //         {
-    //             Console.WriteLine("Booking canceled. Selected seat is now available.");
-    //         }
-
-    //         DisplaySeats(); // Display the seats again after the booking decision
-    //     }
-    // }    
+    } 
 
     public void UnselectSeat()
     {
@@ -297,7 +277,7 @@ public class DisplaySeating
     }
     public void RedrawSeats()
     {
-        Console.SetCursorPosition(0, 0);
+        // Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
     

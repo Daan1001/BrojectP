@@ -1,0 +1,11 @@
+maak meer derived classes van Seats dus First class Seat, Busniss en economy
+
+Derived Airplane classes maken en daarvoor specifieke seats
+making want de layout is anders bij per vliegtuig.
+
+make the initialized seat custom per airplane. 
+Zodat de First, Business en economy goed staan. 
+
+Confirmatie moet alleen de seats laten zien die net zijn gekozen. 
+
+change the list naar json files. 
