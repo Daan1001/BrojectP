@@ -75,10 +75,11 @@ public class ShowFlights{
         else{
             Console.WriteLine("No flights to that destination found.");
         }
+        Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
         List<String> option1 = new List<string>();
-        option1.Add("<-- Go back");
         option1.Add("Book flight -->");
+        option1.Add("<-- Go back");
         OptionSelection.Start(option1);
     }
 }
