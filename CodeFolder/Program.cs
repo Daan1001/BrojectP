@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json;
+
+public class Program{
+    public static void Main(){
+        MainMenu.Start();
+    }
+}
