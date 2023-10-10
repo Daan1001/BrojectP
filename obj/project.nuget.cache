@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cbmJd/Z2Ch9gOYdlcAZfcsywxX2mUFsTBE7Q1E5kBaLtU/JBvqx9WKcikVqFlc2sMzDq0hEGVIU1kaMYPBQU5w==",
+  "dgSpecHash": "1Gt/qQevsJd1++7DAzrU8Z8gz8c86Mqf26Z1m8DwPF6oEDhFGKw4OGC6fsoNw6wPvOttFHooSNFPfiBBgjXIyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+  "projectFilePath": "C:\\Users\\sande\\.vscode\\BrojectP\\sande.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sande\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\sande\\.nuget\\packages\\spectre.console\\0.47.0\\spectre.console.0.47.0.nupkg.sha512",

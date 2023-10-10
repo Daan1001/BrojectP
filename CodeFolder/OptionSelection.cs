@@ -114,11 +114,15 @@ public static class OptionSelection{
                     Console.ReadKey();
                     break;
                 case "Book flight -->":
-                    Console.WriteLine("W.I.P");
-                    Console.ReadKey();
+                    Booking.StartBooking();
+                    break;
+                case "Book a seat":
+                    Airplane airplane = new();
+                    airplane.Boeing737();
                     break;
                 case "Exit":
-                    stop = true;
+                    Console.WriteLine("Goodbye!");
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Still a W.I.P. (press any key to continue)");

@@ -69,7 +69,7 @@ public class ShowFlights{
                     flight.BasePrice
                 );
             }
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
         }
         else{
             Console.WriteLine("No flights to that destination found.");

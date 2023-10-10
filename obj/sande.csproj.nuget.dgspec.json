@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj": {}
+    "C:\\Users\\sande\\.vscode\\BrojectP\\sande.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
+    "C:\\Users\\sande\\.vscode\\BrojectP\\sande.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj",
-        "projectName": "CodeFolder",
-        "projectPath": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "projectUniqueName": "C:\\Users\\sande\\.vscode\\BrojectP\\sande.csproj",
+        "projectName": "sande",
+        "projectPath": "C:\\Users\\sande\\.vscode\\BrojectP\\sande.csproj",
         "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\obj\\",
+        "outputPath": "C:\\Users\\sande\\.vscode\\BrojectP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config"
