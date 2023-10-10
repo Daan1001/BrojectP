@@ -8,7 +8,7 @@ public class ShowFlights{
         List<Flight> flights;
         using (StreamReader file = File.OpenText(jsonFilePath)){
             JsonSerializer serializer = new JsonSerializer();
-            flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>));
+            flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>))!;
         }
         return flights;
     }
