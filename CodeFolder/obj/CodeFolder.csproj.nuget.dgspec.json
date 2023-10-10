@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj": {}
+    "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj": {}
   },
   "projects": {
-    "c:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
+    "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "projectUniqueName": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj",
         "projectName": "CodeFolder",
-        "projectPath": "c:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\CodeFolder.csproj",
-        "packagesPath": "C:\\Users\\daanp\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\daanp\\OneDrive\\Documenten\\HSRotterdam\\BrojectP\\CodeFolder\\obj\\",
+        "projectPath": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sande\\.vscode\\BrojectP\\CodeFolder\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\daanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

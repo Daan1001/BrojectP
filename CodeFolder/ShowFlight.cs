@@ -8,7 +8,7 @@ public class ShowFlights{
         List<Flight> flights;
         using (StreamReader file = File.OpenText(jsonFilePath)){
             JsonSerializer serializer = new JsonSerializer();
-            flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>));
+            flights = (List<Flight>)serializer.Deserialize(file, typeof(List<Flight>))!;
         }
         return flights;
     }
@@ -70,10 +70,15 @@ public class ShowFlights{
                     flight.BasePrice
                 );
             }
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
         }
         else{
             Console.WriteLine("No flights to that destination found.");
         }
+        Console.ReadKey();
+        List<String> option1 = new List<string>();
+        option1.Add("<-- Go back");
+        option1.Add("Book flight -->");
+        OptionSelection.Start(option1);
     }
 }

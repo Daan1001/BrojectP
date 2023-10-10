@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Diagnostics;
-
 public static class OptionSelection{
     private static String? selectedOption;
     private static int hoveringOption;
@@ -43,7 +43,7 @@ public static class OptionSelection{
     // public static void Start(List<String> list){
 
     // }
-        
+   
     public static void Action(String selectedOption){
         List<Flight> matchingFlights = new List<Flight>();
         foreach(Flight destination in flights){
@@ -55,6 +55,7 @@ public static class OptionSelection{
             Console.Clear();
             ShowFlights.DisplayFlights(matchingFlights);
             Console.WriteLine("Press any key to continue...");
+
             Console.ReadKey();
         }
         else{
@@ -66,6 +67,7 @@ public static class OptionSelection{
                 case "Sign in": // sign in
                     User.NewUserInput();
                     MainMenu.Start();
+
                     break;
                 case "Log out":
                     MainMenu.user = null;
