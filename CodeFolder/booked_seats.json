@@ -13,5 +13,20 @@
     "Letter": "A",
     "Row": 5,
     "Booked": true
+  },
+  {
+    "Letter": "A",
+    "Row": 1,
+    "Booked": true
+  },
+  {
+    "Letter": "B",
+    "Row": 1,
+    "Booked": true
+  },
+  {
+    "Letter": "C",
+    "Row": 1,
+    "Booked": true
   }
 ]
