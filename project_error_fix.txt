@@ -1,0 +1,3 @@
+sleep de .vscode in de codefolder dan vroeg vscode aan mij door popup of het een nieuwe .vscode moest aanmaken. 
+ik zei ja en verwijderde daarna de gesleepte .vscode die in de CodeFolder zat.
+en toen werkte die ??? idk why.
