@@ -13,8 +13,10 @@ public class AccountsAccess
         _accounts.Add(NewAccount);
     }
 
-    public static void WriteToJSON(List<AccountModel> accounts)
+    public static void WriteToJson(AccountModel account)
     {
+        JsonFile<AccountModel>.Read("DataSources/Accounts.json");
+        JsonFile<AccountModel>.Write("DataSources/Accounts.json", account);
         
     }
 }
