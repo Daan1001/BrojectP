@@ -9,3 +9,9 @@ Zodat de First, Business en economy goed staan.
 Confirmatie moet alleen de seats laten zien die net zijn gekozen. 
 
 change the list naar json files. 
+
+confirmatie van booken alleen de seats die je select laat zien 
+
+enter button moet niet kunnen selecteren kunnnen spammen.
+
+buttons moeten beter layout
