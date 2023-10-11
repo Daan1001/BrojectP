@@ -1,4 +1,4 @@
-namespace CodeFolder.DataModels;
+// namespace CodeFolder.DataModels;
 
 public class AccountModel
 {

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 public class AccountsLogic
 {
-    public bool ConfirmDoB(string dateOfBirth)
+    public static bool ConfirmDoB(string dateOfBirth)
     {
         if (DateTime.TryParseExact(dateOfBirth, "dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None,
                 out DateTime result))
@@ -16,7 +16,7 @@ public class AccountsLogic
         }
     }
     
-    public bool CheckPasswordSecurity(string password)
+    public static bool CheckPasswordSecurity(string password)
     {
         bool passwordLen = false;
         bool passwordNum = false;
@@ -53,7 +53,7 @@ public class AccountsLogic
         return totalCheck;
     }
 
-    public bool PasswordSymbolChecker(string password)
+    public static bool PasswordSymbolChecker(string password)
     {
         string pattern = @"[\p{P}\p{S}]";
         bool hasSymbols = Regex.IsMatch(password, pattern);
