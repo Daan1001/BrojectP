@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 
 public class Review{
-    // public static List<Review> reviews = new List<Review>();
     public String Title{get; set;}
     public String Body{get; set;}
     public Review(String Title, String Body){
@@ -11,10 +10,10 @@ public class Review{
     public static void CreateNewReview(String Title, String Body){
         JsonFile<Review>.Read("DataSources/Reviews.json");
         JsonFile<Review>.Write("DataSources/Reviews.json", new Review(Title, Body));
-        Console.WriteLine("New Review created! (press any key to continue)");
-        Console.ReadKey();
     }
     public static void CreateNewReviewInput(){
+        Console.Clear();
+        MainMenu.AirportName();
         Console.CursorVisible = true;
         Console.WriteLine("What is the subject of this review?");
         String? Subject = Console.ReadLine();
@@ -27,8 +26,12 @@ public class Review{
             Content = "Reviewer didnt bother to fill this in.";
         }
         CreateNewReview(Subject!, Content!);
+        Console.WriteLine("New Review created! (press any key to continue)");
+        Console.ReadKey();
     }
     public static void ShowAllReviews(){
+        Console.Clear();
+        MainMenu.AirportName();
         JsonFile<Review>.Read("DataSources/Reviews.json");
         if(JsonFile<Review>.listOfObjects!.Count() > 0){
             for(int i = 0; i < JsonFile<Review>.listOfObjects!.Count(); i++){

@@ -8,12 +8,14 @@ public static class OptionSelection{
     public static Boolean stop = false;
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static void Start(List<String> array){
+        // MainMenu.AirportName();
         hoveringOption = 0;
         selectedOption = "";
         stop = false;
         Console.CursorVisible = false;
         while(!stop){
             Console.Clear();
+            MainMenu.AirportName();
             for (int i = 0; i < array.Count(); i++){
                 if (i == hoveringOption){
                     Console.BackgroundColor = ConsoleColor.Gray;
@@ -100,17 +102,7 @@ public static class OptionSelection{
                     MainMenu.Start();
                     break;
                 case "Airport contact details": // dit moet nog in een aparte methode maar ik weet nog niet waar ik die methode neer ga zetten
-                    Console.Clear();
-                    Console.WriteLine("For help:");
-                    Console.WriteLine("-Call: 112 or 911 (We advise 112 for quicker arrival of help)");
-                    Console.WriteLine("-Email: INeedHelp.PleaseHelpMe@gmail.com");
-                    Console.WriteLine();
-                    Console.WriteLine("Some tips for a more enjoyable stay:");
-                    Console.WriteLine("-Avoid the restaurants completely (they will empty your wallet before you can no)");
-                    Console.WriteLine("-Keep a 2m distance from everyone (to avoid any kind of bacteria from others)");
-                    Console.WriteLine("-Come prepared for your flight");
-                    Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, you won't make it on the flight)");
-                    Console.WriteLine();
+                    MainMenu.AirportDetails();
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                     break;
