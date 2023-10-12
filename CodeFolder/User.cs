@@ -1,6 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
-
+// 4 derived classes:
+// -AccountlessUser
+// -UserWithAccount
+// -AdminUser
+// -SuperAdminUser
 public class User{
     public String username{get; set;}
     public String encryptedPassword{get; set;}
@@ -35,15 +39,15 @@ public class User{
             if(JsonFile<User>.listOfObjects![i].username == username){
                 if(Password.CompareGivenPasswordWithPasswordHashFromUsername(password, username)){
                     MainMenu.user = JsonFile<User>.listOfObjects[i];
-                    Console.WriteLine("Succesfully logged in as \""+username+"\"! (press any key to continue)");
+                    Console.WriteLine("Succesfully logged in as \""+username+"\"!");
                     return;
                 } else {
-                    Console.WriteLine("Log in failed. Password is incorrect. (press any key to continue)");
+                    Console.WriteLine("Log in failed. Password is incorrect.");
                     return;
                 }
             }
         }
-        Console.WriteLine("Log in failed. User doesn't exist. (press any key to continue)");
+        Console.WriteLine("Log in failed. User doesn't exist.");
     }
     public static void LogInInput(){
         Console.Clear();
@@ -54,6 +58,7 @@ public class User{
         Console.WriteLine("What is your password?");
         String? b = Console.ReadLine();
         LogIn(a!, b!);
+        Console.WriteLine("Press any key to continue");
         Console.ReadKey();
     }
 }
