@@ -1,99 +1,127 @@
-﻿// Purpose: Display a menu and allow the user to select an option.
+﻿using System;
+using System.Collections.Generic;
 
-using System;
-
-namespace CodeFolder
+public class Menu
 {
-    public class Menu
+    public List<string> Appetizers { get; set; }
+    public List<string> MainCourses { get; set; }
+    public List<string> Desserts { get; set; }
+
+    public Menu(string airplaneClass)
     {
-        private int selectedOption = 0;
-        private string[] options = { "Appetizers", "Main Courses", "Exit" };
-
-        public void DisplayMenu()
+        if (airplaneClass == "business")
         {
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("Welcome to the Airline Menu!");
-                Console.WriteLine("Please choose a category:");
-                for (int i = 0; i < options.Length; i++)
-                {
-                    if (i == selectedOption)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                    }
-
-                    Console.WriteLine((i + 1) + ". " + options[i]);
-                    Console.ResetColor();
-                }
-
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-                switch (keyInfo.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        selectedOption = Math.Max(0, selectedOption - 1);
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        selectedOption = Math.Min(options.Length - 1, selectedOption + 1);
-                        break;
-
-                    case ConsoleKey.Enter:
-                        HandleMenuSelection(selectedOption + 1);
-                        break;
-                }
-
-                if (selectedOption == options.Length - 1)
-                {
-                    Console.WriteLine("Thank you for visiting. Goodbye!");
-                    return;
-                }
-            }
+            LoadBusinessClassMenu();
         }
-
-        private void HandleMenuSelection(int choice)
+        else if (airplaneClass == "first")
         {
-            switch (choice)
-            {
-                case 1:
-                    DisplayAppetizers();
-                    break;
-                case 2:
-                    DisplayMainCourses();
-                    break;
-                case 3:
-                    Console.WriteLine("Thank you for visiting. Goodbye!");
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please enter 1, 2, or 3.");
-                    break;
-            }
-
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            LoadFirstClassMenu();
         }
-
-        private void DisplayAppetizers()
+        else if (airplaneClass == "economy")
         {
-            Console.Clear();
-            Console.WriteLine("**Appetizers**");
-            Console.WriteLine("1. Spinach and Artichoke Dip");
-            Console.WriteLine("2. Garlic Parmesan Wings");
-            Console.WriteLine("3. Caprese Salad");
-            Console.WriteLine();
+            LoadEconomyClassMenu();
         }
-
-        private void DisplayMainCourses()
+        else
         {
-            Console.Clear();
-            Console.WriteLine("**Main Courses**");
-            Console.WriteLine("4. Grilled Salmon");
-            Console.WriteLine("5. Chicken Alfredo");
-            Console.WriteLine("6. Vegetarian Stir-Fry");
-            Console.WriteLine();
+            Console.WriteLine("Invalid airplane class selection.");
         }
     }
+
+    private void LoadBusinessClassMenu()
+    {
+        Appetizers = new List<string>
+        {
+            "1. Spinach and Artichoke Dip",
+            "2. Garlic Parmesan Wings",
+            "3. Caprese Salad"
+        };
+
+        MainCourses = new List<string>
+        {
+            "4. Grilled Salmon",
+            "5. Chicken Alfredo",
+            "6. Vegetarian Stir-Fry"
+        };
+
+        Desserts = new List<string>
+        {
+            "7. Chocolate Lava Cake",
+            "8. New York Cheesecake",
+            "9. Vanilla Bean Ice Cream"
+        };
+
+    }
+
+    private void LoadFirstClassMenu()
+    {
+        Appetizers = new List<string>
+        {
+            "1. Spinach and Artichoke Dip",
+            "2. Garlic Parmesan Wings",
+            "3. Caprese Salad"
+        };
+
+        MainCourses = new List<string>
+        {
+            "4. Grilled Salmon",
+            "5. Chicken Alfredo",
+            "6. Lobster Bisque"
+        };
+
+        Desserts = new List<string>
+        {
+            "7. Chocolate Lava Cake",
+            "8. New York Cheesecake",
+            "9. Tiramisu"
+        };
+        
+    }
+
+    private void LoadEconomyClassMenu()
+    {
+        Appetizers = new List<string>
+        {
+            "1. Chips and Salsa",
+            "2. Vegetable Spring Rolls",
+            "3. Mixed Nuts"
+        };
+
+        MainCourses = new List<string>
+        {
+            "4. Chicken Stir-Fry",
+            "5. Beef Stroganoff",
+            "6. Veggie Burger"
+        };
+
+        Desserts = new List<string>
+        {
+            "7. Apple Pie",
+            "8. Chocolate Chip Cookies",
+            "9. Fruit Salad"
+        };
+    }
+
+    public void DisplayMenu()
+    {
+        Console.WriteLine("**Appetizers**");
+        foreach (string item in Appetizers)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\n**Main Courses**");
+        foreach (string item in MainCourses)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\n**Desserts**");
+        foreach (string item in Desserts)
+        {
+            Console.WriteLine(item);
+        }
+        
+    }
 }
+
+

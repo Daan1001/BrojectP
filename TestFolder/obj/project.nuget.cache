@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZHpOWtQrEVsoMLRBcRLRAQA/aOrTSo7zG9nixBi00EsdIT6n7zgjitpONWtc3GqYkMk2f3RCMPRux5IzPgDZrQ==",
+  "dgSpecHash": "XAEc46FHU1XCrHgrVGo7ZNs6jhR1aSe6e+H80YuaxCDcXHVLB6zCRcLRZVXEYvOCBqywS8v2X2dHK1nhprQ0CA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\TestFolder\\TestFolder.csproj",
+  "projectFilePath": "C:\\Users\\Dimit\\RiderProjects\\Broject\\TestFolder\\TestFolder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dimit\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Dimit\\.nuget\\packages\\microsoft.codecoverage\\17.7.1\\microsoft.codecoverage.17.7.1.nupkg.sha512",

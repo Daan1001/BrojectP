@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿public class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Please select your airplane class (business, first, or economy):");
+        string airplaneClass = Console.ReadLine().ToLower();
+
+        Menu restaurantMenu = new Menu(airplaneClass);
+        restaurantMenu.DisplayMenu();
+    }
+}

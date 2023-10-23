@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\CodeFolder\\CodeFolder.csproj": {}
+    "C:\\Users\\Dimit\\RiderProjects\\Broject\\CodeFolder\\CodeFolder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
+    "C:\\Users\\Dimit\\RiderProjects\\Broject\\CodeFolder\\CodeFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "projectUniqueName": "C:\\Users\\Dimit\\RiderProjects\\Broject\\CodeFolder\\CodeFolder.csproj",
         "projectName": "CodeFolder",
-        "projectPath": "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "projectPath": "C:\\Users\\Dimit\\RiderProjects\\Broject\\CodeFolder\\CodeFolder.csproj",
         "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dimit\\RiderProjects\\BrojectP\\CodeFolder\\obj\\",
+        "outputPath": "C:\\Users\\Dimit\\RiderProjects\\Broject\\CodeFolder\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }
