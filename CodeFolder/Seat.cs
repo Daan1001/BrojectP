@@ -4,7 +4,7 @@ public class Seat
 
     public char Letter { get; private set; }
     public int Row { get; private set; }
-    public bool Booked { get; private set; }
+    public bool Booked { get;  set; }
 
 
     public Seat(char letter, int row, bool booked)
@@ -31,22 +31,22 @@ public class Seat
         {
             Booked = true;
             Console.WriteLine($"Seat {this} booked successfully!");
+            DisplaySeating.bookedSeats.Add(this);
         }
         else
         {
             Console.WriteLine($"Seat {this} is already booked. Please choose another seat.");
         }
+        // Console.WriteLine("TEST");
     }
 
-    public void ResetBooking()
-    {
-        Booked = false;
-    }
-
-    
+    // public void ResetBooking()
+    // {
+    //     Booked = false;
+    // }
     public void ResetSeat() // used to unselect seat to false since fields are private.
     {
-        Booked = !Booked;
+        Booked = false;
         Console.WriteLine($"Seat {this} {(Booked ? "booked" : "unbooked")}");
     }
 

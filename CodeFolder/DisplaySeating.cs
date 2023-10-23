@@ -4,7 +4,7 @@ public class DisplaySeating
 {
     static int cursorRow = 0;
     static int cursorSeat = 0;
-    private List<Seat> bookedSeats = new List<Seat>();
+    public static List<Seat> bookedSeats = new List<Seat>();
 
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }       
@@ -81,7 +81,7 @@ public class DisplaySeating
             // Roll back the booked seats to available
             foreach (var seat in bookedSeats)
             {
-                seat.ResetBooking();
+                seat.ResetSeat();
             }
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
@@ -164,10 +164,10 @@ public class DisplaySeating
     {
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
-        if (selectedSeat != null)
+        if (selectedSeat != null && selectedSeat.Booked == false)
         {
             selectedSeat.Book();
-            bookedSeats.Add(selectedSeat);
+            //bookedSeats.Add(selectedSeat);
         }
     } 
 
@@ -179,7 +179,7 @@ public class DisplaySeating
         {
             // Unselect the seat
             Console.WriteLine($"Seat {selectedSeat} unselected.");
-            selectedSeat.ResetSeat(); // Assuming you have a method to unbook the seat in your Seat class
+            selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
             bookedSeats.Remove(selectedSeat); // Remove the seat from the bookedSeats list
         }
 
