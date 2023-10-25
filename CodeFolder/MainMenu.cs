@@ -7,7 +7,7 @@ public class MainMenu{
     private static List<String> options = new List<string>();
     public static void Start(){
         options.Clear();
-        options.Add("Book a flight");
+        options.Add("Show flights");
         options.Add("Reviews");
         if(user == null){
             options.Add("Sign in");
