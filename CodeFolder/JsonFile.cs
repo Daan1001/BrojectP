@@ -10,7 +10,7 @@ public static class JsonFile<T>{
     }
     public static void Write(String FilePath, T obj){
         StreamWriter writer = new(FilePath);
-        listOfObjects.Add(obj);
+        listOfObjects?.Add(obj);
         string List2Json = JsonConvert.SerializeObject(listOfObjects, Formatting.Indented);
         writer.Write(List2Json);
         writer.Close();

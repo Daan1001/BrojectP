@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json;
 using System.Diagnostics;
 public static class OptionSelection{
     private static String? selectedOption;
@@ -57,6 +56,10 @@ public static class OptionSelection{
             Console.Clear();
             ShowFlights.DisplayFlights(matchingFlights);
         }
+        string sub = selectedOption.Substring(0, 1);
+        if(sub == "|"){
+            FlightSelection.Selection(selectedOption);
+        }
         else{
             switch (selectedOption){
                 case "Log in":
@@ -76,7 +79,7 @@ public static class OptionSelection{
                     Console.WriteLine("Still a W.I.P. (press any key to continue)");
                     Console.ReadKey(); // alleen tijdens wip nodig
                     break;
-                case "Book a flight":
+                case "Show flights":
                     SelectingFlights.Start();
                     break;
                 case "Leave a review":
@@ -107,7 +110,7 @@ public static class OptionSelection{
                     Console.ReadKey();
                     break;
                 case "Book flight -->":
-                    Booking.StartBooking();
+                    ShowFlights.Column2(flights);
                     break;
                 case "Book a seat":
                     Airplane airplane = new();
