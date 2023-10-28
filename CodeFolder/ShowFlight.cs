@@ -59,6 +59,7 @@ public class ShowFlights{
             table.AddColumn(new TableColumn("Base Price").Centered());
 
             foreach (var flight in flights){
+                string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
                 table.AddRow(
                     flight.FlightId,
                     flight.Terminal,
@@ -66,7 +67,7 @@ public class ShowFlights{
                     flight.FlightDate,
                     flight.DepartureTime,
                     flight.ArrivalTime,
-                    flight.SeatsAvailable,
+                    FlightID,
                     flight.BasePrice
                 );
             }
@@ -92,9 +93,10 @@ public class ShowFlights{
             }
         }
         foreach (Flight flight in flights){
+            string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
             string paddedDestination = flight.Destination.PadRight(LenDes);
             string paddedCountry = flight.Country.PadRight(LenCountry);
-            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.SeatsAvailable, -7} | {flight.BasePrice, -3:C} |";
+            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {FlightID, -7} | {flight.BasePrice, -3:C} |";
             option1.Add(data);
         }
         option1.Add("<-- Go back");
