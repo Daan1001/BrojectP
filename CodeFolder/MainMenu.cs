@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 using Newtonsoft.Json; 
 
 public class MainMenu{
-    public static User? user;
+    public static Account? currentUser;
     private static List<String> options = new List<string>();
     public static void Start(){
         options.Clear();
         options.Add("Show flights");
         options.Add("Reviews");
-        if(user == null){
+        if(currentUser == null){
             options.Add("Sign in");
             options.Add("Log in");
         } else {

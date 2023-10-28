@@ -63,16 +63,15 @@ public static class OptionSelection{
         else{
             switch (selectedOption){
                 case "Log in":
-                    User.LogInInput();
+                    Login.LogInInput();
                     MainMenu.Start();
                     break;
-                case "Sign in": // sign in
-                    User.NewUserInput();
+                case "Sign in":
+                    NewAccount.MakeInput();
                     MainMenu.Start();
-
                     break;
                 case "Log out":
-                    MainMenu.user = null;
+                    MainMenu.currentUser = null;
                     MainMenu.Start();
                     break;
                 case "Account information":
