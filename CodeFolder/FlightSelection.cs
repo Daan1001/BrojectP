@@ -20,9 +20,17 @@ public class FlightSelection{
             }
         }
         if (SelectedFlight.AirplaneType == "Boeing 747"){
-            Console.WriteLine("test");
+            Airplane airplane = new();
+            airplane.Boeing737();
         }
-        Booking.StartBooking();
+        else if (SelectedFlight.AirplaneType == "Airbus 330"){
+            Airplane airplane = new();
+            airplane.Airbus330();
+        }
+        else if (SelectedFlight.AirplaneType == "Boeing 787"){
+            Airplane airplane = new();
+            airplane.Boeing787();
+        }
     }
     public static string RemoveWhitespace(string input){
         return new string(input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray());

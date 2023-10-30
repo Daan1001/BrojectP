@@ -1,7 +1,7 @@
 [
   {
     "Flight id": "105491",
-    "Type Airplane": "Boeing 747",
+    "Type Airplane": "Boeing 787",
     "Terminal": "Gate 03",
     "Country": "Germany",
     "Destination": "Berlin",
@@ -14,7 +14,7 @@
   },
   {
     "Flight id": "123456",
-    "Type Airplane": "Boeing 747",
+    "Type Airplane": "Boeing 787",
     "Terminal": "Gate 01",
     "Country": "Germany",
     "Destination": "Munich",
@@ -27,7 +27,7 @@
   },
   {
     "Flight id": "789012",
-    "Type Airplane": "Airbus A320",
+    "Type Airplane": "Airbus 330",
     "Terminal": "Gate 02",
     "Country": "France",
     "Destination": "Nice",
@@ -53,7 +53,7 @@
   },
   {
     "Flight id": "901234",
-    "Type Airplane": "Airbus A380",
+    "Type Airplane": "Airbus 330",
     "Terminal": "Gate 06",
     "Country": "United Kingdom",
     "Destination": "London",
@@ -66,7 +66,7 @@
   },
   {
     "Flight id": "567890",
-    "Type Airplane": "Boeing 777",
+    "Type Airplane": "Boeing 737",
     "Terminal": "Gate 04",
     "Country": "Spain",
     "Destination": "Madrid",
@@ -105,7 +105,7 @@
   },
   {
     "Flight id": "990011",
-    "Type Airplane": "Airbus A320",
+    "Type Airplane": "Airbus 330",
     "Terminal": "Gate 10",
     "Country": "Austria",
     "Destination": "Vienna",
