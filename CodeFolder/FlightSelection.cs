@@ -21,15 +21,15 @@ public class FlightSelection{
         }
         if (SelectedFlight.AirplaneType == "Boeing 747"){
             Airplane airplane = new();
-            airplane.Boeing737();
+            airplane.Boeing737(SelectedFlight);
         }
         else if (SelectedFlight.AirplaneType == "Airbus 330"){
             Airplane airplane = new();
-            airplane.Airbus330();
+            airplane.Airbus330(SelectedFlight);
         }
         else if (SelectedFlight.AirplaneType == "Boeing 787"){
             Airplane airplane = new();
-            airplane.Boeing787();
+            airplane.Boeing787(SelectedFlight);
         }
     }
     public static string RemoveWhitespace(string input){

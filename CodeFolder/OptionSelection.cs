@@ -112,10 +112,6 @@ public static class OptionSelection{
                 case "Book flight -->":
                     ShowFlights.Column2(flights);
                     break;
-                case "Book a seat":
-                    Airplane airplane = new();
-                    airplane.Boeing737();
-                    break;
                 case "Exit":
                     Console.WriteLine("Goodbye!");
                     Environment.Exit(0);

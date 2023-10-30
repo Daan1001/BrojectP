@@ -3,9 +3,10 @@ public class CheckingFlights{
     public static void UpdateDates(){
         string json = File.ReadAllText("DataSources/Flights.json");
         List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
-        foreach (var flight in flights!){
+        foreach (Flight flight in flights!){
             DateTime flightDate = DateTime.ParseExact(flight.FlightDate, "dd-MM-yyyy", null);
-            if (flightDate < DateTime.Now){
+            DateTime lessfligthDate = flightDate.AddDays(-1);
+            if (lessfligthDate <= DateTime.Now){
                 flightDate = flightDate.AddMonths(1);
                 flight.FlightDate = flightDate.ToString("dd-MM-yyyy");
             }

@@ -14,7 +14,7 @@ public class DisplaySeating
         this.LetterSeat = letterseat;
         this.NumberOfRows = numberofrows;
     }
-    public void Start()
+    public void Start(Flight CurrentFlight)
     {
         cursorRow = 1;  
         cursorSeat = 0; 
@@ -72,8 +72,22 @@ public class DisplaySeating
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
-            Console.WriteLine();
+            Console.ReadKey();
+            int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
+            SeatsAvailable = SeatsAvailable - bookedSeats.Count();
+            string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
+            CurrentFlight.SeatsAvailable = SeatsAvailablestring;
+            string json = File.ReadAllText("DataSources/Flights.json");
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
+            foreach (Flight flight in flights!){   
+                if (flight.FlightId == CurrentFlight.FlightId){
+                    flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
+                }
+            }
+            string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText("DataSources/Flights.json", updatedJson);
             SaveBookedSeatsToJson("DataSources/booked_seats.json"); // Specify the desired file path
+            Program.Main();
             
         }
         else
@@ -86,7 +100,7 @@ public class DisplaySeating
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
-            Start();
+            Start(CurrentFlight);
         }
     }
 
