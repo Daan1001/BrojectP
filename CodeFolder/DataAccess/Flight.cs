@@ -30,6 +30,9 @@ public class Flight
     [JsonProperty("Seats Available")]
     public string SeatsAvailable { get; set; }
     
+    [JsonProperty("Total Seats")]
+    public string TotalSeats { get; set; }
+    
     [JsonProperty("Base Price")]
     public string BasePrice { get; set; }
 }

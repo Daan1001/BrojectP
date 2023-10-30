@@ -59,6 +59,7 @@ public class ShowFlights{
             table.AddColumn(new TableColumn("Base Price").Centered());
 
             foreach (var flight in flights){
+                string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
                 table.AddRow(
                     flight.FlightId,
                     flight.Terminal,
@@ -66,10 +67,11 @@ public class ShowFlights{
                     flight.FlightDate,
                     flight.DepartureTime,
                     flight.ArrivalTime,
-                    flight.SeatsAvailable,
+                    FlightID,
                     flight.BasePrice
                 );
             }
+            AnsiConsole.Write(table);
         }
         else{
             Console.WriteLine("No flights to that destination found.");
@@ -91,10 +93,14 @@ public class ShowFlights{
             }
         }
         foreach (Flight flight in flights){
+            string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
             string paddedDestination = flight.Destination.PadRight(LenDes);
             string paddedCountry = flight.Country.PadRight(LenCountry);
-            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.SeatsAvailable, -7} | {flight.BasePrice, -3:C} |";
+            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {FlightID, -7} | {flight.BasePrice, -3:C} |";
             option1.Add(data);
+        }
+        if (option1.Count > 3){
+            option1.Add("Sort by ...");
         }
         option1.Add("<-- Go back");
         OptionSelection.Start(option1);
