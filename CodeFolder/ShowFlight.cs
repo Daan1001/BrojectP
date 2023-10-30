@@ -99,6 +99,9 @@ public class ShowFlights{
             string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {FlightID, -7} | {flight.BasePrice, -3:C} |";
             option1.Add(data);
         }
+        if (option1.Count > 3){
+            option1.Add("Sort by ...");
+        }
         option1.Add("<-- Go back");
         OptionSelection.Start(option1);
     }

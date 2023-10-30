@@ -112,6 +112,35 @@ public static class OptionSelection{
                 case "Book flight -->":
                     ShowFlights.Column2(flights);
                     break;
+                case "Sort by ...":
+                    List<String> option1 = new List<string>();
+                    option1.Add("Sort by country");
+                    option1.Add("Sort by city");
+                    option1.Add("Sort by price");
+                    option1.Add("Sort by date");
+                    option1.Add("Sort by departure time");
+                    OptionSelection.Start(option1);
+                    break;
+                case "Sort by departure time":
+                    List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
+                    ShowFlights.Column2(SortedTimeList);
+                    break;
+                case "Sort by date":
+                    List<Flight> SortedDateList = flights.OrderBy(o=>o.FlightDate).ToList();
+                    ShowFlights.Column2(SortedDateList);
+                    break;
+                case "Sort by country":
+                    List<Flight> SortedCountryList = flights.OrderBy(o=>o.Country).ToList();
+                    ShowFlights.Column2(SortedCountryList);
+                    break;
+                case "Sort by city":
+                    List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
+                    ShowFlights.Column2(SortedCityList);
+                    break;
+                case "Sort by price":
+                    List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();
+                    ShowFlights.Column2(SortedPriceList);
+                    break;
                 case "Exit":
                     Console.WriteLine("Goodbye!");
                     Environment.Exit(0);
