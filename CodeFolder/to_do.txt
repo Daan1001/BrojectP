@@ -15,3 +15,7 @@ confirmatie van booken alleen de seats die je select laat zien
 enter button moet niet kunnen selecteren kunnnen spammen.
 
 buttons moeten beter in de layout
+
+
+In plaats van dat wanneer je een seat select het word opgeslagen in "List<Seat> bookedSeats" het een andere moet zijn en daarna word toegevoegd aan bookedseats als het 
+geconfirmed is anders kan je alle seats die in die alternative list zit verwijderen en dan goed de Display laten zien. 

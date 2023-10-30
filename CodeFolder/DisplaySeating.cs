@@ -5,6 +5,7 @@ public class DisplaySeating
     static int cursorRow = 0;
     static int cursorSeat = 0;
     public static List<Seat> bookedSeats = new List<Seat>();
+    public static List<Seat> TemporarlySeat = new List<Seat>();
 
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }       
@@ -48,13 +49,15 @@ public class DisplaySeating
                     break;
 
                 case ConsoleKey.Enter:
-                    SelectAndBookSeat();
+                    // SelectAndBookSeat();
                     DisplaySeats();
+                    SelectAndBookSeat();
                     break;
 
                 case ConsoleKey.Backspace:
-                UnselectSeat();
-                break;
+                    DisplaySeats();
+                    UnselectSeat();
+                    break;
 
                 case ConsoleKey.Escape:
                     isBookingComplete = true;
@@ -96,13 +99,12 @@ public class DisplaySeating
         {
             for (int row = 1; row <= this.NumberOfRows; row++)
             {
-                new Seat(letter, row, false);
+                new Seat(letter, row, false, 500);
             }
         }
     }
    public void DisplaySeats()
     {
-
         // Calculate the total width of the seating arrangement
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
 
@@ -156,6 +158,8 @@ public class DisplaySeating
         Console.WriteLine("'White'': Available Seat.");
         Console.WriteLine("'BACKSPACE': To unselect a seat.");
         Console.WriteLine("Press ESC to finish the booking.");
+        Console.WriteLine();
+        
     }
 
 
@@ -167,6 +171,8 @@ public class DisplaySeating
         if (selectedSeat != null && selectedSeat.Booked == false)
         {
             selectedSeat.Book();
+            TemporarlySeat.Add(selectedSeat);
+            //selectedSeat.ShowSeat();
             //bookedSeats.Add(selectedSeat);
         }
     } 
@@ -178,12 +184,12 @@ public class DisplaySeating
         if (selectedSeat != null)
         {
             // Unselect the seat
-            Console.WriteLine($"Seat {selectedSeat} unselected.");
+            Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
             bookedSeats.Remove(selectedSeat); // Remove the seat from the bookedSeats list
         }
 
-        DisplaySeats(); // Display the seats again without the selection
+        // DisplaySeats(); // Display the seats again without the selection
     }
 
 
@@ -212,7 +218,7 @@ public class DisplaySeating
 
         foreach (var seat in bookedSeats)
         {
-            Console.WriteLine(seat);
+            Console.WriteLine(seat.ShowSeat());
             
             // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
         }

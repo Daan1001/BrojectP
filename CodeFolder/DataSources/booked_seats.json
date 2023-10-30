@@ -1,17 +1,20 @@
 [
   {
     "Letter": "A",
+    "Row": 2,
+    "Booked": true,
+    "Price": 500
+  },
+  {
+    "Letter": "A",
     "Row": 3,
-    "Booked": true
+    "Booked": true,
+    "Price": 500
   },
   {
     "Letter": "A",
     "Row": 4,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 5,
-    "Booked": true
+    "Booked": true,
+    "Price": 500
   }
 ]

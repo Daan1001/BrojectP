@@ -5,20 +5,22 @@ public class Seat
     public char Letter { get; private set; }
     public int Row { get; private set; }
     public bool Booked { get;  set; }
+    public int Price {get; set;}
 
 
-    public Seat(char letter, int row, bool booked)
+    public Seat(char letter, int row, bool booked, int price)
     {
-        Letter = letter;
-        Row = row;
-        Booked = booked;
+        this.Letter = letter;
+        this.Row = row;
+        this.Booked = booked;
+        this.Price = price;
 
         Seats.Add(this);
     }
 
     public virtual string ShowSeat()
     {
-        return $"Letter: {this.Letter}; Row: {this.Row}; Booked: {this.Booked}";
+        return $"Seat: {this.Letter}{this.Row}; Booked: {this.Booked}; Price: €{this.Price}.";
     }
 
     public override string ToString()
@@ -30,12 +32,14 @@ public class Seat
         if (!Booked)
         {
             Booked = true;
-            Console.WriteLine($"Seat {this} booked successfully!");
+            Console.WriteLine($"Seat: {this.Letter}{this.Row}");
+            Console.WriteLine($"Price: €{this.Price}");
+            Console.WriteLine("booked successfully!");
             DisplaySeating.bookedSeats.Add(this);
         }
         else
         {
-            Console.WriteLine($"Seat {this} is already booked. Please choose another seat.");
+            Console.WriteLine($"Seat: {this.Letter}{this.Row} is already booked. Please choose another seat.");
         }
         // Console.WriteLine("TEST");
     }
@@ -47,7 +51,7 @@ public class Seat
     public void ResetSeat() // used to unselect seat to false since fields are private.
     {
         Booked = false;
-        Console.WriteLine($"Seat {this} {(Booked ? "booked" : "unbooked")}");
+        Console.WriteLine($"Seat {this.Letter}{this.Row} {(Booked ? "booked" : "unbooked")}");
     }
 
 }
