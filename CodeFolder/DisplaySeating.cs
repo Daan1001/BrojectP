@@ -16,37 +16,62 @@ public class DisplaySeating
         NumberOfRows = numberofrows;
     }
     public void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
-{
-    for (char letter = 'A'; letter <= LetterSeat; letter++)
     {
-        for (int row = 1; row <= NumberOfRows; row++)
+        for (char letter = 'A'; letter <= LetterSeat; letter++)
         {
-            Seat? existingSeat = bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+            for (int row = 1; row <= NumberOfRows; row++)
+            {
+                Seat? existingSeat = bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                int seatPrice;
 
-            if (existingSeat != null)
-            {
-                // The seat is already booked (based on the JSON data)
-                new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
-            }
-            else
-            {
-                // The seat is not in the list of booked seats (initialize as unbooked)
-                if (row >= 1 && row <= 6)
+                if (existingSeat != null)
                 {
-                    new FirstClass("First Class", letter, row, false, firstClassPrice);
-                }
-                else if (row >= 7 && row <= 14)
-                {
-                    new BusinessClass("Business Class", letter, row, false, businessClassPrice);
+                    // The seat is already booked (based on the JSON data)
+                    new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
                 else
                 {
-                    new EconomyClass("Economy Class", letter, row, false, economyClassPrice);
+                    // Calculate the seat price based on the letter
+                    if (row >= 1 && row <= 6)
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(firstClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = firstClassPrice;
+                        }
+                        new FirstClass("First Class", letter, row, false, seatPrice);
+                    }
+                    else if (row >= 7 && row <= 14)
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(businessClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = businessClassPrice;
+                        }
+                        new BusinessClass("Business Class", letter, row, false, seatPrice);
+                    }
+                    else
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(economyClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = economyClassPrice;
+                        }
+                        new EconomyClass("Economy Class", letter, row, false, seatPrice);
+                    }
                 }
             }
         }
     }
-}
 
     public void Start()
     {
