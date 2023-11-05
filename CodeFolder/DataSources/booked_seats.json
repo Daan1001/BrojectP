@@ -1,20 +1,23 @@
 [
   {
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 1,
+    "Booked": true,
+    "Price": 1100
+  },
+  {
+    "TypeClass": "First Class",
     "Letter": "A",
     "Row": 2,
     "Booked": true,
-    "Price": 500
+    "Price": 1100
   },
   {
+    "TypeClass": "First Class",
     "Letter": "A",
     "Row": 3,
     "Booked": true,
-    "Price": 500
-  },
-  {
-    "Letter": "A",
-    "Row": 4,
-    "Booked": true,
-    "Price": 500
+    "Price": 1100
   }
 ]

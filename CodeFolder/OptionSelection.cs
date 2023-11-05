@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json;
 using System.Diagnostics;
 public static class OptionSelection{
     private static String? selectedOption;
@@ -119,7 +118,7 @@ public static class OptionSelection{
                     break;
                 case "Book a seat":
                     Airplane airplane = new();
-                    airplane.Boeing737();
+                    airplane.Boeing787();
                     break;
                 case "Exit":
                     Console.WriteLine("Goodbye!");

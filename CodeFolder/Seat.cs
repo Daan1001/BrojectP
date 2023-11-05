@@ -1,15 +1,16 @@
 public class Seat
 {
     public static List<Seat> Seats = new List<Seat>();
-
+    public string TypeClass{get; set;}
     public char Letter { get; private set; }
     public int Row { get; private set; }
     public bool Booked { get;  set; }
     public int Price {get; set;}
 
 
-    public Seat(char letter, int row, bool booked, int price)
+    public Seat(string typeclass, char letter, int row, bool booked, int price)
     {
+        this.TypeClass = typeclass;
         this.Letter = letter;
         this.Row = row;
         this.Booked = booked;
@@ -20,7 +21,8 @@ public class Seat
 
     public virtual string ShowSeat()
     {
-        return $"Seat: {this.Letter}{this.Row}; Booked: {this.Booked}; Price: €{this.Price}.";
+        return $"Seat:    {this.Letter}{this.Row}; Booked: {this.Booked}; Price: {this.Price} Euro.";
+        //€
     }
 
     public override string ToString()
@@ -32,8 +34,10 @@ public class Seat
         if (!Booked)
         {
             Booked = true;
+            Console.WriteLine($"Class: {this.TypeClass}");
             Console.WriteLine($"Seat: {this.Letter}{this.Row}");
-            Console.WriteLine($"Price: €{this.Price}");
+            //Console.WriteLine($"Price: €{this.Price}");
+            Console.WriteLine($"Price: {this.Price} Euro");
             Console.WriteLine("booked successfully!");
             DisplaySeating.bookedSeats.Add(this);
         }
