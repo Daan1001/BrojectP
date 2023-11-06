@@ -117,6 +117,7 @@ public static class OptionSelection{
                     option1.Add("Sort by country");
                     option1.Add("Sort by city");
                     option1.Add("Sort by price");
+                    option1.Add("Sort by type airplane");
                     option1.Add("Sort by date");
                     option1.Add("Sort by departure time");
                     OptionSelection.Start(option1);
@@ -136,6 +137,10 @@ public static class OptionSelection{
                 case "Sort by city":
                     List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
                     ShowFlights.Column2(SortedCityList);
+                    break;
+                case "Sort by type airplane":
+                    List<Flight> SortedTypePlaneList = flights.OrderBy(o=>o.AirplaneType).ToList();
+                    ShowFlights.Column2(SortedTypePlaneList);
                     break;
                 case "Sort by price":
                     List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();

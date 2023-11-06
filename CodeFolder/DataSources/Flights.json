@@ -8,7 +8,7 @@
     "Flight date": "30-11-2023",
     "Departure time": "10:30:00",
     "Arrival time": "13:55:00",
-    "Seats Available": "183",
+    "Seats Available": "181",
     "Total Seats": "189",
     "Base Price": "€20"
   },
@@ -114,6 +114,32 @@
     "Arrival time": "18:15:00",
     "Seats Available": "150",
     "Total Seats": "150",
+    "Base Price": "€25"
+  },
+  {
+    "Flight id": "286913",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 01",
+    "Country": "Italy",
+    "Destination": "Venice",
+    "Flight date": "22-12-2023",
+    "Departure time": "15:00:00",
+    "Arrival time": "18:00:00",
+    "Seats Available": "189",
+    "Total Seats": "189",
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "458491",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 05",
+    "Country": "Spain",
+    "Destination": "Barcelona",
+    "Flight date": "12-02-2024",
+    "Departure time": "10:30:00",
+    "Arrival time": "12:30:00",
+    "Seats Available": "189",
+    "Total Seats": "189",
     "Base Price": "€25"
   }
 ]
