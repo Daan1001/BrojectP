@@ -1,21 +1,4 @@
-maak meer derived classes van Seats dus First class Seat, Busniss en economy
-
-Derived Airplane classes maken en daarvoor specifieke seats
-making want de layout is anders bij per vliegtuig.
-
 make the initialized seat custom per airplane. 
 Zodat de First, Business en economy goed staan. 
 
-Confirmatie moet alleen de seats laten zien die net zijn gekozen. 
-
-change the list naar json files. 
-
-confirmatie van booken alleen de seats die je select laat zien 
-
-enter button moet niet kunnen selecteren kunnnen spammen.
-
 buttons moeten beter in de layout
-
-
-In plaats van dat wanneer je een seat select het word opgeslagen in "List<Seat> bookedSeats" het een andere moet zijn en daarna word toegevoegd aan bookedseats als het 
-geconfirmed is anders kan je alle seats die in die alternative list zit verwijderen en dan goed de Display laten zien. 

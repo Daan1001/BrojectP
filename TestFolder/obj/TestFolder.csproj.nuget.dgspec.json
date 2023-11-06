@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\31655\\Desktop\\new\\BrojectP\\TestFolder\\TestFolder.csproj": {}
+    "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj": {}
   },
   "projects": {
-    "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
+    "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\CodeFolder.csproj",
+        "projectUniqueName": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj",
         "projectName": "CodeFolder",
-        "projectPath": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\CodeFolder.csproj",
-        "packagesPath": "C:\\Users\\31655\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\obj\\",
+        "projectPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj",
+        "packagesPath": "/Users/jason/.nuget/packages/",
+        "outputPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\31655\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/jason/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -63,21 +63,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\31655\\Desktop\\new\\BrojectP\\TestFolder\\TestFolder.csproj": {
+    "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\TestFolder\\TestFolder.csproj",
+        "projectUniqueName": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj",
         "projectName": "TestFolder",
-        "projectPath": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\TestFolder\\TestFolder.csproj",
-        "packagesPath": "C:\\Users\\31655\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\TestFolder\\obj\\",
+        "projectPath": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/TestFolder.csproj",
+        "packagesPath": "/Users/jason/.nuget/packages/",
+        "outputPath": "/Users/jason/Desktop/Broject/BrojectP/TestFolder/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\31655\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/jason/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -89,8 +89,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\CodeFolder.csproj": {
-                "projectPath": "c:\\Users\\31655\\Desktop\\new\\BrojectP\\CodeFolder\\CodeFolder.csproj"
+              "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj": {
+                "projectPath": "/Users/jason/Desktop/Broject/BrojectP/CodeFolder/CodeFolder.csproj"
               }
             }
           }
@@ -146,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }

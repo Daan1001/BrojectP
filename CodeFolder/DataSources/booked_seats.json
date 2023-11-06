@@ -1,2 +1,65 @@
 [
+  {
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 4,
+    "Booked": true,
+    "Price": 1320
+  },
+  {
+    "TypeClass": "First Class",
+    "Letter": "B",
+    "Row": 4,
+    "Booked": true,
+    "Price": 1100
+  },
+  {
+    "TypeClass": "First Class",
+    "Letter": "C",
+    "Row": 4,
+    "Booked": true,
+    "Price": 1100
+  },
+  {
+    "TypeClass": "First Class",
+    "Letter": "D",
+    "Row": 4,
+    "Booked": true,
+    "Price": 1100
+  },
+  {
+    "TypeClass": "First Class",
+    "Letter": "E",
+    "Row": 4,
+    "Booked": true,
+    "Price": 1100
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "A",
+    "Row": 7,
+    "Booked": true,
+    "Price": 840
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "B",
+    "Row": 7,
+    "Booked": true,
+    "Price": 700
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "A",
+    "Row": 9,
+    "Booked": true,
+    "Price": 840
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "B",
+    "Row": 9,
+    "Booked": true,
+    "Price": 700
+  }
 ]
