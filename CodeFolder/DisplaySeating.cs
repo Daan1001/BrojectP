@@ -4,22 +4,80 @@ public class DisplaySeating
 {
     static int cursorRow = 0;
     static int cursorSeat = 0;
-    private List<Seat> bookedSeats = new List<Seat>();
+    public static List<Seat> bookedSeats = new List<Seat>();
+    public static List<Seat> TemporarlySeat = new List<Seat>();
 
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }       
 
     public DisplaySeating(char letterseat, int numberofrows)
     {
-        this.LetterSeat = letterseat;
-        this.NumberOfRows = numberofrows;
+        LetterSeat = letterseat;
+        NumberOfRows = numberofrows;
     }
+    public void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    {
+        for (char letter = 'A'; letter <= LetterSeat; letter++)
+        {
+            for (int row = 1; row <= NumberOfRows; row++)
+            {
+                Seat? existingSeat = bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                int seatPrice;
+
+                if (existingSeat != null)
+                {
+                    // The seat is already booked (based on the JSON data)
+                    new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
+                }
+                else
+                {
+                    // Calculate the seat price based on the letter
+                    if (row >= 1 && row <= 6)
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(firstClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = firstClassPrice;
+                        }
+                        new FirstClass("First Class", letter, row, false, seatPrice);
+                    }
+                    else if (row >= 7 && row <= 14)
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(businessClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = businessClassPrice;
+                        }
+                        new BusinessClass("Business Class", letter, row, false, seatPrice);
+                    }
+                    else
+                    {
+                        if (letter == 'A' || letter == LetterSeat) // First or last letter
+                        {
+                            seatPrice = (int)(economyClassPrice * 1.2);
+                        }
+                        else
+                        {
+                            seatPrice = economyClassPrice;
+                        }
+                        new EconomyClass("Economy Class", letter, row, false, seatPrice);
+                    }
+                }
+            }
+        }
+    }
+
     public void Start(Flight CurrentFlight)
     {
         cursorRow = 1;  
         cursorSeat = 0; 
         LoadBookedSeatsFromJson("DataSources/booked_seats.json"); 
-        InitializeSeats();
         DisplaySeats();
         
         bool isBookingComplete = false;
@@ -48,13 +106,15 @@ public class DisplaySeating
                     break;
 
                 case ConsoleKey.Enter:
-                    SelectAndBookSeat();
+                    // SelectAndBookSeat();
                     DisplaySeats();
+                    SelectAndBookSeat();
                     break;
 
                 case ConsoleKey.Backspace:
-                UnselectSeat();
-                break;
+                    DisplaySeats();
+                    UnselectSeat();
+                    break;
 
                 case ConsoleKey.Escape:
                     isBookingComplete = true;
@@ -72,6 +132,9 @@ public class DisplaySeating
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
+            Console.WriteLine();
+            SaveBookedSeatsToJson("DataSources/booked_seats.json"); // Specify the desired file path
+            TemporarlySeat.Clear();
             Console.ReadKey();
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
@@ -86,7 +149,6 @@ public class DisplaySeating
             }
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
-            SaveBookedSeatsToJson("DataSources/booked_seats.json"); // Specify the desired file path
             Program.Main();
             
         }
@@ -95,28 +157,17 @@ public class DisplaySeating
             // Roll back the booked seats to available
             foreach (var seat in bookedSeats)
             {
-                seat.ResetBooking();
+                seat.ResetSeat();
             }
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
+            TemporarlySeat.Clear();
             Start(CurrentFlight);
-        }
-    }
-
-    public void InitializeSeats()
-    {
-        for (char letter = 'A'; letter <= this.LetterSeat; letter++)
-        {
-            for (int row = 1; row <= this.NumberOfRows; row++)
-            {
-                new Seat(letter, row, false);
-            }
         }
     }
    public void DisplaySeats()
     {
-
         // Calculate the total width of the seating arrangement
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
 
@@ -170,18 +221,78 @@ public class DisplaySeating
         Console.WriteLine("'White'': Available Seat.");
         Console.WriteLine("'BACKSPACE': To unselect a seat.");
         Console.WriteLine("Press ESC to finish the booking.");
+        Console.WriteLine();
+        
     }
+   
 
+    // public void DisplaySeats()
+    // {
+    //     // Calculate the total width of the seating arrangement
+    //     int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+
+    //     Console.Write("    ");
+    //     for (char letter = 'A'; letter <= LetterSeat; letter++)
+    //     {
+    //         Console.Write($"{letter,-7} ");
+    //     }
+    //     Console.WriteLine();
+
+    //     Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+
+    //     for (int row = 1; row <= NumberOfRows; row++)
+    //     {
+    //         Console.Write($" {row,2}|");
+
+    //         for (char letter = 'A'; letter <= LetterSeat; letter++)
+    //         {
+    //             Seat? seat = Seat.Seats.Find(s => s.Row == row && s.Letter == letter);
+
+    //             if (seat != null)
+    //             {
+    //                 if (cursorRow == row && cursorSeat == letter - 'A')
+    //                 {
+    //                     Console.BackgroundColor = ConsoleColor.DarkGray; // Set the background color for the selected seat
+    //                 }
+
+    //                 // Check if the seat is in the list of booked seats
+    //                 bool isBooked = bookedSeats.Contains(seat);
+
+    //                 // Set the text color to red if the seat is booked
+    //                 Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.White;
+
+    //                 // Display the seat letter and number with dynamic spacing for better alignment
+    //                 Console.Write(isBooked ? $"{letter}{row,-6} " : $"{letter}{row,-6} ");
+
+    //                 // Reset text and background color after printing the current seat
+    //                 Console.ForegroundColor = ConsoleColor.White;
+    //                 Console.BackgroundColor = ConsoleColor.Black;
+    //             }
+    //         }
+
+    //         Console.WriteLine();
+    //     }
+
+    //     Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+    //     Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
+    //     Console.WriteLine("'Red': Booked Seat.");
+    //     Console.WriteLine("'White'': Available Seat.");
+    //     Console.WriteLine("'BACKSPACE': To unselect a seat.");
+    //     Console.WriteLine("Press ESC to finish the booking.");
+    //     Console.WriteLine();
+    // }
 
 
     public void SelectAndBookSeat()
     {
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
-        if (selectedSeat != null)
+        if (selectedSeat != null && selectedSeat.Booked == false)
         {
             selectedSeat.Book();
-            bookedSeats.Add(selectedSeat);
+            TemporarlySeat.Add(selectedSeat);
+            //selectedSeat.ShowSeat();
+            //bookedSeats.Add(selectedSeat);
         }
     } 
 
@@ -192,12 +303,12 @@ public class DisplaySeating
         if (selectedSeat != null)
         {
             // Unselect the seat
-            Console.WriteLine($"Seat {selectedSeat} unselected.");
-            selectedSeat.ResetSeat(); // Assuming you have a method to unbook the seat in your Seat class
+            Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
+            selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
             bookedSeats.Remove(selectedSeat); // Remove the seat from the bookedSeats list
         }
 
-        DisplaySeats(); // Display the seats again without the selection
+        // DisplaySeats(); // Display the seats again without the selection
     }
 
 
@@ -224,9 +335,9 @@ public class DisplaySeating
         Console.WriteLine("Confirmation Screen:");
         Console.WriteLine("Selected Seats:");
 
-        foreach (var seat in bookedSeats)
+        foreach (var seat in TemporarlySeat)
         {
-            Console.WriteLine(seat);
+            Console.WriteLine(seat.ShowSeat());
             
             // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
         }

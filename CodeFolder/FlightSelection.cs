@@ -22,6 +22,7 @@ public class FlightSelection{
         if (SelectedFlight.AirplaneType == "Boeing 747"){
             Airplane airplane = new();
             airplane.Boeing737(SelectedFlight);
+           
         }
         else if (SelectedFlight.AirplaneType == "Airbus 330"){
             Airplane airplane = new();

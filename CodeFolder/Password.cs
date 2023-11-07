@@ -17,8 +17,9 @@ public static class Password{
                     return false;
                 }
             }
-            Console.WriteLine("Username doesn't exist yet");
+            
         }
+        Console.WriteLine("Username doesn't exist yet");
         return false;
     }
 }

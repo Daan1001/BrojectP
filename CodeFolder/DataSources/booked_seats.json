@@ -1,32 +1,23 @@
 [
   {
-    "Letter": "A",
-    "Row": 1,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 1,
-    "Booked": true
-  },
-  {
+    "TypeClass": "First Class",
     "Letter": "A",
     "Row": 2,
-    "Booked": true
+    "Booked": true,
+    "Price": 1320
   },
   {
-    "Letter": "B",
-    "Row": 2,
-    "Booked": true
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 3,
+    "Booked": true,
+    "Price": 1320
   },
   {
+    "TypeClass": "First Class",
     "Letter": "A",
     "Row": 4,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 9,
-    "Booked": true
+    "Booked": true,
+    "Price": 1320
   }
 ]
