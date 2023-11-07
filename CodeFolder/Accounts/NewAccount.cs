@@ -1,19 +1,38 @@
 public static class NewAccount{
     private static Boolean newStandardAdminAccount = false;
     private static Boolean newSuperAdminAccount = false;
+
+    // private static List<List<Account>>? AllAccounts;
+    // private static 
+    // private static  AllStandardAdminAccountsInJson;
+    // private static  AllSuperAdminAccountsInJson;
+
     public static void Make(String username, String password){
-        JsonFile<Account>.Read("DataSources/Accounts.json");
-        if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
-            Console.WriteLine("This Username is already in use.");
-        } else {
-            if(newSuperAdminAccount){
-                JsonFile<Account>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
-            } else if(newStandardAdminAccount){
-                JsonFile<Account>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
+        // JsonFile<StandardAccount>.Read("DataSources/Accounts.json");
+        // AllStandardAccountsInJson = JsonFile<StandardAccount>.listOfObjects;
+        // JsonFile<StandardAdminAccount>.Read("DataSources/Accounts.json");
+        // AllStandardAdminAccountsInJson = JsonFile<StandardAdminAccount>.listOfObjects;
+        // JsonFile<SuperAdminAccount>.Read("DataSources/Accounts.json");
+        // AllSuperAdminAccountsInJson = JsonFile<SuperAdminAccount>.listOfObjects;
+        // AllAccounts = new List<List<Account>>(){AllStandardAccountsInJson!.Cast<Account>().ToList(), AllStandardAdminAccountsInJson!.Cast<Account>().ToList(), AllSuperAdminAccountsInJson!.Cast<Account>().ToList(), };
+        
+        // JsonFile<Account>.Read("DataSources/Accounts.json");
+        // if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
+        for(int i = 0; i < AllAccounts.Get()!.Count(); i++){
+            if(AllAccounts.Get()![i].Any(Account => Account.username == username)){
+                Console.WriteLine("This Username is already in use.");
             } else {
-                JsonFile<Account>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
+                if(newSuperAdminAccount){
+                    JsonFile<SuperAdminAccount>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
+                } else if(newStandardAdminAccount){
+                    JsonFile<StandardAdminAccount>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
+                } else {
+                    JsonFile<StandardAccount>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
+                }
+                // JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password)); // voor het testen zonder abstracte klasse 
+                Console.WriteLine("New User created!");
+                return;
             }
-            Console.WriteLine("New User created!");
         }
     }
     public static void MakeInput(){

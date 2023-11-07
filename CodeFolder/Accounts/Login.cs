@@ -1,18 +1,18 @@
-public static class Login<T>{
-    public static void LogIn(String Username, string password){
-        JsonFile<T>.Read("DataSources/Accounts.json");
-        for(int i = 0; i < JsonFile<T>.listOfObjects!.Count(); i++){
-            Account account = JsonFile<Account>.listOfObjects[i];
-            //if (type == "StandardAccount")
-            //if(JsonFile<T>.listOfObjects![i].username == Username){
-            if(account.username == Username){
-                if(Password.CompareGivenPasswordWithPasswordHashFromUsername(password, Username)){
-                    MainMenu.currentUser = JsonFile<Account>.listOfObjects[i];
-                    Console.WriteLine("Succesfully logged in as \""+Username+"\"!");
-                    return;
-                } else {
-                    Console.WriteLine("Log in failed. Password is incorrect.");
-                    return;
+public static class Login{
+    public static void LogIn(String Username, string Password){
+        // JsonFile<Account>.Read("DataSources/Accounts.json");
+        for(int listNumber = 0; listNumber < AllAccounts.Get().Count(); listNumber++){
+            for(int objectNumber = 0; objectNumber < AllAccounts.Get()[listNumber].Count(); objectNumber++){
+                if(AllAccounts.Get()[listNumber][objectNumber].username == Username){
+                    // if(Password.CompareGivenPasswordWithPasswordHashFromUsername(password, Username)){
+                    if(AllAccounts.Get()[listNumber][objectNumber].passwordHash == Password){ // dit is zonder hash
+                        MainMenu.currentUser = AllAccounts.Get()[listNumber][objectNumber];
+                        Console.WriteLine("Succesfully logged in as \""+Username+"\"!");
+                        return;
+                    } else {
+                        Console.WriteLine("Log in failed. Password is incorrect.");
+                        return;
+                    }
                 }
             }
         }
