@@ -55,6 +55,7 @@ public class ShowFlights{
             table.AddColumn(new TableColumn("Flight Date").Centered());
             table.AddColumn(new TableColumn("Departure Time").Centered());
             table.AddColumn(new TableColumn("Arrival Time").Centered());
+            table.AddColumn(new TableColumn("Type plane").Centered());
             table.AddColumn(new TableColumn("Seats Available").Centered());
             table.AddColumn(new TableColumn("Base Price").Centered());
 
@@ -67,6 +68,7 @@ public class ShowFlights{
                     flight.FlightDate,
                     flight.DepartureTime,
                     flight.ArrivalTime,
+                    flight.AirplaneType,
                     FlightID,
                     flight.BasePrice
                 );
@@ -96,7 +98,7 @@ public class ShowFlights{
             string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
             string paddedDestination = flight.Destination.PadRight(LenDes);
             string paddedCountry = flight.Country.PadRight(LenCountry);
-            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {FlightID, -7} | {flight.BasePrice, -3:C} |";
+            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.AirplaneType, -10} |{FlightID, -7} | {flight.BasePrice, -3:C} |";
             option1.Add(data);
         }
         if (option1.Count > 3){
