@@ -18,22 +18,25 @@ public static class NewAccount{
         
         // JsonFile<Account>.Read("DataSources/Accounts.json");
         // if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
-        for(int i = 0; i < AllAccounts.Get()!.Count(); i++){
-            if(AllAccounts.Get()![i].Any(Account => Account.username == username)){
-                Console.WriteLine("This Username is already in use.");
-            } else {
-                if(newSuperAdminAccount){
-                    JsonFile<SuperAdminAccount>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
-                } else if(newStandardAdminAccount){
-                    JsonFile<StandardAdminAccount>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
-                } else {
-                    JsonFile<StandardAccount>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
-                }
-                // JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password)); // voor het testen zonder abstracte klasse 
-                Console.WriteLine("New User created!");
-                return;
-            }
+            Console.WriteLine("hallo");
+        List<List<Account>> AllAccountsbugfix = AllAccounts.Get();
+        Console.WriteLine("hallo");
+        for(int i = 0; i < AllAccountsbugfix.Count(); i++){
+            Console.WriteLine("123");
+            // if(AllAccounts.Get()![i].Any(Account => Account.username == username)){
+                // Console.WriteLine("This Username is already in use.");
+            //     return;
+            // }
         }
+        if(newSuperAdminAccount){
+            JsonFile<SuperAdminAccount>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
+        } else if(newStandardAdminAccount){
+            JsonFile<StandardAdminAccount>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
+        } else {
+            JsonFile<StandardAccount>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
+        }
+        // JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password)); // voor het testen zonder abstracte klasse 
+        Console.WriteLine("New User created!");
     }
     public static void MakeInput(){
         Console.Clear();

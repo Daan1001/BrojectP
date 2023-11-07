@@ -3,7 +3,8 @@ using System.Text;
 
 public static class Password{
     public static string Encrypt(string value){
-        using var hash = SHA256.Create();
+        Console.WriteLine(value); // testing
+        var hash = SHA256.Create();
         var byteArray = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
         return Convert.ToHexString(byteArray).ToLower();
     }

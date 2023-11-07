@@ -28,10 +28,18 @@ public static class OptionSelection{
             // Process arrow keys
             switch (keyInfo.Key){
                 case ConsoleKey.UpArrow:
-                    hoveringOption = Math.Max(0, hoveringOption - 1);
+                    hoveringOption--;
+                    if(hoveringOption <= -1){
+                        hoveringOption = array.Count() -1;
+                    }
+                    // hoveringOption = Math.Max(0, hoveringOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    hoveringOption = Math.Min(array.Count() - 1, hoveringOption + 1);
+                    hoveringOption++;
+                    if(hoveringOption >= array.Count()){
+                        hoveringOption = 0;
+                    }
+                    // hoveringOption = Math.Min(array.Count() - 1, hoveringOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     selectedOption = array[hoveringOption];

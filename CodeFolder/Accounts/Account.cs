@@ -7,8 +7,11 @@ public abstract class Account{
     public string passwordHash;
     public Account(string username, string password){
         this.username = username;
-        this.passwordHash = Password.Encrypt(password);
-        // this.passwordHash = password; // dit is zonder hash
+        Console.WriteLine(password+"tests"); // testing
+        // Console.WriteLine(password.Length); // testing
+        // Console.WriteLine(Password.Encrypt(password)); // testing
+        // this.passwordHash = Password.Encrypt(password);
+        this.passwordHash = password; // dit is zonder hash
         canMakeAdminAccounts = false;
         isAdmin = false;
     }

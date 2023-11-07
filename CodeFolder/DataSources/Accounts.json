@@ -1,37 +1,31 @@
 [
   {
-    "username": "help",
-    "passwordHash": "help",
+    "username": "as",
+    "passwordHash": "as",
     "canMakeAdminAccounts": false,
     "isAdmin": false
   },
   {
-    "username": "hey",
-    "passwordHash": "hey",
+    "username": "qw",
+    "passwordHash": "qw",
     "canMakeAdminAccounts": false,
     "isAdmin": false
   },
   {
-    "username": "admin",
-    "passwordHash": "admin",
+    "username": "yt",
+    "passwordHash": "yt",
     "canMakeAdminAccounts": false,
     "isAdmin": false
   },
   {
-    "username": "admin2",
-    "passwordHash": "admin2",
+    "username": "uy",
+    "passwordHash": "uy",
     "canMakeAdminAccounts": false,
     "isAdmin": false
   },
   {
-    "username": "test",
-    "passwordHash": "test",
-    "canMakeAdminAccounts": false,
-    "isAdmin": false
-  },
-  {
-    "username": "hallo",
-    "passwordHash": "hallo",
+    "username": "oi",
+    "passwordHash": "oi",
     "canMakeAdminAccounts": false,
     "isAdmin": false
   }
