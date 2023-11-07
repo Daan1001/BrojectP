@@ -61,5 +61,12 @@
     "Row": 9,
     "Booked": true,
     "Price": 700
+  },
+  {
+    "TypeClass": "Economy Class",
+    "Letter": "B",
+    "Row": 22,
+    "Booked": true,
+    "Price": 480
   }
 ]

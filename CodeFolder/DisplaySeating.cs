@@ -156,10 +156,10 @@ public class DisplaySeating
         // Calculate the total width of the seating arrangement
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
 
-        Console.Write("    ");
+        Console.Write("       ");
         for (char letter = 'A'; letter <= LetterSeat; letter++)
         {
-            Console.Write($"{letter,-7} ");
+            Console.Write($"{letter,-4} ");
         }
         Console.WriteLine();
 
@@ -169,7 +169,7 @@ public class DisplaySeating
 
         for (int row = 1; row <= NumberOfRows; row++)
         {
-            Console.Write($" {row,2}|");
+            Console.Write($"   {row,2}|");
 
             for (char letter = 'A'; letter <= LetterSeat; letter++)
             {
@@ -179,14 +179,19 @@ public class DisplaySeating
                 {
                     if (cursorRow == row && cursorSeat == letter - 'A')
                     {
-                        Console.BackgroundColor = ConsoleColor.DarkGray; // Set the background color for the selected seat
+                        Console.BackgroundColor = ConsoleColor.White; // Set the background color for the selected seat
+                    }
+
+                    if(LetterSeat == 'C')
+                    {
+                        Console.Write("    ");
                     }
 
                     // Set the text color to red if the seat is booked
                     Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
 
                     // Display the seat letter and number with dynamic spacing for better alignment
-                    Console.Write(seat.Booked ? $"{letter}{row,-6} " : $"{letter}{row,-6} ");
+                    Console.Write(seat.Booked ? $"|{letter}{row,2}|" : $"|{letter}{row,2}|");
 
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
