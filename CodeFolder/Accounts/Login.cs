@@ -1,8 +1,11 @@
-public static class Login{
+public static class Login<T>{
     public static void LogIn(String Username, string password){
-        JsonFile<Account>.Read("DataSources/Accounts.json");
-        for(int i = 0; i < JsonFile<Account>.listOfObjects!.Count(); i++){
-            if(JsonFile<Account>.listOfObjects![i].username == Username){
+        JsonFile<T>.Read("DataSources/Accounts.json");
+        for(int i = 0; i < JsonFile<T>.listOfObjects!.Count(); i++){
+            Account account = JsonFile<Account>.listOfObjects[i];
+            //if (type == "StandardAccount")
+            //if(JsonFile<T>.listOfObjects![i].username == Username){
+            if(account.username == Username){
                 if(Password.CompareGivenPasswordWithPasswordHashFromUsername(password, Username)){
                     MainMenu.currentUser = JsonFile<Account>.listOfObjects[i];
                     Console.WriteLine("Succesfully logged in as \""+Username+"\"!");
