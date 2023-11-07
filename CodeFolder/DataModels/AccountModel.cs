@@ -2,7 +2,7 @@
 
 public class AccountModel
 {
-    private string Name { get; set; }
+    internal string Name { get; set; }
     private string Surname { get; set; }
     private string DateOfBirth { get; set; }
     private string Password { get; set; }

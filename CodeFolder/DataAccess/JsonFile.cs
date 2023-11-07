@@ -1,13 +1,15 @@
+using CodeFolder;
 using Newtonsoft.Json;
 
 public static class JsonFile<T>{
     public static List<T>? listOfObjects;
-    public static void Read(String FilePath){
+    public static List<T> Read(String FilePath){
         listOfObjects = null;
         StreamReader reader = new(FilePath);
         string File2Json = reader.ReadToEnd();
         listOfObjects = JsonConvert.DeserializeObject<List<T>>(File2Json)!;
         reader.Close();
+        return listOfObjects;
     }
     public static void Write(String FilePath, T obj){
         StreamWriter writer = new(FilePath);
