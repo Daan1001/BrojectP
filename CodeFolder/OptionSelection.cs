@@ -127,7 +127,12 @@ public static class OptionSelection{
                     ShowFlights.Column2(SortedTimeList);
                     break;
                 case "Sort by date":
-                    List<Flight> SortedDateList = flights.OrderBy(o=>o.FlightDate).ToList();
+                    var SortedDateList = flights.OrderBy(flight =>{
+                        if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
+                            return flightDate;
+                        }
+                        return DateTime.MinValue;
+                    }).ToList();
                     ShowFlights.Column2(SortedDateList);
                     break;
                 case "Sort by country":
@@ -156,5 +161,6 @@ public static class OptionSelection{
                     break;
             }
         }
+        
     }
 }

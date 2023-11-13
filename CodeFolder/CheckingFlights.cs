@@ -4,7 +4,7 @@ public class CheckingFlights{
         string json = File.ReadAllText("DataSources/Flights.json");
         List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
         foreach (Flight flight in flights!){
-            DateTime flightDate = DateTime.ParseExact(flight.FlightDate, "dd-MM-yyyy", null);
+            DateTime flightDate = DateTime.ParseExact(flight.FlightDate!, "dd-MM-yyyy", null);
             DateTime lessfligthDate = flightDate.AddDays(-1);
             if (lessfligthDate <= DateTime.Now){
                 flightDate = flightDate.AddMonths(1);
