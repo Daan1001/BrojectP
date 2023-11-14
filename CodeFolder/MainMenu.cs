@@ -7,16 +7,19 @@ public class MainMenu{
     private static List<String> options = new List<string>();
     public static void Start(){
         options.Clear();
+        options.Add("Airport contact details");
         options.Add("Show flights");
         options.Add("Reviews");
-        if(currentUser == null){
-            options.Add("Sign in");
-            options.Add("Log in");
-        } else {
+        if(currentUser is null || currentUser.isSuperAdmin){
+            options.Add("Sign up");
+            if(currentUser is null){
+                options.Add("Log in");
+            }
+        }
+        if(currentUser is not null){
             options.Add("Account information");
             options.Add("Log out");
         }
-        options.Add("Airport contact details");
         options.Add("Exit");
         OptionSelection.Start(MainMenu.options);
     }

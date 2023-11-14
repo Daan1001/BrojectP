@@ -74,7 +74,7 @@ public static class OptionSelection{
                     Login.LogInInput();
                     MainMenu.Start();
                     break;
-                case "Sign in":
+                case "Sign up":
                     NewAccount.MakeInput();
                     MainMenu.Start();
                     break;

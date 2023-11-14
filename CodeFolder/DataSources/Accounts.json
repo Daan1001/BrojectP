@@ -1,32 +1,26 @@
 [
   {
-    "username": "as",
-    "passwordHash": "as",
-    "canMakeAdminAccounts": false,
+    "username": "admin",
+    "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "isSuperAdmin": true,
+    "isAdmin": true
+  },
+  {
+    "username": "guest",
+    "passwordHash": "84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec",
+    "isSuperAdmin": false,
     "isAdmin": false
   },
   {
-    "username": "qw",
-    "passwordHash": "qw",
-    "canMakeAdminAccounts": false,
-    "isAdmin": false
+    "username": "guy",
+    "passwordHash": "3379feb6ae9fed3b989470c591c5aa7ec00269580b84f1737c9e63202645e4b2",
+    "isSuperAdmin": false,
+    "isAdmin": true
   },
   {
-    "username": "yt",
-    "passwordHash": "yt",
-    "canMakeAdminAccounts": false,
-    "isAdmin": false
-  },
-  {
-    "username": "uy",
-    "passwordHash": "uy",
-    "canMakeAdminAccounts": false,
-    "isAdmin": false
-  },
-  {
-    "username": "oi",
-    "passwordHash": "oi",
-    "canMakeAdminAccounts": false,
-    "isAdmin": false
+    "username": "id",
+    "passwordHash": "a56145270ce6b3bebd1dd012b73948677dd618d496488bc608a3cb43ce3547dd",
+    "isSuperAdmin": false,
+    "isAdmin": true
   }
 ]

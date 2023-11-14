@@ -14,28 +14,31 @@ public static class NewAccount{
         // AllStandardAdminAccountsInJson = JsonFile<StandardAdminAccount>.listOfObjects;
         // JsonFile<SuperAdminAccount>.Read("DataSources/Accounts.json");
         // AllSuperAdminAccountsInJson = JsonFile<SuperAdminAccount>.listOfObjects;
-        // AllAccounts = new List<List<Account>>(){AllStandardAccountsInJson!.Cast<Account>().ToList(), AllStandardAdminAccountsInJson!.Cast<Account>().ToList(), AllSuperAdminAccountsInJson!.Cast<Account>().ToList(), };
-        
+        // AllAccounts = new List<List<Account>>(){AllStandardAccountsInJson!.Cast<Account>().ToList(), AllStandardAdminAccountsInJson!.Cast<Account>().ToList(), AllSuperAdminAccountsInJson!.Cast<Account>().ToList(), };        
         // JsonFile<Account>.Read("DataSources/Accounts.json");
-        // if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
-            Console.WriteLine("hallo");
-        List<List<Account>> AllAccountsbugfix = AllAccounts.Get();
-        Console.WriteLine("hallo");
-        for(int i = 0; i < AllAccountsbugfix.Count(); i++){
-            Console.WriteLine("123");
-            // if(AllAccounts.Get()![i].Any(Account => Account.username == username)){
-                // Console.WriteLine("This Username is already in use.");
-            //     return;
-            // }
+
+        // List<List<Account>> ShouldBeAllAccounts = AllAccounts.Get();
+
+        // for(int i = 0; i < ShouldBeAllAccounts.Count(); i++){
+        //     if(ShouldBeAllAccounts[i].Any(Account => Account.username == username)){
+        //         Console.WriteLine("This Username is already in use.");
+        //         return;
+        //     }
+        // }
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
+            Console.WriteLine("This Username is already in use.");
+            return;
         }
-        if(newSuperAdminAccount){
-            JsonFile<SuperAdminAccount>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
-        } else if(newStandardAdminAccount){
-            JsonFile<StandardAdminAccount>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
-        } else {
-            JsonFile<StandardAccount>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
-        }
-        // JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password)); // voor het testen zonder abstracte klasse 
+        
+        // if(newSuperAdminAccount){
+        //     JsonFile<SuperAdminAccount>.Write("DataSources/Accounts.json", new SuperAdminAccount(username, password));
+        // } else if(newStandardAdminAccount){
+        //     JsonFile<StandardAdminAccount>.Write("DataSources/Accounts.json", new StandardAdminAccount(username, password));    
+        // } else {
+        //     JsonFile<StandardAccount>.Write("DataSources/Accounts.json", new StandardAccount(username, password));
+        // }
+        JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, newStandardAdminAccount, newSuperAdminAccount));
         Console.WriteLine("New User created!");
     }
     public static void MakeInput(){
@@ -43,19 +46,25 @@ public static class NewAccount{
         MainMenu.AirportName();
         Console.CursorVisible = true;
         if(MainMenu.currentUser != null){
-            if(MainMenu.currentUser!.canMakeAdminAccounts){ // or MainMenu.currentUser is SuperAdminAccount
+            if(MainMenu.currentUser!.isSuperAdmin){ 
                 Console.WriteLine("Will it be an admin account? (Y/N)");
-                while(Console.ReadKey().Key != ConsoleKey.Y || Console.ReadKey().Key != ConsoleKey.N){
-                    newStandardAdminAccount = Console.ReadKey().Key == ConsoleKey.Y;
-                }
+                ConsoleKeyInfo KeyPressed;
+                do{
+                    KeyPressed = Console.ReadKey();
+                    Console.WriteLine();
+                } while(!(KeyPressed.Key != ConsoleKey.Y || KeyPressed.Key != ConsoleKey.N));
+                newStandardAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 if(newStandardAdminAccount){
                     Console.WriteLine("Will it be a super admin account? (Y/N)");
-                    while(Console.ReadKey().Key != ConsoleKey.Y || Console.ReadKey().Key != ConsoleKey.N){
-                        newSuperAdminAccount = Console.ReadKey().Key == ConsoleKey.Y;
-                    }
+                    do{
+                    KeyPressed = Console.ReadKey();
+                    Console.WriteLine();
+                    } while(!(KeyPressed.Key != ConsoleKey.Y || KeyPressed.Key != ConsoleKey.N));
+                    newSuperAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 }
             }
         }
+        
         Console.WriteLine("Fill in the username:");
         String username = Console.ReadLine()!;
         Console.WriteLine("Fill in the password:");
