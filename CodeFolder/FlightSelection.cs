@@ -19,7 +19,7 @@ public class FlightSelection{
                 SelectedFlight = flight;
             }
         }
-        if (SelectedFlight.AirplaneType == "Boeing 747"){
+        if (SelectedFlight.AirplaneType == "Boeing 737"){
             Airplane airplane = new();
             airplane.Boeing737(SelectedFlight);
            

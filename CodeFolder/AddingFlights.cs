@@ -98,4 +98,40 @@ public class AddingFlights{
         }
         return flightId;
     }
+
+    public static void ChooseFlights(){
+        List<String> option1 = new List<string>();
+        Console.WriteLine("Choose a flight to edit");
+        int LenCountry = 0;
+        int LenDes = 0;
+        foreach (Flight flight in flights){
+            if (flight.Country!.Length > LenCountry){
+                LenCountry = flight.Country.Length;
+            }
+            if (flight.Destination!.Length > LenDes){
+                LenDes = flight.Destination.Length;
+            }
+        }
+        foreach (Flight flight in flights){
+            string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
+            string paddedDestination = flight.Destination!.PadRight(LenDes);
+            string paddedCountry = flight.Country!.PadRight(LenCountry);
+            string data = $"[{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.AirplaneType, -10} |{FlightID, -7} | {flight.BasePrice, -3:C} ]";
+            option1.Add(data);
+        }
+        OptionSelection.Start(option1);
+    }
+    public static void EditFlight(string selectedOption){
+        Console.Clear();
+        string clean = FlightSelection.RemoveWhitespace(selectedOption);
+        string clean2 = "|";
+        string[] stringarray = clean.Split("|");
+        for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
+            clean2 += " " + stringarray[i] + " |";
+        }
+        Console.WriteLine("Editing flight for:");
+        Console.WriteLine(clean2);
+        Console.ReadKey();
+        Flight SelectedFlight = flights[1];  
+    }
 }

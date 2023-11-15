@@ -60,6 +60,9 @@ public static class OptionSelection{
         if(sub == "|"){
             FlightSelection.Selection(selectedOption);
         }
+        if (sub == "["){
+            AddingFlights.EditFlight(selectedOption);
+        }
         else{
             switch (selectedOption){
                 case "Log in":

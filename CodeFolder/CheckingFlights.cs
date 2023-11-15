@@ -7,7 +7,9 @@ public class CheckingFlights{
             DateTime flightDate = DateTime.ParseExact(flight.FlightDate!, "dd-MM-yyyy", null);
             DateTime lessfligthDate = flightDate.AddDays(-1);
             if (lessfligthDate <= DateTime.Now){
-                flightDate = flightDate.AddMonths(1);
+                Random r = new Random();
+                int rInt = r.Next(0, 5);
+                flightDate = DateTime.Now.AddMonths(rInt);
                 flight.FlightDate = flightDate.ToString("dd-MM-yyyy");
             }
         }
