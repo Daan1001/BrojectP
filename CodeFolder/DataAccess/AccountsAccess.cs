@@ -1,8 +1,6 @@
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace CodeFolder.DataAccess;
-
-using static JsonSerializer;
 
 public class AccountsAccess
 {
@@ -21,8 +19,6 @@ public class AccountsAccess
         JsonFile<AccountModel>.Write("DataSources/Accounts.json", account);
         
     }
-
-    
     
     //searches for accounts by username  
     public static AccountModel GetAccount(string Username)
