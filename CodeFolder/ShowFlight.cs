@@ -15,6 +15,7 @@ public class ShowFlights{
 
     // Searches the flights list for matching countries
     public static void SearchFlightsByCountry(List<Flight> flights){
+        flights = LoadFlightsFromJson("DataSources/flights.json");
         options.Clear();
         foreach (Flight flight in flights){
             if(!options.Contains(flight.Country!)){
@@ -26,6 +27,7 @@ public class ShowFlights{
     }
     // Searches the flights list for matching cities
     public static void SearchFlghtsByCity(List<Flight>flights){
+        flights = LoadFlightsFromJson("DataSources/flights.json");
         options.Clear();
         foreach (Flight flight in flights){
             if(!options.Contains(flight.Destination!)){
@@ -38,6 +40,7 @@ public class ShowFlights{
 
     // Method that displays all flights
     public static void ViewAllFlights(List<Flight> flights){
+        flights = LoadFlightsFromJson("DataSources/flights.json");
         Console.Clear();
         DisplayFlights(flights);
         Console.WriteLine("Press any key to continue...");

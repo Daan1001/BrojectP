@@ -8,20 +8,7 @@
     "Flight date": "30-11-2023",
     "Departure time": "10:30:00",
     "Arrival time": "13:55:00",
-    "Seats Available": "186",
-    "Total Seats": "189",
-    "Base Price": "€20"
-  },
-  {
-    "Flight id": "123456",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 01",
-    "Country": "Germany",
-    "Destination": "Munich",
-    "Flight date": "11-12-2023",
-    "Departure time": "10:30:00",
-    "Arrival time": "13:55:00",
-    "Seats Available": "186",
+    "Seats Available": "183",
     "Total Seats": "189",
     "Base Price": "€20"
   },
@@ -34,7 +21,7 @@
     "Flight date": "12-12-2023",
     "Departure time": "11:15:00",
     "Arrival time": "14:30:00",
-    "Seats Available": "150",
+    "Seats Available": "147",
     "Total Seats": "150",
     "Base Price": "€25"
   },
@@ -73,7 +60,7 @@
     "Flight date": "15-03-2024",
     "Departure time": "12:30:00",
     "Arrival time": "16:00:00",
-    "Seats Available": "200",
+    "Seats Available": "190",
     "Total Seats": "200",
     "Base Price": "€26"
   },
@@ -83,7 +70,7 @@
     "Terminal": "Gate 08",
     "Country": "Switzerland",
     "Destination": "Zurich",
-    "Flight date": "17-11-2023",
+    "Flight date": "16-01-2024",
     "Departure time": "13:45:00",
     "Arrival time": "17:15:00",
     "Seats Available": "170",
@@ -115,19 +102,6 @@
     "Seats Available": "150",
     "Total Seats": "150",
     "Base Price": "€25"
-  },
-  {
-    "Flight id": "286913",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 01",
-    "Country": "Italy",
-    "Destination": "Venice",
-    "Flight date": "22-12-2023",
-    "Departure time": "15:00:00",
-    "Arrival time": "18:00:00",
-    "Seats Available": "189",
-    "Total Seats": "189",
-    "Base Price": "€30"
   },
   {
     "Flight id": "458491",
@@ -167,5 +141,31 @@
     "Seats Available": "170",
     "Total Seats": "170",
     "Base Price": "€32"
+  },
+  {
+    "Flight id": "123456",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 01",
+    "Country": "Germany",
+    "Destination": "Munich",
+    "Flight date": "11-12-2023",
+    "Departure time": "10:30:00",
+    "Arrival time": "13:55:00",
+    "Seats Available": "175",
+    "Total Seats": "189",
+    "Base Price": "€20"
+  },
+  {
+    "Flight id": "286913",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 01",
+    "Country": "Italy",
+    "Destination": "Naples",
+    "Flight date": "22-12-2023",
+    "Departure time": "15:00:00",
+    "Arrival time": "18:00:00",
+    "Seats Available": "189",
+    "Total Seats": "189",
+    "Base Price": "€30"
   }
 ]

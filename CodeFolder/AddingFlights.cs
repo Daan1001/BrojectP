@@ -119,6 +119,7 @@ public class AddingFlights{
             string data = $"[{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.AirplaneType, -10} |{FlightID, -7} | {flight.BasePrice, -3:C} ]";
             option1.Add(data);
         }
+        Console.ReadKey();
         OptionSelection.Start(option1);
     }
     public static void EditFlight(string selectedOption){
@@ -132,6 +133,35 @@ public class AddingFlights{
         Console.WriteLine("Editing flight for:");
         Console.WriteLine(clean2);
         Console.ReadKey();
-        Flight SelectedFlight = flights[1];  
+        Flight selectedFlight = flights[1];
+        foreach (Flight flight in flights){
+            if (selectedOption.Substring(1, 6) == flight.FlightId){
+                selectedFlight = flight;
+            }
+        }
+        bool selection = true;
+        while (selection){
+            Console.WriteLine("Enter the destination (City, Country): ");
+            string destination = Console.ReadLine();
+            if (destination != null && destination.Contains(",")){
+                string[] data = destination.Split(',');
+                selectedFlight.Destination = data[0].Trim();
+                selectedFlight.Country = data[1].Trim();
+                selection = false;
+            }
+            else{
+                Console.WriteLine("Invalid input, press any key to try again");
+                Console.ReadKey();
+            }
+        }
+        foreach(Flight flight in flights){
+            if (flight == selectedFlight){
+                flights.Remove(flight);
+                flights.Add(selectedFlight);
+                string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
+                File.WriteAllText("DataSources/Flights.json", updatedJson);
+                MainMenu.Start();
+            }
+        }
     }
 }

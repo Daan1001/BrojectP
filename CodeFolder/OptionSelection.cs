@@ -46,6 +46,7 @@ public static class OptionSelection{
     // }
    
     public static void Action(String selectedOption){
+        flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<Flight> matchingFlights = new List<Flight>();
         foreach(Flight destination in flights){
             if (destination.Destination == selectedOption || destination.Country == selectedOption){
