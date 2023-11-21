@@ -60,48 +60,48 @@ public static class OptionSelection{
             ShowFlights.DisplayFlights(matchingFlights);
         }
         string sub = selectedOption.Substring(0, 1);
-        if(sub == "|"){
+        if(sub == "|"){ //customer list with flights start with |
             FlightSelection.Selection(selectedOption);
         }
-        if (sub == "["){
+        if (sub == "["){ //Admin list with flights start with [
             List<String> option2 = new List<string>();
             selectedFlight = selectedOption;
             selectedFlight2 = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
             option2.Add("Edit");
             option2.Add("Cancel");
+            option2.Add("<-- Go back");
             Start(option2);
-            //AddingFlights.Choice(selectedOption);
         }
         else{
             switch (selectedOption){
-                case "Save changes":
+                case "Save changes": //saving changes to flights
                     AddingFlights.SaveChanges(selectedFlight2!);
                     break;
-                case "Price":
+                case "Price": //editing prices for flights
                     EditingFlights.EditPrice(selectedFlight2!);
                     break;
-                case "Type airplane":
+                case "Type airplane": //editing type airplane for flights
                     EditingFlights.EditTypeAirplane(selectedFlight2!);
                     break;
-                case "Gate":
+                case "Gate": //editing gates for flights
                     EditingFlights.EditGate(selectedFlight2!);
                     break;
-                case "Date":
+                case "Date": //editing dates for flights
                     EditingFlights.EditDate(selectedFlight2!);
                     break;
-                case "Time":
+                case "Time": //editing time for flights
                     EditingFlights.EditTime(selectedFlight2!);
                     break;
-                case "Destination":
+                case "Destination": //editing destination for flights
                     EditingFlights.EditDestination(selectedFlight2!);
                     break;
-                case "Edit":
+                case "Edit": //editing flights
                     AddingFlights.EditFlight(selectedFlight2!);
                     break;
-                case "Cancel":
+                case "Cancel": //canceling flights
                     AddingFlights.CancelFlights(selectedFlight!);
                     break;
-                case "Add":
+                case "Add": //adding flights
                     AddingFlights.AddFlight();
                     break;
                 case "Log in":
@@ -111,7 +111,6 @@ public static class OptionSelection{
                 case "Sign in": // sign in
                     User.NewUserInput();
                     MainMenu.Start();
-
                     break;
                 case "Log out":
                     MainMenu.user = null;

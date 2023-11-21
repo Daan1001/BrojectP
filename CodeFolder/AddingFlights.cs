@@ -4,9 +4,6 @@ public class AddingFlights{
     public static void AddFlight(){
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
-        // Automatically generate a unique ID
-        string flightId = GetRandomNumber();
-        
         Console.Write("Type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
         string airplaneType = Console.ReadLine()!;
 
@@ -53,7 +50,7 @@ public class AddingFlights{
         // Create a new Flight object
         var newFlight = new Flight
         {
-            FlightId = flightId,
+            FlightId = GetRandomNumber(),
             AirplaneType = airplaneType,
             Terminal = gate,
             Country = country!,
@@ -72,10 +69,8 @@ public class AddingFlights{
         Console.WriteLine("New flight added successfully!");
     }
 
-    public static int GetTotalSeats(string airplaneType)
-    {
-        switch (airplaneType)
-        {
+    public static int GetTotalSeats(string airplaneType){//gets the total seats of the plane based on type airplane
+        switch (airplaneType){
             case "Boeing 787":
                 return 189;
             case "Airbus 330":
@@ -87,7 +82,7 @@ public class AddingFlights{
         }
     }
 
-    private static string GetRandomNumber(){
+    private static string GetRandomNumber(){//get random flight id
         var chars = "0123456789";
         var random = new Random();
         var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
@@ -175,7 +170,7 @@ public class AddingFlights{
                 break;
         }
     }
-    public static Flight FindFlight(string flightid){
+    public static Flight FindFlight(string flightid){ //finds the matching flight based on id
         foreach (Flight flight in flights){
             if (flightid == flight.FlightId){
                 return flight;
@@ -193,7 +188,7 @@ public class AddingFlights{
             }
         }
     }
-    public static void SaveChanges(Flight selectedFlight){
+    public static void SaveChanges(Flight selectedFlight){ //saves the changes made to selectedFlight
         List<Flight> flightsCopy = new List<Flight>(flights);
         for (int i = 0; i < flightsCopy.Count; i++){
             Flight flight = flightsCopy[i];
