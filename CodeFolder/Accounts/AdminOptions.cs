@@ -12,6 +12,6 @@ public static class AdminOptions{
         // OptionSelection.Start();
         // Console.WriteLine("\nPress any key to continue...");
         // Console.ReadKey();
-        OptionSelection2<Account>.Start(JsonFile<Account>.listOfObjects!);
+        OptionSelection2<Account>.Start(JsonFile<Account>.listOfObjects!, OptionSelection2<Account>.GoBack);
     }
 }

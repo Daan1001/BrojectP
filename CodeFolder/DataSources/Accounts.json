@@ -76,5 +76,11 @@
     "passwordHash": "cf4cf7d42317e3447486c7962edf75533ed0f12caf63c9114abe89b09e26465a",
     "isSuperAdmin": false,
     "isAdmin": false
+  },
+  {
+    "username": "Daan",
+    "passwordHash": "853205c6097fc6f17f6800646842a893fda1ebbac49f55b0a6599bf92142c9a6",
+    "isSuperAdmin": false,
+    "isAdmin": false
   }
 ]

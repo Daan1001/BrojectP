@@ -1,7 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
-public class Account{//: IEquatable<Account>
+public class Account: IEquatable<Account>{
     public Boolean isSuperAdmin{get; set;}
     public Boolean isAdmin{get; set;}
     public string username;
@@ -39,20 +39,30 @@ public class Account{//: IEquatable<Account>
     }
     
 
-    // public bool Equals(Account? other)
-    // {
-    //     if(this.username == other?.username && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin){
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    // public static bool operator ==(Account one, Account two){
-    //     return one.Equals(two);
-    // }
-    // public static bool operator !=(Account one, Account two){
-    //     return !(one == two);
-    // }
+    public bool Equals(Account? other)
+    {
+        if(this is null || other is null){
+            return false;
+        } else if(this.username == other?.username && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static bool operator ==(Account one, Account two){
+        if(one is null || two is null){
+            return false;
+        } else {
+            return one.Equals(two);
+        }
+    }
+    public static bool operator !=(Account one, Account two){
+        if(one is null || two is null){
+            return false;
+        } else {
+            return !(one == two);
+        }
+    }
 
     // public static Account GetAccount(string Username)
     // {
