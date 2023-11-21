@@ -2,11 +2,6 @@ public static class NewAccount{
     private static Boolean newStandardAdminAccount = false;
     private static Boolean newSuperAdminAccount = false;
 
-    // private static List<List<Account>>? AllAccounts;
-    // private static 
-    // private static  AllStandardAdminAccountsInJson;
-    // private static  AllSuperAdminAccountsInJson;
-
     public static void Make(String username, String password){
         JsonFile<Account>.Read("DataSources/Accounts.json");
         if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
@@ -46,11 +41,18 @@ public static class NewAccount{
                 }
             }
         }
-        
+        String username;
+        String password;
         Console.WriteLine("Fill in the username:");
-        String username = Console.ReadLine()!;
-        Console.WriteLine("Fill in the password:");
-        Make(username, Console.ReadLine()!);
+        do{
+            username = Console.ReadLine()!;
+        } while(username == "");
+        Console.WriteLine("Fill in the password: (Password must be 8 characters long and contain both at least one number and symbol)");
+        do{
+            password = Console.ReadLine()!;
+        } while (!Password.CheckPasswordSecurity(password));
+        
+        Make(username, password);
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
     }

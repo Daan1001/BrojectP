@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public static class Password{
     public static string Encrypt(string value){
@@ -17,8 +18,37 @@ public static class Password{
                     return false;
                 }
             }
-            Console.WriteLine("Username doesn't exist yet");
         }
         return false;
+    }
+    public static bool CheckPasswordSecurity(string password)
+    {
+
+        if (!(password.Length >= 8))
+        {
+            Console.WriteLine("Password must be at least 8 characters long.");
+            return false;;
+        }
+
+        if (!password.Any(char.IsDigit))
+        {
+            Console.WriteLine("Password must contain one digit.");
+            return false;
+        }
+
+
+        if (!PasswordSymbolChecker(password))
+        {
+            Console.WriteLine("Password must contain at least one symbol.");
+            return false;
+        }
+
+        return true;
+    }
+    public static bool PasswordSymbolChecker(string password)
+    {
+        string pattern = @"[\p{P}\p{S}]";
+        bool hasSymbols = Regex.IsMatch(password, pattern);
+        return hasSymbols;
     }
 }

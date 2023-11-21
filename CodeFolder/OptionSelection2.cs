@@ -1,25 +1,23 @@
-using Newtonsoft.Json;
-using System.Diagnostics;
-public static class OptionSelection{
-    private static String? selectedOption;
+public static class OptionSelection2<T>{
+    private static T? selectedOption;
     private static int hoveringOption;
-    public static ConsoleKeyInfo keyInfo;
+    private static ConsoleKeyInfo keyInfo;
     public static Boolean stop = false;
-    public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    public static void Start(List<String> array){
+    // public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+    public static void Start(List<T> list){
         hoveringOption = 0;
-        selectedOption = "";
+        selectedOption = default;
         stop = false;
         Console.CursorVisible = false;
         while(!stop){
             Console.Clear();
             MainMenu.AirportName();
-            for (int i = 0; i < array.Count(); i++){
+            for (int i = 0; i < list.Count(); i++){
                 if (i == hoveringOption){
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
-                Console.WriteLine(array[i]);
+                Console.WriteLine(list[i]);
                 Console.ResetColor();
             }
             keyInfo = Console.ReadKey();
@@ -27,81 +25,63 @@ public static class OptionSelection{
                 case ConsoleKey.UpArrow:
                     hoveringOption--;
                     if(hoveringOption <= -1){
-                        hoveringOption = array.Count() -1;
+                        hoveringOption = list.Count() -1;
                     }
                     break;
                 case ConsoleKey.DownArrow:
                     hoveringOption++;
-                    if(hoveringOption >= array.Count()){
+                    if(hoveringOption >= list.Count()){
                         hoveringOption = 0;
                     }
                     break;
                 case ConsoleKey.Enter:
-                    selectedOption = array[hoveringOption];
+                    selectedOption = list[hoveringOption];
                     Console.WriteLine();
                     Action(selectedOption);
                     break;
             }
         }
     }
-    public static void Start2(List<Account> array){
-        hoveringOption = 0;
-        selectedOption = "";
-        stop = false;
-        Console.CursorVisible = false;
-        while(!stop){
-            Console.Clear();
-            MainMenu.AirportName();
-            for (int i = 0; i < array.Count(); i++){
-                if (i == hoveringOption){
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                }
-                Console.WriteLine(array[i]);
-                Console.ResetColor();
-            }
-            keyInfo = Console.ReadKey();
-            switch (keyInfo.Key){
-                case ConsoleKey.UpArrow:
-                    hoveringOption--;
-                    if(hoveringOption <= -1){
-                        hoveringOption = array.Count() -1;
-                    }
-                    break;
-                case ConsoleKey.DownArrow:
-                    hoveringOption++;
-                    if(hoveringOption >= array.Count()){
-                        hoveringOption = 0;
-                    }
-                    break;
-                case ConsoleKey.Enter:
-                    // selectedOption = array[hoveringOption];
-                    Console.WriteLine();
-                    // Action(selectedOption);
-                    break;
-            }
-        }
-    }
-    // public static void Start(List<String> list){
-
-    // }
    
-    public static void Action(String selectedOption){
-        List<Flight> matchingFlights = new List<Flight>();
-        foreach(Flight destination in flights){
-            if (destination.Destination == selectedOption || destination.Country == selectedOption){
-                matchingFlights.Add(destination);
+    public static void Action(T selectedOption){
+        if(selectedOption is Account){
+            // Console.WriteLine("test3");
+                    // Console.ReadKey();
+            JsonFile<Account>.Read("DataSources/Accounts.json");
+            for(int i = 0; i < JsonFile<Account>.listOfObjects!.Count(); i++){
+                // Console.WriteLine("test2");
+                // Console.WriteLine("\ngeselecteerd:");
+                // Console.WriteLine(selectedOption);
+                // Console.WriteLine("\ngecheked voor:");
+                // Console.WriteLine(JsonFile<Account>.listOfObjects![i]);
+                // Boolean testing = JsonFile<Account>.listOfObjects![i].AccountInformation == (selectedOption as Account).AccountInformation;
+                // Boolean testing2 = JsonFile<Account>.listOfObjects![i].Equals(selectedOption as Account);
+                // Console.WriteLine(testing);
+                // Console.WriteLine(testing2);
+
+                // Console.ReadKey();
+                if(JsonFile<Account>.listOfObjects![i] == (selectedOption as Account)){
+                    (selectedOption as Account)!.AccountInformation();
+                    // Console.WriteLine("test1");
+                    // Console.ReadKey();
+                }
             }
         }
-        if(matchingFlights.Count > 0){
-            Console.Clear();
-            ShowFlights.DisplayFlights(matchingFlights);
-        }
-        string sub = selectedOption.Substring(0, 1);
-        if(sub == "|"){
-            FlightSelection.Selection(selectedOption);
-        }
-        else{
+        // List<Flight> matchingFlights = new List<Flight>();
+        // foreach(Flight destination in flights){
+        //     if (destination.Destination == selectedOption || destination.Country == selectedOption){
+        //         matchingFlights.Add(destination);
+        //     }
+        // }
+        // if(matchingFlights.Count > 0){
+        //     Console.Clear();
+        //     ShowFlights.DisplayFlights(matchingFlights);
+        // }
+        // string sub = selectedOption.Substring(0, 1);
+        // if(sub == "|"){
+        //     FlightSelection.Selection(selectedOption);
+        // }
+        // else{
             switch (selectedOption){
                 case "Log in":
                     Login.LogInInput();
@@ -153,13 +133,13 @@ public static class OptionSelection{
                 case "<-- Go back":
                     MainMenu.Start();
                     break;
-                case "Airport contact details": // dit moet nog in een aparte methode maar ik weet nog niet waar ik die methode neer ga zetten
+                case "Airport contact details":
                     MainMenu.AirportDetails();
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                     break;
                 case "Book flight -->":
-                    ShowFlights.Column2(flights);
+                    // ShowFlights.Column2(flights);
                     break;
                 case "Book a seat":
                     Airplane airplane = new();
@@ -169,11 +149,11 @@ public static class OptionSelection{
                     Console.WriteLine("Goodbye!");
                     Environment.Exit(0);
                     break;
-                default:
-                    Console.WriteLine("Still a W.I.P. (press any key to continue)");
-                    Console.ReadKey(); // alleen tijdens wip nodig
-                    break;
+                // default:
+                //     Console.WriteLine("Still a W.I.P. (press any key to continue)");
+                //     Console.ReadKey(); // alleen tijdens wip nodig
+                //     break;
             }
-        }
+        // }
     }
 }

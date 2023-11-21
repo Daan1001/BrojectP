@@ -22,5 +22,59 @@
     "passwordHash": "a56145270ce6b3bebd1dd012b73948677dd618d496488bc608a3cb43ce3547dd",
     "isSuperAdmin": false,
     "isAdmin": true
+  },
+  {
+    "username": "test",
+    "passwordHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "test2",
+    "passwordHash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "itsMe",
+    "passwordHash": "cdfe1b48422d5d1f9a217b7c32d1469cd6f69f09e547dac11a0d2a48d0e2591c",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "itsYou",
+    "passwordHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "testing",
+    "passwordHash": "cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "uhh",
+    "passwordHash": "9390298f3fb0c5b160498935d79cb139aef28e1c47358b4bbba61862b9c26e59",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "testing3",
+    "passwordHash": "4af325730907dee07395eae018a79117911dea63876d7e1272c83cacbf89460a",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "letsgo",
+    "passwordHash": "660985a6d4237ef459dbcfdee97b2bd514e87c00f9f736aa33bc2fc7b7bba890",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "nono",
+    "passwordHash": "cf4cf7d42317e3447486c7962edf75533ed0f12caf63c9114abe89b09e26465a",
+    "isSuperAdmin": false,
+    "isAdmin": false
   }
 ]
