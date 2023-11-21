@@ -77,6 +77,9 @@ public static class OptionSelection{
                 case "Save changes":
                     AddingFlights.SaveChanges(selectedFlight2!);
                     break;
+                case "Price":
+                    EditingFlights.EditPrice(selectedFlight2!);
+                    break;
                 case "Type airplane":
                     EditingFlights.EditTypeAirplane(selectedFlight2!);
                     break;

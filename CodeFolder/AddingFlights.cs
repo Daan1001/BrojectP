@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    //public static Flight? selectedFlight;
     public static void AddFlight(){
+        // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
         // Automatically generate a unique ID
         string flightId = GetRandomNumber();
@@ -128,7 +128,13 @@ public class AddingFlights{
         Console.WriteLine("Editing flight for:");
         string FlightID = $"{selectedFlight.SeatsAvailable}/{selectedFlight.TotalSeats}";
         string data = $"[{selectedFlight.FlightId, -6} | {selectedFlight.Terminal, -7} | {selectedFlight.Destination, -10} | {selectedFlight.Country, -10} | {selectedFlight.FlightDate, -10} | {selectedFlight.DepartureTime, -8} | {selectedFlight.ArrivalTime, -8} | {selectedFlight.AirplaneType, -10} |{FlightID, -7} | {selectedFlight.BasePrice, -3:C} ]";
-        Console.WriteLine(data);
+        string clean = FlightSelection.RemoveWhitespace(data);
+        string clean2 = "|";
+        string[] stringarray = clean.Split("|");
+        for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
+            clean2 += " " + stringarray[i] + " |";
+        }
+        Console.WriteLine(clean2);
         Console.ReadKey();
         List<string> option2 = new List<string>();
         option2.Add("Destination");
@@ -136,11 +142,13 @@ public class AddingFlights{
         option2.Add("Gate");
         option2.Add("Date");
         option2.Add("Time");
+        option2.Add("Price");
         option2.Add("Save changes");
         option2.Add("<-- Go back");
         OptionSelection.Start(option2);
     }
     public static void CancelFlights(string selectedOption){
+        // code that allows the admin to delete flights
         Console.Clear();
         string clean = FlightSelection.RemoveWhitespace(selectedOption);
         string clean2 = "|";

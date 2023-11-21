@@ -1,4 +1,5 @@
 public class EditingFlights{
+    // code that allows the admin to change flights.
     public static void EditDestination(Flight selectedFlight){
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");
         Console.WriteLine("Enter the new destination (City, Country): ");
@@ -95,5 +96,20 @@ public class EditingFlights{
         selectedFlight.DepartureTime = departureTimestring;
         selectedFlight.ArrivalTime = arrivalTimestring;
         AddingFlights.EditFlight(selectedFlight);
+    }
+    public static void EditPrice(Flight selectedFlight){
+
+        Console.Write("Base Price (in Euro): ");
+        string baseprice = Console.ReadLine()!;
+        if (baseprice != null){
+            baseprice = "€" + baseprice;
+            selectedFlight.BasePrice = baseprice;
+            AddingFlights.EditFlight(selectedFlight);
+        }
+        else{
+            Console.WriteLine("Invalid input, press any key to try again");
+            Console.ReadKey();
+            AddingFlights.EditFlight(selectedFlight);
+        }  
     }
 }
