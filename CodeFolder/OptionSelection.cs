@@ -5,6 +5,8 @@ public static class OptionSelection{
     private static int hoveringOption;
     public static ConsoleKeyInfo keyInfo;
     public static Boolean stop = false;
+    public static string? selectedFlight;
+    public static Flight? selectedFlight2;
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static void Start(List<String> array){
         // MainMenu.AirportName();
@@ -62,10 +64,43 @@ public static class OptionSelection{
             FlightSelection.Selection(selectedOption);
         }
         if (sub == "["){
-            AddingFlights.EditFlight(selectedOption);
+            List<String> option2 = new List<string>();
+            selectedFlight = selectedOption;
+            selectedFlight2 = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
+            option2.Add("Edit");
+            option2.Add("Cancel");
+            Start(option2);
+            //AddingFlights.Choice(selectedOption);
         }
         else{
             switch (selectedOption){
+                case "Save changes":
+                    AddingFlights.SaveChanges(selectedFlight2!);
+                    break;
+                case "Type airplane":
+                    EditingFlights.EditTypeAirplane(selectedFlight2!);
+                    break;
+                case "Gate":
+                    EditingFlights.EditGate(selectedFlight2!);
+                    break;
+                case "Date":
+                    EditingFlights.EditDate(selectedFlight2!);
+                    break;
+                case "Time":
+                    EditingFlights.EditTime(selectedFlight2!);
+                    break;
+                case "Destination":
+                    EditingFlights.EditDestination(selectedFlight2!);
+                    break;
+                case "Edit":
+                    AddingFlights.EditFlight(selectedFlight2!);
+                    break;
+                case "Cancel":
+                    AddingFlights.CancelFlights(selectedFlight!);
+                    break;
+                case "Add":
+                    AddingFlights.AddFlight();
+                    break;
                 case "Log in":
                     User.LogInInput();
                     MainMenu.Start();

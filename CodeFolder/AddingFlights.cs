@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+    //public static Flight? selectedFlight;
     public static void AddFlight(){
         Console.WriteLine("Enter the following details for the new flight:");
         // Automatically generate a unique ID
@@ -71,7 +72,7 @@ public class AddingFlights{
         Console.WriteLine("New flight added successfully!");
     }
 
-    private static int GetTotalSeats(string airplaneType)
+    public static int GetTotalSeats(string airplaneType)
     {
         switch (airplaneType)
         {
@@ -100,8 +101,8 @@ public class AddingFlights{
     }
 
     public static void ChooseFlights(){
-        List<String> option1 = new List<string>();
-        Console.WriteLine("Choose a flight to edit");
+        List<string> option1 = new List<string>();
+        Console.WriteLine("Choose a flight to change");
         int LenCountry = 0;
         int LenDes = 0;
         foreach (Flight flight in flights){
@@ -122,7 +123,24 @@ public class AddingFlights{
         Console.ReadKey();
         OptionSelection.Start(option1);
     }
-    public static void EditFlight(string selectedOption){
+    public static void EditFlight(Flight selectedFlight){
+        Console.Clear();
+        Console.WriteLine("Editing flight for:");
+        string FlightID = $"{selectedFlight.SeatsAvailable}/{selectedFlight.TotalSeats}";
+        string data = $"[{selectedFlight.FlightId, -6} | {selectedFlight.Terminal, -7} | {selectedFlight.Destination, -10} | {selectedFlight.Country, -10} | {selectedFlight.FlightDate, -10} | {selectedFlight.DepartureTime, -8} | {selectedFlight.ArrivalTime, -8} | {selectedFlight.AirplaneType, -10} |{FlightID, -7} | {selectedFlight.BasePrice, -3:C} ]";
+        Console.WriteLine(data);
+        Console.ReadKey();
+        List<string> option2 = new List<string>();
+        option2.Add("Destination");
+        option2.Add("Type airplane");
+        option2.Add("Gate");
+        option2.Add("Date");
+        option2.Add("Time");
+        option2.Add("Save changes");
+        option2.Add("<-- Go back");
+        OptionSelection.Start(option2);
+    }
+    public static void CancelFlights(string selectedOption){
         Console.Clear();
         string clean = FlightSelection.RemoveWhitespace(selectedOption);
         string clean2 = "|";
@@ -130,38 +148,58 @@ public class AddingFlights{
         for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
             clean2 += " " + stringarray[i] + " |";
         }
-        Console.WriteLine("Editing flight for:");
+        Console.WriteLine("Cancelling flight:");
         Console.WriteLine(clean2);
-        Console.ReadKey();
-        Flight selectedFlight = flights[1];
+        Console.WriteLine("Are you sure?(Y/N)");
+        string answer = Console.ReadLine()!;
+        answer.ToLower();
+        switch (answer.ToLower()){
+            case "y":
+                Console.WriteLine($"Deleting flight {selectedOption}...");
+                Flight selectedFlight = FindFlight(selectedOption.Substring(1, 6));
+                DeletingFlight(selectedFlight);
+                break;
+            case "n":
+                break;
+            default:
+                Console.WriteLine("Wrong input try again");
+                CancelFlights(selectedOption);
+                break;
+        }
+    }
+    public static Flight FindFlight(string flightid){
         foreach (Flight flight in flights){
-            if (selectedOption.Substring(1, 6) == flight.FlightId){
-                selectedFlight = flight;
+            if (flightid == flight.FlightId){
+                return flight;
             }
         }
-        bool selection = true;
-        while (selection){
-            Console.WriteLine("Enter the destination (City, Country): ");
-            string destination = Console.ReadLine();
-            if (destination != null && destination.Contains(",")){
-                string[] data = destination.Split(',');
-                selectedFlight.Destination = data[0].Trim();
-                selectedFlight.Country = data[1].Trim();
-                selection = false;
-            }
-            else{
-                Console.WriteLine("Invalid input, press any key to try again");
-                Console.ReadKey();
-            }
-        }
+        return null!;
+    }
+    public static void DeletingFlight(Flight selectedFlight){
         foreach(Flight flight in flights){
             if (flight == selectedFlight){
                 flights.Remove(flight);
-                flights.Add(selectedFlight);
                 string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
                 File.WriteAllText("DataSources/Flights.json", updatedJson);
                 MainMenu.Start();
             }
         }
+    }
+    public static void SaveChanges(Flight selectedFlight){
+        List<Flight> flightsCopy = new List<Flight>(flights);
+        for (int i = 0; i < flightsCopy.Count; i++){
+            Flight flight = flightsCopy[i];
+            if (flight.FlightId == selectedFlight.FlightId){
+                flights.Remove(flight);
+                flights.Add(selectedFlight);
+                string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
+                File.WriteAllText("DataSources/Flights.json", updatedJson);
+                break;
+            }
+        }
+
+        Console.WriteLine("Saved changes, press any key to continue");
+        Console.ReadKey();
+        ChooseFlights();
     }
 }
