@@ -1,27 +1,6 @@
 public class EditingFlights{
     // code that allows the admin to change flights.
-    public static List<string[]> airports = new List<string[]>
-        {
-            new string[] { "Istanbul", "Turkey", "3" },
-            new string[] { "Madrid", "Spain", "2" },
-            new string[] { "Frankfurt", "Germany", "1,5" },
-            new string[] { "Barcelona", "Spain", "2" },
-            new string[] { "Munich", "Germany", "1,5" },
-            new string[] { "Rome", "Italy", "2" },
-            new string[] { "Paris", "France", "1,5" },
-            new string[] { "Mallorca", "Spain", "2" },
-            new string[] { "Moscow", "Russia", "3" },
-            new string[] { "Lisbon", "Portugal", "2" },
-            new string[] { "Dublin", "Ireland", "1,5" },
-            new string[] { "Vienna", "Austria", "2" },
-            new string[] { "Manchester", "United Kingdom", "1" },
-            new string[] { "London", "United Kingdom", "1" },
-            new string[] { "Athens", "Greece", "3" },
-            new string[] { "Zurich", "Switzerland", "1,5" },
-            new string[] { "Berlin", "Germany", "1,5" },
-            new string[] { "Brussels", "Belgium", "1" },
-            new string[] { "Stockholm", "Sweden", "2,5" }
-        };
+    public static List<string[]> airports = AddingFlights.airports;
     public static void EditDestination(Flight selectedFlight){
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");
         Console.WriteLine("Enter the new destination (City, Country): ");
@@ -134,7 +113,7 @@ public class EditingFlights{
         AddingFlights.EditFlight(selectedFlight);
     }
     public static void EditPrice(Flight selectedFlight){
-
+        Console.WriteLine($"Current price: {selectedFlight.BasePrice}");
         Console.Write("Base Price (in Euro): ");
         string baseprice = Console.ReadLine()!;
         if (baseprice != null){
