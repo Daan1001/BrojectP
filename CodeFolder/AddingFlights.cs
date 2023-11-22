@@ -189,11 +189,15 @@ public class AddingFlights{
         answer.ToLower();
         switch (answer.ToLower()){
             case "y":
+            case "yes":
                 Console.WriteLine($"Deleting flight {selectedOption}...");
                 Flight selectedFlight = FindFlight(selectedOption.Substring(1, 6));
                 DeletingFlight(selectedFlight);
                 break;
+            case "no":
             case "n":
+                Console.WriteLine("Aborting process, press any key to continue");
+                ChooseFlights();
                 break;
             default:
                 Console.WriteLine("Wrong input try again");
