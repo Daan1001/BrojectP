@@ -1,6 +1,26 @@
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+    public static List<string[]> airports = new List<string[]>
+        {
+            new string[] { "Istanbul", "Turkey", "3" },
+            new string[] { "Madrid", "Spain", "2" },
+            new string[] { "Frankfurt", "Germany", "1,5" },
+            new string[] { "Barcelona", "Spain", "2" },
+            new string[] { "Munich", "Germany", "1,5" },
+            new string[] { "Rome", "Italy", "2" },
+            new string[] { "Paris", "France", "1,5" },
+            new string[] { "Mallorca", "Spain", "2" },
+            new string[] { "Moscow", "Russia", "3" },
+            new string[] { "Lisbon", "Portugal", "2" },
+            new string[] { "Dublin", "Ireland", "1,5" },
+            new string[] { "Vienna", "Austria", "2" },
+            new string[] { "Manchester", "United Kingdom", "1" },
+            new string[] { "London", "United Kingdom", "1" },
+            new string[] { "Athens", "Greece", "3" },
+            new string[] { "Zurich", "Switzerland", "1,5" },
+            new string[] { "Berlin", "Germany", "1,5" }
+        };
     public static void AddFlight(){
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
@@ -15,29 +35,38 @@ public class AddingFlights{
         else if (gate.Length == 1){
             gate = "Gate 0" + gate;
         }
-
-        Console.Write("Country: ");
-        string country = Console.ReadLine()!;
-
-        Console.Write("City: ");
-        string city = Console.ReadLine()!;
-
         Console.Write("Flight Date (dd-MM-yyyy): ");
         DateTime flightDate;
         while (!DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
             Console.WriteLine("Invalid date format. Please enter the date in dd-MM-yyyy format.");
         }
-
         Console.Write("Departure Time (HH:mm:ss): ");
         DateTime departureTime;
         while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out departureTime)){
             Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
         }
 
-        Console.Write("Arrival Time (HH:mm:ss): ");
-        DateTime arrivalTime;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out arrivalTime)){
-            Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
+        string country = "";
+        string city = "";
+        string arrivalstring = "";
+        bool desselection = true;
+        while (desselection){
+            Console.WriteLine("Enter the new destination (City, Country): ");
+            string destination = Console.ReadLine()!;
+            if (destination != null && destination.Contains(",")){
+                string[] data = destination.Split(',');
+                foreach (string[] location in airports){
+                    if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
+                        double time = Convert.ToDouble(location[2]);
+                        DateTime arrival = departureTime.AddHours(time);
+                        arrivalstring = arrival.ToString("HH:mm:ss");
+                        country = data[0].Trim();
+                        city = data[1].Trim();
+                        desselection = false;
+                        break;
+                    }
+                }
+            }
         }
 
         int totalSeats = GetTotalSeats(airplaneType);
@@ -53,11 +82,11 @@ public class AddingFlights{
             FlightId = GetRandomNumber(),
             AirplaneType = airplaneType,
             Terminal = gate,
-            Country = country!,
-            Destination = city!,
+            Country = city,
+            Destination = country,
             FlightDate = flightDate.ToString("dd-MM-yyyy"),
             DepartureTime = departureTime.ToString("HH:mm:ss"),
-            ArrivalTime = arrivalTime.ToString("HH:mm:ss"),
+            ArrivalTime = arrivalstring,
             SeatsAvailable = seatsAvailable.ToString(),
             TotalSeats = totalSeats.ToString(),
             BasePrice = baseprice

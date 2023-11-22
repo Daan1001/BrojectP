@@ -1,31 +1,5 @@
 [
   {
-    "Flight id": "123456",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 01",
-    "Country": "Germany",
-    "Destination": "Munich",
-    "Flight date": "11-12-2023",
-    "Departure time": "10:30:00",
-    "Arrival time": "13:55:00",
-    "Seats Available": "175",
-    "Total Seats": "189",
-    "Base Price": "€20"
-  },
-  {
-    "Flight id": "286913",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 01",
-    "Country": "Italy",
-    "Destination": "Naples",
-    "Flight date": "22-12-2023",
-    "Departure time": "15:00:00",
-    "Arrival time": "18:00:00",
-    "Seats Available": "189",
-    "Total Seats": "189",
-    "Base Price": "€30"
-  },
-  {
     "Flight id": "105491",
     "Type Airplane": "Boeing 787",
     "Terminal": "Gate 03",
@@ -63,19 +37,6 @@
     "Seats Available": "170",
     "Total Seats": "170",
     "Base Price": "€22"
-  },
-  {
-    "Flight id": "567890",
-    "Type Airplane": "Boeing 737",
-    "Terminal": "Gate 04",
-    "Country": "Spain",
-    "Destination": "Madrid",
-    "Flight date": "15-03-2024",
-    "Departure time": "12:30:00",
-    "Arrival time": "16:00:00",
-    "Seats Available": "190",
-    "Total Seats": "200",
-    "Base Price": "€26"
   },
   {
     "Flight id": "901234",
@@ -117,19 +78,6 @@
     "Base Price": "€27"
   },
   {
-    "Flight id": "990011",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 04",
-    "Country": "Poland",
-    "Destination": "Warsaw",
-    "Flight date": "24-05-2024",
-    "Departure time": "12:00:00",
-    "Arrival time": "16:00:00",
-    "Seats Available": "189",
-    "Total Seats": "189",
-    "Base Price": "€25"
-  },
-  {
     "Flight id": "458491",
     "Type Airplane": "Boeing 787",
     "Terminal": "Gate 05",
@@ -154,5 +102,57 @@
     "Seats Available": "189",
     "Total Seats": "189",
     "Base Price": "€40"
+  },
+  {
+    "Flight id": "123456",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 03",
+    "Country": "Germany",
+    "Destination": "Hamburg",
+    "Flight date": "11-12-2023",
+    "Departure time": "10:30:00",
+    "Arrival time": "13:55:00",
+    "Seats Available": "170",
+    "Total Seats": "170",
+    "Base Price": "€20"
+  },
+  {
+    "Flight id": "644561",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 06",
+    "Country": "Greece",
+    "Destination": "Athens",
+    "Flight date": "22-12-2023",
+    "Departure time": "10:30:00",
+    "Arrival time": "15:30:00",
+    "Seats Available": "189",
+    "Total Seats": "189",
+    "Base Price": "€40"
+  },
+  {
+    "Flight id": "567890",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 04",
+    "Country": "Spain",
+    "Destination": "Madrid",
+    "Flight date": "15-03-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "17:00:00",
+    "Seats Available": "190",
+    "Total Seats": "200",
+    "Base Price": "€26"
+  },
+  {
+    "Flight id": "045583",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 05",
+    "Country": "Ireland",
+    "Destination": "Dublin",
+    "Flight date": "05-06-2024",
+    "Departure time": "12:00:00",
+    "Arrival time": "13:30:00",
+    "Seats Available": "170",
+    "Total Seats": "170",
+    "Base Price": "€50"
   }
 ]

@@ -1,14 +1,46 @@
 public class EditingFlights{
     // code that allows the admin to change flights.
+    public static List<string[]> airports = new List<string[]>
+        {
+            new string[] { "Istanbul", "Turkey", "3" },
+            new string[] { "Madrid", "Spain", "2" },
+            new string[] { "Frankfurt", "Germany", "1,5" },
+            new string[] { "Barcelona", "Spain", "2" },
+            new string[] { "Munich", "Germany", "1,5" },
+            new string[] { "Rome", "Italy", "2" },
+            new string[] { "Paris", "France", "1,5" },
+            new string[] { "Mallorca", "Spain", "2" },
+            new string[] { "Moscow", "Russia", "3" },
+            new string[] { "Lisbon", "Portugal", "2" },
+            new string[] { "Dublin", "Ireland", "1,5" },
+            new string[] { "Vienna", "Austria", "2" },
+            new string[] { "Manchester", "United Kingdom", "1" },
+            new string[] { "London", "United Kingdom", "1" },
+            new string[] { "Athens", "Greece", "3" },
+            new string[] { "Zurich", "Switzerland", "1,5" },
+            new string[] { "Berlin", "Germany", "1,5" }
+        };
     public static void EditDestination(Flight selectedFlight){
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");
         Console.WriteLine("Enter the new destination (City, Country): ");
         string destination = Console.ReadLine()!;
         if (destination != null && destination.Contains(",")){
             string[] data = destination.Split(',');
-            selectedFlight.Destination = data[0].Trim();
-            selectedFlight.Country = data[1].Trim();
-            AddingFlights.EditFlight(selectedFlight);
+            foreach (string[] location in airports){
+                if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
+                    selectedFlight.Destination = data[0].Trim();
+                    selectedFlight.Country = data[1].Trim();
+                    double time = Convert.ToDouble(location[2]);
+                    DateTime depart = Convert.ToDateTime(selectedFlight.DepartureTime);
+                    DateTime arrival = depart.AddHours(time);
+                    string arrivalstring = arrival.ToString("HH:mm:ss");
+                    selectedFlight.ArrivalTime = arrivalstring;
+                    Console.WriteLine($"Changed destination to {selectedFlight.Destination}, {selectedFlight.Country}");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    AddingFlights.EditFlight(selectedFlight);
+                }
+            }
         }
         else{
             Console.WriteLine("Invalid input, press any key to try again");
@@ -86,15 +118,17 @@ public class EditingFlights{
             Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
         }
         string departureTimestring = departureTime.ToString("HH:mm:ss");
-        Console.WriteLine("Current arrival time: " + selectedFlight.ArrivalTime);
-        Console.Write("enter new arrival time (HH:mm:ss): ");
-        DateTime arrivalTime;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out arrivalTime)){
-            Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
-        }
-        string arrivalTimestring = arrivalTime.ToString("HH:mm:ss");
         selectedFlight.DepartureTime = departureTimestring;
-        selectedFlight.ArrivalTime = arrivalTimestring;
+        foreach (string[] location in airports){
+                if (location[0] == selectedFlight.Destination && location[1] == selectedFlight.Country){
+                    double time = Convert.ToDouble(location[2]);
+                    DateTime depart = Convert.ToDateTime(selectedFlight.DepartureTime);
+                    DateTime arrival = depart.AddHours(time);
+                    string arrivalstring = arrival.ToString("HH:mm:ss");
+                    selectedFlight.ArrivalTime = arrivalstring;
+                    break;
+                }
+            }
         AddingFlights.EditFlight(selectedFlight);
     }
     public static void EditPrice(Flight selectedFlight){
