@@ -18,7 +18,9 @@ public class EditingFlights{
             new string[] { "London", "United Kingdom", "1" },
             new string[] { "Athens", "Greece", "3" },
             new string[] { "Zurich", "Switzerland", "1,5" },
-            new string[] { "Berlin", "Germany", "1,5" }
+            new string[] { "Berlin", "Germany", "1,5" },
+            new string[] { "Brussels", "Belgium", "1" },
+            new string[] { "Stockholm", "Sweden", "2,5" }
         };
     public static void EditDestination(Flight selectedFlight){
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");

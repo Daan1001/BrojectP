@@ -19,7 +19,9 @@ public class AddingFlights{
             new string[] { "London", "United Kingdom", "1" },
             new string[] { "Athens", "Greece", "3" },
             new string[] { "Zurich", "Switzerland", "1,5" },
-            new string[] { "Berlin", "Germany", "1,5" }
+            new string[] { "Berlin", "Germany", "1,5" },
+            new string[] { "Brussels", "Belgium", "1" },
+            new string[] { "Stockholm", "Sweden", "2,5" }
         };
     public static void AddFlight(){
         // Code that allows the admin to add flights

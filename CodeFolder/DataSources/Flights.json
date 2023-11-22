@@ -13,19 +13,6 @@
     "Base Price": "€20"
   },
   {
-    "Flight id": "789012",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 02",
-    "Country": "France",
-    "Destination": "Nice",
-    "Flight date": "12-12-2023",
-    "Departure time": "11:15:00",
-    "Arrival time": "14:30:00",
-    "Seats Available": "147",
-    "Total Seats": "150",
-    "Base Price": "€25"
-  },
-  {
     "Flight id": "345678",
     "Type Airplane": "Boeing 737",
     "Terminal": "Gate 05",
@@ -50,19 +37,6 @@
     "Seats Available": "240",
     "Total Seats": "240",
     "Base Price": "€28"
-  },
-  {
-    "Flight id": "445566",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 05",
-    "Country": "Switzerland",
-    "Destination": "Geneva",
-    "Flight date": "16-01-2024",
-    "Departure time": "13:45:00",
-    "Arrival time": "17:15:00",
-    "Seats Available": "150",
-    "Total Seats": "150",
-    "Base Price": "€22"
   },
   {
     "Flight id": "778899",
