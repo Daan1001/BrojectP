@@ -24,6 +24,7 @@ public class AddingFlights{
             new string[] { "Stockholm", "Sweden", "2,5" }
         };
     public static void AddFlight(){
+        Console.CursorVisible = true;
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
         Console.Write("Type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
@@ -77,6 +78,7 @@ public class AddingFlights{
         Console.Write("Base Price (in Euro): ");
         string baseprice = Console.ReadLine()!;
         baseprice = "€" + baseprice;
+        Console.CursorVisible = false;
 
         // Create a new Flight object
         var newFlight = new Flight
@@ -128,7 +130,7 @@ public class AddingFlights{
 
     public static void ChooseFlights(){
         List<string> option1 = new List<string>();
-        Console.WriteLine("Choose a flight to change");
+        Console.WriteLine("Choose a flight to change (Press any key to continue)");
         int LenCountry = 0;
         int LenDes = 0;
         foreach (Flight flight in flights){

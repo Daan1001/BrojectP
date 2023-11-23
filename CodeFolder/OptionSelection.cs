@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Security.Principal;
 public static class OptionSelection{
     private static String? selectedOption;
     private static int hoveringOption;
@@ -108,8 +109,8 @@ public static class OptionSelection{
             List<String> option2 = new List<string>();
             selectedFlight = selectedOption;
             selectedFlight2 = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
-            option2.Add("Edit");
-            option2.Add("Cancel");
+            option2.Add("Edit flight");
+            option2.Add("Cancel flight");
             option2.Add("<-- Go back");
             Start(option2);
         }
@@ -136,13 +137,13 @@ public static class OptionSelection{
                 case "Destination": //editing destination for flights
                     EditingFlights.EditDestination(selectedFlight2!);
                     break;
-                case "Edit": //editing flights
+                case "Edit flight": //editing flights
                     AddingFlights.EditFlight(selectedFlight2!);
                     break;
-                case "Cancel": //canceling flights
+                case "Cancel flight": //canceling flights
                     AddingFlights.CancelFlights(selectedFlight!);
                     break;
-                case "Add": //adding flights
+                case "Add flights": //adding flights
                     AddingFlights.AddFlight();
                     break;
                 case "Log in":
@@ -171,7 +172,18 @@ public static class OptionSelection{
                     AdminOptions.ViewAllAccount();
                     break;
                 case "Show flights":
-                    SelectingFlights.Start();
+                    if(MainMenu.currentUser is not null){
+                        if(MainMenu.currentUser.isAdmin){
+                            OptionSelection.Start(new List<string>{"Show flights","Edit flights", "<-- Go back"});
+                        } else {
+                        SelectingFlights.Start();
+                    }
+                    } else {
+                        SelectingFlights.Start();
+                    }
+                    break;
+                case "Edit flights":
+                    AddingFlights.ChooseFlights();
                     break;
                 case "Leave a review":
                     Review.CreateNewReviewInput();

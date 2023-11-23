@@ -3,6 +3,8 @@ public static class OptionSelection2<T>{
     private static int hoveringOption;
     private static bool ListSelected;
     private static bool ArraySelected;
+    public static string? selectedFlight;
+    public static Flight? selectedFlight2;
     private static ConsoleKeyInfo keyInfo;
     public static String[] GoBack = {"<-- Go back"};
     public static Boolean stop = false;
@@ -84,6 +86,37 @@ public static class OptionSelection2<T>{
 
     private static void Action(string selectedOption){
         switch (selectedOption){
+                
+                case "Save changes": //saving changes to flights
+                    AddingFlights.SaveChanges(selectedFlight2!);
+                    break;
+                case "Price": //editing prices for flights
+                    EditingFlights.EditPrice(selectedFlight2!);
+                    break;
+                case "Type airplane": //editing type airplane for flights
+                    EditingFlights.EditTypeAirplane(selectedFlight2!);
+                    break;
+                case "Gate": //editing gates for flights
+                    EditingFlights.EditGate(selectedFlight2!);
+                    break;
+                case "Date": //editing dates for flights
+                    EditingFlights.EditDate(selectedFlight2!);
+                    break;
+                case "Time": //editing time for flights
+                    EditingFlights.EditTime(selectedFlight2!);
+                    break;
+                case "Destination": //editing destination for flights
+                    EditingFlights.EditDestination(selectedFlight2!);
+                    break;
+                case "Edit flight": //editing flights
+                    AddingFlights.EditFlight(selectedFlight2!);
+                    break;
+                case "Cancel flight": //canceling flights
+                    AddingFlights.CancelFlights(selectedFlight!);
+                    break;
+                case "Add flights": //adding flights
+                    AddingFlights.AddFlight();
+                    break;
                 case "Log in":
                     Login.LogInInput();
                     MainMenu.Start();
@@ -110,6 +143,20 @@ public static class OptionSelection2<T>{
                     AdminOptions.ViewAllAccount();
                     break;
                 case "Show flights":
+                    if(MainMenu.currentUser is not null){
+                        if(MainMenu.currentUser.isAdmin){
+                            OptionSelection2<String>.Start(new List<string>{"Show flights ","Edit flights", "Add flights", "<-- Go back"});
+                        } else {
+                        SelectingFlights.Start();
+                    }
+                    } else {
+                        SelectingFlights.Start();
+                    }
+                    break;
+                case "Edit flights":
+                    AddingFlights.ChooseFlights();
+                    break;
+                case "Show flights ":
                     SelectingFlights.Start();
                     break;
                 case "Leave a review":
@@ -144,7 +191,7 @@ public static class OptionSelection2<T>{
                     break;
                 case "Book a seat":
                     Airplane airplane = new();
-                    airplane.Boeing737();
+                    // airplane.Boeing737();
                     break;
                 case "Exit":
                     Console.WriteLine("Goodbye!");

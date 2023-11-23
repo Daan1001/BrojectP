@@ -8,7 +8,7 @@
     "Flight date": "30-11-2023",
     "Departure time": "10:30:00",
     "Arrival time": "13:55:00",
-    "Seats Available": "183",
+    "Seats Available": "186",
     "Total Seats": "189",
     "Base Price": "€20"
   },
@@ -128,5 +128,18 @@
     "Seats Available": "170",
     "Total Seats": "170",
     "Base Price": "€50"
+  },
+  {
+    "Flight id": "352764",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 09",
+    "Country": "Spain",
+    "Destination": "Madrid",
+    "Flight date": "28-12-1966",
+    "Departure time": "13:00:00",
+    "Arrival time": "15:00:00",
+    "Seats Available": "189",
+    "Total Seats": "189",
+    "Base Price": "€100"
   }
 ]

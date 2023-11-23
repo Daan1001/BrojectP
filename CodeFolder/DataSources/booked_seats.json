@@ -1,68 +1,23 @@
 [
   {
-    "TypeClass": "First Class",
-    "Letter": "A",
-    "Row": 2,
-    "Booked": true,
-    "Price": 1320
-  },
-  {
-    "TypeClass": "First Class",
-    "Letter": "A",
-    "Row": 3,
-    "Booked": true,
-    "Price": 1320
-  },
-  {
-    "TypeClass": "First Class",
-    "Letter": "A",
-<<<<<<< HEAD
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 22,
-    "Booked": true
-  },
-  {
+    "TypeClass": "Business Class",
     "Letter": "B",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 21,
-    "Booked": true
-=======
-    "Row": 4,
+    "Row": 11,
     "Booked": true,
-    "Price": 1320
->>>>>>> 38814ab81affd187f635e36ca5942307914321cc
+    "Price": 700
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "B",
+    "Row": 12,
+    "Booked": true,
+    "Price": 700
+  },
+  {
+    "TypeClass": "Business Class",
+    "Letter": "B",
+    "Row": 13,
+    "Booked": true,
+    "Price": 700
   }
 ]

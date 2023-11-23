@@ -136,5 +136,11 @@
     "passwordHash": "82e986e3d5dac7b508229d1244be4f9d69b247322e11b5476b3c39a0f6e3e406",
     "isSuperAdmin": false,
     "isAdmin": false
+  },
+  {
+    "username": "testingname",
+    "passwordHash": "70805238f1f98619a20feb0fdce39d59b7a01291f48a6d106dd5f7ed68e7ef1b",
+    "isSuperAdmin": false,
+    "isAdmin": false
   }
 ]
