@@ -7,7 +7,7 @@
         // while (booking)
         // {
         List<string > Options = new List<string>(){"Book a seat","<-- Go back"};
-        OptionSelection.Start(Options);
+        OptionSelection<String>.Start(Options);
 
             // string? user = Console.ReadLine();
             // if (user == "1")

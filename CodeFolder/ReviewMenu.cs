@@ -3,10 +3,10 @@ public class ReviewMenu{
     public static void Start(){
         options.Clear();
         options.Add("Show reviews");
-        if(MainMenu.user != null){
+        if(MainMenu.currentUser != null){
             options.Add("Leave a review");
         } 
         options.Add("<-- Go back");
-        OptionSelection.Start(ReviewMenu.options);
+        OptionSelection<String>.Start(ReviewMenu.options);
     }
 }
