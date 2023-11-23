@@ -13,13 +13,8 @@ public class FlightSelection{
         Console.WriteLine("Booking flight for:");
         Console.WriteLine(clean2);
         Console.ReadKey();
-        Flight SelectedFlight = flights[1];
-        foreach (Flight flight in flights){
-            if (selectedOption.Substring(1, 6) == flight.FlightId){
-                SelectedFlight = flight;
-            }
-        }
-        if (SelectedFlight.AirplaneType == "Boeing 747"){
+        Flight SelectedFlight = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
+        if (SelectedFlight.AirplaneType == "Boeing 737"){
             Airplane airplane = new();
             airplane.Boeing737(SelectedFlight);
            

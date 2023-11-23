@@ -5,6 +5,8 @@ public static class OptionSelection{
     private static int hoveringOption;
     public static ConsoleKeyInfo keyInfo;
     public static Boolean stop = false;
+    public static string? selectedFlight;
+    public static Flight? selectedFlight2;
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static void Start(List<String> array){
         // MainMenu.AirportName();
@@ -46,6 +48,7 @@ public static class OptionSelection{
     // }
    
     public static void Action(String selectedOption){
+        flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<Flight> matchingFlights = new List<Flight>();
         foreach(Flight destination in flights){
             if (destination.Destination == selectedOption || destination.Country == selectedOption){
@@ -57,11 +60,50 @@ public static class OptionSelection{
             ShowFlights.DisplayFlights(matchingFlights);
         }
         string sub = selectedOption.Substring(0, 1);
-        if(sub == "|"){
+        if(sub == "|"){ //customer list with flights start with |
             FlightSelection.Selection(selectedOption);
+        }
+        if (sub == "["){ //Admin list with flights start with [
+            List<String> option2 = new List<string>();
+            selectedFlight = selectedOption;
+            selectedFlight2 = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
+            option2.Add("Edit");
+            option2.Add("Cancel");
+            option2.Add("<-- Go back");
+            Start(option2);
         }
         else{
             switch (selectedOption){
+                case "Save changes": //saving changes to flights
+                    AddingFlights.SaveChanges(selectedFlight2!);
+                    break;
+                case "Price": //editing prices for flights
+                    EditingFlights.EditPrice(selectedFlight2!);
+                    break;
+                case "Type airplane": //editing type airplane for flights
+                    EditingFlights.EditTypeAirplane(selectedFlight2!);
+                    break;
+                case "Gate": //editing gates for flights
+                    EditingFlights.EditGate(selectedFlight2!);
+                    break;
+                case "Date": //editing dates for flights
+                    EditingFlights.EditDate(selectedFlight2!);
+                    break;
+                case "Time": //editing time for flights
+                    EditingFlights.EditTime(selectedFlight2!);
+                    break;
+                case "Destination": //editing destination for flights
+                    EditingFlights.EditDestination(selectedFlight2!);
+                    break;
+                case "Edit": //editing flights
+                    AddingFlights.EditFlight(selectedFlight2!);
+                    break;
+                case "Cancel": //canceling flights
+                    AddingFlights.CancelFlights(selectedFlight!);
+                    break;
+                case "Add": //adding flights
+                    AddingFlights.AddFlight();
+                    break;
                 case "Log in":
                     User.LogInInput();
                     MainMenu.Start();
@@ -69,7 +111,6 @@ public static class OptionSelection{
                 case "Sign in": // sign in
                     User.NewUserInput();
                     MainMenu.Start();
-
                     break;
                 case "Log out":
                     MainMenu.user = null;
@@ -127,7 +168,12 @@ public static class OptionSelection{
                     ShowFlights.Column2(SortedTimeList);
                     break;
                 case "Sort by date":
-                    List<Flight> SortedDateList = flights.OrderBy(o=>o.FlightDate).ToList();
+                    var SortedDateList = flights.OrderBy(flight =>{
+                        if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
+                            return flightDate;
+                        }
+                        return DateTime.MinValue;
+                    }).ToList();
                     ShowFlights.Column2(SortedDateList);
                     break;
                 case "Sort by country":
@@ -156,5 +202,6 @@ public static class OptionSelection{
                     break;
             }
         }
+        
     }
 }
