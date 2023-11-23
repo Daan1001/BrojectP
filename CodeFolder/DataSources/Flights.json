@@ -52,19 +52,6 @@
     "Base Price": "€40"
   },
   {
-    "Flight id": "123456",
-    "Type Airplane": "Boeing 737",
-    "Terminal": "Gate 03",
-    "Country": "Germany",
-    "Destination": "Hamburg",
-    "Flight date": "11-12-2023",
-    "Departure time": "10:30:00",
-    "Arrival time": "13:55:00",
-    "Seats Available": "170",
-    "Total Seats": "170",
-    "Base Price": "€20"
-  },
-  {
     "Flight id": "644561",
     "Type Airplane": "Boeing 787",
     "Terminal": "Gate 06",
@@ -140,6 +127,19 @@
     "Arrival time": "13:55:00",
     "Seats Available": "186",
     "Total Seats": "189",
+    "Base Price": "€20"
+  },
+  {
+    "Flight id": "123456",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 03",
+    "Country": "Germany",
+    "Destination": "Hamburg",
+    "Flight date": "11-12-2023",
+    "Departure time": "10:30:00",
+    "Arrival time": "13:55:00",
+    "Seats Available": "170",
+    "Total Seats": "170",
     "Base Price": "€20"
   }
 ]

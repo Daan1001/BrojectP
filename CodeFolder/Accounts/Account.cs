@@ -25,6 +25,10 @@ public class Account: IEquatable<Account>{
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadKey();
     }
+    public static void ViewAllAccount(){
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        OptionSelection<Account>.Start(JsonFile<Account>.listOfObjects!, OptionSelection<Account>.GoBack);
+    }
 
     public override string ToString(){
         String accountType = "";

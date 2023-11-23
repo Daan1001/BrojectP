@@ -129,6 +129,7 @@ public class AddingFlights{
     }
 
     public static void ChooseFlights(){
+        flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<string> option1 = new List<string>();
         Console.WriteLine("Choose a flight to change (Press any key to continue)");
         int LenCountry = 0;
@@ -149,7 +150,7 @@ public class AddingFlights{
             option1.Add(data);
         }
         Console.ReadKey();
-        OptionSelection.Start(option1);
+        OptionSelection<String>.Start(option1);
     }
     public static void EditFlight(Flight selectedFlight){
         Console.Clear();
@@ -173,7 +174,7 @@ public class AddingFlights{
         option2.Add("Price");
         option2.Add("Save changes");
         option2.Add("<-- Go back");
-        OptionSelection.Start(option2);
+        OptionSelection<String>.Start(option2);
     }
     public static void CancelFlights(string selectedOption){
         // code that allows the admin to delete flights

@@ -7,6 +7,6 @@ public class ReviewMenu{
             options.Add("Leave a review");
         } 
         options.Add("<-- Go back");
-        OptionSelection.Start(ReviewMenu.options);
+        OptionSelection<String>.Start(ReviewMenu.options);
     }
 }

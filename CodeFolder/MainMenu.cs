@@ -23,7 +23,7 @@ public class MainMenu{
         }
         options.Add("Exit");
         // OptionSelection.Start(MainMenu.options);
-        OptionSelection2<String>.Start(MainMenu.options);
+        OptionSelection<String>.Start(MainMenu.options);
     }
     public static void AirportName(){
         Console.WriteLine(@"__________        __    __                   .___                      _____  .__       .__  .__                      ");

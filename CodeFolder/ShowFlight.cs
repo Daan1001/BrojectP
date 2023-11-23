@@ -23,7 +23,7 @@ public class ShowFlights{
             }
         }
         options.Add("<-- Go back");
-        OptionSelection.Start(options);
+        OptionSelection<String>.Start(options);
     }
     // Searches the flights list for matching cities
     public static void SearchFlghtsByCity(List<Flight>flights){
@@ -35,7 +35,7 @@ public class ShowFlights{
             }
         }
         options.Add("<-- Go back");
-        OptionSelection.Start(options);
+        OptionSelection<String>.Start(options);
     }
 
     // Method that displays all flights
@@ -108,6 +108,6 @@ public class ShowFlights{
             option1.Add("Sort by ...");
         }
         option1.Add("<-- Go back");
-        OptionSelection.Start(option1);
+        OptionSelection<String>.Start(option1);
     }
 }
