@@ -16,5 +16,4 @@ public static class JsonFile<T>{
         writer.Write(List2Json);
         writer.Close();
     }
-    
 }

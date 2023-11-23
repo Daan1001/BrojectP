@@ -105,15 +105,15 @@ public static class OptionSelection{
                     AddingFlights.AddFlight();
                     break;
                 case "Log in":
-                    Login.LogInInput();
+                    User.LogInInput();
                     MainMenu.Start();
                     break;
-                case "Sign in":
-                    NewAccount.MakeInput();
+                case "Sign in": // sign in
+                    User.NewUserInput();
                     MainMenu.Start();
                     break;
                 case "Log out":
-                    MainMenu.currentUser = null;
+                    MainMenu.user = null;
                     MainMenu.Start();
                     break;
                 case "Account information":

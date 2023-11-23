@@ -16,47 +16,8 @@
   {
     "TypeClass": "First Class",
     "Letter": "A",
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 21,
-    "Booked": true
+    "Row": 4,
+    "Booked": true,
+    "Price": 1320
   }
 ]
