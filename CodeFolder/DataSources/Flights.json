@@ -1,18 +1,5 @@
 [
   {
-    "Flight id": "105491",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 03",
-    "Country": "Germany",
-    "Destination": "Berlin",
-    "Flight date": "30-11-2023",
-    "Departure time": "10:30:00",
-    "Arrival time": "13:55:00",
-    "Seats Available": "186",
-    "Total Seats": "189",
-    "Base Price": "€20"
-  },
-  {
     "Flight id": "345678",
     "Type Airplane": "Boeing 737",
     "Terminal": "Gate 05",
@@ -21,7 +8,7 @@
     "Flight date": "13-12-2023",
     "Departure time": "11:45:00",
     "Arrival time": "14:55:00",
-    "Seats Available": "170",
+    "Seats Available": "167",
     "Total Seats": "170",
     "Base Price": "€22"
   },
@@ -37,19 +24,6 @@
     "Seats Available": "240",
     "Total Seats": "240",
     "Base Price": "€28"
-  },
-  {
-    "Flight id": "778899",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 09",
-    "Country": "Belgium",
-    "Destination": "Brussels",
-    "Flight date": "22-12-2023",
-    "Departure time": "14:15:00",
-    "Arrival time": "17:45:00",
-    "Seats Available": "210",
-    "Total Seats": "210",
-    "Base Price": "€27"
   },
   {
     "Flight id": "458491",
@@ -135,11 +109,37 @@
     "Terminal": "Gate 09",
     "Country": "Spain",
     "Destination": "Madrid",
-    "Flight date": "28-12-1966",
+    "Flight date": "23-01-2024",
     "Departure time": "13:00:00",
     "Arrival time": "15:00:00",
     "Seats Available": "189",
     "Total Seats": "189",
-    "Base Price": "€100"
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "778899",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 09",
+    "Country": "Belgium",
+    "Destination": "Brussels",
+    "Flight date": "22-12-2023",
+    "Departure time": "14:15:00",
+    "Arrival time": "17:45:00",
+    "Seats Available": "210",
+    "Total Seats": "210",
+    "Base Price": "€28"
+  },
+  {
+    "Flight id": "105491",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 03",
+    "Country": "Germany",
+    "Destination": "Berlin",
+    "Flight date": "30-11-2023",
+    "Departure time": "10:30:00",
+    "Arrival time": "13:55:00",
+    "Seats Available": "186",
+    "Total Seats": "189",
+    "Base Price": "€20"
   }
 ]

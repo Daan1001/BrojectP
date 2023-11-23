@@ -1,23 +1,23 @@
 [
   {
-    "TypeClass": "Business Class",
-    "Letter": "B",
-    "Row": 11,
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 4,
     "Booked": true,
-    "Price": 700
+    "Price": 1200
   },
   {
-    "TypeClass": "Business Class",
-    "Letter": "B",
-    "Row": 12,
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 5,
     "Booked": true,
-    "Price": 700
+    "Price": 1200
   },
   {
-    "TypeClass": "Business Class",
-    "Letter": "B",
-    "Row": 13,
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 6,
     "Booked": true,
-    "Price": 700
+    "Price": 1200
   }
 ]

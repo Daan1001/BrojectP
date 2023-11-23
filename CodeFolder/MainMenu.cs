@@ -17,6 +17,7 @@ public class MainMenu{
             }
         }
         if(currentUser is not null){
+
             options.Add("Account information");
             options.Add("Log out");
         }
