@@ -9,7 +9,6 @@ public static class OptionSelection{
     public static Flight? selectedFlight2;
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static void Start(List<String> array){
-        // MainMenu.AirportName();
         hoveringOption = 0;
         selectedOption = "";
         stop = false;
@@ -25,20 +24,62 @@ public static class OptionSelection{
                 Console.WriteLine(array[i]);
                 Console.ResetColor();
             }
-            // Read key press
             keyInfo = Console.ReadKey();
-            // Process arrow keys
             switch (keyInfo.Key){
                 case ConsoleKey.UpArrow:
-                    hoveringOption = Math.Max(0, hoveringOption - 1);
+                    hoveringOption--;
+                    if(hoveringOption <= -1){
+                        hoveringOption = array.Count() -1;
+                    }
                     break;
                 case ConsoleKey.DownArrow:
-                    hoveringOption = Math.Min(array.Count() - 1, hoveringOption + 1);
+                    hoveringOption++;
+                    if(hoveringOption >= array.Count()){
+                        hoveringOption = 0;
+                    }
                     break;
                 case ConsoleKey.Enter:
                     selectedOption = array[hoveringOption];
                     Console.WriteLine();
                     Action(selectedOption);
+                    break;
+            }
+        }
+    }
+    public static void Start2(List<Account> array){
+        hoveringOption = 0;
+        selectedOption = "";
+        stop = false;
+        Console.CursorVisible = false;
+        while(!stop){
+            Console.Clear();
+            MainMenu.AirportName();
+            for (int i = 0; i < array.Count(); i++){
+                if (i == hoveringOption){
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                Console.WriteLine(array[i]);
+                Console.ResetColor();
+            }
+            keyInfo = Console.ReadKey();
+            switch (keyInfo.Key){
+                case ConsoleKey.UpArrow:
+                    hoveringOption--;
+                    if(hoveringOption <= -1){
+                        hoveringOption = array.Count() -1;
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    hoveringOption++;
+                    if(hoveringOption >= array.Count()){
+                        hoveringOption = 0;
+                    }
+                    break;
+                case ConsoleKey.Enter:
+                    // selectedOption = array[hoveringOption];
+                    Console.WriteLine();
+                    // Action(selectedOption);
                     break;
             }
         }
@@ -105,20 +146,29 @@ public static class OptionSelection{
                     AddingFlights.AddFlight();
                     break;
                 case "Log in":
-                    User.LogInInput();
+                    Login.LogInInput();
                     MainMenu.Start();
                     break;
-                case "Sign in": // sign in
-                    User.NewUserInput();
+                case "Sign up":
+                    NewAccount.MakeInput();
                     MainMenu.Start();
                     break;
                 case "Log out":
-                    MainMenu.user = null;
+                    MainMenu.currentUser = null;
                     MainMenu.Start();
                     break;
                 case "Account information":
-                    Console.WriteLine("Still a W.I.P. (press any key to continue)");
-                    Console.ReadKey(); // alleen tijdens wip nodig
+                    if(MainMenu.currentUser!.isAdmin){
+                        OptionSelection.Start(new List<string>{"My account","All accounts", "<-- Go back"});
+                    } else {
+                        MainMenu.currentUser.AccountInformation();
+                    }
+                    break;
+                case "My account":
+                    MainMenu.currentUser!.AccountInformation();
+                    break;
+                case "All accounts":
+                    AdminOptions.ViewAllAccount();
                     break;
                 case "Show flights":
                     SelectingFlights.Start();

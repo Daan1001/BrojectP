@@ -24,7 +24,16 @@
     "Body": "go back"
   },
   {
+<<<<<<< HEAD
+    "Title": "hey",
+    "Body": "idk"
+  },
+  {
+    "Title": "fun",
+    "Body": "it made me smile"
+=======
     "Title": "help",
     "Body": "i need help"
+>>>>>>> 38814ab81affd187f635e36ca5942307914321cc
   }
 ]

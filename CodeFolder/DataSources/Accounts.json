@@ -1,6 +1,140 @@
 [
   {
-    "username": "user",
-    "encryptedPassword": "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb"
+    "username": "admin",
+    "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "isSuperAdmin": true,
+    "isAdmin": true
+  },
+  {
+    "username": "guest",
+    "passwordHash": "84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "guy",
+    "passwordHash": "3379feb6ae9fed3b989470c591c5aa7ec00269580b84f1737c9e63202645e4b2",
+    "isSuperAdmin": false,
+    "isAdmin": true
+  },
+  {
+    "username": "id",
+    "passwordHash": "a56145270ce6b3bebd1dd012b73948677dd618d496488bc608a3cb43ce3547dd",
+    "isSuperAdmin": false,
+    "isAdmin": true
+  },
+  {
+    "username": "test",
+    "passwordHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "test2",
+    "passwordHash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "itsMe",
+    "passwordHash": "cdfe1b48422d5d1f9a217b7c32d1469cd6f69f09e547dac11a0d2a48d0e2591c",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "itsYou",
+    "passwordHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "testing",
+    "passwordHash": "cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "uhh",
+    "passwordHash": "9390298f3fb0c5b160498935d79cb139aef28e1c47358b4bbba61862b9c26e59",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "testing3",
+    "passwordHash": "4af325730907dee07395eae018a79117911dea63876d7e1272c83cacbf89460a",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "letsgo",
+    "passwordHash": "660985a6d4237ef459dbcfdee97b2bd514e87c00f9f736aa33bc2fc7b7bba890",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "nono",
+    "passwordHash": "cf4cf7d42317e3447486c7962edf75533ed0f12caf63c9114abe89b09e26465a",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Daan",
+    "passwordHash": "853205c6097fc6f17f6800646842a893fda1ebbac49f55b0a6599bf92142c9a6",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Daan2",
+    "passwordHash": "2780122fdc721fc1e7cce4e2120dc876055eda39a116bd98f8988b9f7f8a69d0",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Daan3",
+    "passwordHash": "cc468e7be0e9d9602f880b99495e4a6c290053a5cbe913b2152344764277db61",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Jason",
+    "passwordHash": "f8a443e0dab64c55c1f6f73fc69750ffa376f5ef8766f4b1c756692c7dc84fc0",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "qwe",
+    "passwordHash": "18006e2ca1c2129392c66d87334bd2452c572058d406b4e85f43c1f72def10f5",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "sander",
+    "passwordHash": "20d0af9f6b8d922fe306524009f4c33b5b6aef739afc42735e8172f69c834be8",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Sander",
+    "passwordHash": "20d0af9f6b8d922fe306524009f4c33b5b6aef739afc42735e8172f69c834be8",
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Super1",
+    "passwordHash": "e8bc95d822b907b6211b6e5f154402fca9732bd0493b760a94f3d62dad65b335",
+    "isSuperAdmin": false,
+    "isAdmin": true
+  },
+  {
+    "username": "kkkk",
+    "passwordHash": "2d727fa82d5060442f1834cb6941450566f05b2577ad0db337ec15063f898af9",
+    "isSuperAdmin": true,
+    "isAdmin": true
+  },
+  {
+    "username": "Daantje",
+    "passwordHash": "82e986e3d5dac7b508229d1244be4f9d69b247322e11b5476b3c39a0f6e3e406",
+    "isSuperAdmin": false,
+    "isAdmin": false
   }
 ]
