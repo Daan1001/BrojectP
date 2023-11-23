@@ -41,7 +41,7 @@ public class Account: IEquatable<Account>{
 
     public bool Equals(Account? other)
     {
-        if(this is null || other is null){
+        if(other is null){
             return false;
         } else if(this.username == other?.username && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin){
             return true;
@@ -51,17 +51,17 @@ public class Account: IEquatable<Account>{
     }
     public static bool operator ==(Account one, Account two){
         if(one is null || two is null){
-            return false;
+            if (one is null){
+                return two is null;
+            } else{
+                return false;
+            }
         } else {
             return one.Equals(two);
         }
     }
     public static bool operator !=(Account one, Account two){
-        if(one is null || two is null){
-            return false;
-        } else {
-            return !(one == two);
-        }
+       return !(one == two);
     }
 
     // public static Account GetAccount(string Username)

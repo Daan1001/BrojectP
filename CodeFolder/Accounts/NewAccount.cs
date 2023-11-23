@@ -22,14 +22,14 @@ public static class NewAccount{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
-        if(MainMenu.currentUser != null){
+        if(MainMenu.currentUser != null){ 
             if(MainMenu.currentUser!.isSuperAdmin){ 
                 Console.WriteLine("Will it be an admin account? (Y/N)");
                 ConsoleKeyInfo KeyPressed;
                 do{
                     KeyPressed = Console.ReadKey();
                     Console.WriteLine();
-                } while(!(KeyPressed.Key != ConsoleKey.Y || KeyPressed.Key != ConsoleKey.N));
+                } while(!(KeyPressed.Key == ConsoleKey.Y || KeyPressed.Key == ConsoleKey.N));
                 newStandardAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 if(newStandardAdminAccount){
                     Console.WriteLine("Will it be a super admin account? (Y/N)");

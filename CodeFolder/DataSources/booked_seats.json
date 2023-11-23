@@ -1,137 +1,68 @@
 [
   {
+    "TypeClass": "First Class",
+    "Letter": "A",
+    "Row": 2,
+    "Booked": true,
+    "Price": 1320
+  },
+  {
+    "TypeClass": "First Class",
     "Letter": "A",
     "Row": 3,
+    "Booked": true,
+    "Price": 1320
+  },
+  {
+    "TypeClass": "First Class",
+    "Letter": "A",
+<<<<<<< HEAD
+    "Row": 29,
+    "Booked": true
+  },
+  {
+    "Letter": "D",
+    "Row": 22,
+    "Booked": true
+  },
+  {
+    "Letter": "C",
+    "Row": 22,
+    "Booked": true
+  },
+  {
+    "Letter": "B",
+    "Row": 22,
     "Booked": true
   },
   {
     "Letter": "A",
+    "Row": 22,
+    "Booked": true
+  },
+  {
+    "Letter": "A",
+    "Row": 21,
+    "Booked": true
+  },
+  {
+    "Letter": "B",
+    "Row": 21,
+    "Booked": true
+  },
+  {
+    "Letter": "C",
+    "Row": 21,
+    "Booked": true
+  },
+  {
+    "Letter": "D",
+    "Row": 21,
+    "Booked": true
+=======
     "Row": 4,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 5,
-    "Booked": true
-  },
-  {
-    "Letter": "E",
-    "Row": 5,
-    "Booked": true
-  },
-  {
-    "Letter": "F",
-    "Row": 5,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 9,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 9,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 10,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 10,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 13,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 13,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 2,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 2,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 28,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 28,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 29,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 22,
-    "Booked": true
-  },
-  {
-    "Letter": "A",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "B",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "C",
-    "Row": 21,
-    "Booked": true
-  },
-  {
-    "Letter": "D",
-    "Row": 21,
-    "Booked": true
+    "Booked": true,
+    "Price": 1320
+>>>>>>> 38814ab81affd187f635e36ca5942307914321cc
   }
 ]
