@@ -11,45 +11,53 @@ public class Boeing787 : DisplaySeating
             for (int row = 1; row <= 6; row++)
             {
                 Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                int seatPrice = (letter == 'A' || letter == 'F') ? (int)(firstClassPrice * 1.2) : firstClassPrice;
+
                 if (existingSeat != null)
                 {
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
                 else
                 {
-                    new FirstClass("First Class", letter, row, false, firstClassPrice);
+                    new FirstClass("First Class", letter, row, false, seatPrice);
                 }
             }
         }
+
         // Initialize business-class seats
         for (char letter = 'A'; letter <= 'I'; letter++)
         {
             for (int row = 7; row <= 16; row++)
             {
                 Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                int seatPrice = (letter == 'A' || letter == 'I') ? (int)(businessClassPrice * 1.2) : businessClassPrice;
+
                 if (existingSeat != null)
                 {
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
                 else
                 {
-                    new BusinessClass("Business Class", letter, row, false, businessClassPrice);
+                    new BusinessClass("Business Class", letter, row, false, seatPrice);
                 }
             }
         }
+
         // Initialize economy-class seats
         for (char letter = 'A'; letter <= 'I'; letter++)
         {
             for (int row = 17; row <= 28; row++)
             {
                 Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                int seatPrice = (letter == 'A' || letter == 'I') ? (int)(economyClassPrice * 1.2) : economyClassPrice;
+
                 if (existingSeat != null)
                 {
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
                 else
                 {
-                    new EconomyClass("Economy Class", letter, row, false, economyClassPrice);
+                    new EconomyClass("Economy Class", letter, row, false, seatPrice);
                 }
             }
         }

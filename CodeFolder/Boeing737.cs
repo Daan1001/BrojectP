@@ -5,23 +5,34 @@ public class Boeing737 : DisplaySeating
     public Boeing737(char letter, int numbers) : base (letter, numbers) {}
 
     public override void InitializeSeats(int firstClassPrice = 0, int businessClassPrice = 0, int economyClassPrice = 500)
-    {
-        for (char letter = 'A'; letter <= LetterSeat; letter++){
-            for (int row = 1; row <= NumberOfRows; row++){
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
-                if (existingSeat != null){
-                    // The seat is already booked (based on the JSON data)
-                    new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
+{
+    for (char letter = 'A'; letter <= LetterSeat; letter++){
+        for (int row = 1; row <= NumberOfRows; row++){
+            Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+            if (existingSeat != null){
+                // The seat is already booked (based on the JSON data)
+                new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
+            }
+            else{
+                // The seat is not in the list of booked seats (initialize as unbooked)
+                bool isFirstLetter = letter == 'A';
+                bool isLastLetter = letter == LetterSeat;
+                int seatPrice;
+                if (isFirstLetter || isLastLetter){
+                    // Increase the price by 20%
+                    seatPrice = economyClassPrice + (int)(economyClassPrice * 0.2);
                 }
                 else{
-                    // The seat is not in the list of booked seats (initialize as unbooked)
-                    bool isExtraLegroom = row == 16 || row == 17;
-                    int seatPrice = isExtraLegroom ? economyClassPrice + 30 : economyClassPrice; // Extra 30 euros for extra legroom
-                    new EconomyClass("Economy Class", letter, row, false, seatPrice);
+                    // Regular price
+                    seatPrice = economyClassPrice;
                 }
+                bool isExtraLegroom = row == 16 || row == 17;
+                seatPrice = isExtraLegroom ? seatPrice + 30 : seatPrice; // Extra 30 euros for extra legroom
+                new EconomyClass("Economy Class", letter, row, false, seatPrice);
             }
         }
     }
+}
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
