@@ -2,8 +2,8 @@ using Newtonsoft.Json;
 
 public class DisplaySeating 
 {
-    static int cursorRow = 0;
-    static int cursorSeat = 0;
+    protected static int cursorRow = 0;
+    public static int cursorSeat = 0;
     public static List<Seat> bookedSeats = new List<Seat>();
     public static List<Seat> TemporarlySeat = new List<Seat>();
 
@@ -15,7 +15,7 @@ public class DisplaySeating
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
     }
-    public void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    public virtual void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++)
         {
@@ -73,7 +73,7 @@ public class DisplaySeating
         }
     }
 
-    public void Start(Flight CurrentFlight)
+    public virtual void Start(Flight CurrentFlight)
     {
         cursorRow = 1;  
         cursorSeat = 0; 
@@ -166,7 +166,7 @@ public class DisplaySeating
             Start(CurrentFlight);
         }
     }
-   public void DisplaySeats()
+   public virtual void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
@@ -349,7 +349,7 @@ public class DisplaySeating
         return key.Key == ConsoleKey.Y;
     }
 
-    public void MoveUp()
+    public virtual void MoveUp()
     {
         if (cursorRow > 1)
         {
@@ -362,7 +362,7 @@ public class DisplaySeating
         }
     }
 
-    public void MoveDown()
+    public virtual void MoveDown()
     {
         if (cursorRow < this.NumberOfRows)
         {
