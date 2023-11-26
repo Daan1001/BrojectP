@@ -156,7 +156,7 @@ public class AddingFlights{
         Console.Clear();
         Console.WriteLine("Editing flight for:");
         string FlightID = $"{selectedFlight.SeatsAvailable}/{selectedFlight.TotalSeats}";
-        string data = $"[{selectedFlight.FlightId, -6} | {selectedFlight.Terminal, -7} | {selectedFlight.Destination, -10} | {selectedFlight.Country, -10} | {selectedFlight.FlightDate, -10} | {selectedFlight.DepartureTime, -8} | {selectedFlight.ArrivalTime, -8} | {selectedFlight.AirplaneType, -10} |{FlightID, -7} | {selectedFlight.BasePrice, -3:C} ]";
+        string data = $"|{selectedFlight.FlightId, -6} | {selectedFlight.Terminal, -7} | {selectedFlight.Destination, -10} | {selectedFlight.Country, -10} | {selectedFlight.FlightDate, -10} | {selectedFlight.DepartureTime, -8} | {selectedFlight.ArrivalTime, -8} | {selectedFlight.AirplaneType, -10} | {FlightID, -7} | {selectedFlight.BasePrice, -3:C} |";
         string clean = FlightSelection.RemoveWhitespace(data);
         string clean2 = "|";
         string[] stringarray = clean.Split("|");
