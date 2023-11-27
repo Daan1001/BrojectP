@@ -148,11 +148,14 @@ public class Boeing787 : DisplaySeating
 
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
         Console.WriteLine(" Use arrow keys to navigate and press Enter to select a seat.");
-        Console.WriteLine("'Red': Booked Seat.");
-        Console.WriteLine("'Green': First-Class Seat.");
-        Console.WriteLine("'Blue': Business Class Seat.");
-        Console.WriteLine("'White'': Available Seat.");
-        Console.WriteLine("'BACKSPACE': To unselect a seat.");
+        Color.Red(" Red:", false);
+        Console.WriteLine(" Booked Seat.");
+        Color.Green(" Green:", false);
+        Console.WriteLine(" First-Class Seat.");
+        Color.Blue(" Blue:", false);
+        Console.WriteLine(" Business Class Seat.");
+        Console.WriteLine(" White: Available Seat.");
+        Console.WriteLine(" BACKSPACE: To unselect a seat.");
         Console.WriteLine(" Press ESC to finish the booking.");
         Console.WriteLine();
     }
@@ -241,6 +244,7 @@ public class Boeing787 : DisplaySeating
         else{
             // Roll back the booked seats to available
             foreach (var seat in TemporarlySeat){
+                
                 seat.ResetSeat();
             }
             Console.Clear();

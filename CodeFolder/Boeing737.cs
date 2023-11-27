@@ -5,34 +5,34 @@ public class Boeing737 : DisplaySeating
     public Boeing737(char letter, int numbers) : base (letter, numbers) {}
 
     public override void InitializeSeats(int firstClassPrice = 0, int businessClassPrice = 0, int economyClassPrice = 500)
-{
-    for (char letter = 'A'; letter <= LetterSeat; letter++){
-        for (int row = 1; row <= NumberOfRows; row++){
-            Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
-            if (existingSeat != null){
-                // The seat is already booked (based on the JSON data)
-                new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
-            }
-            else{
-                // The seat is not in the list of booked seats (initialize as unbooked)
-                bool isFirstLetter = letter == 'A';
-                bool isLastLetter = letter == LetterSeat;
-                int seatPrice;
-                if (isFirstLetter || isLastLetter){
-                    // Increase the price by 20%
-                    seatPrice = economyClassPrice + (int)(economyClassPrice * 0.2);
+    {
+        for (char letter = 'A'; letter <= LetterSeat; letter++){
+            for (int row = 1; row <= NumberOfRows; row++){
+                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                if (existingSeat != null){
+                    // The seat is already booked (based on the JSON data)
+                    new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
                 else{
-                    // Regular price
-                    seatPrice = economyClassPrice;
+                    // The seat is not in the list of booked seats (initialize as unbooked)
+                    bool isFirstLetter = letter == 'A';
+                    bool isLastLetter = letter == LetterSeat;
+                    int seatPrice;
+                    if (isFirstLetter || isLastLetter){
+                        // Increase the price by 20%
+                        seatPrice = economyClassPrice + (int)(economyClassPrice * 0.2);
+                    }
+                    else{
+                        // Regular price
+                        seatPrice = economyClassPrice;
+                    }
+                    bool isExtraLegroom = row == 16 || row == 17;
+                    seatPrice = isExtraLegroom ? seatPrice + 30 : seatPrice; // Extra 30 euros for extra legroom
+                    new EconomyClass("Economy Class", letter, row, false, seatPrice);
                 }
-                bool isExtraLegroom = row == 16 || row == 17;
-                seatPrice = isExtraLegroom ? seatPrice + 30 : seatPrice; // Extra 30 euros for extra legroom
-                new EconomyClass("Economy Class", letter, row, false, seatPrice);
             }
         }
     }
-}
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
@@ -89,11 +89,13 @@ public class Boeing737 : DisplaySeating
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
         Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
-        Console.WriteLine("'Red': Booked Seat.");
-        Console.WriteLine("'Yellow': Extra legroom seat.");
-        Console.WriteLine("'White'': Available Seat.");
-        Console.WriteLine("'BACKSPACE': To unselect a seat.");
-        Console.WriteLine("Press ESC to finish the booking.");
+        Color.Red(" Red:", false);
+        Console.WriteLine(" Booked Seat.");
+        Color.Yellow(" Yelow:", false);
+        Console.WriteLine(" Extra legroom seat.");
+        Console.WriteLine(" White: Available Seat.");
+        Console.WriteLine(" BACKSPACE: To unselect a seat.");
+        Console.WriteLine(" Press ESC to finish the booking.");
         Console.WriteLine();
     }
     public override void Start(Flight CurrentFlight)
