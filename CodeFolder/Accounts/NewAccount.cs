@@ -3,20 +3,22 @@ public static class NewAccount{
     private static Boolean newSuperAdminAccount = false;
 
     public static void Make(String username, String password){
-        JsonFile<Account>.Read("DataSources/Accounts.json");
-        if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
-            Console.WriteLine("This Username is already in use.");
-            return;
+        if(Password.CheckPasswordSecurity(password)){
+            JsonFile<Account>.Read("DataSources/Accounts.json");
+            if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
+                Console.WriteLine("This Username is already in use.");
+                return;
+            }
+            
+            JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, newStandardAdminAccount, newSuperAdminAccount));
+            Console.Write("New ");
+            if(newStandardAdminAccount){
+                Console.Write("admin ");
+            } else if(newSuperAdminAccount){
+                Console.Write("super admin ");
+            }
+            Console.WriteLine("account created!");
         }
-        
-        JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, newStandardAdminAccount, newSuperAdminAccount));
-        Console.Write("New ");
-        if(newStandardAdminAccount){
-            Console.Write("admin ");
-        } else if(newSuperAdminAccount){
-            Console.Write("super admin ");
-        }
-        Console.WriteLine("account created!");
     }
     public static void MakeInput(){
         Console.Clear();

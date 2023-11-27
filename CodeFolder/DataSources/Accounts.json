@@ -6,15 +6,27 @@
     "isAdmin": true
   },
   {
-    "username": "test",
-    "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "isSuperAdmin": false,
-    "isAdmin": false
+    "username": "IkBenSander",
+    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
+    "isSuperAdmin": true,
+    "isAdmin": true
   },
   {
-    "username": "Sander",
-    "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
+    "username": "IkBenSander",
+    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
     "isSuperAdmin": true,
+    "isAdmin": true
+  },
+  {
+    "username": "IkBenSander",
+    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
+    "isSuperAdmin": false,
+    "isAdmin": true
+  },
+  {
+    "username": "Testing",
+    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
+    "isSuperAdmin": false,
     "isAdmin": true
   }
 ]

@@ -5,6 +5,7 @@ public static class OptionSelection<T>{
     private static bool ArraySelected;
     public static string? selectedFlight;
     public static Flight? selectedFlight2;
+    public static Account? selectedAccount;
     private static ConsoleKeyInfo keyInfo;
     public static String[] GoBack = {"<-- Go back"};
     public static Boolean stop = false;
@@ -72,7 +73,7 @@ public static class OptionSelection<T>{
                     if(hoveringOption >= list.Count()){
                         String selectedOption = array![hoveringOption-list.Count()];
                         Console.WriteLine();
-                        Action(selectedOption);
+                        ActionString(selectedOption);
                     } else {
                         selectedOption = list[hoveringOption];
                         Console.WriteLine();
@@ -84,7 +85,7 @@ public static class OptionSelection<T>{
         }
     }
 
-    private static void Action(string selectedOption){
+    private static void ActionString(string selectedOption){
         List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<Flight> matchingFlights = new List<Flight>();
         foreach(Flight destination in flights){
@@ -202,6 +203,8 @@ public static class OptionSelection<T>{
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
             case "<-- Go back":
+                OptionSelection<String>.selectedAccount = null;
+                OptionSelection<Account>.selectedAccount = null;
                 MainMenu.Start();
                 break;
             case "Airport contact details":
@@ -216,10 +219,59 @@ public static class OptionSelection<T>{
             //     Airplane airplane = new();
             //     // airplane.Boeing737();
             //     break;
+            case "Sort by ...":
+                    List<String> option1 = new List<string>();
+                    option1.Add("Sort by country");
+                    option1.Add("Sort by city");
+                    option1.Add("Sort by price");
+                    option1.Add("Sort by type airplane");
+                    option1.Add("Sort by date");
+                    option1.Add("Sort by departure time");
+                    OptionSelection<String>.Start(option1);
+                    break;
+                case "Sort by departure time":
+                    List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
+                    ShowFlights.Column2(SortedTimeList);
+                    break;
+                case "Sort by date":
+                    var SortedDateList = flights.OrderBy(flight =>{
+                        if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
+                            return flightDate;
+                        }
+                        return DateTime.MinValue;
+                    }).ToList();
+                    ShowFlights.Column2(SortedDateList);
+                    break;
+                case "Sort by country":
+                    List<Flight> SortedCountryList = flights.OrderBy(o=>o.Country).ToList();
+                    ShowFlights.Column2(SortedCountryList);
+                    break;
+                case "Sort by city":
+                    List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
+                    ShowFlights.Column2(SortedCityList);
+                    break;
+                case "Sort by type airplane":
+                    List<Flight> SortedTypePlaneList = flights.OrderBy(o=>o.AirplaneType).ToList();
+                    ShowFlights.Column2(SortedTypePlaneList);
+                    break;
+                case "Sort by price":
+                    List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();
+                    ShowFlights.Column2(SortedPriceList);
+                    break;
             case "Exit":
                 Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
                 break;
+            case "Delete account(!)":
+                selectedAccount!.DeleteFromJson();
+                Console.WriteLine("Account deleted");
+                Console.ReadKey();
+                Account.ViewAllAccount();
+                break; 
+            case "Reset password":
+                selectedAccount!.ChangePassword();
+                Account.ViewAllAccount();
+                break; 
             // default:
             //     Console.WriteLine("Still a W.I.P. (press any key to continue)");
             //     Console.ReadKey(); // alleen tijdens wip nodig
@@ -229,11 +281,32 @@ public static class OptionSelection<T>{
 
     public static void Action(T selectedOption){
         if(selectedOption is String){
-            Action((selectedOption as String)!);
+            if(selectedAccount is not null){
+                String[] Strings = (selectedOption as String)!.Split(":");
+                switch (Strings[0]){ 
+                case "Username": //saving changes to flights
+                    selectedAccount.changeUsername();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                case "Is Admin": //editing prices for flights
+                    selectedAccount.switchAdminBoolean();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                case "Is Super Admin": //editing type airplane for flights
+                    selectedAccount.switchSuperAdminBoolean();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                }
+            }
+            ActionString((selectedOption as String)!);
         } else if(selectedOption is Account){
             JsonFile<Account>.Read("DataSources/Accounts.json");
             for(int i = 0; i < JsonFile<Account>.listOfObjects!.Count(); i++){
                 if(JsonFile<Account>.listOfObjects![i] == (selectedOption as Account)!){
+                    selectedAccount = selectedOption as Account;
                     (selectedOption as Account)!.AccountInformation();
                 }
             }
