@@ -13,12 +13,10 @@ public class Boeing787 : DisplaySeating
                 Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'F') ? (int)(firstClassPrice * 1.2) : firstClassPrice;
 
-                if (existingSeat != null)
-                {
+                if (existingSeat != null){
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
-                else
-                {
+                else{
                     new FirstClass("First Class", letter, row, false, seatPrice);
                 }
             }
