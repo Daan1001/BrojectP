@@ -2,31 +2,7 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "isSuperAdmin": true,
-    "isAdmin": true
-  },
-  {
-    "username": "IkBenSander",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "isSuperAdmin": true,
-    "isAdmin": true
-  },
-  {
-    "username": "IkBenSander",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "isSuperAdmin": true,
-    "isAdmin": true
-  },
-  {
-    "username": "IkBenSander",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "isSuperAdmin": false,
-    "isAdmin": true
-  },
-  {
-    "username": "Testing",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "isSuperAdmin": false,
-    "isAdmin": true
+    "isAdmin": true,
+    "isSuperAdmin": true
   }
 ]

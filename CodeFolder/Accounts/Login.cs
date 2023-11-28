@@ -26,7 +26,5 @@ public static class Login{
         LogIn(a!, b!);
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
-
-        
     }
 }

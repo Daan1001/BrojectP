@@ -5,11 +5,9 @@ public static class NewAccount{
     public static void Make(String username, String password){
         if(Password.CheckPasswordSecurity(password)){
             JsonFile<Account>.Read("DataSources/Accounts.json");
-            if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
-                Console.WriteLine("This Username is already in use.");
+            if(CheckUsernamesExistence(username)){
                 return;
             }
-            
             JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, newStandardAdminAccount, newSuperAdminAccount));
             Console.Write("New ");
             if(newStandardAdminAccount){
@@ -24,7 +22,7 @@ public static class NewAccount{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
-        if(MainMenu.currentUser != null){ 
+        if(MainMenu.currentUser! != null!){ 
             if(MainMenu.currentUser!.isSuperAdmin){ 
                 Console.WriteLine("Will it be an admin account? (Y/N)");
                 ConsoleKeyInfo KeyPressed;
@@ -48,7 +46,7 @@ public static class NewAccount{
         Console.WriteLine("Fill in the username:");
         do{
             username = Console.ReadLine()!;
-        } while(username == "");
+        } while(!CheckUsernameSecurity(username));
         Console.WriteLine("Fill in the password: (Password must be 8 characters long and contain both at least one number and symbol)");
         do{
             password = Console.ReadLine()!;
@@ -57,5 +55,26 @@ public static class NewAccount{
         Make(username, password);
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
+    }
+
+    public static bool CheckUsernameSecurity(String username){
+        if(CheckUsernamesExistence(username)){
+            return false;
+        } else if(username == ""){
+            Console.WriteLine("The username may not be empty.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static bool CheckUsernamesExistence(String username){
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        if(JsonFile<Account>.listOfObjects!.Any(Account => Account.username == username)){
+            Console.WriteLine("This username is already in use.");
+            return true;
+        } else {
+            return false;
+        }
     }
 }
