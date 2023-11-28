@@ -228,6 +228,7 @@ public class DisplaySeating
     public void SelectAndBookSeat()
     {
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+        //Seat? selectedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
         if (selectedSeat != null && selectedSeat.Booked == false)
         {
@@ -240,14 +241,15 @@ public class DisplaySeating
 
     public void UnselectSeat()
     {
-        Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+        //Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+        Seat? selectedSeat = TemporarlySeat.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
         if (selectedSeat != null)
         {
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
-            bookedSeats.Remove(selectedSeat); // Remove the seat from the bookedSeats list
+            TemporarlySeat.Remove(selectedSeat); // Remove the seat from the bookedSeats list
         }
 
         // DisplaySeats(); // Display the seats again without the selection
