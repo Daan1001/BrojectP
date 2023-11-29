@@ -13,23 +13,30 @@ public class FlightSelection{
         Console.WriteLine("Booking flight for:");
         Console.WriteLine(clean2);
         Console.ReadKey();
-        Flight SelectedFlight = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
+        Flight SelectedFlight = flights[1];
+        foreach (Flight flight in flights){
+            if (selectedOption.Substring(1, 6) == flight.FlightId){
+                SelectedFlight = flight;
+            }
+        }
         if (SelectedFlight.AirplaneType == "Boeing 737"){
-            Airplane airplane = new();
-            airplane.Boeing737(SelectedFlight);
+            
+            Boeing737 boeing737 = new('F', 33);
+            boeing737.Start(SelectedFlight);
            
         }
         else if (SelectedFlight.AirplaneType == "Airbus 330"){
             Airplane airplane = new();
+            // Airbus330 airbus330 = new('I',44);
+            // airbus330.Start(SelectedFlight);
             airplane.Airbus330(SelectedFlight);
         }
         else if (SelectedFlight.AirplaneType == "Boeing 787"){
-            Airplane airplane = new();
-            airplane.Boeing787(SelectedFlight);
+            Boeing787 boeing787 = new('I',28);
+            boeing787.Start(SelectedFlight);
         }
     }
     public static string RemoveWhitespace(string input){
         return new string(input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray());
     }
 }
-

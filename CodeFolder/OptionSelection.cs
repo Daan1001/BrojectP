@@ -229,35 +229,35 @@ public static class OptionSelection<T>{
                     option1.Add("Sort by departure time");
                     OptionSelection<String>.Start(option1);
                     break;
-                case "Sort by departure time":
-                    List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
-                    ShowFlights.Column2(SortedTimeList);
-                    break;
-                case "Sort by date":
-                    var SortedDateList = flights.OrderBy(flight =>{
-                        if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
-                            return flightDate;
-                        }
-                        return DateTime.MinValue;
-                    }).ToList();
-                    ShowFlights.Column2(SortedDateList);
-                    break;
-                case "Sort by country":
-                    List<Flight> SortedCountryList = flights.OrderBy(o=>o.Country).ToList();
-                    ShowFlights.Column2(SortedCountryList);
-                    break;
-                case "Sort by city":
-                    List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
-                    ShowFlights.Column2(SortedCityList);
-                    break;
-                case "Sort by type airplane":
-                    List<Flight> SortedTypePlaneList = flights.OrderBy(o=>o.AirplaneType).ToList();
-                    ShowFlights.Column2(SortedTypePlaneList);
-                    break;
-                case "Sort by price":
-                    List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();
-                    ShowFlights.Column2(SortedPriceList);
-                    break;
+            case "Sort by departure time":
+                List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
+                ShowFlights.Column2(SortedTimeList);
+                break;
+            case "Sort by date":
+                var SortedDateList = flights.OrderBy(flight =>{
+                    if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
+                        return flightDate;
+                    }
+                    return DateTime.MinValue;
+                }).ToList();
+                ShowFlights.Column2(SortedDateList);
+                break;
+            case "Sort by country":
+                List<Flight> SortedCountryList = flights.OrderBy(o=>o.Country).ToList();
+                ShowFlights.Column2(SortedCountryList);
+                break;
+            case "Sort by city":
+                List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
+                ShowFlights.Column2(SortedCityList);
+                break;
+            case "Sort by type airplane":
+                List<Flight> SortedTypePlaneList = flights.OrderBy(o=>o.AirplaneType).ToList();
+                ShowFlights.Column2(SortedTypePlaneList);
+                break;
+            case "Sort by price":
+                List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();
+                ShowFlights.Column2(SortedPriceList);
+                break;
             case "Exit":
                 Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
