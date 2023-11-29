@@ -213,9 +213,15 @@ public class Boeing787 : DisplaySeating
                     break;
             }
         }
-        bool confirmBooking = ConfirmBooking(CurrentFlight); // Ask for confirmation after finishing the booking
+        bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
         if (confirmBooking)
         {
+            if (MainMenu.currentUser! != null!){
+                MainMenu.currentUser.DeleteFromJson();
+                MainMenu.currentUser.AccountFlights.Add(CurrentFlight);
+                JsonFile<Account>.Read("DataSources/Accounts.json");
+                JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+            }
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
