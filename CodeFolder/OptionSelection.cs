@@ -28,7 +28,17 @@ public static class OptionSelection<T>{
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
-                Console.WriteLine(list[i]);
+                if(list[i] as String == "Exit" || list[i] as String == "Delete account(!)"){
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(list[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                } else if(list[i] is String && (list[i] as String)!.ToUpper().Contains("ADD")){
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(list[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                } else {
+                    Console.WriteLine(list[i]);
+                }
                 Console.ResetColor();
             }
             if(array is not null){
