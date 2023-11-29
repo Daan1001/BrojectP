@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Boeing737 : DisplaySeating
+public class Boeing737 : Airplane
 {
     public Boeing737(char letter, int numbers) : base (letter, numbers) {}
 
@@ -8,7 +8,7 @@ public class Boeing737 : DisplaySeating
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             for (int row = 1; row <= NumberOfRows; row++){
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 if (existingSeat != null){
                     // The seat is already booked (based on the JSON data)
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);

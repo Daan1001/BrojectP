@@ -39,7 +39,7 @@ public class Seat
             //Console.WriteLine($"Price: €{this.Price}");
             Console.WriteLine($"Price: {this.Price} Euro");
             Console.WriteLine("booked successfully!");
-            DisplaySeating.bookedSeats.Add(this);
+            Airplane.bookedSeats.Add(this);
         }
         else
         {

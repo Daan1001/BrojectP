@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Boeing787 : DisplaySeating
+public class Boeing787 : Airplane
 {
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice = 1000, int businessClassPrice = 750, int economyClassPrice = 500)
@@ -10,7 +10,7 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 1; row <= 6; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'F') ? (int)(firstClassPrice * 1.2) : firstClassPrice;
 
                 if (existingSeat != null){
@@ -27,7 +27,7 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 7; row <= 16; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(businessClassPrice * 1.2) : businessClassPrice;
 
                 if (existingSeat != null)
@@ -46,7 +46,7 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 17; row <= 28; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(economyClassPrice * 1.2) : economyClassPrice;
 
                 if (existingSeat != null)
@@ -63,7 +63,7 @@ public class Boeing787 : DisplaySeating
 
     public override void DisplaySeats()
     {
-        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 3;
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++)
         {
@@ -74,7 +74,7 @@ public class Boeing787 : DisplaySeating
         }
         Console.WriteLine();
 
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
 
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
