@@ -155,6 +155,9 @@ public class Boeing737 : DisplaySeating
         bool confirmBooking = ConfirmBooking(CurrentFlight); // Ask for confirmation after finishing the booking
         if (confirmBooking)
         {
+            if (MainMenu.currentUser! != null!){
+                MainMenu.currentUser.AccountFlights.Add(CurrentFlight);
+            }
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);

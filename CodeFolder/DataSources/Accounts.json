@@ -2,19 +2,29 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "AccountFlights": [],
     "isSuperAdmin": true,
     "isAdmin": true
   },
   {
     "username": "test",
     "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
+    "AccountFlights": [],
     "isSuperAdmin": false,
     "isAdmin": false
   },
   {
     "username": "Sander",
     "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
+    "AccountFlights": [],
     "isSuperAdmin": true,
     "isAdmin": true
+  },
+  {
+    "username": "Sander234",
+    "passwordHash": "885bf5d62d8f83b6c37a7d47c83d632eed996239224e8ba1381e4bad273460f0",
+    "AccountFlights": [],
+    "isSuperAdmin": false,
+    "isAdmin": false
   }
 ]
