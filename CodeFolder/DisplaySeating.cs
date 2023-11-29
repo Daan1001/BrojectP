@@ -125,7 +125,7 @@ public class DisplaySeating
                     break;
             }
         }
-        bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
+        bool confirmBooking = ConfirmBooking(CurrentFlight); // Ask for confirmation after finishing the booking
 
         if (confirmBooking)
         {
@@ -133,9 +133,6 @@ public class DisplaySeating
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
-            SaveBookedSeatsToJson("DataSources/booked_seats.json"); // Specify the desired file path
-            TemporarlySeat.Clear();
-            Console.ReadKey();
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
@@ -147,6 +144,10 @@ public class DisplaySeating
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
+            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            SaveBookedSeatsToJson(filepath); // Specify the desired file path
+            TemporarlySeat.Clear();
+            Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
             Program.Main();
@@ -272,19 +273,44 @@ public class DisplaySeating
 
         //Console.WriteLine($"Booked seats saved to {filePath}");
     }
-    public bool ConfirmBooking()
+    public bool ConfirmBooking(Flight currentflight)
     {
+        int korting = 5;
+        if (MainMenu.currentUser! != null!){
+            if (MainMenu.currentUser!.AccountFlights.Count() == 1){
+                korting = 5;
+            }
+            if (MainMenu.currentUser.AccountFlights.Count() == 2){
+                korting = 10;
+            }
+            if (MainMenu.currentUser.AccountFlights.Count() >= 3){
+                korting = 15;
+            }
+        }
+        Console.Clear();
         Console.WriteLine("Confirmation Screen:");
+        Console.WriteLine($"Selected flight: {currentflight.AirplaneType} to {currentflight.Destination}, {currentflight.Country}");
+        Console.WriteLine($"Departure time: {currentflight.FlightDate} at {currentflight.DepartureTime}");
+        Console.WriteLine($"Price P.P: {currentflight.BasePrice}");
         Console.WriteLine("Selected Seats:");
-
+        int totalprice = 0;
+        string Basepricestring = currentflight.BasePrice!.Substring(1);
+        int BasePriceInt = Convert.ToInt32(Basepricestring);
+        int count = 1;
         foreach (var seat in TemporarlySeat)
         {
             if(seat.Booked == true){
-                Console.WriteLine(seat.ShowSeat());
+                Console.WriteLine($"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}");
+                count++;
+                totalprice = totalprice + seat.Price + BasePriceInt;
             }   
             // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
+            // switch layout around and add total price
         }
-
+        double percentage = (double)korting/100;
+        double percantagekorting = 1.0 - percentage;
+        double totalpricedouble = Convert.ToDouble(totalprice) * percantagekorting;
+        Console.WriteLine($"Total price: €{totalpricedouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
 

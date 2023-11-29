@@ -152,19 +152,12 @@ public class Boeing737 : DisplaySeating
                     break;
             }
         }
-        bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
+        bool confirmBooking = ConfirmBooking(CurrentFlight); // Ask for confirmation after finishing the booking
         if (confirmBooking)
         {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("Booking completed. Thank you!");
-            Console.WriteLine();
-            
-            SaveBookedSeatsToJson(new_filepath); // Specify the desired file path
-            TemporarlySeat.Clear();
-            bookedSeats.Clear();
-            Seat.Seats.Clear();
-            Console.ReadKey();
+            if (MainMenu.currentUser! != null!){
+                MainMenu.currentUser.AccountFlights.Add(CurrentFlight);
+            }
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
@@ -178,6 +171,16 @@ public class Boeing737 : DisplaySeating
             }
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("Booking completed. Thank you!");
+            Console.WriteLine();
+            
+            SaveBookedSeatsToJson(new_filepath); // Specify the desired file path
+            TemporarlySeat.Clear();
+            bookedSeats.Clear();
+            Seat.Seats.Clear();
+            Console.ReadKey();
             Program.Main();      
         }
         else{
