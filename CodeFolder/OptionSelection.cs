@@ -263,16 +263,18 @@ public static class OptionSelection<T>{
                 Environment.Exit(0);
                 break;
             case "Delete account(!)":
-                if(selectedAccount is not null){
+                if(selectedAccount is not null && selectedAccount != MainMenu.currentUser!){
                     selectedAccount!.DeleteFromJson();
+                    Console.WriteLine("Account deleted");
+                    Console.ReadKey();
+                    Account.ViewAllAccount();
                 } else {
-                MainMenu.currentUser!.DeleteFromJson();
-                MainMenu.currentUser = null;
-                MainMenu.Start();
+                    MainMenu.currentUser!.DeleteFromJson();
+                    MainMenu.currentUser = null;
+                    Console.WriteLine("Account deleted");
+                    Console.ReadKey();
+                    MainMenu.Start();
                 }
-                Console.WriteLine("Account deleted");
-                Console.ReadKey();
-                Account.ViewAllAccount();
                 break; 
             case "Reset password":
                 if(selectedAccount is not null){

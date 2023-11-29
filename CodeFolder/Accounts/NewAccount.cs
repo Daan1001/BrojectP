@@ -34,9 +34,9 @@ public static class NewAccount{
                 if(newStandardAdminAccount){
                     Console.WriteLine("Will it be a super admin account? (Y/N)");
                     do{
-                    KeyPressed = Console.ReadKey();
-                    Console.WriteLine();
-                    } while(!(KeyPressed.Key != ConsoleKey.Y || KeyPressed.Key != ConsoleKey.N));
+                        KeyPressed = Console.ReadKey();
+                        Console.WriteLine();
+                    } while(!(KeyPressed.Key == ConsoleKey.Y || KeyPressed.Key == ConsoleKey.N));
                     newSuperAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 }
             }
