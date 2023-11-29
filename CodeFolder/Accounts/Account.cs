@@ -1,9 +1,10 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 public class Account: IEquatable<Account>{
-    public Boolean isSuperAdmin{get; set;}
     public Boolean isAdmin{get; set;}
+    public Boolean isSuperAdmin{get; set;}
     public string username;
     public string? passwordHash;
     // public DateTime dateOfBirth;
@@ -14,20 +15,126 @@ public class Account: IEquatable<Account>{
         if(password != null){
             this.passwordHash = Password.Encrypt(password);
         }
-        this.isAdmin = isAdmin;
+        this.isAdmin = isSuperAdmin ? true : isAdmin;
         this.isSuperAdmin = isSuperAdmin;
     }
 
     public void AccountInformation(){
         Console.Clear();
         MainMenu.AirportName();
-        Console.WriteLine(this);
-        Console.WriteLine("\nPress any key to continue...");
-        Console.ReadKey();
+        if(MainMenu.currentUser is not null && MainMenu.currentUser.isAdmin && OptionSelection<Account>.selectedAccount is not null){
+            OptionSelection<String>.selectedAccount = OptionSelection<Account>.selectedAccount;
+            List<String> options = new List<string>(){"Username: "+this.username};
+            if(MainMenu.currentUser.isSuperAdmin){
+                options.Add("Is Admin: "+Convert.ToString(this.isAdmin));
+                options.Add("Is Super Admin: "+Convert.ToString(this.isSuperAdmin));
+            }
+            options.Add("Reset password");
+            options.Add("Delete account(!)");
+            options.Add("<-- Go back");
+            OptionSelection<String>.Start(options);
+        } else {
+            Console.WriteLine(this);
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            OptionSelection<String>.Start(new List<string>(){"Change username","Reset password","Delete account(!)","<-- Go back"});
+        }
     }
     public static void ViewAllAccount(){
         JsonFile<Account>.Read("DataSources/Accounts.json");
         OptionSelection<Account>.Start(JsonFile<Account>.listOfObjects!, OptionSelection<Account>.GoBack);
+    }
+
+    public void DeleteFromJson(){
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        // Console.WriteLine(this);
+        // Console.ReadKey();
+        List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
+        foreach(Account i in allAccountList){
+            if (i == this){
+                allAccountList.Remove(i);
+                string updatedJson = JsonConvert.SerializeObject(allAccountList, Formatting.Indented);
+                File.WriteAllText("DataSources/Accounts.json", updatedJson);
+                // Console.WriteLine("TESTING: Deleted");
+                // Console.ReadKey();
+                break;
+            }
+        }
+    }
+    public void changeUsername(){
+        Console.Clear();
+        MainMenu.AirportName();
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
+        Boolean correctUsername = false;
+        Console.CursorVisible = true;
+        while(!correctUsername){
+            Console.WriteLine("What will be the new username?");
+            String NewUsername = Console.ReadLine()!;
+            if(!allAccountList.Any(Account => Account.username == NewUsername)){
+                Console.CursorVisible = false;
+                this.DeleteFromJson();
+                this.username = NewUsername;
+                JsonFile<Account>.Write("DataSources/Accounts.json",this);
+                Console.WriteLine("Username changed to \""+NewUsername+"\"");
+                
+                correctUsername = true;
+            } else if(NewUsername == this.username){
+                Console.WriteLine("Username didn't change");
+                correctUsername = true;
+            } else {
+                Console.WriteLine("This username already exists");
+            }
+        }
+        Console.CursorVisible = false;
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+    public void ChangePassword(){
+        Console.Clear();
+        MainMenu.AirportName();
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
+        Console.CursorVisible = true;
+        String NewPassword = "";
+        do{
+            Console.WriteLine("What will be the new password?");
+            NewPassword = Console.ReadLine()!;
+        }while(!Password.CheckPasswordSecurity(NewPassword));
+        Console.CursorVisible = false;
+        this.DeleteFromJson();
+        this.passwordHash = Password.Encrypt(NewPassword);
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        Console.WriteLine("Password changed");
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+    public void switchAdminBoolean(){
+        this.DeleteFromJson();
+        if(this.isAdmin && !this.isSuperAdmin){
+            this.isAdmin = false;
+        } else{
+            this.isAdmin = true;
+        }
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        // Console.WriteLine("TESTING: Created");
+        // Console.ReadKey();
+        // Console.WriteLine(this);
+        // Console.ReadKey();
+    }
+    public void switchSuperAdminBoolean(){
+        this.DeleteFromJson();
+        if(this.isSuperAdmin){
+            this.isSuperAdmin = false;
+        } else{
+            this.isAdmin = true;
+            this.isSuperAdmin = true;
+        }
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        // Console.WriteLine("TESTING: Created");
+        // Console.ReadKey();
+        // Console.WriteLine(this);
+        // Console.ReadKey();
     }
 
     public override string ToString(){
@@ -47,7 +154,7 @@ public class Account: IEquatable<Account>{
     {
         if(other is null){
             return false;
-        } else if(this.username == other?.username && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin){
+        } else if(this.username == other?.username){ // && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin
             return true;
         } else {
             return false;
