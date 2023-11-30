@@ -26,10 +26,9 @@ public class FlightSelection{
            
         }
         else if (SelectedFlight.AirplaneType == "Airbus 330"){
-            Airplane airplane = new();
-            // Airbus330 airbus330 = new('I',44);
-            // airbus330.Start(SelectedFlight);
-            airplane.Airbus330(SelectedFlight);
+            // Airplane airplane = new();
+            Airbus330 airbus330 = new('I',44);
+            airbus330.Start(SelectedFlight);
         }
         else if (SelectedFlight.AirplaneType == "Boeing 787"){
             Boeing787 boeing787 = new('I',28);

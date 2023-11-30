@@ -6,7 +6,7 @@ public class UnitTest1
     [TestMethod]
     public void TestNewAccountSavedInJson(){
         JsonFile<Account>.Read("DataSources/Accounts.json"); 
-        int amountBefore = JsonFile<Account>.listOfObjects.Count(); // get object count in json
+        int amountBefore = JsonFile<Account>.listOfObjects!.Count(); // get object count in json
 
         int i = 1;
         string username = "UserName"+i;
@@ -18,7 +18,7 @@ public class UnitTest1
         NewAccount.Make(username, password); // makes account
 
         JsonFile<Account>.Read("DataSources/Accounts.json");
-        int amountAfter = JsonFile<Account>.listOfObjects.Count(); // get object count in json
+        int amountAfter = JsonFile<Account>.listOfObjects!.Count(); // get object count in json
 
         Assert.IsTrue(amountBefore+1 == amountAfter);
     }

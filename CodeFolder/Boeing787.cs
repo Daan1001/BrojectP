@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Boeing787 : DisplaySeating
+public class Boeing787 : Airplane
 {
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice = 1000, int businessClassPrice = 750, int economyClassPrice = 500)
@@ -10,15 +10,13 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 1; row <= 6; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'F') ? (int)(firstClassPrice * 1.2) : firstClassPrice;
 
-                if (existingSeat != null)
-                {
+                if (existingSeat != null){
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
-                else
-                {
+                else{
                     new FirstClass("First Class", letter, row, false, seatPrice);
                 }
             }
@@ -29,7 +27,7 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 7; row <= 16; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(businessClassPrice * 1.2) : businessClassPrice;
 
                 if (existingSeat != null)
@@ -48,7 +46,7 @@ public class Boeing787 : DisplaySeating
         {
             for (int row = 17; row <= 28; row++)
             {
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(economyClassPrice * 1.2) : economyClassPrice;
 
                 if (existingSeat != null)
@@ -65,7 +63,7 @@ public class Boeing787 : DisplaySeating
 
     public override void DisplaySeats()
     {
-        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 3;
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++)
         {
@@ -76,7 +74,7 @@ public class Boeing787 : DisplaySeating
         }
         Console.WriteLine();
 
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
 
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
@@ -215,8 +213,13 @@ public class Boeing787 : DisplaySeating
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
+
         if (confirmBooking)
         {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("Booking completed. Thank you!");
+            Console.WriteLine();
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
@@ -228,19 +231,13 @@ public class Boeing787 : DisplaySeating
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
+            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            SaveBookedSeatsToJson(filepath); // Specify the desired file path
+            TemporarlySeat.Clear();
+            Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("Booking completed. Thank you!");
-            Console.WriteLine();
-            
-            SaveBookedSeatsToJson(new_filepath); // Specify the desired file path
-            TemporarlySeat.Clear();
-            bookedSeats.Clear();
-            Seat.Seats.Clear();
-            Console.ReadKey();
-            Program.Main();      
+            Program.Main(); 
         }
         else{
             // Roll back the booked seats to available

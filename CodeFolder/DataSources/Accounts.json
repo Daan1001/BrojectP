@@ -2,76 +2,19 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "AccountFlights": [],
-    "isAdmin": true,
-    "isSuperAdmin": true
-  },
-  {
-    "username": "Sander",
-    "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
-    "AccountFlights": [],
-    "isAdmin": true,
-    "isSuperAdmin": true
-  },
-  {
-    "username": "Sander234",
-    "passwordHash": "885bf5d62d8f83b6c37a7d47c83d632eed996239224e8ba1381e4bad273460f0",
-    "AccountFlights": [],
-    "isAdmin": false,
-    "isSuperAdmin": false
-  },
-  {
-    "username": "Sander3",
-    "passwordHash": "fde66722c0d50bbc587e91101f8eebfd88bf6acca008218ee442f415271346fe",
-    "AccountFlights": [
-      {
-        "Flight id": "458491",
-        "Type Airplane": "Boeing 787",
-        "Terminal": "Gate 05",
-        "Country": "Spain",
-        "Destination": "Barcelona",
-        "Flight date": "12-02-2024",
-        "Departure time": "10:30:00",
-        "Arrival time": "12:30:00",
-        "Seats Available": "168",
-        "Total Seats": "189",
-        "Base Price": "€25"
-      },
-      {
-        "Flight id": "815784",
-        "Type Airplane": "Boeing 787",
-        "Terminal": "Gate 06",
-        "Country": "Sweden",
-        "Destination": "Stockholm",
-        "Flight date": "29-03-2024",
-        "Departure time": "18:00:00",
-        "Arrival time": "22:00:00",
-        "Seats Available": "187",
-        "Total Seats": "189",
-        "Base Price": "€40"
-      },
-      {
-        "Flight id": "644561",
-        "Type Airplane": "Boeing 787",
-        "Terminal": "Gate 06",
-        "Country": "Greece",
-        "Destination": "Athens",
-        "Flight date": "22-12-2023",
-        "Departure time": "10:30:00",
-        "Arrival time": "15:30:00",
-        "Seats Available": "189",
-        "Total Seats": "189",
-        "Base Price": "€40"
-      }
-    ],
-    "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": true,
+    "isAdmin": true
   },
   {
     "username": "test",
     "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "AccountFlights": [],
-    "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "isAdmin": false
+  },
+  {
+    "username": "Sander",
+    "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
+    "isSuperAdmin": true,
+    "isAdmin": true
   }
 ]

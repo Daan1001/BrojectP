@@ -26,7 +26,7 @@ public class Prices{
         string Basepricestring = currentflight.BasePrice!.Substring(1);
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
-        foreach (var seat in DisplaySeating.TemporarlySeat)
+        foreach (var seat in Airplane.TemporarlySeat)
         {
             if(seat.Booked == true){
                 Console.WriteLine($"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}");
@@ -46,7 +46,7 @@ public class Prices{
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
-            if (DisplaySeating.TemporarlySeat.Count() > 0){
+            if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser! != null!){
                     MainMenu.currentUser.DeleteFromJson();
                     MainMenu.currentUser.AccountFlights.Add(currentflight);
