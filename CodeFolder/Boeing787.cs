@@ -261,9 +261,11 @@ public class Boeing787 : Airplane
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
-            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
             SaveBookedSeatsToJson(filepath); // Specify the desired file path
             TemporarlySeat.Clear();
+            bookedSeats.Clear();
+            Seat.Seats.Clear();
             Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);

@@ -8,7 +8,7 @@ public class Boeing737 : Airplane
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             for (int row = 1; row <= NumberOfRows; row++){
-                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 if (existingSeat != null){
                     // The seat is already booked (based on the JSON data)
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
@@ -77,8 +77,8 @@ public class Boeing737 : Airplane
                     // Display the seat letter and number with dynamic spacing for better alignment
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
                     if(row == 1 && letter =='F'){
-                        Console.Write("||");
                         Console.ResetColor();
+                        Console.Write("||");
                         Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
                     }
                     if(row ==2 && letter =='F'){
@@ -121,8 +121,8 @@ public class Boeing737 : Airplane
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
         cursorRow = 1;  
         cursorSeat = 0; 
-        // bookedSeats.Clear();
-        // TemporarlySeat.Clear();
+        //bookedSeats.Clear();
+        //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         InitializeSeats();
         DisplaySeats();
@@ -190,9 +190,11 @@ public class Boeing737 : Airplane
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
-            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
             SaveBookedSeatsToJson(filepath); // Specify the desired file path
             TemporarlySeat.Clear();
+            bookedSeats.Clear();
+            Seat.Seats.Clear();
             Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
