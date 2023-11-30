@@ -52,4 +52,16 @@ public class UnitTest1
 
         Assert.AreEqual(manuallyEncrypted, AutoEncrypted);
     }
+    [TestMethod]
+    public void TestDiscountPrices(){
+        Account account = new Account("Sander5", "Sander123!", false, false);
+        MainMenu.currentUser = account;
+        List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+        account.AccountFlights.Add(flights[1]);
+        Seat seat= new Seat("First Class", 'B', 1, true, 500);
+        DisplaySeating.TemporarlySeat.Add(seat);
+        Prices.TicketPrices(flights[2]);
+ 
+        Assert.AreEqual(Prices.Korting, 5);
+    }
 }
