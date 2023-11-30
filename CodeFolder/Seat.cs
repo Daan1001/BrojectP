@@ -34,11 +34,10 @@ public class Seat
         if (!Booked)
         {
             Booked = true;
-            Console.WriteLine($"Class: {this.TypeClass}");
-            Console.WriteLine($"Seat: {this.Letter}{this.Row}");
-            //Console.WriteLine($"Price: €{this.Price}");
-            Console.WriteLine($"Price: {this.Price} Euro");
-            Console.WriteLine("booked successfully!");
+            Console.WriteLine($" Class: {this.TypeClass}");
+            Console.WriteLine($" Seat: {this.Letter}{this.Row}");
+            Console.WriteLine($" Price: {this.Price} Euro");
+            Console.WriteLine(" Booked successfully!");
             Airplane.bookedSeats.Add(this);
         }
         else

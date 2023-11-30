@@ -116,6 +116,40 @@ public class Boeing787 : Airplane
                         // Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
+                    if(row == 1 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
+                    }
+                    if(row ==2 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Color.Red(" Red:", false);
+                        Console.Write(" Booked Seat.");
+                    }
+                    if(row == 3 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Color.Green(" Green:", false);
+                        Console.Write(" Available  First-Class Seat.");
+                    }
+                    if(row == 4 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Color.Blue(" Blue:", false);
+                        Console.Write(" Available Business Class Seat.");
+                    }
+                    if(row == 5 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Console.Write(" White: Available Economy Seat.");
+                    }
+                    if(row == 6 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("\t\t  ||");
+                        Console.Write(" BACKSPACE: To unselect a seat.");
+                    }
+
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
 
                     Console.ForegroundColor = ConsoleColor.White;
@@ -126,10 +160,17 @@ public class Boeing787 : Airplane
             Console.WriteLine();
 
             // Skip 2 lines after displaying seats 6 and 16
-            if (row == 6 || row == 16)
-            {
+            if (row == 6){
+                int numberOfTabs = 40;
+                string message = "\t\t  || Press ESC to finish the booking.";
+                string indentedMessage = message.PadLeft(message.Length + numberOfTabs);
+                Console.WriteLine(indentedMessage);
+            }
+            if (row == 16){
                 Console.WriteLine();
-
+            }
+            if (row == 6 || row == 16)
+            {   
                 // Display headers A to I after row 6
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++)
@@ -145,17 +186,6 @@ public class Boeing787 : Airplane
         }
 
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-        Console.WriteLine(" Use arrow keys to navigate and press Enter to select a seat.");
-        Color.Red(" Red:", false);
-        Console.WriteLine(" Booked Seat.");
-        Color.Green(" Green:", false);
-        Console.WriteLine(" First-Class Seat.");
-        Color.Blue(" Blue:", false);
-        Console.WriteLine(" Business Class Seat.");
-        Console.WriteLine(" White: Available Seat.");
-        Console.WriteLine(" BACKSPACE: To unselect a seat.");
-        Console.WriteLine(" Press ESC to finish the booking.");
-        Console.WriteLine();
     }
     public override void Start(Flight CurrentFlight)
     {

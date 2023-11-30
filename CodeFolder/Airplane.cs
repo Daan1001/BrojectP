@@ -2,11 +2,11 @@ using Newtonsoft.Json;
 public abstract class Airplane 
 {
     protected static int cursorRow = 0;
-    public static int cursorSeat = 0;
+    protected static int cursorSeat = 0;
     public static List<Seat> bookedSeats = new List<Seat>();
     public static List<Seat> TemporarlySeat = new List<Seat>();
-    public char LetterSeat { get; private set; }
-    public int NumberOfRows { get; private set; }       
+    protected char LetterSeat { get; private set; }
+    protected int NumberOfRows { get; private set; }       
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
@@ -63,7 +63,7 @@ public abstract class Airplane
         return key.Key == ConsoleKey.Y;
     }
 
-    public virtual void MoveUp(){
+    public void MoveUp(){
         if (cursorRow > 1){
             cursorRow--;
             RedrawSeats();
@@ -73,7 +73,7 @@ public abstract class Airplane
         }
     }
 
-    public virtual void MoveDown(){
+    public void MoveDown(){
         if (cursorRow < this.NumberOfRows){
             cursorRow++;
             RedrawSeats();

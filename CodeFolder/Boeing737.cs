@@ -36,7 +36,7 @@ public class Boeing737 : Airplane
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
-        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 5;
         Console.Write("     ");
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             // Add an extra space after column C
@@ -46,7 +46,7 @@ public class Boeing737 : Airplane
             Console.Write($"{letter,-5} ");
         }
         Console.WriteLine();
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
         // Dictionary to store the maximum length of seat identifier for each column
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
         for (int row = 1; row <= NumberOfRows; row++){
@@ -76,6 +76,33 @@ public class Boeing737 : Airplane
                     }
                     // Display the seat letter and number with dynamic spacing for better alignment
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
+                    if(row == 1 && letter =='F'){
+                        Console.Write("||");
+                        Console.ResetColor();
+                        Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
+                    }
+                    if(row ==2 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("||");
+                        Color.Red(" Red:", false);
+                        Console.Write(" Booked Seat.");
+                    }
+                    if(row == 3 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write("||");
+                        Color.Yellow(" Yelow:", false);
+                        Console.Write(" Extra legroom seat.");
+                    }
+                    if(row == 4 && letter =='F'){
+                        Console.Write("||");
+                        Console.ResetColor();
+                        Console.Write(" White: Available Seat.");
+                    }
+                    if(row == 5 && letter =='F'){
+                        Console.Write("||");
+                        Console.ResetColor();
+                        Console.Write(" Press ESC to finish the booking.");
+                    }
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
                     // Reset text and background color after printing the current seat
@@ -88,15 +115,6 @@ public class Boeing737 : Airplane
             Console.WriteLine();
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-        Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
-        Color.Red(" Red:", false);
-        Console.WriteLine(" Booked Seat.");
-        Color.Yellow(" Yelow:", false);
-        Console.WriteLine(" Extra legroom seat.");
-        Console.WriteLine(" White: Available Seat.");
-        Console.WriteLine(" BACKSPACE: To unselect a seat.");
-        Console.WriteLine(" Press ESC to finish the booking.");
-        Console.WriteLine();
     }
     public override void Start(Flight CurrentFlight)
     {

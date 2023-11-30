@@ -104,24 +104,48 @@ public class Airbus330 : Airplane
                         Console.Write("     ");   
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
+                    if(row == 3 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" || Use arrow keys to navigate and press Enter to select a seat.");
+                    }
+                    if(row ==4 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" ||");
+                        Color.Red(" Red:", false);
+                        Console.Write(" Booked Seat.");
+                    }
+                    if(row == 5 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" ||");
+                        Color.Green(" Green:", false);
+                        Console.Write(" Available  First-Class Seat.");
+                    }
+                    if(row == 6 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" ||");
+                        Color.Yellow(" Yellow:", false);
+                        Console.Write(" Available Economey Class Seat + extra legroom.");
+                    }
+                    if(row == 7 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" || White: Available Economy Seat.");
+                    }
+                    if(row == 8 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write(" || BACKSPACE: To unselect a seat.");
+                    }
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
-
             Console.WriteLine();
-
-            
-            if (row == 2 || row == 9)
-            {
+            if (row == 2 || row == 9){
                 Console.WriteLine();
-
                 // Display headers A to I
                 Console.Write("    ");
-                for (char letter = 'A'; letter <= LetterSeat; letter++)
-                {   
+                for (char letter = 'A'; letter <= LetterSeat; letter++){   
                     if(letter == 'D' || letter =='G'){
                         Console.Write("     ");
                     }
@@ -134,8 +158,7 @@ public class Airbus330 : Airplane
                 Console.WriteLine();
                 // Display headers A to G
                 Console.Write("    ");
-                for (char letter = 'A'; letter <= 'G'; letter++)
-                {   
+                for (char letter = 'A'; letter <= 'G'; letter++){   
                     if(letter == 'C' || letter =='F'){
                         Console.Write("     ");
                     }
@@ -146,21 +169,9 @@ public class Airbus330 : Airplane
             }
         }
         Console.WriteLine();
-        Console.WriteLine(" Use arrow keys to navigate and press Enter to select a seat.");
-        Color.Red(" Red:", false);
-        Console.WriteLine(" Booked Seat.");
-        Color.Green(" Green:", false);
-        Console.WriteLine(" First-Class Seat.");
-        Color.Yellow(" Yelow:", false);
-        Console.WriteLine(" Extra legroom seat.");
-        Console.WriteLine(" White: Available Seat.");
-        Console.WriteLine(" BACKSPACE: To unselect a seat.");
-        Console.WriteLine(" Press ESC to finish the booking.");
-        Console.WriteLine();
     }
 
-    public override void Start(Flight CurrentFlight)
-    {
+    public override void Start(Flight CurrentFlight){
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
         cursorRow = 1;  
         cursorSeat = 0; 
@@ -170,25 +181,19 @@ public class Airbus330 : Airplane
         InitializeSeats();
         DisplaySeats();
         bool isBookingComplete = false;
-        while (!isBookingComplete)
-        {
+        while (!isBookingComplete){
             ConsoleKeyInfo key = Console.ReadKey();
             Console.Clear();
-
-            switch (key.Key)
-            {
+            switch (key.Key){
                 case ConsoleKey.UpArrow:
                     MoveUp();
                     break;
-
                 case ConsoleKey.DownArrow:
                     MoveDown();
                     break;
-
                 case ConsoleKey.LeftArrow:
                     MoveLeft();
                     break;
-
                 case ConsoleKey.RightArrow:
                     MoveRight();
                     break;
