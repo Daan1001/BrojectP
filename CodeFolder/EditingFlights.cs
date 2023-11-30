@@ -1,33 +1,37 @@
 public class EditingFlights{
     // code that allows the admin to change flights.
     public static List<string[]> airports = AddingFlights.airports;
+    public static List<string> airportstring = new List<string>();
+    public static Flight? SelectedFlight;
+
     public static void EditDestination(Flight selectedFlight){
+        foreach (string[] airport in airports){
+            string airportloc = $"{airport[0]}, {airport[1]}";
+            airportstring.Add(airportloc);
+        }
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");
-        Console.WriteLine("Enter the new destination (City, Country): ");
-        string destination = Console.ReadLine()!;
-        if (destination != null && destination.Contains(",")){
-            string[] data = destination.Split(',');
-            foreach (string[] location in airports){
-                if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
-                    selectedFlight.Destination = data[0].Trim();
-                    selectedFlight.Country = data[1].Trim();
-                    double time = Convert.ToDouble(location[2]);
-                    DateTime depart = Convert.ToDateTime(selectedFlight.DepartureTime);
-                    DateTime arrival = depart.AddHours(time);
-                    string arrivalstring = arrival.ToString("HH:mm:ss");
-                    selectedFlight.ArrivalTime = arrivalstring;
-                    Console.WriteLine($"Changed destination to {selectedFlight.Destination}, {selectedFlight.Country}");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
-                    AddingFlights.EditFlight(selectedFlight);
-                }
+        Console.WriteLine("Choose the new destination (City, Country)(press any key to continue...)");
+        Console.ReadKey();
+        SelectedFlight = selectedFlight;
+        OptionSelection<String>.Start(airportstring);
+    }
+    public static void EditDestination2(string selectedOption){
+        string[] data = selectedOption.Split(',');
+        foreach (string[] location in airports){
+            if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
+                SelectedFlight!.Destination = data[0].Trim();
+                SelectedFlight.Country = data[1].Trim();
+                double time = Convert.ToDouble(location[2]);
+                DateTime depart = Convert.ToDateTime(SelectedFlight.DepartureTime);
+                DateTime arrival = depart.AddHours(time);
+                string arrivalstring = arrival.ToString("HH:mm:ss");
+                SelectedFlight.ArrivalTime = arrivalstring;
+                Console.WriteLine($"Changed destination to {SelectedFlight.Destination}, {SelectedFlight.Country}");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                AddingFlights.EditFlight(SelectedFlight);
             }
         }
-        else{
-            Console.WriteLine("Invalid input, press any key to try again");
-            Console.ReadKey();
-            AddingFlights.EditFlight(selectedFlight);
-        }  
     }
     public static void EditGate(Flight selectedFlight){
         Console.WriteLine("Current gate: " + selectedFlight.Terminal);

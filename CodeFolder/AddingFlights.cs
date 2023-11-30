@@ -23,7 +23,16 @@ public class AddingFlights{
             new string[] { "Brussels", "Belgium", "1" },
             new string[] { "Stockholm", "Sweden", "2,5" }
         };
+    public static List<string> airportstring = new List<string>();
     public static void AddFlight(){
+        foreach (string[] airport in airports){
+            string airporttime = Convert.ToString(airport[2]);
+            string airportloc = $"{airport[0]}, {airport[1]}, {airporttime}";
+            airportstring.Add(airportloc);
+        }
+        OptionSelection<string>.Start(airportstring);
+    }
+    public static void AddFlight2(string selectedoption){
         Console.CursorVisible = true;
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
@@ -48,30 +57,20 @@ public class AddingFlights{
         while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out departureTime)){
             Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
         }
-
         string country = "";
         string city = "";
         string arrivalstring = "";
-        bool desselection = true;
-        while (desselection){
-            Console.WriteLine("Enter the new destination (City, Country): ");
-            string destination = Console.ReadLine()!;
-            if (destination != null && destination.Contains(",")){
-                string[] data = destination.Split(',');
-                foreach (string[] location in airports){
-                    if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
-                        double time = Convert.ToDouble(location[2]);
-                        DateTime arrival = departureTime.AddHours(time);
-                        arrivalstring = arrival.ToString("HH:mm:ss");
-                        country = data[0].Trim();
-                        city = data[1].Trim();
-                        desselection = false;
-                        break;
-                    }
-                }
+        string[] data = selectedoption.Split(',');
+        foreach (string[] location in airports){
+            if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
+                double time = Convert.ToDouble(location[2]);
+                DateTime arrival = departureTime.AddHours(time);
+                arrivalstring = arrival.ToString("HH:mm:ss");
+                country = data[0].Trim();
+                city = data[1].Trim();
+                break;
             }
         }
-
         int totalSeats = GetTotalSeats(airplaneType);
         int seatsAvailable = totalSeats;
 
@@ -100,6 +99,7 @@ public class AddingFlights{
         existingFlights.Add(newFlight);
         File.WriteAllText("DataSources/Flights.json", JsonConvert.SerializeObject(existingFlights, Formatting.Indented));
         Console.WriteLine("New flight added successfully!");
+        Program.Main();
     }
 
     public static int GetTotalSeats(string airplaneType){//gets the total seats of the plane based on type airplane
@@ -132,21 +132,8 @@ public class AddingFlights{
         flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<string> option1 = new List<string>();
         Console.WriteLine("Choose a flight to change (Press any key to continue)");
-        int LenCountry = 0;
-        int LenDes = 0;
         foreach (Flight flight in flights){
-            if (flight.Country!.Length > LenCountry){
-                LenCountry = flight.Country.Length;
-            }
-            if (flight.Destination!.Length > LenDes){
-                LenDes = flight.Destination.Length;
-            }
-        }
-        foreach (Flight flight in flights){
-            string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
-            string paddedDestination = flight.Destination!.PadRight(LenDes);
-            string paddedCountry = flight.Country!.PadRight(LenCountry);
-            string data = $"[{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.AirplaneType, -10} |{FlightID, -7} | {flight.BasePrice, -3:C} ]";
+            string data = $"[{flight.ToString()}]";
             option1.Add(data);
         }
         Console.ReadKey();
@@ -155,8 +142,7 @@ public class AddingFlights{
     public static void EditFlight(Flight selectedFlight){
         Console.Clear();
         Console.WriteLine("Editing flight for:");
-        string FlightID = $"{selectedFlight.SeatsAvailable}/{selectedFlight.TotalSeats}";
-        string data = $"[{selectedFlight.FlightId, -6} | {selectedFlight.Terminal, -7} | {selectedFlight.Destination, -10} | {selectedFlight.Country, -10} | {selectedFlight.FlightDate, -10} | {selectedFlight.DepartureTime, -8} | {selectedFlight.ArrivalTime, -8} | {selectedFlight.AirplaneType, -10} |{FlightID, -7} | {selectedFlight.BasePrice, -3:C} ]";
+        string data = selectedFlight.ToString();
         string clean = FlightSelection.RemoveWhitespace(data);
         string clean2 = "|";
         string[] stringarray = clean.Split("|");

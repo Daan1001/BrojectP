@@ -87,21 +87,8 @@ public class ShowFlights{
     }
     public static void Column2(List<Flight> flights){
         List<String> option1 = new List<string>();
-        int LenCountry = 0;
-        int LenDes = 0;
         foreach (Flight flight in flights){
-            if (flight.Country!.Length > LenCountry){
-                LenCountry = flight.Country.Length;
-            }
-            if (flight.Destination!.Length > LenDes){
-                LenDes = flight.Destination.Length;
-            }
-        }
-        foreach (Flight flight in flights){
-            string FlightID = $"{flight.SeatsAvailable}/{flight.TotalSeats}";
-            string paddedDestination = flight.Destination!.PadRight(LenDes);
-            string paddedCountry = flight.Country!.PadRight(LenCountry);
-            string data = $"|{flight.FlightId, -6} | {flight.Terminal, -7} | {paddedDestination} | {paddedCountry} | {flight.FlightDate, -10} | {flight.DepartureTime, -8} | {flight.ArrivalTime, -8} | {flight.AirplaneType, -10} |{FlightID, -7} | {flight.BasePrice, -3:C} |";
+            string data = $"|{flight.ToString()}|";
             option1.Add(data);
         }
         if (option1.Count > 3){
