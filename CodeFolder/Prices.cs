@@ -15,7 +15,7 @@ public class Prices{
             }
         }
         Korting = korting;
-        Console.Clear();
+        // Console.Clear();
         Console.WriteLine("Confirmation Screen:");
         Console.WriteLine($"Selected flight: {currentflight.AirplaneType} to {currentflight.Destination}, {currentflight.Country}");
         Console.WriteLine($"Departure time: {currentflight.FlightDate} at {currentflight.DepartureTime}");

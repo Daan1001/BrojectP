@@ -269,7 +269,15 @@ public static class OptionSelection<T>{
                 ShowFlights.Column2(SortedPriceList);
                 break;
             case "Exit":
-                Console.WriteLine("Goodbye!");
+                Color.Green("G", false);
+                Color.Red("o", false);
+                Color.Yellow("o", false);
+                Color.Magenta("d", false);
+                Color.Blue("b", false);
+                Color.Black("y", false);
+                Color.Cyan("e", false);
+                Color.Red("!", false);
+                // Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
                 break;
             case "Delete account(!)":
