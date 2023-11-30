@@ -19,6 +19,7 @@ public class MainMenu{
         if(currentUser is not null){
 
             options.Add("Account information");
+            options.Add("Reservations");
             options.Add("Log out");
         }
         options.Add("Exit");
