@@ -120,6 +120,12 @@ public static class OptionSelection<T>{
             option2.Add("<-- Go back");
             OptionSelection<String>.Start(option2);
         }
+        if (EditingFlights.airportstring.Contains(selectedOption)){
+            EditingFlights.EditDestination2(selectedOption);
+        }
+        if (AddingFlights.airportstring.Contains(selectedOption)){
+            AddingFlights.AddFlight2(selectedOption);
+        }
         switch (selectedOption){ 
             case "Save changes": //saving changes to flights
                 AddingFlights.SaveChanges(selectedFlight2!);
@@ -297,10 +303,10 @@ public static class OptionSelection<T>{
             case "Change username":
                 MainMenu.currentUser!.changeUsername();
                 break; 
-            // default:
-            //     Console.WriteLine("Still a W.I.P. (press any key to continue)");
-            //     Console.ReadKey(); // alleen tijdens wip nodig
-            //     break;
+            default:
+                Console.WriteLine("Still a W.I.P. (press any key to continue)");
+                Console.ReadKey(); // alleen tijdens wip nodig
+                break;
         }
     }
 

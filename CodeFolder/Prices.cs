@@ -1,5 +1,6 @@
 public class Prices{
     public static int Korting;
+    public static double TotalpriceDouble;
     public static bool TicketPrices(Flight currentflight)
     {
         int korting = 0;
@@ -37,13 +38,23 @@ public class Prices{
         }
         double percentage = (double)korting/100;
         double percentagekorting = 1.0 - percentage;
-        double totalpricedouble = Convert.ToDouble(totalprice) * percentagekorting;
+        double totalpricedouble = CalculatePrice(Convert.ToDouble(totalprice), percentagekorting);
+        TotalpriceDouble = totalpricedouble;
         Console.WriteLine($"Price before discount: {totalprice}");
         Console.WriteLine($"Current discount: {korting}%");
         Console.WriteLine($"Total price: €{totalpricedouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
-
+        if (key.Key == ConsoleKey.Y){
+            if (DisplaySeating.TemporarlySeat.Count() > 0){
+                if (MainMenu.currentUser! != null!){
+                    MainMenu.currentUser.DeleteFromJson();
+                    MainMenu.currentUser.AccountFlights.Add(currentflight);
+                    JsonFile<Account>.Read("DataSources/Accounts.json");
+                    JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                }
+            }
+        }
         // Return true if the user pressed 'Y' (yes), otherwise return false
         return key.Key == ConsoleKey.Y;
     }
@@ -58,4 +69,7 @@ public class Prices{
 
     //     Assert.AreEqual(Prices.Korting, 5);
     // }
+    public static double CalculatePrice(double totalprice, double percentagekorting){
+        return totalprice * percentagekorting;
+    }
 }

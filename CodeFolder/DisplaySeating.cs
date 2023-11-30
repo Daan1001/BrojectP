@@ -125,6 +125,7 @@ public class DisplaySeating
                     break;
             }
         }
+        Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
 
         if (confirmBooking)
