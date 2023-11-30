@@ -133,15 +133,22 @@ public static class OptionSelection<T>{
             AddingFlights.AddFlight2(selectedOption);
         }
         switch (selectedOption){
-            case "Reservations":
-                List<string> option = new List<string>();
-                option.Add("See reservations");
-                option.Add("Cancel reservations");
-                option.Add("Edit reservations");
-                option.Add("<-- Go back");
-                OptionSelection<string>.Start(option);
-                break;
-            case "See reservations":
+            case "My reservations":
+                if (MainMenu.currentUser!.AccountFlights.Count() > 0){
+                    List<string> option = new List<string>();
+                    option.Add("See my reservations");
+                    option.Add("Cancel reservations");
+                    option.Add("Edit reservations");
+                    option.Add("<-- Go back");
+                    OptionSelection<string>.Start(option);
+                    break;
+                }
+                else{
+                    Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
+                    Console.ReadKey();
+                    break;
+                }
+            case "See my reservations":
                 AccountReservation.ShowReservation();
                 break;
             case "Cancel reservations":
