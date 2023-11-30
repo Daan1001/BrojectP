@@ -126,7 +126,24 @@ public static class OptionSelection<T>{
         if (AddingFlights.airportstring.Contains(selectedOption)){
             AddingFlights.AddFlight2(selectedOption);
         }
-        switch (selectedOption){ 
+        switch (selectedOption){
+            case "Reservations":
+                List<string> option = new List<string>();
+                option.Add("See reservations");
+                option.Add("Cancel reservations");
+                option.Add("Edit reservations");
+                option.Add("<-- Go back");
+                OptionSelection<string>.Start(option);
+                break;
+            case "See reservations":
+                AccountReservation.ShowReservation();
+                break;
+            case "Cancel reservations":
+                AccountReservation.CancelReservation();
+                break;
+            case "Edit reservations":
+                AccountReservation.EditReservation();
+                break;
             case "Save changes": //saving changes to flights
                 AddingFlights.SaveChanges(selectedFlight2!);
                 break;
