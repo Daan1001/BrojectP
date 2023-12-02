@@ -1,6 +1,9 @@
 using Newtonsoft.Json;
 public class Airbus330 : Airplane
 {
+    protected int FirstClassPrice;
+    protected int BusinessClassPrice;
+    protected int EconomyClassPrice;
     public Airbus330(char letter, int numbers) : base(letter, numbers){}
 
     public override void InitializeSeats(int firstClassPrice = 1000, int businessClassPrice = 750, int economyClassPrice = 500)
@@ -48,6 +51,22 @@ public class Airbus330 : Airplane
             }
         }
     }
+    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    {
+        this.FirstClassPrice = firstClassPrice;
+        this.BusinessClassPrice = businessClassPrice;
+        this.EconomyClassPrice = economyClassPrice;
+    }
+    public override void SetClassPrices(){
+        Console.WriteLine("What is the new First Class seat price: ");
+        int firstclassPrice = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("What is the new Business Class seat price: ");
+        int businessclassPrice = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("What is the new Economy Class seat price: ");
+        int economyclassPrice = Convert.ToInt32(Console.ReadLine());
+        SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
+    }
+
 
 // Airbus330 airbus330 = new('I',44);
     public override void DisplaySeats()
