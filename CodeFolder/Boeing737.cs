@@ -2,7 +2,12 @@ using Newtonsoft.Json;
 
 public class Boeing737 : Airplane
 {
-    public Boeing737(char letter, int numbers) : base (letter, numbers) {}
+    protected int FirstClassPrice;
+    protected int BusinessClassPrice;
+    protected int EconomyClassPrice;
+    public Boeing737(char letter, int numbers) : base (letter, numbers) {
+        
+    }
 
     public override void InitializeSeats(int firstClassPrice = 0, int businessClassPrice = 0, int economyClassPrice = 500)
     {
@@ -31,6 +36,26 @@ public class Boeing737 : Airplane
                     new EconomyClass("Economy Class", letter, row, false, seatPrice);
                 }
             }
+        }
+    }
+
+    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
+        this.FirstClassPrice = firstClassPrice;
+        this.BusinessClassPrice = businessClassPrice;
+        this.EconomyClassPrice = economyClassPrice;
+        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+    }
+
+    public override void SetClassPrices(){
+        Console.WriteLine("Would u like to change the Class prices? (Y/N)");
+        string answer = Console.ReadLine()!.ToUpper();
+        if(answer == "Y"){
+            Console.WriteLine("What is the new Economy seat price: ");
+            int economyclassPrice = Convert.ToInt32(Console.ReadLine());
+            SetPrices(0,0, economyclassPrice);
+        }
+        else{
+            return;
         }
     }
     public override void DisplaySeats()
@@ -124,6 +149,7 @@ public class Boeing737 : Airplane
         //bookedSeats.Clear();
         //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
+        SetClassPrices();
         InitializeSeats();
         DisplaySeats();
         bool isBookingComplete = false;

@@ -14,6 +14,9 @@ public abstract class Airplane
     public abstract void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void Start(Flight CurrentFlight);
     public abstract void DisplaySeats();
+
+    public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
+    public abstract void SetClassPrices();
     public void SelectAndBookSeat(){
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         //Seat? selectedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));

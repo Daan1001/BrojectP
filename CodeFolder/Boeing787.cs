@@ -1,7 +1,11 @@
+using System.Reflection;
 using Newtonsoft.Json;
 
 public class Boeing787 : Airplane
 {
+    protected int FirstClassPrice;
+    protected int BusinessClassPrice;
+    protected int EconomyClassPrice;
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice = 1000, int businessClassPrice = 750, int economyClassPrice = 500)
     {
@@ -58,6 +62,30 @@ public class Boeing787 : Airplane
                     new EconomyClass("Economy Class", letter, row, false, seatPrice);
                 }
             }
+        }
+    }
+    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    {
+        this.FirstClassPrice = firstClassPrice;
+        this.BusinessClassPrice = businessClassPrice;
+        this.EconomyClassPrice = economyClassPrice;
+        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+
+    }
+    public override void SetClassPrices(){
+        Console.WriteLine("Would u like to change the Class prices? (Y/N)");
+        string answer = Console.ReadLine()!.ToUpper();
+        if(answer == "Y"){
+        Console.WriteLine("What is the new First Class seat price: ");
+        int firstclassPrice = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("What is the new Business Class seat price: ");
+        int businessclassPrice = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("What is the new Economy Class seat price: ");
+        int economyclassPrice = Convert.ToInt32(Console.ReadLine());
+        SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
+        }
+        else{
+            return;
         }
     }
 
@@ -195,6 +223,7 @@ public class Boeing787 : Airplane
         // bookedSeats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
+        SetClassPrices();
         InitializeSeats();
         DisplaySeats();
         bool isBookingComplete = false;
