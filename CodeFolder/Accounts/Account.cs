@@ -7,7 +7,7 @@ public class Account: IEquatable<Account>{
     public Boolean isSuperAdmin{get; set;}
     public string username;
     public string? passwordHash;
-    public List<Flight> AccountFlights = new List<Flight>();
+    public List<Booking> AccountBookings = new List<Booking>();
     // public DateTime dateOfBirth;
     // public String email;
     // public int phoneNumber;

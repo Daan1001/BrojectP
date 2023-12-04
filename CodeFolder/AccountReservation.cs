@@ -6,19 +6,27 @@ public static class AccountReservation{
         Console.ReadKey();
 
         List<string> options = new List<string>();
-        foreach(Flight flight in currentAccount.AccountFlights){
-            string data = $"({flight.ToString()})";
+        List<Flight> flights1 = new List<Flight>();
+        foreach(Booking booking1 in currentAccount.AccountBookings){
+            flights1.Add(booking1.BookedFlight);
+        }
+        foreach(Booking booking in currentAccount.AccountBookings){
+            string data = $"({booking.BookedFlight.ToString(flights1)})";
             options.Add(data);
         }
         OptionSelection<string>.Start(options);
     }
 
     public static void DeleteReservation(string reservation){
-        foreach (Flight flight in currentAccount.AccountFlights){
-            string data = $"({flight.ToString()})";
+        List<Flight> flights2 = new List<Flight>();
+        foreach(Booking booking1 in currentAccount.AccountBookings){
+            flights2.Add(booking1.BookedFlight);
+        }
+        foreach (Booking booking in currentAccount.AccountBookings){
+            string data = $"({booking.BookedFlight.ToString(flights2)})";
             if (data == reservation){
                 currentAccount.DeleteFromJson();
-                currentAccount.AccountFlights.Remove(flight);
+                currentAccount.AccountBookings.Remove(booking);
                 JsonFile<Account>.Read("DataSources/Accounts.json");
                 JsonFile<Account>.Write("DataSources/Accounts.json", currentAccount);
                 Console.WriteLine("Reservation canceled(press any key to continue)");
@@ -29,8 +37,8 @@ public static class AccountReservation{
     }
     public static void ShowReservation(){
         Account currentAccount = MainMenu.currentUser!;
-        foreach(Flight flight in currentAccount.AccountFlights){
-            Console.WriteLine($"Flight {flight.FlightId} to {flight.Destination}, {flight.Country}, with {flight.AirplaneType}. departure time: {flight.FlightDate} at {flight.DepartureTime}.");
+        foreach(Booking flight in currentAccount.AccountBookings){
+            Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
         }
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();

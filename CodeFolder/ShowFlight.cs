@@ -88,7 +88,7 @@ public class ShowFlights{
     public static void Column2(List<Flight> flights){
         List<String> option1 = new List<string>();
         foreach (Flight flight in flights){
-            string data = $"|{flight.ToString()}|";
+            string data = $"|{flight.ToString(flights)}|";
             option1.Add(data);
         }
         if (option1.Count > 3){
