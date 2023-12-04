@@ -1,7 +1,6 @@
 using MimeKit;
 
 namespace CodeFolder;
-using MailKit;
 
 public class ConfirmationEmail
 {
