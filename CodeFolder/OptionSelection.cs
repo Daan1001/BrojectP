@@ -5,6 +5,7 @@ public static class OptionSelection<T>{
     private static bool ArraySelected;
     public static string? selectedFlight;
     public static Flight? selectedFlight2;
+    public static Account? selectedAccount;
     private static ConsoleKeyInfo keyInfo;
     public static String[] GoBack = {"<-- Go back"};
     public static Boolean stop = false;
@@ -27,7 +28,17 @@ public static class OptionSelection<T>{
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
-                Console.WriteLine(list[i]);
+                if(list[i] as String == "Exit" || list[i] as String == "Delete account(!)"){
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(list[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                } else if(list[i] is String && (list[i] as String)!.ToUpper().Contains("ADD")){
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(list[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                } else {
+                    Console.WriteLine(list[i]);
+                }
                 Console.ResetColor();
             }
             if(array is not null){
@@ -72,7 +83,7 @@ public static class OptionSelection<T>{
                     if(hoveringOption >= list.Count()){
                         String selectedOption = array![hoveringOption-list.Count()];
                         Console.WriteLine();
-                        Action(selectedOption);
+                        ActionString(selectedOption);
                     } else {
                         selectedOption = list[hoveringOption];
                         Console.WriteLine();
@@ -84,7 +95,7 @@ public static class OptionSelection<T>{
         }
     }
 
-    private static void Action(string selectedOption){
+    private static void ActionString(string selectedOption){
         List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         List<Flight> matchingFlights = new List<Flight>();
         foreach(Flight destination in flights){
@@ -109,7 +120,30 @@ public static class OptionSelection<T>{
             option2.Add("<-- Go back");
             OptionSelection<String>.Start(option2);
         }
-        switch (selectedOption){ 
+        if (EditingFlights.airportstring.Contains(selectedOption)){
+            EditingFlights.EditDestination2(selectedOption);
+        }
+        if (AddingFlights.airportstring.Contains(selectedOption)){
+            AddingFlights.AddFlight2(selectedOption);
+        }
+        switch (selectedOption){
+            case "Reservations":
+                List<string> option = new List<string>();
+                option.Add("See reservations");
+                option.Add("Cancel reservations");
+                option.Add("Edit reservations");
+                option.Add("<-- Go back");
+                OptionSelection<string>.Start(option);
+                break;
+            case "See reservations":
+                AccountReservation.ShowReservation();
+                break;
+            case "Cancel reservations":
+                AccountReservation.CancelReservation();
+                break;
+            case "Edit reservations":
+                AccountReservation.EditReservation();
+                break;
             case "Save changes": //saving changes to flights
                 AddingFlights.SaveChanges(selectedFlight2!);
                 break;
@@ -202,6 +236,8 @@ public static class OptionSelection<T>{
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
             case "<-- Go back":
+                OptionSelection<String>.selectedAccount = null;
+                OptionSelection<Account>.selectedAccount = null;
                 MainMenu.Start();
                 break;
             case "Airport contact details":
@@ -256,23 +292,77 @@ public static class OptionSelection<T>{
                 ShowFlights.Column2(SortedPriceList);
                 break;
             case "Exit":
-                Console.WriteLine("Goodbye!");
+                Color.Green("G", false);
+                Color.Red("o", false);
+                Color.Yellow("o", false);
+                Color.Magenta("d", false);
+                Color.Blue("b", false);
+                Color.Black("y", false);
+                Color.Cyan("e", false);
+                Color.Red("!", false);
+                // Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
                 break;
-            // default:
-            //     Console.WriteLine("Still a W.I.P. (press any key to continue)");
-            //     Console.ReadKey(); // alleen tijdens wip nodig
-            //     break;
+            case "Delete account(!)":
+                if(selectedAccount is not null && selectedAccount != MainMenu.currentUser!){
+                    selectedAccount!.DeleteFromJson();
+                    Console.WriteLine("Account deleted");
+                    Console.ReadKey();
+                    Account.ViewAllAccount();
+                } else {
+                    MainMenu.currentUser!.DeleteFromJson();
+                    MainMenu.currentUser = null;
+                    Console.WriteLine("Account deleted");
+                    Console.ReadKey();
+                    MainMenu.Start();
+                }
+                break; 
+            case "Reset password":
+                if(selectedAccount is not null){
+                    selectedAccount!.ChangePassword();
+                    Account.ViewAllAccount();
+                } else {
+                    MainMenu.currentUser!.ChangePassword();
+                }
+                break; 
+            case "Change username":
+                MainMenu.currentUser!.changeUsername();
+                break; 
+            default:
+                Console.WriteLine("Still a W.I.P. (press any key to continue)");
+                Console.ReadKey(); // alleen tijdens wip nodig
+                break;
         }
     }
 
     public static void Action(T selectedOption){
         if(selectedOption is String){
-            Action((selectedOption as String)!);
+            if(selectedAccount is not null){
+                String[] Strings = (selectedOption as String)!.Split(":");
+                switch (Strings[0]){ 
+                case "Username": //saving changes to flights
+                    selectedAccount.changeUsername();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                case "Is Admin": //editing prices for flights
+                    selectedAccount.switchAdminBoolean();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                case "Is Super Admin": //editing type airplane for flights
+                    selectedAccount.switchSuperAdminBoolean();
+                    selectedAccount.AccountInformation();
+                    Console.ReadKey();
+                    break;
+                }
+            }
+            ActionString((selectedOption as String)!);
         } else if(selectedOption is Account){
             JsonFile<Account>.Read("DataSources/Accounts.json");
             for(int i = 0; i < JsonFile<Account>.listOfObjects!.Count(); i++){
                 if(JsonFile<Account>.listOfObjects![i] == (selectedOption as Account)!){
+                    selectedAccount = selectedOption as Account;
                     (selectedOption as Account)!.AccountInformation();
                 }
             }

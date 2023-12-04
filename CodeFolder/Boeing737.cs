@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Boeing737 : DisplaySeating
+public class Boeing737 : Airplane
 {
     public Boeing737(char letter, int numbers) : base (letter, numbers) {}
 
@@ -8,7 +8,7 @@ public class Boeing737 : DisplaySeating
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             for (int row = 1; row <= NumberOfRows; row++){
-                Seat? existingSeat = DisplaySeating.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 if (existingSeat != null){
                     // The seat is already booked (based on the JSON data)
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
@@ -152,19 +152,15 @@ public class Boeing737 : DisplaySeating
                     break;
             }
         }
-        bool confirmBooking = ConfirmBooking(); // Ask for confirmation after finishing the booking
+        Console.Clear();
+        bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
+
         if (confirmBooking)
         {
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
-            
-            SaveBookedSeatsToJson(new_filepath); // Specify the desired file path
-            TemporarlySeat.Clear();
-            bookedSeats.Clear();
-            Seat.Seats.Clear();
-            Console.ReadKey();
             int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
             SeatsAvailable = SeatsAvailable - bookedSeats.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
@@ -176,9 +172,13 @@ public class Boeing737 : DisplaySeating
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
+            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            SaveBookedSeatsToJson(filepath); // Specify the desired file path
+            TemporarlySeat.Clear();
+            Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);
-            Program.Main();      
+            Program.Main();
         }
         else{
             // Roll back the booked seats to available
