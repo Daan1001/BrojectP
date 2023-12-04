@@ -133,7 +133,7 @@ public class AddingFlights{
         List<string> option1 = new List<string>();
         Console.WriteLine("Choose a flight to change (Press any key to continue)");
         foreach (Flight flight in flights){
-            string data = $"[{flight.ToString()}]";
+            string data = $"[{flight.ToString(flights)}]";
             option1.Add(data);
         }
         Console.ReadKey();
@@ -141,15 +141,10 @@ public class AddingFlights{
     }
     public static void EditFlight(Flight selectedFlight){
         Console.Clear();
+        List<Flight> flights1 = new List<Flight>();
         Console.WriteLine("Editing flight for:");
-        string data = selectedFlight.ToString();
-        string clean = FlightSelection.RemoveWhitespace(data);
-        string clean2 = "|";
-        string[] stringarray = clean.Split("|");
-        for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
-            clean2 += " " + stringarray[i] + " |";
-        }
-        Console.WriteLine(clean2);
+        string data = selectedFlight.ToString(flights1);
+        Console.WriteLine(data);
         Console.ReadKey();
         List<string> option2 = new List<string>();
         option2.Add("Destination");

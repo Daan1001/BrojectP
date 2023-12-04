@@ -131,7 +131,7 @@ public static class OptionSelection<T>{
         }
         switch (selectedOption){
             case "My reservations":
-                if (MainMenu.currentUser!.AccountFlights.Count() > 0){
+                if (MainMenu.currentUser!.AccountBookings.Count() > 0){
                     List<string> option = new List<string>();
                     option.Add("See my reservations");
                     option.Add("Cancel reservations");
