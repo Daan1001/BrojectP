@@ -212,8 +212,8 @@ public class Boeing737 : Airplane
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
-            int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
-            SeatsAvailable = SeatsAvailable - bookedSeats.Count();
+            int SeatsAvailable = Convert.ToInt32(CurrentFlight.SeatsAvailable);
+            SeatsAvailable = SeatsAvailable - TemporarlySeat.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
             CurrentFlight.SeatsAvailable = SeatsAvailablestring;
             string json = File.ReadAllText("DataSources/Flights.json");

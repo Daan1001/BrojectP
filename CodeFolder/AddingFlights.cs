@@ -74,6 +74,7 @@ public class AddingFlights{
         int totalSeats = GetTotalSeats(airplaneType);
         int seatsAvailable = totalSeats;
 
+        // 30 euro per uur naar boven afronden
         Console.Write("Base Price (in Euro): ");
         string baseprice = Console.ReadLine()!;
         baseprice = "€" + baseprice;

@@ -40,9 +40,10 @@ public class Prices{
         double percentagekorting = 1.0 - percentage;
         double totalpricedouble = CalculatePrice(Convert.ToDouble(totalprice), percentagekorting);
         TotalpriceDouble = totalpricedouble;
+        TotalpriceDouble = Math.Round(TotalpriceDouble, 2);
         Console.WriteLine($"Price before discount: {totalprice}");
         Console.WriteLine($"Current discount: {korting}%");
-        Console.WriteLine($"Total price: €{totalpricedouble}");
+        Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
@@ -50,7 +51,8 @@ public class Prices{
                 if (MainMenu.currentUser! != null!){
                     MainMenu.currentUser.DeleteFromJson();
                     Flight accountFlight = currentflight;
-                    Booking accountbookings = new Booking(accountFlight, Airplane.TemporarlySeat);
+                    List<Seat> seats = Airplane.TemporarlySeat;
+                    Booking accountbookings = new Booking(accountFlight, seats);
                     MainMenu.currentUser.AccountBookings.Add(accountbookings);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
