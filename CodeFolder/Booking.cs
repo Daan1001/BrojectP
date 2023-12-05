@@ -1,5 +1,9 @@
-﻿public class Booking{
+﻿using Newtonsoft.Json;
+
+public class Booking{
+    [JsonProperty]
     public Flight BookedFlight;
+    [JsonProperty]
     public List<Seat> BookedSeats;
 
     public Booking(Flight BookedFlight, List<Seat> BookedSeats){
