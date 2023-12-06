@@ -338,6 +338,9 @@ public static class OptionSelection<T>{
             case "Change username":
                 MainMenu.currentUser!.changeUsername();
                 break; 
+            case "See reservations":
+                AccountReservation.ShowReservation(OptionSelection<Account>.selectedAccount!);
+                break;
             default:
                 Console.WriteLine("Still a W.I.P. (press any key to continue)");
                 Console.ReadKey(); // alleen tijdens wip nodig

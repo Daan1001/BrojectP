@@ -29,6 +29,7 @@ public class Account: IEquatable<Account>{
             if(MainMenu.currentUser.isSuperAdmin){
                 options.Add("Is Admin: "+Convert.ToString(this.isAdmin));
                 options.Add("Is Super Admin: "+Convert.ToString(this.isSuperAdmin));
+                options.Add("See reservations");
             }
             options.Add("Reset password");
             options.Add("Delete account(!)");
