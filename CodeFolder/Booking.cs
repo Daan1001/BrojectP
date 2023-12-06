@@ -12,14 +12,16 @@ public class Booking{
     }
 
     public override string ToString(){
-        String toReturn = "Booked Flight: "+this.BookedFlight+";\nBooked Seats: ";
+        List<Flight> flights = new List<Flight>();
+        flights.Add(BookedFlight);
+        String toReturn = "Booked Flight: "+this.BookedFlight.ToString(flights)+"\nBooked Seats: ";
         for(int i = 0; i < BookedSeats.Count(); i++){
             if(i != 0){
                 toReturn += ", ";
             }
             toReturn += BookedSeats[i];
         }
-        toReturn += ";";
+        toReturn += ";\n";
         return toReturn;
     }
 }

@@ -48,10 +48,10 @@ public class Seat
         // Console.WriteLine("TEST");
     }
 
-    // public void ResetBooking()
-    // {
-    //     Booked = false;
-    // }
+    public void ResetBooking()
+    {
+        Booked = false;
+    }
     public void ResetSeat() // used to unselect seat to false since fields are private.
     {
         Booked = false;
