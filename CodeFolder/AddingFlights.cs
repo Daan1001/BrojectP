@@ -36,17 +36,6 @@ public class AddingFlights{
         Console.CursorVisible = true;
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
-        Console.Write("Type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
-        string airplaneType = Console.ReadLine()!;
-
-        Console.WriteLine("Enter the gate");
-        string gate = Console.ReadLine()!;
-        if (gate.Length == 2){
-            gate = "Gate " + gate;
-        }
-        else if (gate.Length == 1){
-            gate = "Gate 0" + gate;
-        }
         Console.Write("Flight Date (dd-MM-yyyy): ");
         DateTime flightDate;
         while (!DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
@@ -60,6 +49,7 @@ public class AddingFlights{
         string country = "";
         string city = "";
         string arrivalstring = "";
+        string Baseprice = "";
         string[] data = selectedoption.Split(',');
         foreach (string[] location in airports){
             if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
@@ -68,16 +58,50 @@ public class AddingFlights{
                 arrivalstring = arrival.ToString("HH:mm:ss");
                 country = data[0].Trim();
                 city = data[1].Trim();
+                double price = Convert.ToDouble(data[2].Trim());
+                int Basepriceint = Convert.ToInt32(Math.Round(price, 2, MidpointRounding.AwayFromZero));
+                Basepriceint = Basepriceint * 30;
+                // 30 euro per uur naar boven afronden
+                Baseprice = $"€{Convert.ToString(Basepriceint)}";
                 break;
             }
+        }
+        string airplaneType = "";
+        bool select = true;
+        while(select){
+            Console.Write("Type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
+            airplaneType = Console.ReadLine()!;
+            if (airplaneType.ToLower() == "boeing 787" || airplaneType.ToLower() == "boeing 737" || airplaneType.ToLower() == "airbus 330"){
+                select = false;
+            }
+            else{
+                Console.WriteLine("Invalid input try again");
+            }
+        }
+        string gate = "";
+        bool select2 = true;
+        while(select2){
+            Console.WriteLine("Enter the gate(1-20)");
+            gate = Console.ReadLine()!;
+            if(int.TryParse(gate, out _)){
+                int gateint = Convert.ToInt32(gate);
+                if (gateint < 20 && gateint > 0){
+                    select2 = false;
+                }
+                else{
+                    Console.WriteLine("Invalid input try again");
+                }
+            }
+        }
+        if (gate.Length == 2){
+            gate = "Gate " + gate;
+        }
+        else if (gate.Length == 1){
+            gate = "Gate 0" + gate;
         }
         int totalSeats = GetTotalSeats(airplaneType);
         int seatsAvailable = totalSeats;
 
-        // 30 euro per uur naar boven afronden
-        Console.Write("Base Price (in Euro): ");
-        string baseprice = Console.ReadLine()!;
-        baseprice = "€" + baseprice;
         Console.CursorVisible = false;
 
         // Create a new Flight object
@@ -93,13 +117,14 @@ public class AddingFlights{
             ArrivalTime = arrivalstring,
             SeatsAvailable = seatsAvailable.ToString(),
             TotalSeats = totalSeats.ToString(),
-            BasePrice = baseprice
+            BasePrice = Baseprice
         };
 
         var existingFlights = JsonConvert.DeserializeObject<List<Flight>>(File.ReadAllText("DataSources/Flights.json")) ?? new List<Flight>();
         existingFlights.Add(newFlight);
         File.WriteAllText("DataSources/Flights.json", JsonConvert.SerializeObject(existingFlights, Formatting.Indented));
-        Console.WriteLine("New flight added successfully!");
+        Console.WriteLine("New flight added successfully!(Press any key to continue)");
+        Console.ReadLine();
         Program.Main();
     }
 
@@ -191,12 +216,7 @@ public class AddingFlights{
         }
     }
     public static Flight FindFlight(string flightid){ //finds the matching flight based on id
-        foreach (Flight flight in flights){
-            if (flightid == flight.FlightId){
-                return flight;
-            }
-        }
-        return null!;
+        return flights.FirstOrDefault(flight => flight.FlightId == flightid)!;
     }
     public static void DeletingFlight(Flight selectedFlight){
         foreach(Flight flight in flights){

@@ -28,11 +28,7 @@ public static class AccountReservation{
             if (data.Substring(1, 6) == reservation.Substring(1, 6)){
                 // change seats available in flights.json to add the amount of seats previously booked(Works)
                 List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-                foreach(Flight flight in flights){
-                    if (flight.FlightId == reservation.Substring(1, 6)){
-                        newflight = flight;
-                    }
-                }
+                newflight = flights.FirstOrDefault(flight => flight.FlightId == reservation.Substring(1, 6))!;
                 int bookedseats = booking.BookedSeats.Count();
                 int SeatsAvailable = Convert.ToInt32(newflight.SeatsAvailable);
                 SeatsAvailable = SeatsAvailable + bookedseats;
@@ -95,10 +91,6 @@ public static class AccountReservation{
         string filePath = "DataSources/Accounts.json";
         string jsonContent = File.ReadAllText(filePath);
         List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
-        foreach (Account account in newBookings){
-            if (account.username == MainMenu.currentUser!.username){
-                MainMenu.currentUser = account;
-            }
-        }
+        MainMenu.currentUser = newBookings.FirstOrDefault(account => account.username == MainMenu.currentUser?.username);
     }
 }
