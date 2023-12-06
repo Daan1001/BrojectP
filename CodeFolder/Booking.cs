@@ -1,30 +1,27 @@
-﻿public class Booking
-{
-    public static void StartBooking()
-    {
-        // bool booking = true;
+﻿using Newtonsoft.Json;
 
-        // while (booking)
-        // {
-        List<string > Options = new List<string>(){"Book a seat","<-- Go back"};
-        OptionSelection<String>.Start(Options);
+public class Booking{
+    [JsonProperty]
+    public Flight BookedFlight;
+    [JsonProperty]
+    public List<Seat> BookedSeats;
 
-            // string? user = Console.ReadLine();
-            // if (user == "1")
-            // {
-            //     Airplane airplane = new();
-            //     airplane.Boeing737();
-            // } 
-            // else if (user == "2")
-            // {
-            //     // return to menu before this. 
-            //     booking = false;
-            //     MainMenu.Start();
-            // }
-            // else if (user == "3")
-            // {
-            //     break;
-            // }
-        // } 
-    }            
+    public Booking(Flight BookedFlight, List<Seat> BookedSeats){
+        this.BookedFlight = BookedFlight;
+        this.BookedSeats = BookedSeats;
+    }
+
+    public override string ToString(){
+        List<Flight> flights = new List<Flight>();
+        flights.Add(BookedFlight);
+        String toReturn = "Booked Flight: "+this.BookedFlight.ToString(flights)+"\nBooked Seats: ";
+        for(int i = 0; i < BookedSeats.Count(); i++){
+            if(i != 0){
+                toReturn += ", ";
+            }
+            toReturn += BookedSeats[i];
+        }
+        toReturn += ";\n";
+        return toReturn;
+    }
 }

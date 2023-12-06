@@ -5,13 +5,13 @@ public class Prices{
     {
         int korting = 0;
         if (MainMenu.currentUser! != null!){
-            if (MainMenu.currentUser!.AccountFlights.Count() == 1){
+            if (MainMenu.currentUser!.AccountBookings.Count() == 1){
                 korting = 5;
             }
-            if (MainMenu.currentUser.AccountFlights.Count() == 2){
+            if (MainMenu.currentUser.AccountBookings.Count() == 2){
                 korting = 10;
             }
-            if (MainMenu.currentUser.AccountFlights.Count() >= 3){
+            if (MainMenu.currentUser.AccountBookings.Count() >= 3){
                 korting = 15;
             }
         }
@@ -40,16 +40,20 @@ public class Prices{
         double percentagekorting = 1.0 - percentage;
         double totalpricedouble = CalculatePrice(Convert.ToDouble(totalprice), percentagekorting);
         TotalpriceDouble = totalpricedouble;
+        TotalpriceDouble = Math.Round(TotalpriceDouble, 2);
         Console.WriteLine($"Price before discount: {totalprice}");
         Console.WriteLine($"Current discount: {korting}%");
-        Console.WriteLine($"Total price: €{totalpricedouble}");
+        Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser! != null!){
                     MainMenu.currentUser.DeleteFromJson();
-                    MainMenu.currentUser.AccountFlights.Add(currentflight);
+                    Flight accountFlight = currentflight;
+                    List<Seat> seats = Airplane.TemporarlySeat;
+                    Booking accountbookings = new Booking(accountFlight, seats);
+                    MainMenu.currentUser.AccountBookings.Add(accountbookings);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
                 }
@@ -62,7 +66,7 @@ public class Prices{
     //     Account account = new Account("Sander5", "Sander123!", false, false);
     //     MainMenu.currentUser = account;
     //     List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    //     account.AccountFlights.Add(flights[1]);
+    //     account.AccountBooking.Add(flights[1]);
     //     Seat seat= new Seat("First Class", 'B', 1, true, 500);
     //     DisplaySeating.TemporarlySeat.Add(seat);
     //     Prices.TicketPrices(flights[2]);

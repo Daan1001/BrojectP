@@ -36,9 +36,8 @@ public class Flight
     [JsonProperty("Base Price")]
     public string? BasePrice { get; set; }
 
-    public override string ToString()
+    public string ToString(List<Flight> flights)
     {
-        List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         int LenCountry = 0;
         int LenDes = 0;
         foreach (Flight flight in flights){

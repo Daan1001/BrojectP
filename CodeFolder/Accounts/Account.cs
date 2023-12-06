@@ -7,7 +7,7 @@ public class Account: IEquatable<Account>{
     public Boolean isSuperAdmin{get; set;}
     public string username;
     public string? passwordHash;
-    public List<Flight> AccountFlights = new List<Flight>();
+    public List<Booking> AccountBookings = new List<Booking>();
     // public DateTime dateOfBirth;
     // public String email;
     // public int phoneNumber;
@@ -29,6 +29,7 @@ public class Account: IEquatable<Account>{
             if(MainMenu.currentUser.isSuperAdmin){
                 options.Add("Is Admin: "+Convert.ToString(this.isAdmin));
                 options.Add("Is Super Admin: "+Convert.ToString(this.isSuperAdmin));
+                options.Add("See reservations");
             }
             options.Add("Reset password");
             options.Add("Delete account(!)");
