@@ -25,6 +25,7 @@ public class AddingFlights{
         };
     public static List<string> airportstring = new List<string>();
     public static void AddFlight(){
+        airportstring.Clear();
         foreach (string[] airport in airports){
             string airporttime = Convert.ToString(airport[2]);
             string airportloc = $"{airport[0]}, {airport[1]}, {airporttime}";
@@ -59,7 +60,7 @@ public class AddingFlights{
                 country = data[0].Trim();
                 city = data[1].Trim();
                 double price = Convert.ToDouble(data[2].Trim());
-                int Basepriceint = Convert.ToInt32(Math.Round(price, 2, MidpointRounding.AwayFromZero));
+                int Basepriceint = Convert.ToInt32(Math.Ceiling(price));
                 Basepriceint = Basepriceint * 30;
                 // 30 euro per uur naar boven afronden
                 Baseprice = $"€{Convert.ToString(Basepriceint)}";
@@ -131,11 +132,11 @@ public class AddingFlights{
     public static int GetTotalSeats(string airplaneType){//gets the total seats of the plane based on type airplane
         switch (airplaneType){
             case "Boeing 787":
-                return 189;
+                return 234;
             case "Airbus 330":
-                return 150;
+                return 378;
             case "Boeing 737":
-                return 170;
+                return 198;
             default:
                 return 0;
         }
