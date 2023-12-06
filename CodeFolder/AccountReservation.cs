@@ -81,6 +81,22 @@ public static class AccountReservation{
         Console.ReadKey();
     }
 
+    public static void ShowReservation(Account account){
+        Account currentAccount = account;
+        foreach(Booking flight in currentAccount.AccountBookings){
+            Console.WriteLine("---------------------------------------------------------------------");
+            // Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
+            // Console.Write("Seats: ");
+            // foreach(Seat seat in flight.BookedSeats){
+            //     Console.Write($"{seat.ToString()}, ");
+            // }
+            Console.WriteLine(flight);
+        }
+        Console.WriteLine("---------------------------------------------------------------------");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+    }
+
     public static void EditReservation(){
         //daan mag hier werken
         Console.WriteLine("test");
