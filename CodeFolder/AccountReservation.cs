@@ -19,14 +19,18 @@ public static class AccountReservation{
     public static void DeleteReservation(string reservation){
         UpdateUser();
         List<Flight> flights2 = new List<Flight>();
-        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){
-            flights2.Add(booking1.BookedFlight);
+        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){ //checks if flight is still relevant
+            DateTime myDate = DateTime.ParseExact(booking1.BookedFlight.FlightDate!, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime today = DateTime.Today;
+            if(DateTime.Today < myDate){
+                flights2.Add(booking1.BookedFlight);
+            }
         }
         foreach (Booking booking in MainMenu.currentUser.AccountBookings){
             string data = $"({booking.BookedFlight.ToString(flights2)})";
             Flight newflight = booking.BookedFlight;
             if (data.Substring(1, 6) == reservation.Substring(1, 6)){
-                // change seats available in flights.json to add the amount of seats previously booked(Works)
+                // change seats available in flights.json to add the amount of seats previously booked
                 List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
                 newflight = flights.FirstOrDefault(flight => flight.FlightId == reservation.Substring(1, 6))!;
                 int bookedseats = booking.BookedSeats.Count();
@@ -36,7 +40,7 @@ public static class AccountReservation{
                 newflight.SeatsAvailable = SeatsAvailablestring;
                 AddingFlights.SaveChanges(newflight);
 
-                //removing seats from the {flightID}.json file so they become available again(Works)
+                //removing seats from the {flightID}.json file so they become available again
                 string filepath = $"DataSources/{booking.BookedFlight.FlightId}.json";
                 string json = File.ReadAllText(filepath);
                 List<Seat> seatList = JsonConvert.DeserializeObject<List<Seat>>(json)!;
@@ -52,7 +56,7 @@ public static class AccountReservation{
                 string json2 = JsonConvert.SerializeObject(seatlistcopy, Formatting.Indented);
                 File.WriteAllText(filepath, json2);
 
-                // delete it from account.json(Works)
+                // delete it from account.json
                 MainMenu.currentUser.DeleteFromJson();
                 MainMenu.currentUser.AccountBookings.Remove(booking);
                 JsonFile<Account>.Read("DataSources/Accounts.json");
@@ -69,11 +73,6 @@ public static class AccountReservation{
         Account currentAccount = MainMenu.currentUser!;
         foreach(Booking flight in currentAccount.AccountBookings){
             Console.WriteLine("---------------------------------------------------------------------");
-            // Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
-            // Console.Write("Seats: ");
-            // foreach(Seat seat in flight.BookedSeats){
-            //     Console.Write($"{seat.ToString()}, ");
-            // }
             Console.WriteLine(flight);
         }
         Console.WriteLine("---------------------------------------------------------------------");
@@ -85,11 +84,6 @@ public static class AccountReservation{
         Account currentAccount = account;
         foreach(Booking flight in currentAccount.AccountBookings){
             Console.WriteLine("---------------------------------------------------------------------");
-            // Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
-            // Console.Write("Seats: ");
-            // foreach(Seat seat in flight.BookedSeats){
-            //     Console.Write($"{seat.ToString()}, ");
-            // }
             Console.WriteLine(flight);
         }
         Console.WriteLine("---------------------------------------------------------------------");

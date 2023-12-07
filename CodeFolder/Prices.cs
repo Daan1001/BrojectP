@@ -4,7 +4,7 @@ public class Prices{
     public static bool TicketPrices(Flight currentflight)
     {
         int korting = 0;
-        if (MainMenu.currentUser! != null!){
+        if (MainMenu.currentUser! != null!){ //decides the discount based on how many flights user has booked
             if (MainMenu.currentUser!.AccountBookings.Count() == 1){
                 korting = 5;
             }
@@ -16,7 +16,6 @@ public class Prices{
             }
         }
         Korting = korting;
-        // Console.Clear();
         Console.WriteLine("Confirmation Screen:");
         Console.WriteLine($"Selected flight: {currentflight.AirplaneType} to {currentflight.Destination}, {currentflight.Country}");
         Console.WriteLine($"Departure time: {currentflight.FlightDate} at {currentflight.DepartureTime}");
