@@ -2,24 +2,7 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "AccountBookings": [
-      {
-        "BookedFlight": {
-          "Flight id": "458491",
-          "Type Airplane": "Boeing 787",
-          "Terminal": "Gate 05",
-          "Country": "Spain",
-          "Destination": "Barcelona",
-          "Flight date": "12-02-2024",
-          "Departure time": "10:30:00",
-          "Arrival time": "12:30:00",
-          "Seats Available": "166",
-          "Total Seats": "189",
-          "Base Price": "€25"
-        },
-        "BookedSeats": []
-      }
-    ],
+    "AccountBookings": [],
     "isAdmin": true,
     "isSuperAdmin": true
   },
