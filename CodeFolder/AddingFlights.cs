@@ -194,9 +194,6 @@ public class AddingFlights{
                 break;
         }
     }
-    public static void ChangeClassPrice(Flight selectedFlight){
-        
-    }
     public static Flight FindFlight(string flightid){ //finds the matching flight based on id
         foreach (Flight flight in flights){
             if (flightid == flight.FlightId){
