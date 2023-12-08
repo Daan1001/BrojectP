@@ -23,7 +23,8 @@ public class Seat
     }
 
     public override string ToString(){
-        return $"Letter: {Letter}, Row: {Row}";
+        // return $"Letter: {Letter}, Row: {Row}";
+        return $"Seat: {Letter}-{Row}";
     }
     public void Book(){
         if (!Booked){

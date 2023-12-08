@@ -64,4 +64,19 @@ public class UnitTest1
  
     //     Assert.AreEqual(Prices.Korting, 5);
     // }
+    [TestMethod]
+    public void TestingPlusOperatorBooking(){
+        JsonFile<Flight>.Read("DataSources/Flights.json");
+        Flight flight = JsonFile<Flight>.listOfObjects![0];
+        Seat seat1 = new Seat("Economy", 'A', 1, true, 22);
+        Seat seat2 = new Seat("Economy", 'B', 1, true, 22);
+        Seat seat3 = new Seat("Business", 'A', 2, true, 22);
+        Booking Booking1 = new Booking(flight, new List<Seat>{seat1, seat2});
+        Booking Booking2 = new Booking(flight, new List<Seat>{seat3});
+        Booking ExpectedResult = new Booking(flight, new List<Seat>{seat1, seat2, seat3});
+
+        Booking? ActualResult = Booking1 + Booking2;
+
+        Assert.IsTrue(ExpectedResult == ActualResult!);
+    }
 }

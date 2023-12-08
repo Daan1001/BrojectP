@@ -17,7 +17,7 @@ public static class AccountReservation{
             string data = $"({booking.BookedFlight.ToString(flights1)})";
             options.Add(data);
         }
-        OptionSelection<string>.Start(options);
+        OptionSelection<string>.Start(options, OptionSelection<String>.GoBack);
     }
 
     public static void DeleteReservation(string reservation){
@@ -104,6 +104,9 @@ public static class AccountReservation{
     }
 
     public static void EditReservation(){
+        UpdateUser();
+        OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
+
         //daan mag hier werken
         Console.WriteLine("test");
         Console.ReadKey();
