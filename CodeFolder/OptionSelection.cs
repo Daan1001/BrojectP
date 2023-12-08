@@ -121,6 +121,9 @@ public static class OptionSelection<T>{
             option2.Add("<-- Go back");
             OptionSelection<String>.Start(option2);
         }
+        if (sub == "("){
+            AccountReservation.DeleteReservation(selectedOption);
+        }
         // if( sub == "{"){
         //     List<String> option3 = new List<string>();
             

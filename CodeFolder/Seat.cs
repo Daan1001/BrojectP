@@ -44,8 +44,13 @@ public class Seat
     {
         Booked = false;
     }
-    public void ResetSeat() // used to unselect seat to false since fields are private.
-    {
+    // public void ResetSeat() // used to unselect seat to false since fields are private.
+    // {
+    // public void ResetBooking()
+    // {
+    //     Booked = false;
+    // }
+    public void ResetSeat(){ // used to unselect seat to false since fields are private. 
         Booked = false;
         Console.WriteLine($"Seat {this.Letter}{this.Row} {(Booked ? "booked" : "unbooked")}");
     }
