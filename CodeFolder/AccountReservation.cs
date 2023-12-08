@@ -6,8 +6,12 @@ public static class AccountReservation{
 
         List<string> options = new List<string>();
         List<Flight> flights1 = new List<Flight>();
-        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){
-            flights1.Add(booking1.BookedFlight);
+        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){ //checks if flight is still relevant
+            DateTime myDate = DateTime.ParseExact(booking1.BookedFlight.FlightDate!, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime today = DateTime.Today;
+            if(DateTime.Today < myDate){
+                flights1.Add(booking1.BookedFlight);
+            }
         }
         foreach(Booking booking in MainMenu.currentUser.AccountBookings){
             string data = $"({booking.BookedFlight.ToString(flights1)})";
@@ -20,7 +24,7 @@ public static class AccountReservation{
         UpdateUser();
         List<Flight> flights2 = new List<Flight>();
         foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){ //checks if flight is still relevant
-            DateTime myDate = DateTime.ParseExact(booking1.BookedFlight.FlightDate!, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime myDate = DateTime.ParseExact(booking1.BookedFlight.FlightDate!, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             DateTime today = DateTime.Today;
             if(DateTime.Today < myDate){
                 flights2.Add(booking1.BookedFlight);
@@ -70,8 +74,16 @@ public static class AccountReservation{
     }
     public static void ShowReservation(){
         UpdateUser();
-        Account currentAccount = MainMenu.currentUser!;
-        foreach(Booking flight in currentAccount.AccountBookings){
+        List<Booking> flights2 = new List<Booking>();
+        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){ //checks if flight is still relevant
+            DateTime myDate = DateTime.ParseExact(booking1.BookedFlight.FlightDate!, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime today = DateTime.Today;
+            if(today < myDate){
+                flights2.Add(booking1);
+            }
+        }
+        //Account currentAccount = MainMenu.currentUser!;
+        foreach(Booking flight in flights2){
             Console.WriteLine("---------------------------------------------------------------------");
             Console.WriteLine(flight);
         }
