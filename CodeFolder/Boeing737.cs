@@ -2,14 +2,14 @@ using Newtonsoft.Json;
 
 public class Boeing737 : Airplane
 {
-    protected int FirstClassPrice;
-    protected int BusinessClassPrice;
-    protected int EconomyClassPrice;
+    protected static int FirstClassPrice = 0;
+    protected static int BusinessClassPrice = 0;
+    protected static int EconomyClassPrice = 500;
     public Boeing737(char letter, int numbers) : base (letter, numbers) {
         
     }
 
-    public override void InitializeSeats(int firstClassPrice = 0, int businessClassPrice = 0, int economyClassPrice = 500)
+    public override void InitializeSeats(int firstClassPrice , int businessClassPrice = 0, int economyClassPrice = 500)
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             for (int row = 1; row <= NumberOfRows; row++){
@@ -40,23 +40,26 @@ public class Boeing737 : Airplane
     }
 
     public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
-        this.FirstClassPrice = firstClassPrice;
-        this.BusinessClassPrice = businessClassPrice;
-        this.EconomyClassPrice = economyClassPrice;
+        FirstClassPrice = firstClassPrice;
+        BusinessClassPrice = businessClassPrice;
+        EconomyClassPrice = economyClassPrice;
         InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
     }
 
     public override void SetClassPrices(){
-        Console.WriteLine("Would u like to change the Class prices? (Y/N)");
-        string answer = Console.ReadLine()!.ToUpper();
-        if(answer == "Y"){
-            Console.WriteLine("What is the new Economy seat price: ");
-            int economyclassPrice = Convert.ToInt32(Console.ReadLine());
-            SetPrices(0,0, economyclassPrice);
-        }
-        else{
-            return;
-        }
+        int economyclassPrice;
+        do{
+            Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
+            Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
+            Console.Write(">>> ");
+        } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
+        Console.Clear();
+        Console.WriteLine("The new prices has been set.");
+        Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
+        Console.WriteLine();
+        Console.WriteLine("Press any button to continue.");
+        Console.ReadKey();
+        SetPrices(0, 0, economyclassPrice);
     }
     public override void DisplaySeats()
     {
@@ -119,14 +122,19 @@ public class Boeing737 : Airplane
                         Console.Write(" Extra legroom seat.");
                     }
                     if(row == 4 && letter =='F'){
-                        Console.Write("||");
                         Console.ResetColor();
+                        Console.Write("||");
                         Console.Write(" White: Available Seat.");
                     }
                     if(row == 5 && letter =='F'){
-                        Console.Write("||");
                         Console.ResetColor();
+                        Console.Write("||");
                         Console.Write(" Press ESC to finish the booking.");
+                    }
+                    if(row == 6 && letter =='F'){
+                        Console.ResetColor();
+                        Console.Write(" *");
+                        Console.Write(" Price will vary depending on the selected seat.*");
                     }
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
@@ -149,8 +157,8 @@ public class Boeing737 : Airplane
         //bookedSeats.Clear();
         //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
-        SetClassPrices();
-        InitializeSeats();
+        // SetClassPrices();
+        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
         bool isBookingComplete = false;
         while (!isBookingComplete)
@@ -198,7 +206,6 @@ public class Boeing737 : Airplane
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
-
         if (confirmBooking)
         {
             Console.Clear();

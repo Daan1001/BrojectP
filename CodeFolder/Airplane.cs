@@ -34,9 +34,8 @@ public abstract class Airplane
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
-            TemporarlySeat.Remove(selectedSeat); // Remove the seat from the bookedSeats list
+            TemporarlySeat.Remove(selectedSeat); // Remove the seat from the TemporarlySeat list
         }
-        // DisplaySeats(); // Display the seats again without the selection
     }
     public void LoadBookedSeatsFromJson(string filePath){
         if (File.Exists(filePath)){

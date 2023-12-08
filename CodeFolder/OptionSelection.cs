@@ -117,9 +117,15 @@ public static class OptionSelection<T>{
             selectedFlight2 = AddingFlights.FindFlight(selectedOption.Substring(1, 6));
             option2.Add("Edit flight");
             option2.Add("Cancel flight");
+            option2.Add("Change class seat prices");
             option2.Add("<-- Go back");
             OptionSelection<String>.Start(option2);
         }
+        // if( sub == "{"){
+        //     List<String> option3 = new List<string>();
+            
+
+        // }
         if (EditingFlights.airportstring.Contains(selectedOption)){
             EditingFlights.EditDestination2(selectedOption);
         }
@@ -171,6 +177,21 @@ public static class OptionSelection<T>{
             case "Cancel flight": //canceling flights
                 AddingFlights.CancelFlights(selectedFlight!);
                 break;
+            case "Change class seat prices": // change class seat price all of this kind of plane.
+                if(selectedFlight2.AirplaneType == "Boeing 737"){
+                    Boeing737 boeing737 = new('F', 33);
+                    boeing737.SetClassPrices();
+                }
+                if(selectedFlight2.AirplaneType == "Boeing 787"){
+                    Boeing787 boeing787 = new('I',28);
+                    boeing787.SetClassPrices();
+                }
+                if(selectedFlight2.AirplaneType == "Airbus 330"){
+                    Airbus330 airbus330 = new('I', 44);
+                    airbus330.SetClassPrices();
+                }
+                
+                break;
             case "Add flights": //adding flights
                 AddingFlights.AddFlight();
                 break;
@@ -202,7 +223,7 @@ public static class OptionSelection<T>{
             case "Show flights":
                 if(MainMenu.currentUser is not null){
                     if(MainMenu.currentUser.isAdmin){
-                        OptionSelection<String>.Start(new List<string>{"Show flights ","Edit flights", "Add flights", "<-- Go back"});
+                        OptionSelection<String>.Start(new List<string>{"Show flights ","Edit flights", "Add flights","<-- Go back"});
                     } else {
                     SelectingFlights.Start();
                 }

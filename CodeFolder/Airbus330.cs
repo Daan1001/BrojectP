@@ -1,12 +1,12 @@
 using Newtonsoft.Json;
 public class Airbus330 : Airplane
 {
-    protected int FirstClassPrice;
-    protected int BusinessClassPrice;
-    protected int EconomyClassPrice;
+    protected static int FirstClassPrice = 1000;
+    protected static int BusinessClassPrice = 750;
+    protected static int EconomyClassPrice = 500;
     public Airbus330(char letter, int numbers) : base(letter, numbers){}
 
-    public override void InitializeSeats(int firstClassPrice = 1000, int businessClassPrice = 750, int economyClassPrice = 500)
+    public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
         // Initialize first-class seats
         for(char letter = 'A'; letter <= 'F'; letter++){
@@ -53,17 +53,35 @@ public class Airbus330 : Airplane
     }
     public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
-        this.FirstClassPrice = firstClassPrice;
-        this.BusinessClassPrice = businessClassPrice;
-        this.EconomyClassPrice = economyClassPrice;
+        FirstClassPrice = firstClassPrice;
+        BusinessClassPrice = businessClassPrice;
+        EconomyClassPrice = economyClassPrice;
     }
     public override void SetClassPrices(){
-        Console.WriteLine("What is the new First Class seat price: ");
-        int firstclassPrice = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the new Business Class seat price: ");
-        int businessclassPrice = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the new Economy Class seat price: ");
-        int economyclassPrice = Convert.ToInt32(Console.ReadLine());
+        int firstclassPrice, businessclassPrice, economyclassPrice;
+        do{
+            Console.WriteLine($"This is the current First Class seat price: {FirstClassPrice}");
+            Console.WriteLine("What is the new First Class seat price (positive number only): ");
+            Console.Write(">>> ");
+        } while (!int.TryParse(Console.ReadLine(), out firstclassPrice) || firstclassPrice <= 0);
+        do{
+            Console.WriteLine($"This is the current Business Class seat price: {BusinessClassPrice}");
+            Console.WriteLine("What is the new Business Class seat price (positive number only): ");
+            Console.Write(">>> ");
+        } while (!int.TryParse(Console.ReadLine(), out businessclassPrice) || businessclassPrice <= 0);
+        do{
+            Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
+            Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
+            Console.Write(">>> ");
+        } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
+        Console.Clear();
+        Console.WriteLine("The new prices has been set.");
+        Console.WriteLine($"First Class seat price: {firstclassPrice}.");
+        Console.WriteLine($"Business Class seat price: {businessclassPrice}.");
+        Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
+        Console.WriteLine();
+        Console.WriteLine("Press any button to continue.");
+        Console.ReadKey();
         SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
     }
 
@@ -75,7 +93,7 @@ public class Airbus330 : Airplane
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++){
             if(letter == 'C' || letter == 'E'){
-                Console.Write("   ");
+                Console.Write("          ");
             }
             Console.Write($"{letter,-4} ");
         }
@@ -113,7 +131,7 @@ public class Airbus330 : Airplane
                         Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
                     }
                     if(letter == 'C'  && row <= 2|| letter == 'E'  && row <= 2){
-                        Console.Write("   ");
+                        Console.Write("          ");
                     }
                     if(letter == 'D'  && row >= 3 && row <= 38|| letter == 'G' && row >= 3 && row <= 38){
                         Console.Write("     ");
@@ -152,6 +170,11 @@ public class Airbus330 : Airplane
                     if(row == 8 && letter =='I'){
                         Console.ResetColor();
                         Console.Write(" || BACKSPACE: To unselect a seat.");
+                    }
+                    if(row == 9 && letter =='I'){
+                        Console.ResetColor();
+                        Console.Write("*");
+                        Console.Write(" Price will vary depending on the selected seat.*");
                     }
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
 
@@ -197,7 +220,8 @@ public class Airbus330 : Airplane
         // bookedSeats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
-        InitializeSeats();
+        // SetClassPrices();
+        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
         bool isBookingComplete = false;
         while (!isBookingComplete){
