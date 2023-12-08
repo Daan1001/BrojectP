@@ -124,11 +124,6 @@ public static class OptionSelection<T>{
         if (sub == "("){
             AccountReservation.DeleteReservation(selectedOption);
         }
-        // if( sub == "{"){
-        //     List<String> option3 = new List<string>();
-            
-
-        // }
         if (EditingFlights.airportstring.Contains(selectedOption)){
             EditingFlights.EditDestination2(selectedOption);
         }
