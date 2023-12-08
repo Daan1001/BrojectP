@@ -2,53 +2,36 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "AccountBookings": [
-      {
-        "BookedFlight": {
-          "Flight id": "458491",
-          "Type Airplane": "Boeing 787",
-          "Terminal": "Gate 05",
-          "Country": "Spain",
-          "Destination": "Barcelona",
-          "Flight date": "12-02-2024",
-          "Departure time": "10:30:00",
-          "Arrival time": "12:30:00",
-          "Seats Available": "166",
-          "Total Seats": "189",
-          "Base Price": "€25"
-        },
-        "BookedSeats": []
-      }
-    ],
     "isAdmin": true,
-    "isSuperAdmin": true
+    "isSuperAdmin": true,
+    "AccountBookings": []
   },
   {
     "username": "Sander",
     "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
-    "AccountBookings": [],
     "isAdmin": true,
-    "isSuperAdmin": true
+    "isSuperAdmin": true,
+    "AccountBookings": []
   },
   {
     "username": "Test",
     "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "AccountBookings": [],
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   },
   {
     "username": "testing",
     "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "AccountBookings": [],
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   },
   {
     "username": "Testing",
     "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "AccountBookings": [],
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   }
 ]

@@ -395,6 +395,21 @@ public static class OptionSelection<T>{
                     (selectedOption as Account)!.AccountInformation();
                 }
             }
+        } else if(selectedOption is Booking){
+            if((selectedOption as Booking) is not null){
+                if ((selectedOption as Booking)!.BookedFlight.AirplaneType == "Boeing 737"){
+                    Boeing737 boeing737 = new('F', 33);
+                    boeing737.Start((selectedOption as Booking)!.BookedFlight);
+                }
+                else if ((selectedOption as Booking)!.BookedFlight.AirplaneType == "Airbus 330"){
+                    Airbus330 airbus330 = new('I',44);
+                    airbus330.Start((selectedOption as Booking)!.BookedFlight);
+                }
+                else if ((selectedOption as Booking)!.BookedFlight.AirplaneType == "Boeing 787"){
+                    Boeing787 boeing787 = new('I',28);
+                    boeing787.Start((selectedOption as Booking)!.BookedFlight);
+                }
+            }
         }
     }
 }

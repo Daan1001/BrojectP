@@ -1,31 +1,5 @@
 [
   {
-    "Flight id": "402095",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 04",
-    "Country": "Turkey",
-    "Destination": "Istanbul",
-    "Flight date": "10-12-2023",
-    "Departure time": "10:00:00",
-    "Arrival time": "13:00:00",
-    "Seats Available": "234",
-    "Total Seats": "234",
-    "Base Price": "€90"
-  },
-  {
-    "Flight id": "790159",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 02",
-    "Country": "Spain",
-    "Destination": "Madrid",
-    "Flight date": "01-01-2024",
-    "Departure time": "13:00:00",
-    "Arrival time": "15:00:00",
-    "Seats Available": "378",
-    "Total Seats": "378",
-    "Base Price": "€60"
-  },
-  {
     "Flight id": "856956",
     "Type Airplane": "Boeing 737",
     "Terminal": "Gate 06",
@@ -47,7 +21,7 @@
     "Flight date": "15-03-2024",
     "Departure time": "09:00:00",
     "Arrival time": "10:30:00",
-    "Seats Available": "198",
+    "Seats Available": "193",
     "Total Seats": "198",
     "Base Price": "€30"
   },
@@ -128,5 +102,31 @@
     "Seats Available": "198",
     "Total Seats": "198",
     "Base Price": "€30"
+  },
+  {
+    "Flight id": "402095",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 04",
+    "Country": "Turkey",
+    "Destination": "Istanbul",
+    "Flight date": "10-12-2023",
+    "Departure time": "10:00:00",
+    "Arrival time": "13:00:00",
+    "Seats Available": "234",
+    "Total Seats": "234",
+    "Base Price": "€90"
+  },
+  {
+    "Flight id": "790159",
+    "Type Airplane": "Airbus 330",
+    "Terminal": "Gate 02",
+    "Country": "Spain",
+    "Destination": "Madrid",
+    "Flight date": "01-01-2024",
+    "Departure time": "13:00:00",
+    "Arrival time": "15:00:00",
+    "Seats Available": "378",
+    "Total Seats": "378",
+    "Base Price": "€60"
   }
 ]
