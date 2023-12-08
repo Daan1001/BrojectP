@@ -216,9 +216,6 @@ public class AddingFlights{
                 break;
         }
     }
-    public static void ChangeClassPrice(Flight selectedFlight){
-        
-    }
     public static Flight FindFlight(string flightid){ //finds the matching flight based on id
         return flights.FirstOrDefault(flight => flight.FlightId == flightid)!;
     }
