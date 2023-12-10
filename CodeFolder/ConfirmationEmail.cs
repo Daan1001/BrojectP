@@ -1,4 +1,6 @@
 using MimeKit;
+using MailKit.Net.Smtp;
+
 
 namespace CodeFolder;
 
@@ -8,12 +10,23 @@ public class ConfirmationEmail
     {
         var message = new MimeMessage();
         message.From.Add (new MailboxAddress ("Rotterdam Airport", "rotterdamairport.brojectP@gmail.com"));
-        message.To.Add (new MailboxAddress (username, emailAddress));
+        message.To.Add (new MailboxAddress (username, $"{emailAddress}"));
         message.Subject = $"Confirmation flight {flightCode}";
 
         message.Body = new TextPart ("plain") {
             Text = $"flight {flightCode} from {leavingFrom} to {destination} leaving at {departureTime} to arrive at {arrivalTime} booked by {username} at {DateTime.Now}"
         };
-        Console.WriteLine(message);
+        
+        // Set up the SMTP client for Gmail
+        using (var client = new SmtpClient())
+        {
+            // Connect to the Gmail SMTP server
+            client.Connect("smtp.gmail.com", 465, true);
+            //logging into gmail account
+            client.Authenticate("rotterdamairport.projectb@gmail.com", "passwoord123!");
+            client.Send(message);
+            client.Disconnect(true);
+        }
     }
+    
 }

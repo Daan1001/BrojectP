@@ -13,4 +13,15 @@
     <PackageReference Include="Spectre.Console" Version="0.48.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="bin\DataSources\Flights.json" />
+    <None Include="bin\Debug\net7.0\DataSources\Flights.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net7.0\DataSources\Accounts.json" />
+    <Content Include="bin\Debug\net7.0\DataSources\booked_seats.json" />
+    <Content Include="bin\Debug\net7.0\DataSources\Reviews.json" />
+  </ItemGroup>
+
 </Project>

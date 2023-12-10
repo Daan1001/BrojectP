@@ -1,3 +1,5 @@
+using CodeFolder;
+
 public class Prices{
     public static int Korting;
     public static double TotalpriceDouble;
@@ -46,7 +48,9 @@ public class Prices{
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
+            ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}");
             if (Airplane.TemporarlySeat.Count() > 0){
+                
                 if (MainMenu.currentUser! != null!){
                     MainMenu.currentUser.DeleteFromJson();
                     MainMenu.currentUser.AccountFlights.Add(currentflight);

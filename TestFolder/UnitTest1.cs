@@ -59,7 +59,7 @@ public class UnitTest1
         List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
         account.AccountFlights.Add(flights[1]);
         Seat seat= new Seat("First Class", 'B', 1, true, 500);
-        DisplaySeating.TemporarlySeat.Add(seat);
+        Airplane.TemporarlySeat.Add(seat);
         Prices.TicketPrices(flights[2]);
  
         Assert.AreEqual(Prices.Korting, 5);
