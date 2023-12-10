@@ -48,11 +48,23 @@ public class Prices{
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
-                if (MainMenu.currentUser! != null!){
+                if (MainMenu.currentUser is not null){
+                    AccountReservation.UpdateUser();
                     MainMenu.currentUser.DeleteFromJson();
                     Flight accountFlight = currentflight;
                     List<Seat> seats = Airplane.TemporarlySeat;
                     Booking accountbookings = new Booking(accountFlight, seats);
+                    if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
+                        Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
+                        for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
+                            if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
+                                accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
+                                i--;
+                            }
+                        }
+                        accountbookings = (existingBooking + accountbookings)!;
+                        MainMenu.currentUser.AccountBookings.Remove(existingBooking);
+                    }
                     MainMenu.currentUser.AccountBookings.Add(accountbookings);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);

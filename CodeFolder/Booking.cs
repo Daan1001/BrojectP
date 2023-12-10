@@ -29,7 +29,7 @@ public class Booking: IEquatable<Booking>{
     {
         if(other is null){
             return false;
-        } else if(this.BookedFlight == other?.BookedFlight){
+        } else if(this.BookedFlight.FlightId == other?.BookedFlight.FlightId){
             return true;
         } else {
             return false;

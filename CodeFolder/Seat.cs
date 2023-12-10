@@ -1,4 +1,4 @@
-public class Seat
+public class Seat: IEquatable<Seat>
 {
     public static List<Seat> Seats = new List<Seat>();
     public string TypeClass{get; set;}
@@ -49,5 +49,30 @@ public class Seat
     {
         Booked = false;
         Console.WriteLine($"Seat {this.Letter}{this.Row} {(Booked ? "booked" : "unbooked")}");
+    }
+
+    public bool Equals(Seat? other)
+    {
+        if(other is null){
+            return false;
+        } else if(this.TypeClass == other?.TypeClass && this.Row == other?.Row && this.Letter == other?.Letter &&  this.Booked == other?.Booked && this.Price == other?.Price){ // && this.passwordHash == other?.passwordHash && this.isAdmin == other?.isAdmin && this.isSuperAdmin == other.isSuperAdmin
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static bool operator ==(Seat one, Seat two){
+        if(one is null || two is null){
+            if (one is null){
+                return two is null;
+            } else{
+                return false;
+            }
+        } else {
+            return one.Equals(two);
+        }
+    }
+    public static bool operator !=(Seat one, Seat two){
+       return !(one == two);
     }
 }
