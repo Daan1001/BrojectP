@@ -226,7 +226,7 @@ public class Airbus330 : Airplane
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
         cursorRow = 1;  
         cursorSeat = 0; 
-        // bookedSeats.Clear();
+        bookedSeats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();
@@ -275,6 +275,7 @@ public class Airbus330 : Airplane
         if (confirmBooking)
         {
             Console.Clear();
+
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();

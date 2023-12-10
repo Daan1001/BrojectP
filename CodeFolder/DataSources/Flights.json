@@ -1,44 +1,5 @@
 [
   {
-    "Flight id": "597038",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 10",
-    "Country": "Italy",
-    "Destination": "Rome",
-    "Flight date": "23-04-2024",
-    "Departure time": "10:00:00",
-    "Arrival time": "12:00:00",
-    "Seats Available": "369",
-    "Total Seats": "378",
-    "Base Price": "€60"
-  },
-  {
-    "Flight id": "855689",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 15",
-    "Country": "Ireland",
-    "Destination": "Dublin",
-    "Flight date": "13-05-2024",
-    "Departure time": "22:00:00",
-    "Arrival time": "23:30:00",
-    "Seats Available": "234",
-    "Total Seats": "234",
-    "Base Price": "€30"
-  },
-  {
-    "Flight id": "829473",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 02",
-    "Country": "Sweden",
-    "Destination": "Stockholm",
-    "Flight date": "24-06-2024",
-    "Departure time": "15:00:00",
-    "Arrival time": "17:30:00",
-    "Seats Available": "378",
-    "Total Seats": "378",
-    "Base Price": "€60"
-  },
-  {
     "Flight id": "857243",
     "Type Airplane": "Boeing 787",
     "Terminal": "Gate 17",
@@ -47,7 +8,7 @@
     "Flight date": "03-07-2024",
     "Departure time": "05:00:00",
     "Arrival time": "08:00:00",
-    "Seats Available": "234",
+    "Seats Available": "229",
     "Total Seats": "234",
     "Base Price": "€90"
   },
@@ -104,19 +65,6 @@
     "Base Price": "€60"
   },
   {
-    "Flight id": "856956",
-    "Type Airplane": "Boeing 737",
-    "Terminal": "Gate 06",
-    "Country": "France",
-    "Destination": "Paris",
-    "Flight date": "10-02-2024",
-    "Departure time": "15:00:00",
-    "Arrival time": "16:30:00",
-    "Seats Available": "204",
-    "Total Seats": "198",
-    "Base Price": "€30"
-  },
-  {
     "Flight id": "684633",
     "Type Airplane": "Boeing 737",
     "Terminal": "Gate 08",
@@ -126,6 +74,58 @@
     "Departure time": "09:00:00",
     "Arrival time": "10:30:00",
     "Seats Available": "181",
+    "Total Seats": "198",
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "597038",
+    "Type Airplane": "Airbus 330",
+    "Terminal": "Gate 10",
+    "Country": "Italy",
+    "Destination": "Rome",
+    "Flight date": "23-04-2024",
+    "Departure time": "10:00:00",
+    "Arrival time": "12:00:00",
+    "Seats Available": "378",
+    "Total Seats": "378",
+    "Base Price": "€60"
+  },
+  {
+    "Flight id": "855689",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 15",
+    "Country": "Ireland",
+    "Destination": "Dublin",
+    "Flight date": "13-05-2024",
+    "Departure time": "22:00:00",
+    "Arrival time": "23:30:00",
+    "Seats Available": "234",
+    "Total Seats": "234",
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "829473",
+    "Type Airplane": "Airbus 330",
+    "Terminal": "Gate 02",
+    "Country": "Sweden",
+    "Destination": "Stockholm",
+    "Flight date": "24-06-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "17:30:00",
+    "Seats Available": "378",
+    "Total Seats": "378",
+    "Base Price": "€60"
+  },
+  {
+    "Flight id": "856956",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 06",
+    "Country": "France",
+    "Destination": "Paris",
+    "Flight date": "10-02-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "16:30:00",
+    "Seats Available": "204",
     "Total Seats": "198",
     "Base Price": "€30"
   }

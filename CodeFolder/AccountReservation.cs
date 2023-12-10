@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 public static class AccountReservation{
+    public static bool editing = false;
     public static void CancelReservation(){
         Console.WriteLine("Choose a reservation to cancel (press any key to continue)");
         Console.ReadKey();
@@ -105,6 +106,7 @@ public static class AccountReservation{
 
     public static void EditReservation(){
         UpdateUser();
+        editing = true;
         OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
 
         //daan mag hier werken

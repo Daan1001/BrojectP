@@ -81,9 +81,10 @@ public class UnitTest1
     }
 
     [TestMethod]
-    public void TestingEqualsSeats(){
-        Seat seat1 = new Seat("Economy", 'A', 1, true, 22);
-        Seat seat2 = new Seat("Economy", 'A', 1, true, 22);
+    [DataRow("Economy", 'A', 1, true, 22)]
+    public void TestingEqualsSeats(String clas, Char letter, int row, bool booked, int price){
+        Seat seat1 = new Seat(clas, letter, row, booked, price);
+        Seat seat2 = new Seat(clas, letter, row, booked, price);
 
         // Assert.AreEqual(seat1, seat2);
         Assert.IsTrue(seat1 == seat2);
