@@ -30,11 +30,15 @@ public abstract class Airplane
     public void UnselectSeat(){
         //Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedSeat = TemporarlySeat.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
-        if (selectedSeat != null){
+        Seat? selectedBookedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+
+        if (selectedSeat is not null){
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
+            selectedBookedSeat!.ResetBooking();
             TemporarlySeat.Remove(selectedSeat); // Remove the seat from the TemporarlySeat list
+            bookedSeats.Remove(selectedSeat);
         }
     }
     public void LoadBookedSeatsFromJson(string filePath){

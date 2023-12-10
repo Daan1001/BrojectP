@@ -54,17 +54,30 @@ public class Prices{
                     Flight accountFlight = currentflight;
                     List<Seat> seats = Airplane.TemporarlySeat;
                     Booking accountbookings = new Booking(accountFlight, seats);
+
+                    // if(AccountReservation.editing){
+                    //     if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
+                    //         Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
+                    //         MainMenu.currentUser.AccountBookings.Remove(existingBooking);
+                    //     }
+                    //     accountbookings.BookedSeats = seats;
+                    // }
                     if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
                         Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-                        for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
-                            if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
-                                accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
-                                i--;
+                        if(!AccountReservation.editing){
+                            for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
+                                if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
+                                    accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
+                                    i--;
+                                }
                             }
+                            accountbookings = (existingBooking + accountbookings)!;
+                        } else {
+                            accountbookings.BookedSeats = seats;
                         }
-                        accountbookings = (existingBooking + accountbookings)!;
                         MainMenu.currentUser.AccountBookings.Remove(existingBooking);
                     }
+                    AccountReservation.editing = false;
                     MainMenu.currentUser.AccountBookings.Add(accountbookings);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
