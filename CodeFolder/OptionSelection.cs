@@ -403,6 +403,7 @@ public static class OptionSelection<T>{
             }
         } else if(selectedOption is Booking){
             if((selectedOption as Booking) is not null){
+                Airplane.TemporarlySeat = (selectedOption as Booking)!.BookedSeats;
                 if ((selectedOption as Booking)!.BookedFlight.AirplaneType == "Boeing 737"){
                     Boeing737 boeing737 = new('F', 33);
                     boeing737.Start((selectedOption as Booking)!.BookedFlight);

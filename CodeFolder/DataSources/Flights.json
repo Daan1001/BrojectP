@@ -1,31 +1,5 @@
 [
   {
-    "Flight id": "856956",
-    "Type Airplane": "Boeing 737",
-    "Terminal": "Gate 06",
-    "Country": "France",
-    "Destination": "Paris",
-    "Flight date": "10-02-2024",
-    "Departure time": "15:00:00",
-    "Arrival time": "16:30:00",
-    "Seats Available": "198",
-    "Total Seats": "198",
-    "Base Price": "€30"
-  },
-  {
-    "Flight id": "684633",
-    "Type Airplane": "Boeing 737",
-    "Terminal": "Gate 08",
-    "Country": "Germany",
-    "Destination": "Frankfurt",
-    "Flight date": "15-03-2024",
-    "Departure time": "09:00:00",
-    "Arrival time": "10:30:00",
-    "Seats Available": "193",
-    "Total Seats": "198",
-    "Base Price": "€30"
-  },
-  {
     "Flight id": "597038",
     "Type Airplane": "Airbus 330",
     "Terminal": "Gate 10",
@@ -34,7 +8,7 @@
     "Flight date": "23-04-2024",
     "Departure time": "10:00:00",
     "Arrival time": "12:00:00",
-    "Seats Available": "378",
+    "Seats Available": "369",
     "Total Seats": "378",
     "Base Price": "€60"
   },
@@ -109,7 +83,7 @@
     "Terminal": "Gate 04",
     "Country": "Turkey",
     "Destination": "Istanbul",
-    "Flight date": "10-12-2023",
+    "Flight date": "09-01-2024",
     "Departure time": "10:00:00",
     "Arrival time": "13:00:00",
     "Seats Available": "234",
@@ -128,5 +102,31 @@
     "Seats Available": "378",
     "Total Seats": "378",
     "Base Price": "€60"
+  },
+  {
+    "Flight id": "856956",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 06",
+    "Country": "France",
+    "Destination": "Paris",
+    "Flight date": "10-02-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "16:30:00",
+    "Seats Available": "204",
+    "Total Seats": "198",
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "684633",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 08",
+    "Country": "Germany",
+    "Destination": "Frankfurt",
+    "Flight date": "15-03-2024",
+    "Departure time": "09:00:00",
+    "Arrival time": "10:30:00",
+    "Seats Available": "181",
+    "Total Seats": "198",
+    "Base Price": "€30"
   }
 ]
