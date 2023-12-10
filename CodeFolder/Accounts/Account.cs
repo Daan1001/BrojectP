@@ -3,10 +3,15 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 public class Account: IEquatable<Account>{
+    [JsonProperty(Order = 3)]
     public Boolean isAdmin{get; set;}
+    [JsonProperty(Order = 4)]
     public Boolean isSuperAdmin{get; set;}
+    [JsonProperty(Order = 1)]
     public string username;
+    [JsonProperty(Order = 2)]
     public string? passwordHash;
+    [JsonProperty(Order = 5)]
     public List<Booking> AccountBookings = new List<Booking>();
     // public DateTime dateOfBirth;
     // public String email;

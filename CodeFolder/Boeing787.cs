@@ -245,7 +245,7 @@ public class Boeing787 : Airplane
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
         cursorRow = 1;  
         cursorSeat = 0; 
-        // bookedSeats.Clear();
+        bookedSeats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();
