@@ -2,11 +2,11 @@ using Newtonsoft.Json;
 public abstract class Airplane 
 {
     protected static int cursorRow = 0;
-    public static int cursorSeat = 0;
+    protected static int cursorSeat = 0;
     public static List<Seat> bookedSeats = new List<Seat>();
     public static List<Seat> TemporarlySeat = new List<Seat>();
-    public char LetterSeat { get; private set; }
-    public int NumberOfRows { get; private set; }       
+    protected char LetterSeat { get; private set; }
+    protected int NumberOfRows { get; private set; }       
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
@@ -14,6 +14,9 @@ public abstract class Airplane
     public abstract void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void Start(Flight CurrentFlight);
     public abstract void DisplaySeats();
+
+    public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
+    public abstract void SetClassPrices();
     public void SelectAndBookSeat(){
         Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         //Seat? selectedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
@@ -27,13 +30,16 @@ public abstract class Airplane
     public void UnselectSeat(){
         //Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedSeat = TemporarlySeat.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
-        if (selectedSeat != null){
+        Seat? selectedBookedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+
+        if (selectedSeat is not null){
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
-            TemporarlySeat.Remove(selectedSeat); // Remove the seat from the bookedSeats list
+            selectedBookedSeat!.ResetBooking();
+            TemporarlySeat.Remove(selectedSeat); // Remove the seat from the TemporarlySeat list
+            bookedSeats.Remove(selectedSeat);
         }
-        // DisplaySeats(); // Display the seats again without the selection
     }
     public void LoadBookedSeatsFromJson(string filePath){
         if (File.Exists(filePath)){
@@ -63,7 +69,7 @@ public abstract class Airplane
         return key.Key == ConsoleKey.Y;
     }
 
-    public virtual void MoveUp(){
+    public void MoveUp(){
         if (cursorRow > 1){
             cursorRow--;
             RedrawSeats();
@@ -73,7 +79,7 @@ public abstract class Airplane
         }
     }
 
-    public virtual void MoveDown(){
+    public void MoveDown(){
         if (cursorRow < this.NumberOfRows){
             cursorRow++;
             RedrawSeats();

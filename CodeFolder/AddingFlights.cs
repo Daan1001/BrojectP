@@ -164,7 +164,7 @@ public class AddingFlights{
             option1.Add(data);
         }
         Console.ReadKey();
-        OptionSelection<String>.Start(option1);
+        OptionSelection<String>.Start(option1, OptionSelection<String>.GoBack);
     }
     public static void EditFlight(Flight selectedFlight){
         Console.Clear();
