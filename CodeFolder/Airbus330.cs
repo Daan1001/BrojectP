@@ -116,19 +116,28 @@ public class Airbus330 : Airplane
                     }
                     if (letter >= 'A' && letter <= 'F' && row <= 2){
                         // First-class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Green;
+                        // Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta : ConsoleColor.Green;
+
                     }
                     else if(letter >= 'A' && letter <= 'I' && row == 3){
                         // extra legroom seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        // Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : ConsoleColor.Yellow;
+                        Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta : ConsoleColor.Yellow;
                     }
                     else if (letter >= 'A'&& letter <='I' && row == 10 || row == 30){
                         // extra legroom seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        // Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : ConsoleColor.Yellow;
+                        Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta : ConsoleColor.Yellow;
                     }
                     else if (letter <= LetterSeat && row >= 4 && row <= 44){
                         // Economy class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        // Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta : ConsoleColor.White;
                     }
                     if(letter == 'C'  && row <= 2|| letter == 'E'  && row <= 2){
                         Console.Write("          ");
