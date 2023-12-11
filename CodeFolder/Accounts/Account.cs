@@ -11,7 +11,7 @@ public class Account: IEquatable<Account>{
     // public DateTime dateOfBirth;
     public string email;
     // public int phoneNumber;
-    public Account(string username, string password, string email, Boolean isAdmin, Boolean isSuperAdmin){
+    public Account(string username, string password, string email, bool isAdmin, bool isSuperAdmin){
         this.username = username;
         if(password != null){
             this.passwordHash = Password.Encrypt(password);

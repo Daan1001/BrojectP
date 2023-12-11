@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 public static class JsonFile<T>{
     public static List<T>? listOfObjects = new List<T>();
-    public static void Read(String FilePath){
+    public static void Read(string FilePath){
         listOfObjects = null;
         StreamReader reader = new(FilePath);
         string File2Json = reader.ReadToEnd();

@@ -2,19 +2,33 @@
   {
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "isSuperAdmin": true,
-    "isAdmin": true
-  },
-  {
-    "username": "test",
-    "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "isSuperAdmin": false,
-    "isAdmin": false
+    "AccountFlights": [],
+    "email": null,
+    "isAdmin": true,
+    "isSuperAdmin": true
   },
   {
     "username": "Sander",
     "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
-    "isSuperAdmin": true,
-    "isAdmin": true
+    "AccountFlights": [],
+    "email": null,
+    "isAdmin": true,
+    "isSuperAdmin": true
+  },
+  {
+    "username": "test",
+    "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
+    "AccountFlights": [],
+    "email": null,
+    "isAdmin": false,
+    "isSuperAdmin": false
+  },
+  {
+    "username": "Tom",
+    "passwordHash": "241c803e143f6fcc14277a40b36c4d96b9aca7e4f30c2b7ea50c7b3c3f5e3d4b",
+    "AccountFlights": [],
+    "email": "tomjb.4tee2@gmail.com",
+    "isAdmin": false,
+    "isSuperAdmin": false
   }
 ]

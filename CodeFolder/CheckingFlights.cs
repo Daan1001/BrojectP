@@ -5,8 +5,8 @@ public class CheckingFlights{
         List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
         foreach (Flight flight in flights!){
             DateTime flightDate = DateTime.ParseExact(flight.FlightDate!, "dd-MM-yyyy", null);
-            DateTime lessfligthDate = flightDate.AddDays(-1);
-            if (lessfligthDate <= DateTime.Now){
+            DateTime lessflightDate = flightDate.AddDays(-1);
+            if (lessflightDate <= DateTime.Now){
                 Random r = new Random();
                 int rInt = r.Next(0, 5);
                 flightDate = DateTime.Now.AddMonths(rInt);
