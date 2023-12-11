@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    public static List<string[]> airports = new List<string[]>
+    public static List<string[]> airports = new List<string[]> //list of available flights
         {
             new string[] { "Istanbul", "Turkey", "3" },
             new string[] { "Madrid", "Spain", "2" },
@@ -220,6 +220,27 @@ public class AddingFlights{
         return flights.FirstOrDefault(flight => flight.FlightId == flightid)!;
     }
     public static void DeletingFlight(Flight selectedFlight){
+        string filePath = "DataSources/Accounts.json";
+        string jsonContent = File.ReadAllText(filePath);
+        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
+        foreach (Account account in accounts){
+            List<Booking> bookingsToRemove = new List<Booking>();
+            foreach (Booking booking in account.AccountBookings){
+                if (booking.BookedFlight.FlightId == selectedFlight.FlightId){
+                    // Remove the booking for the selected flight
+                    bookingsToRemove.Add(booking);
+                }
+            }
+            // Remove the outdated bookings
+            foreach (Booking bookingToRemove in bookingsToRemove){
+                account.AccountBookings.Remove(bookingToRemove);
+            }
+        }
+        // Write the modified list of accounts back to the JSON file
+        string updatedJson1 = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJson1);
+
+        // remove flight from flights
         foreach(Flight flight in flights){
             if (flight == selectedFlight){
                 flights.Remove(flight);
@@ -230,6 +251,30 @@ public class AddingFlights{
         }
     }
     public static void SaveChanges(Flight selectedFlight){ //saves the changes made to selectedFlight
+        string filePath = "DataSources/Accounts.json"; //if admin changes flight also change it in acoount.json
+        string jsonContent = File.ReadAllText(filePath);
+        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
+        foreach (Account account in accounts){
+            List<Booking> bookingsToRemove = new List<Booking>();
+            foreach (Booking booking in account.AccountBookings){
+                if (booking.BookedFlight.FlightId == selectedFlight.FlightId){
+                    // Update the booked flight for the matching booking
+                    booking.BookedFlight = selectedFlight;
+                    bookingsToRemove.Add(booking);
+                }
+            }
+            // Remove the outdated bookings
+            foreach (Booking bookingToRemove in bookingsToRemove){
+                account.AccountBookings.Remove(bookingToRemove);
+            }
+            // Add the modified bookings back to the list
+            account.AccountBookings.AddRange(bookingsToRemove);
+        }
+        // Write the modified list of accounts back to the JSON file
+        string updatedJson1 = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJson1);
+
+        // changes flights in flights.json
         List<Flight> flightsCopy = new List<Flight>(flights);
         for (int i = 0; i < flightsCopy.Count; i++){
             Flight flight = flightsCopy[i];
@@ -241,9 +286,7 @@ public class AddingFlights{
                 break;
             }
         }
-
         Console.WriteLine("Saved changes, press any key to continue");
         Console.ReadKey();
-        // ChooseFlights();
     }
 }
