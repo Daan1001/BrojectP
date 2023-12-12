@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 public class Airbus330 : Airplane
 {
-    protected static int FirstClassPrice = 1000;
-    protected static int BusinessClassPrice = 750;
-    protected static int EconomyClassPrice = 500;
+    protected static int FirstClassPrice = 250;
+    protected static int BusinessClassPrice = 150;
+    protected static int EconomyClassPrice = 90;
     public Airbus330(char letter, int numbers) : base(letter, numbers){}
 
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
@@ -170,7 +170,7 @@ public class Airbus330 : Airplane
                         Console.ResetColor();
                         Console.Write(" ||");
                         Color.Yellow(" Yellow:", false);
-                        Console.Write(" Available Economey Class Seat + extra legroom.");
+                        Console.Write(" Available Economy Class Seat + extra legroom.");
                     }
                     if(row == 7 && letter =='I'){
                         Console.ResetColor();
@@ -291,6 +291,13 @@ public class Airbus330 : Airplane
                 }
             }
             string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
+            foreach(var seat in bookedSeats){
+                Console.WriteLine(seat.ShowSeat()+ "This is in BookseatList.");
+            }
+
+            foreach( var seat in TemporarlySeat){
+                Console.WriteLine(seat.ShowSeat() + "this is in TempSeatList");
+            }
             SaveBookedSeatsToJson(filepath); // Specify the desired file path
             TemporarlySeat.Clear();
             bookedSeats.Clear();

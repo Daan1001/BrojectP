@@ -24,25 +24,28 @@ public abstract class Airplane
             selectedSeat.Book();
             TemporarlySeat.Add(selectedSeat);
             //selectedSeat.ShowSeat();
-            bookedSeats.Add(selectedSeat);
+            //bookedSeats.Add(selectedSeat);
         }
     } 
     public void UnselectSeat(){
         //Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedSeat = TemporarlySeat.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedBookedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+        Seat? AlphaSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+
 
         if (selectedSeat is not null){
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
             selectedSeat.ResetBooking(); // you have a method to unbook the seat in your Seat class
             selectedBookedSeat!.ResetBooking();
+            AlphaSeat.Booked = false;
             TemporarlySeat.Remove(selectedSeat); // Remove the seat from the TemporarlySeat list
             bookedSeats.Remove(selectedSeat);
         }
-        Console.WriteLine(selectedSeat.ShowSeat() + "this is TempList");
-        Console.WriteLine();
-        Console.WriteLine(selectedBookedSeat.ShowSeat()+ " This is BookedSeatsList");
+        // Console.WriteLine(selectedSeat.ShowSeat() + "this is TempList");
+        // Console.WriteLine();
+        // Console.WriteLine(selectedBookedSeat.ShowSeat()+ " This is BookedSeatsList");
     }
     public void LoadBookedSeatsFromJson(string filePath){
         if (File.Exists(filePath)){
