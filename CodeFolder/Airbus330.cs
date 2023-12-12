@@ -249,22 +249,18 @@ public class Airbus330 : Airplane
                 case ConsoleKey.RightArrow:
                     MoveRight();
                     break;
-
                 case ConsoleKey.Enter:
                     // SelectAndBookSeat();
                     DisplaySeats();
                     SelectAndBookSeat();
                     break;
-
                 case ConsoleKey.Backspace:
                     DisplaySeats();
                     UnselectSeat();
                     break;
-
                 case ConsoleKey.Escape:
                     isBookingComplete = true;
                     break;
-
                 default:
                     Console.WriteLine("Invalid input. Please use arrow keys to navigate.");
                     break;
@@ -291,13 +287,13 @@ public class Airbus330 : Airplane
                 }
             }
             string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-            foreach(var seat in bookedSeats){
-                Console.WriteLine(seat.ShowSeat()+ "This is in BookseatList.");
-            }
+            // foreach(var seat in bookedSeats){
+            //     Console.WriteLine(seat.ShowSeat()+ "This is in BookseatList.");
+            // }
 
-            foreach( var seat in TemporarlySeat){
-                Console.WriteLine(seat.ShowSeat() + "this is in TempSeatList");
-            }
+            // foreach( var seat in TemporarlySeat){
+            //     Console.WriteLine(seat.ShowSeat() + "this is in TempSeatList");
+            // }
             SaveBookedSeatsToJson(filepath); // Specify the desired file path
             TemporarlySeat.Clear();
             bookedSeats.Clear();
