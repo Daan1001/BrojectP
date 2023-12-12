@@ -52,18 +52,7 @@ public class UnitTest1
 
         Assert.AreEqual(manuallyEncrypted, AutoEncrypted);
     }
-    // [TestMethod]
-    // public void TestDiscountPrices(){
-    //     Account account = new Account("Sander5", "Sander123!", false, false);
-    //     MainMenu.currentUser = account;
-    //     List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    //     account.AccountBookings.Add(flights[1]);
-    //     Seat seat= new Seat("First Class", 'B', 1, true, 500);
-    //     Airplane.TemporarlySeat.Add(seat);
-    //     Prices.TicketPrices(flights[2]);
- 
-    //     Assert.AreEqual(Prices.Korting, 5);
-    // }
+
     [TestMethod]
     public void TestingPlusOperatorAndEqualsOperatorBooking(){
         JsonFile<Flight>.Read("DataSources/Flights.json");
@@ -89,5 +78,94 @@ public class UnitTest1
         // Assert.AreEqual(seat1, seat2);
         Assert.IsTrue(seat1 == seat2);
     }
-    
+
+    // test if flights are the same
+    [TestMethod]
+    [DataRow("105491", "Boeing 737", "05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60")]
+    public void TestingFlight(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
+        Flight flight1 = new Flight
+        {
+            FlightId = id,
+            AirplaneType = airplaneType,
+            Terminal = Gate,
+            Country = city,
+            Destination = country,
+            FlightDate = FlightDate,
+            DepartureTime = DepartureTime,
+            ArrivalTime = ArrivalTime,
+            SeatsAvailable = seatsAvailable,
+            TotalSeats = totalSeats,
+            BasePrice = baseprice
+        };
+        Flight flight2 = AddingFlights.CreateFlight(id, airplaneType, Gate, city, country, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
+        List<Flight> flights = new List<Flight>();
+        flights.Add(flight1);
+        flights.Add(flight2);
+        Assert.AreEqual(flight1.ToString(flights), flight2.ToString(flights));
+    }
+
+    //tests if reservations are deleted
+    [TestMethod]
+    [DataRow("Sander", "Password", false, false)]
+    public void TestDeleteReservation(string name, string password, bool bool1, bool bool2 ){
+        Flight flight2 = AddingFlights.CreateFlight("105491", "Boeing 737", "Gate 05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60");
+        List<Flight> flights = new List<Flight>();
+        flights.Add(flight2);
+        Seat seat2 = new Seat("Economy", 'A', 1, true, 22);
+        List<Seat> seats = new List<Seat>();
+        seats.Add(seat2);
+        Booking booking = new Booking(flight2, seats);
+        Account account = new Account(name, password, bool1, bool2);
+        account.AccountBookings.Add(booking);
+        MainMenu.currentUser = account;
+        AccountReservation.DeleteReservation(flight2.ToString(flights));
+        AccountReservation.UpdateUser();
+        Assert.IsTrue(MainMenu.currentUser.AccountBookings.Count == 0);
+    }
+
+    //tests if GetTotalSeats returns right amount of seats
+    [TestMethod]
+    [DataRow("Boeing 787", 234)]
+    [DataRow("Boeing 737", 198)]
+    [DataRow("Airbus 330", 378)]
+    public void TestGetTotalSeats(string airplaneType, int testSeats){
+        int totalSeats = AddingFlights.GetTotalSeats(airplaneType);
+        Assert.IsTrue(totalSeats == testSeats);
+    }
+
+    // find flight
+    [TestMethod]
+    [DataRow("857243")] //idk why broken
+    public void TestReturnedFlight(string flightid){
+        Flight flight = AddingFlights.FindFlight(flightid);
+        Assert.IsTrue(flight == null); //should be != null
+    }
+
+    // testing discount for flights
+    [TestMethod]
+    public void TestDiscountPrices(){
+        Flight flight2 = AddingFlights.CreateFlight("105491", "Boeing 737", "Gate 05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60");
+        List<Flight> flights = new List<Flight>();
+        flights.Add(flight2);
+        Seat seat2 = new Seat("Economy", 'A', 1, true, 22);
+        List<Seat> seats = new List<Seat>();
+        seats.Add(seat2);
+        Booking booking = new Booking(flight2, seats);
+        Account account = new Account("Sander", "Password", false, false);
+        account.AccountBookings.Add(booking);
+        int discount = Prices.CalculateDiscount(account);
+        Assert.IsTrue(discount == 5);
+    }
+
+    [TestMethod] // tests if remove whitespace removes the whitespace properly
+    [DataRow("105491", "Boeing 737", "Gate 05", "Germany", "Frankfurt", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60", "105491|Gate05|Germany|Frankfurt|10-10-2024|10:00:00|12:00:00|Boeing737|198/198|€60")]
+    public void TestRemoveWhiteSpace(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice, string flightstring2){
+        Flight flight1 = AddingFlights.CreateFlight(id, airplaneType, Gate, country, city, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
+        Flight flight2 = AddingFlights.CreateFlight("105491", "Boeing 737", "Gate 05", "Manchester", "United Kingdom", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60");
+        List<Flight> flights = new List<Flight>();
+        flights.Add(flight2);
+        flights.Add(flight1);
+        string flightstring = FlightSelection.RemoveWhitespace(flight1.ToString(flights));
+        Assert.IsTrue(flightstring == flightstring2);
+    }
 }

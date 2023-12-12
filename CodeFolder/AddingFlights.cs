@@ -104,29 +104,30 @@ public class AddingFlights{
         int seatsAvailable = totalSeats;
 
         Console.CursorVisible = false;
-
-        // Create a new Flight object
-        var newFlight = new Flight
-        {
-            FlightId = GetRandomNumber(),
-            AirplaneType = airplaneType,
-            Terminal = gate,
-            Country = city,
-            Destination = country,
-            FlightDate = flightDate.ToString("dd-MM-yyyy"),
-            DepartureTime = departureTime.ToString("HH:mm:ss"),
-            ArrivalTime = arrivalstring,
-            SeatsAvailable = seatsAvailable.ToString(),
-            TotalSeats = totalSeats.ToString(),
-            BasePrice = Baseprice
-        };
-
+        Flight newFlight = CreateFlight(GetRandomNumber(), airplaneType, gate, city, country, flightDate.ToString("dd-MM-yyyy"), departureTime.ToString("HH:mm:ss"), arrivalstring, seatsAvailable.ToString(), totalSeats.ToString(), Baseprice);
         var existingFlights = JsonConvert.DeserializeObject<List<Flight>>(File.ReadAllText("DataSources/Flights.json")) ?? new List<Flight>();
         existingFlights.Add(newFlight);
         File.WriteAllText("DataSources/Flights.json", JsonConvert.SerializeObject(existingFlights, Formatting.Indented));
         Console.WriteLine("New flight added successfully!(Press any key to continue)");
         Console.ReadLine();
         Program.Main();
+    }
+    public static Flight CreateFlight(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
+        var newFlight = new Flight
+        {
+            FlightId = id,
+            AirplaneType = airplaneType,
+            Terminal = Gate,
+            Country = city,
+            Destination = country,
+            FlightDate = FlightDate,
+            DepartureTime = DepartureTime,
+            ArrivalTime = ArrivalTime,
+            SeatsAvailable = seatsAvailable,
+            TotalSeats = totalSeats,
+            BasePrice = baseprice
+        };
+        return newFlight;
     }
 
     public static int GetTotalSeats(string airplaneType){//gets the total seats of the plane based on type airplane
@@ -142,7 +143,7 @@ public class AddingFlights{
         }
     }
 
-    private static string GetRandomNumber(){//get random flight id
+    public static string GetRandomNumber(){//get random flight id
         var chars = "0123456789";
         var random = new Random();
         var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
@@ -202,7 +203,7 @@ public class AddingFlights{
             case "y":
             case "yes":
                 Console.WriteLine($"Deleting flight {selectedOption}...");
-                Flight selectedFlight = FindFlight(selectedOption.Substring(1, 6));
+                Flight selectedFlight = FindFlight(selectedOption.Substring(1, 6))!;
                 DeletingFlight(selectedFlight);
                 break;
             case "no":
@@ -216,9 +217,12 @@ public class AddingFlights{
                 break;
         }
     }
-    public static Flight FindFlight(string flightid){ //finds the matching flight based on id
-        return flights.FirstOrDefault(flight => flight.FlightId == flightid)!;
+
+    public static Flight? FindFlight(string flightid){
+        List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+        return flights.FirstOrDefault(flight => flight.FlightId == flightid);
     }
+
     public static void DeletingFlight(Flight selectedFlight){
         string filePath = "DataSources/Accounts.json";
         string jsonContent = File.ReadAllText(filePath);

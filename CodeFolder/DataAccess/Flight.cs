@@ -36,21 +36,20 @@ public class Flight
     [JsonProperty("Base Price")]
     public string? BasePrice { get; set; }
 
-    public string ToString(List<Flight> flights)
-    {
+    public string ToString(List<Flight> flights){
         int LenCountry = 0;
         int LenDes = 0;
         foreach (Flight flight in flights){
-            if (flight.Country!.Length > LenCountry){
+            if (flight.Country != null && flight.Country.Length > LenCountry){
                 LenCountry = flight.Country.Length;
             }
-            if (flight.Destination!.Length > LenDes){
+            if (flight.Destination != null && flight.Destination.Length > LenDes){
                 LenDes = flight.Destination.Length;
             }
         }
         string FlightID = $"{this.SeatsAvailable}/{this.TotalSeats}";
-        string paddedDestination = this.Destination!.PadRight(LenDes);
-        string paddedCountry = this.Country!.PadRight(LenCountry);
+        string paddedDestination = this.Destination != null ? this.Destination.PadRight(LenDes) : string.Empty;
+        string paddedCountry = this.Country != null ? this.Country.PadRight(LenCountry) : string.Empty;
         string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -8} | {this.ArrivalTime, -8} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
         return data;
     }

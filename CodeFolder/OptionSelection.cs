@@ -184,7 +184,7 @@ public static class OptionSelection<T>{
                 AddingFlights.CancelFlights(selectedFlight!);
                 break;
             case "Change class seat prices": // change class seat price all of this kind of plane.
-                if(selectedFlight2.AirplaneType == "Boeing 737"){
+                if(selectedFlight2!.AirplaneType == "Boeing 737"){
                     Boeing737 boeing737 = new('F', 33);
                     boeing737.SetClassPrices();
                 }
@@ -361,6 +361,7 @@ public static class OptionSelection<T>{
                 }
                 else{
                     Console.WriteLine("No bookings registered on this account");
+                    Console.ReadKey();
                 }
                 break;
             default:

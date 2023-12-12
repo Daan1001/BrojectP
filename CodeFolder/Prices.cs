@@ -3,19 +3,9 @@ public class Prices{
     public static double TotalpriceDouble;
     public static bool TicketPrices(Flight currentflight)
     {
-        int korting = 0;
-        if (MainMenu.currentUser! != null!){ //decides the discount based on how many flights user has booked
-            if (MainMenu.currentUser!.AccountBookings.Count() == 1){
-                korting = 5;
-            }
-            if (MainMenu.currentUser.AccountBookings.Count() == 2){
-                korting = 10;
-            }
-            if (MainMenu.currentUser.AccountBookings.Count() >= 3){
-                korting = 15;
-            }
+        if (MainMenu.currentUser! != null!){
+            Korting = CalculateDiscount(MainMenu.currentUser);
         }
-        Korting = korting;
         Console.WriteLine("Confirmation Screen:");
         Console.WriteLine($"Selected flight: {currentflight.AirplaneType} to {currentflight.Destination}, {currentflight.Country}");
         Console.WriteLine($"Departure time: {currentflight.FlightDate} at {currentflight.DepartureTime}");
@@ -32,16 +22,14 @@ public class Prices{
                 count++;
                 totalprice = totalprice + seat.Price + BasePriceInt;
             }   
-            // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
-            // switch layout around and add total price
         }
-        double percentage = (double)korting/100;
+        double percentage = (double)Korting/100;
         double percentagekorting = 1.0 - percentage;
         double totalpricedouble = CalculatePrice(Convert.ToDouble(totalprice), percentagekorting);
         TotalpriceDouble = totalpricedouble;
         TotalpriceDouble = Math.Round(TotalpriceDouble, 2);
         Console.WriteLine($"Price before discount: {totalprice}");
-        Console.WriteLine($"Current discount: {korting}%");
+        Console.WriteLine($"Current discount: {Korting}%");
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
@@ -54,13 +42,6 @@ public class Prices{
                     List<Seat> seats = Airplane.TemporarlySeat;
                     Booking accountbookings = new Booking(accountFlight, seats);
 
-                    // if(AccountReservation.editing){
-                    //     if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
-                    //         Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-                    //         MainMenu.currentUser.AccountBookings.Remove(existingBooking);
-                    //     }
-                    //     accountbookings.BookedSeats = seats;
-                    // }
                     if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
                         Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
                         if(!AccountReservation.editing){
@@ -86,17 +67,21 @@ public class Prices{
         // Return true if the user pressed 'Y' (yes), otherwise return false
         return key.Key == ConsoleKey.Y;
     }
-    // public void Test(){
-    //     Account account = new Account("Sander5", "Sander123!", false, false);
-    //     MainMenu.currentUser = account;
-    //     List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-    //     account.AccountBooking.Add(flights[1]);
-    //     Seat seat= new Seat("First Class", 'B', 1, true, 500);
-    //     DisplaySeating.TemporarlySeat.Add(seat);
-    //     Prices.TicketPrices(flights[2]);
 
-    //     Assert.AreEqual(Prices.Korting, 5);
-    // }
+    public static int CalculateDiscount(Account account){
+        int korting = 0;
+         //decides the discount based on how many flights user has booked
+        if (account.AccountBookings.Count() == 1){
+            korting = 5;
+        }
+        if (account.AccountBookings.Count() == 2){
+            korting = 10;
+        }
+        if (account.AccountBookings.Count() >= 3){
+            korting = 15;
+        }
+        return korting;
+    }
     public static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
     }
