@@ -70,15 +70,21 @@ public class Prices{
 
     public static int CalculateDiscount(Account account){
         int korting = 0;
-         //decides the discount based on how many flights user has booked
-        if (account.AccountBookings.Count() == 1){
-            korting = 5;
+        //decides the discount based on how many flights user has booked
+        if(account.AccountBookings.Count == 0){
+            korting = 0;
         }
-        if (account.AccountBookings.Count() == 2){
-            korting = 10;
-        }
-        if (account.AccountBookings.Count() >= 3){
-            korting = 15;
+        else{
+            int modulo = account.AccountBookings.Count() % 3;
+            if (modulo == 1){
+                korting = 5;
+            }
+            if (modulo == 2){
+                korting = 10;
+            }
+            if (modulo == 0){
+                korting = 15;
+            }
         }
         return korting;
     }

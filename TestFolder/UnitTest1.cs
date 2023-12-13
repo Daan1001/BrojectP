@@ -79,10 +79,10 @@ public class UnitTest1
         Assert.IsTrue(seat1 == seat2);
     }
 
-    // test if flights are the same
+    // test if create flight porperly creates flights
     [TestMethod]
     [DataRow("105491", "Boeing 737", "05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60")]
-    public void TestingFlight(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
+    public void TestingCreateFlight(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
         Flight flight1 = new Flight
         {
             FlightId = id,
@@ -98,10 +98,7 @@ public class UnitTest1
             BasePrice = baseprice
         };
         Flight flight2 = AddingFlights.CreateFlight(id, airplaneType, Gate, city, country, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
-        List<Flight> flights = new List<Flight>();
-        flights.Add(flight1);
-        flights.Add(flight2);
-        Assert.AreEqual(flight1.ToString(flights), flight2.ToString(flights));
+        Assert.IsTrue(flight1 == flight2);
     }
 
     //tests if reservations are deleted
@@ -133,17 +130,22 @@ public class UnitTest1
         Assert.IsTrue(totalSeats == testSeats);
     }
 
-    // find flight
+    // find flight based on id
     [TestMethod]
-    [DataRow("857243")] //idk why broken
+    [DataRow("345678")]
     public void TestReturnedFlight(string flightid){
         Flight flight = AddingFlights.FindFlight(flightid);
-        Assert.IsTrue(flight == null); //should be != null
+        Assert.IsTrue(flight != null);
     }
 
     // testing discount for flights
     [TestMethod]
-    public void TestDiscountPrices(){
+    [DataRow(1, 5)]
+    [DataRow(2, 10)]
+    [DataRow(3, 15)]
+    [DataRow(0, 0)]
+    [DataRow(4, 5)]
+    public void TestDiscountPrices(int amount, int totalkorting){
         Flight flight2 = AddingFlights.CreateFlight("105491", "Boeing 737", "Gate 05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60");
         List<Flight> flights = new List<Flight>();
         flights.Add(flight2);
@@ -152,9 +154,11 @@ public class UnitTest1
         seats.Add(seat2);
         Booking booking = new Booking(flight2, seats);
         Account account = new Account("Sander", "Password", false, false);
-        account.AccountBookings.Add(booking);
+        for (int i = 0; i < amount; i++){
+            account.AccountBookings.Add(booking);
+        }
         int discount = Prices.CalculateDiscount(account);
-        Assert.IsTrue(discount == 5);
+        Assert.IsTrue(discount == totalkorting);
     }
 
     [TestMethod] // tests if remove whitespace removes the whitespace properly
@@ -167,5 +171,28 @@ public class UnitTest1
         flights.Add(flight1);
         string flightstring = FlightSelection.RemoveWhitespace(flight1.ToString(flights));
         Assert.IsTrue(flightstring == flightstring2);
+    }
+
+    [TestMethod] // tests if flight == works properly
+    [DataRow("105491", "Boeing 737", "Gate 05", "Germany", "Frankfurt", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60")]
+    public void TestingEqualFlights(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
+        Flight flight1 = AddingFlights.CreateFlight(id, airplaneType, Gate, country, city, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
+        Flight flight2 = AddingFlights.CreateFlight(id, airplaneType, Gate, country, city, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
+        Assert.IsTrue(flight1 == flight2);
+    }
+
+    [TestMethod]
+    [DataRow(100, 0.5, 50)]
+    public void TestCalculatePrice(double totalprice, double percentagekorting, double totaltotalprice){
+        double answer = Prices.CalculatePrice(totalprice, percentagekorting);
+        Assert.IsTrue(answer == totaltotalprice);
+    }
+
+    [TestMethod]
+    [DataRow("345678", "Airbus 330", "Gate 05", "Germany", "Frankfurt", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60")]
+    public void TestFlightSelection(string id, string airplaneType, string Gate, string city, string country, string FlightDate, string DepartureTime, string ArrivalTime, string seatsAvailable, string totalSeats, string baseprice){
+        Flight flight1 = AddingFlights.CreateFlight(id, airplaneType, Gate, country, city, FlightDate, DepartureTime, ArrivalTime, seatsAvailable, totalSeats, baseprice);
+        string plane = FlightSelection.Selection(flight1.ToString());
+        Assert.IsTrue(plane == flight1.AirplaneType);
     }
 }
