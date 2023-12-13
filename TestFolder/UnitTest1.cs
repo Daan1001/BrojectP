@@ -90,4 +90,31 @@ public class UnitTest1
         Assert.IsTrue(seat1 == seat2);
     }
     
+    // [TestMethod]
+    // [DataRow(1000, 750, 500)] // Test with specific prices
+    // [DataRow(1200, 900, 600)] // Test with different prices
+    // public void InitializeSeats_WithValidPrices_InitializesSeatsCorrectly(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    // {
+        
+    //     Boeing787 boeing787 = new Boeing787('A', 1);
+    //     boeing787.InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+
+    //     // Assert
+    //     // Add your assertions here to check if seats are initialized correctly
+    // }
+    [TestMethod]
+    [DataRow(1000, 750, 500)] 
+    [DataRow(1200, 900, 600)] 
+    public void SetPrices_UpdatesPricesCorrectly(int firstClassPrice, int businessClassPrice, int economyClassPrice)
+    {
+        Boeing787 boeing787 = new Boeing787('A', 1);
+        boeing787.SetPrices(firstClassPrice, businessClassPrice, economyClassPrice);
+
+        // Assert
+        Assert.AreEqual(firstClassPrice, Boeing787.FirstClassPrice);
+        Assert.AreEqual(businessClassPrice, Boeing787.BusinessClassPrice);
+        Assert.AreEqual(economyClassPrice, Boeing787.EconomyClassPrice);
+    }
+
+
 }

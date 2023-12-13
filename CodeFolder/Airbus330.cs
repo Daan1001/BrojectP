@@ -84,11 +84,12 @@ public class Airbus330 : Airplane
         Console.ReadKey();
         SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
     }
-
-
-// Airbus330 airbus330 = new('I',44);
     public override void DisplaySeats()
     {   
+        Color.Green("                  [First class Seat]", false);
+        // Console.ResetColor();
+        Console.WriteLine();
+        
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 3;
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++){
@@ -99,7 +100,6 @@ public class Airbus330 : Airplane
         }
         Console.WriteLine();
         Console.WriteLine($" +{new string('-', totalWidth - 3)}+"); 
-        
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
         for (int row = 1; row <= NumberOfRows; row++)
         {
@@ -147,7 +147,7 @@ public class Airbus330 : Airplane
                         // Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     }
                     if(letter =='C' && row >= 39 && row <= 44 || letter == 'F' && row >= 39 && row <= 44){
-                        Console.Write("     ");   
+                        Console.Write("          ");   
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     if(row == 3 && letter =='I'){
@@ -194,6 +194,7 @@ public class Airbus330 : Airplane
             Console.WriteLine();
             if (row == 2 || row == 9){
                 Console.WriteLine();
+                Console.WriteLine("                  [Economy seat class]");
                 // Display headers A to I
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++){   
@@ -207,11 +208,13 @@ public class Airbus330 : Airplane
             }
             if (row == 38){
                 Console.WriteLine();
+                Console.WriteLine("                  [Economy seat class]");
+                // Display headers A to I
                 // Display headers A to G
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= 'G'; letter++){   
                     if(letter == 'C' || letter =='F'){
-                        Console.Write("     ");
+                        Console.Write("          ");
                     }
                     Console.Write($"{letter,-4} ");
                 }

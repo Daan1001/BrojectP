@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 public class Boeing787 : Airplane
 {
-    protected static int FirstClassPrice = 1000;
-    protected static int BusinessClassPrice = 750;
-    protected static int EconomyClassPrice = 500;
+    public static int FirstClassPrice = 1000;
+    public static int BusinessClassPrice = 750;
+    public static int EconomyClassPrice = 500;
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
@@ -44,7 +44,6 @@ public class Boeing787 : Airplane
                 }
             }
         }
-
         // Initialize economy-class seats
         for (char letter = 'A'; letter <= 'I'; letter++)
         {
