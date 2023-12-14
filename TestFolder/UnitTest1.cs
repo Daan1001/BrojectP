@@ -115,6 +115,4 @@ public class UnitTest1
         Assert.AreEqual(businessClassPrice, Boeing787.BusinessClassPrice);
         Assert.AreEqual(economyClassPrice, Boeing787.EconomyClassPrice);
     }
-
-
 }

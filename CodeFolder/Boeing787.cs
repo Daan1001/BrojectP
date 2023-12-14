@@ -100,6 +100,9 @@ public class Boeing787 : Airplane
 
     public override void DisplaySeats()
     {
+        Color.Green("                   [First class Seat]", false);
+        // Console.ResetColor();
+        Console.WriteLine();
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 3;
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++)
@@ -133,17 +136,17 @@ public class Boeing787 : Airplane
                     if (letter >= 'A' && letter <= 'F' && row <= 6)
                     {
                         // First-class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.Green;
                     }
                     else if (letter <= LetterSeat && row >= 7 && row <= 16)
                     {
                         // Business class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Blue;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.Blue;
                     }
                     else if (letter <= LetterSeat && row >= 17 && row <= 28)
                     {
                         // Economy class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s ==seat) ? ConsoleColor.Red :Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.White;
                     }
                     if(letter == 'C'  && row <= 6|| letter == 'E'  && row <= 6){
                         Console.Write("          ");
@@ -208,6 +211,9 @@ public class Boeing787 : Airplane
             }
             if (row == 6)
             {   
+                Console.WriteLine();
+                Color.Blue("                   [Business Class Seat]", false);
+                Console.WriteLine();
                 // Display headers A to I after row 6
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++)
@@ -223,6 +229,8 @@ public class Boeing787 : Airplane
             }
             if (row == 16)
             {   
+                Console.WriteLine();
+                Console.WriteLine("                   [Economy Class Seat]");
                 // Display headers A to I after row 6
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++)
@@ -245,6 +253,7 @@ public class Boeing787 : Airplane
         cursorRow = 1;  
         cursorSeat = 0; 
         bookedSeats.Clear();
+        Seat.Seats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();

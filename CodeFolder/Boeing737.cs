@@ -64,6 +64,7 @@ public class Boeing737 : Airplane
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
+        Console.WriteLine("             [Economy Class Seat]");
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 5;
         Console.Write("     ");
         for (char letter = 'A'; letter <= LetterSeat; letter++){
