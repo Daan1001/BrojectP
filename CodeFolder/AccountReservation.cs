@@ -1,29 +1,30 @@
 using Newtonsoft.Json;
 public static class AccountReservation{
     public static bool editing = false;
-    public static void CancelReservation(){
+
+    public static void CancelReservation(Account account){
         Console.WriteLine("Choose a reservation to cancel (press any key to continue)");
         Console.ReadKey();
 
         List<string> options = new List<string>();
         List<Flight> flights1 = new List<Flight>();
-        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){
+        foreach(Booking booking1 in account.AccountBookings){
             flights1.Add(booking1.BookedFlight);
         }
-        foreach(Booking booking in MainMenu.currentUser.AccountBookings){
+        foreach(Booking booking in account.AccountBookings){
             string data = $"({booking.BookedFlight.ToString(flights1)})";
             options.Add(data);
         }
         OptionSelection<string>.Start(options, OptionSelection<String>.GoBack);
     }
 
-    public static void DeleteReservation(string reservation){
-        UpdateUser();
+    public static void DeleteReservation(string reservation, Account account){
+        account = AccountReservation.UpdateAccount(account);
         List<Flight> flights2 = new List<Flight>();
-        foreach(Booking booking1 in MainMenu.currentUser!.AccountBookings){
+        foreach(Booking booking1 in account.AccountBookings){
             flights2.Add(booking1.BookedFlight);
         }
-        foreach (Booking booking in MainMenu.currentUser.AccountBookings){
+        foreach (Booking booking in account.AccountBookings){
             string data = $"({booking.BookedFlight.ToString(flights2)})";
             Flight newflight = booking.BookedFlight;
             if (data.Substring(1, 6) == reservation.Substring(1, 6)){
@@ -54,64 +55,60 @@ public static class AccountReservation{
                 File.WriteAllText(filepath, json2);
 
                 // delete it from account.json(Works)
-                MainMenu.currentUser.DeleteFromJson();
-                MainMenu.currentUser.AccountBookings.Remove(booking);
+                account.DeleteFromJson();
+                account.AccountBookings.Remove(booking);
                 JsonFile<Account>.Read("DataSources/Accounts.json");
-                JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                JsonFile<Account>.Write("DataSources/Accounts.json", account);
 
-                Console.WriteLine("Reservation canceled(press any key to continue)");
+                Console.WriteLine("Reservation canceled (press any key to continue)");
                 Console.ReadKey();
                 MainMenu.Start();
             }
         }
     }
+
     public static void ShowReservation(){
         UpdateUser();
-        Account currentAccount = MainMenu.currentUser!;
-        foreach(Booking flight in currentAccount.AccountBookings){
-            Console.WriteLine("---------------------------------------------------------------------");
-            // Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
-            // Console.Write("Seats: ");
-            // foreach(Seat seat in flight.BookedSeats){
-            //     Console.Write($"{seat.ToString()}, ");
-            // }
-            Console.WriteLine(flight);
-        }
-        Console.WriteLine("---------------------------------------------------------------------");
-        Console.WriteLine("Press any key to continue");
-        Console.ReadKey();
+        ShowReservation(MainMenu.currentUser!);
     }
 
     public static void ShowReservation(Account account){
         Account currentAccount = account;
-        foreach(Booking flight in currentAccount.AccountBookings){
+        if (currentAccount.AccountBookings.Count() > 0){
+            foreach(Booking flight in currentAccount.AccountBookings){
+                Console.WriteLine("---------------------------------------------------------------------");
+                Console.WriteLine(flight);
+            }
             Console.WriteLine("---------------------------------------------------------------------");
-            // Console.WriteLine($"Flight {flight.BookedFlight.FlightId} to {flight.BookedFlight.Destination}, {flight.BookedFlight.Country}, with {flight.BookedFlight.AirplaneType}. departure time: {flight.BookedFlight.FlightDate} at {flight.BookedFlight.DepartureTime}.");
-            // Console.Write("Seats: ");
-            // foreach(Seat seat in flight.BookedSeats){
-            //     Console.Write($"{seat.ToString()}, ");
-            // }
-            Console.WriteLine(flight);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
-        Console.WriteLine("---------------------------------------------------------------------");
-        Console.WriteLine("Press any key to continue");
-        Console.ReadKey();
+        else{
+            Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
+            Console.ReadKey();
+        }
     }
 
     public static void EditReservation(){
-        UpdateUser();
         editing = true;
-        OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
-
-        //daan mag hier werken
-        Console.WriteLine("test");
-        Console.ReadKey();
+        if(OptionSelection<Account>.selectedAccount is null){
+            UpdateUser();
+            OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
+        } else {
+            OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+            OptionSelection<Booking>.Start(OptionSelection<Account>.selectedAccount.AccountBookings, OptionSelection<Booking>.GoBack);
+        }
     }
 
     public static void UpdateUser(){
+        MainMenu.currentUser = UpdateAccount(MainMenu.currentUser!);
+    }
+    public static Account UpdateAccount(Account accountToUpdate){
         string filePath = "DataSources/Accounts.json";
         string jsonContent = File.ReadAllText(filePath);
         List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
-        MainMenu.currentUser = newBookings.FirstOrDefault(account => account.username == MainMenu.currentUser?.username);
+        accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
+        return accountToUpdate;
     }
+    
 }

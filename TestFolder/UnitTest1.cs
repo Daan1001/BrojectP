@@ -65,12 +65,14 @@ public class UnitTest1
     //     Assert.AreEqual(Prices.Korting, 5);
     // }
     [TestMethod]
-    public void TestingPlusOperatorAndEqualsOperatorBooking(){
+    [DataRow("Economy", "Business", 'A', 'D', 1, 2, true, 22)]
+    [DataRow("Business", "First-Class", 'E', 'F', 3, 1, true, 50)]
+    public void TestingPlusOperatorAndEqualsOperatorBooking(String clas, String clas2, Char letter, Char letter2, int row, int row2, bool booked, int price){
         JsonFile<Flight>.Read("DataSources/Flights.json");
         Flight flight = JsonFile<Flight>.listOfObjects![0];
-        Seat seat1 = new Seat("Economy", 'A', 1, true, 22);
-        Seat seat2 = new Seat("Economy", 'B', 1, true, 22);
-        Seat seat3 = new Seat("Business", 'A', 2, true, 22);
+        Seat seat1 = new Seat(clas, letter, row, booked, price);
+        Seat seat2 = new Seat(clas, letter2, row, booked, price);
+        Seat seat3 = new Seat(clas2, letter, row2, booked, price);
         Booking Booking1 = new Booking(flight, new List<Seat>{seat1, seat2});
         Booking Booking2 = new Booking(flight, new List<Seat>{seat3});
         Booking ExpectedResult = new Booking(flight, new List<Seat>{seat1, seat2, seat3});
@@ -81,13 +83,18 @@ public class UnitTest1
     }
 
     [TestMethod]
-    [DataRow("Economy", 'A', 1, true, 22)]
-    public void TestingEqualsSeats(String clas, Char letter, int row, bool booked, int price){
+    [DataRow("Economy", 'A', 1, true, 22, true)]
+    [DataRow("Economy", 'B', 1, true, 22, false)]
+    [DataRow("Business", 'D', 14, true, 50, false)]
+    [DataRow("First-Class", 'B', 6, true, 40, false)]
+    public void TestingEqualsSeats(String clas, Char letter, int row, bool booked, int price, bool expected){
         Seat seat1 = new Seat(clas, letter, row, booked, price);
-        Seat seat2 = new Seat(clas, letter, row, booked, price);
+        Seat seat2 = new Seat("Economy", 'A', 1, true, 22);
 
         // Assert.AreEqual(seat1, seat2);
-        Assert.IsTrue(seat1 == seat2);
+        Assert.IsTrue((seat1 == seat2) == expected);
+        //Assert.IsFalse(seat1 == seat3);
+
     }
     
 }

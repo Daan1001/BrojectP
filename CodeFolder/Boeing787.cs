@@ -246,6 +246,7 @@ public class Boeing787 : Airplane
         cursorRow = 1;  
         cursorSeat = 0; 
         bookedSeats.Clear();
+        Seat.Seats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();

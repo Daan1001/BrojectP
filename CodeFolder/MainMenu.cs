@@ -6,6 +6,9 @@ public class MainMenu{
     public static Account? currentUser;
     private static List<String> options = new List<string>();
     public static void Start(){
+        OptionSelection<String>.selectedAccount = null;
+        OptionSelection<Account>.selectedAccount = null;
+        OptionSelection<Booking>.selectedAccount = null;
         options.Clear();
         options.Add("Airport contact details");
         options.Add("Show flights");

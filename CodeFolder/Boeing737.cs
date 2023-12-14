@@ -155,6 +155,7 @@ public class Boeing737 : Airplane
         cursorRow = 1;  
         cursorSeat = 0; 
         bookedSeats.Clear();
+        Seat.Seats.Clear();
         //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();

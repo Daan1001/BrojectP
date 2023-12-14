@@ -49,36 +49,29 @@ public class Prices{
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
-                    AccountReservation.UpdateUser();
-                    MainMenu.currentUser.DeleteFromJson();
-                    Flight accountFlight = currentflight;
-                    List<Seat> seats = Airplane.TemporarlySeat;
-                    Booking accountbookings = new Booking(accountFlight, seats);
+                    // Console.WriteLine("TESTING 1");
+                    // Console.ReadKey();
 
-                    // if(AccountReservation.editing){
-                    //     if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
-                    //         Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-                    //         MainMenu.currentUser.AccountBookings.Remove(existingBooking);
-                    //     }
-                    //     accountbookings.BookedSeats = seats;
-                    // }
-                    if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
-                        Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-                        if(!AccountReservation.editing){
-                            for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
-                                if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
-                                    accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
-                                    i--;
-                                }
-                            }
-                            accountbookings = (existingBooking + accountbookings)!;
-                        } else {
-                            accountbookings.BookedSeats = seats;
-                        }
-                        MainMenu.currentUser.AccountBookings.Remove(existingBooking);
+                    // Flight accountFlight = currentflight;
+                    // List<Seat> seats = Airplane.TemporarlySeat;
+                    // Booking accountbookings = new Booking(accountFlight, seats);
+
+                    if(OptionSelection<Account>.selectedAccount is not null){
+                        // Console.WriteLine("TESTING 2");
+                        // Console.ReadKey();
+                        // AccountReservation.UpdateUser(OptionSelection<Account>.selectedAccount);
+                        OptionSelection<Account>.selectedAccount.DeleteFromJson();
+                        AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
+                        OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                    } else {
+                        // Console.WriteLine("TESTING 3");
+                        // Console.ReadKey();
+                        // AccountReservation.UpdateUser();
+                        MainMenu.currentUser.DeleteFromJson();
+                        AddBooking(currentflight, MainMenu.currentUser);
                     }
+
                     AccountReservation.editing = false;
-                    MainMenu.currentUser.AccountBookings.Add(accountbookings);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
                 }
@@ -100,5 +93,27 @@ public class Prices{
     // }
     public static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
+    }
+
+    private static void AddBooking(Flight currentflight, Account account){
+        Flight accountFlight = currentflight;
+        List<Seat> seats = Airplane.TemporarlySeat;
+        Booking accountbookings = new Booking(accountFlight, seats);
+        if(account.AccountBookings.Any(b => b == accountbookings)){
+            Booking existingBooking = account.AccountBookings.Where(a => a == accountbookings).ToList()[0];
+            if(!AccountReservation.editing){
+                for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
+                    if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
+                        accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
+                        i--;
+                    }
+                }
+                accountbookings = (existingBooking + accountbookings)!;
+            } else {
+                accountbookings.BookedSeats = seats;
+            }
+            account.AccountBookings.Remove(existingBooking);
+        }
+        account.AccountBookings.Add(accountbookings);
     }
 }

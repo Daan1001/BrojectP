@@ -122,7 +122,11 @@ public static class OptionSelection<T>{
             OptionSelection<String>.Start(option2);
         }
         if (sub == "("){
-            AccountReservation.DeleteReservation(selectedOption);
+            if(OptionSelection<Account>.selectedAccount is null){
+                AccountReservation.DeleteReservation(selectedOption, MainMenu.currentUser!);
+            } else {
+                AccountReservation.DeleteReservation(selectedOption, OptionSelection<Account>.selectedAccount);
+            }
         }
         if (EditingFlights.airportstring.Contains(selectedOption)){
             EditingFlights.EditDestination2(selectedOption);
@@ -131,10 +135,17 @@ public static class OptionSelection<T>{
             AddingFlights.AddFlight2(selectedOption);
         }
         switch (selectedOption){
+            case "Reservations":
+                ActionString("My reservations");
+                break;
             case "My reservations":
                 if (MainMenu.currentUser!.AccountBookings.Count() > 0){
                     List<string> option = new List<string>();
-                    option.Add("See my reservations");
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        option.Add("See my reservations");
+                    } else {
+                        option.Add("See reservations");
+                    }
                     option.Add("Cancel reservations");
                     option.Add("Edit reservations");
                     option.Add("<-- Go back");
@@ -150,7 +161,11 @@ public static class OptionSelection<T>{
                 AccountReservation.ShowReservation();
                 break;
             case "Cancel reservations":
-                AccountReservation.CancelReservation();
+                if(OptionSelection<Account>.selectedAccount is null){
+                    AccountReservation.CancelReservation(MainMenu.currentUser!);
+                } else {
+                    AccountReservation.CancelReservation(OptionSelection<Account>.selectedAccount);
+                }
                 break;
             case "Edit reservations":
                 AccountReservation.EditReservation();
@@ -262,8 +277,6 @@ public static class OptionSelection<T>{
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
             case "<-- Go back":
-                OptionSelection<String>.selectedAccount = null;
-                OptionSelection<Account>.selectedAccount = null;
                 MainMenu.Start();
                 break;
             case "Airport contact details":
