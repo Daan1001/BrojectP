@@ -33,7 +33,6 @@ public abstract class Airplane
         Seat? selectedBookedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? AlphaSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
-
         if (selectedSeat is not null){
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");

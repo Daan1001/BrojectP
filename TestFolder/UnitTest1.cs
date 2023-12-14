@@ -89,7 +89,7 @@ public class UnitTest1
         // Assert.AreEqual(seat1, seat2);
         Assert.IsTrue(seat1 == seat2);
     }
-    
+   
     // [TestMethod]
     // [DataRow(1000, 750, 500)] // Test with specific prices
     // [DataRow(1200, 900, 600)] // Test with different prices
