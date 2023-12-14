@@ -152,39 +152,57 @@ public class Airbus330 : Airplane
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     if(row == 3 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" || Use arrow keys to navigate and press Enter to select a seat.");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| Use arrow keys to navigate and press Enter to select a seat.");
                     }
                     if(row ==4 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" ||");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
                         Color.Red(" Red:", false);
                         Console.Write(" Booked Seat.");
                     }
                     if(row == 5 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" ||");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
                         Color.Green(" Green:", false);
-                        Console.Write(" Available  First-Class Seat.");
+                        Console.Write($" Available  First Class Seat. Starting at: {FirstClassPrice}");
                     }
                     if(row == 6 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" ||");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
                         Color.Yellow(" Yellow:", false);
-                        Console.Write(" Available Economy Class Seat + extra legroom.");
+                        Console.Write($" Available Economy Class Seat with extra legroom.");
                     }
                     if(row == 7 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" || White: Available Economy Seat.");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write($"|| White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
                     }
                     if(row == 8 && letter =='I'){
                         Console.ResetColor();
-                        Console.Write(" || BACKSPACE: To unselect a seat.");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| BACKSPACE: To unselect a seat.");
                     }
-                    if(row == 9 && letter =='I'){
+                    if(row == 10 && letter =='I'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("*");
                         Console.Write(" Price will vary depending on the selected seat.*");
                     }
+                    if(row == 11 && letter =='I'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Window Seats have a price increase of 20% on top of the starting price.");
+                    }
+                    if(row == 12 && letter =='I'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Extra legroom seats have a price increase of 30 euro's on top of the starting price.");
+                    }
+                    
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
 
                     Console.ForegroundColor = ConsoleColor.White;

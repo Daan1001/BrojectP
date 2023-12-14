@@ -158,34 +158,40 @@ public class Boeing787 : Airplane
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     if(row == 1 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
                     }
                     if(row ==2 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Red(" Red:", false);
                         Console.Write(" Booked Seat.");
                     }
                     if(row == 3 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Green(" Green:", false);
-                        Console.Write(" Available  First-Class Seat.");
+                        Console.Write($"  Available  First Class Seat. Starting at: {FirstClassPrice}");
                     }
                     if(row == 4 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
-                        Color.Blue(" Blue:", false);
-                        Console.Write(" Available Business Class Seat.");
+                        Color.Blue(" Blue:", false); 
+                        Console.Write($" Available Business Class Seat. Starting at: {BusinessClassPrice}");
                     }
                     if(row == 5 && letter =='F'){
                         Console.ResetColor();
-                        Console.Write("\t  ||");
-                        Console.Write(" White: Available Economy Seat.");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("\t  ||"); 
+                        Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
                     }
                     if(row == 6 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Console.Write(" BACKSPACE: To unselect a seat.");
                     }
@@ -225,7 +231,8 @@ public class Boeing787 : Airplane
                 }
                 Console.Write("* Price will vary depending on the selected seat. *");
                 Console.WriteLine();
-                Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+                Console.Write($"  +{new string('-', totalWidth - 3)}+");
+                Console.WriteLine("|| - Window Seats have a price increase of 20% on top of the starting price.");
             }
             if (row == 16)
             {   
@@ -347,4 +354,36 @@ public class Boeing787 : Airplane
             Start(CurrentFlight);
         }
     }
+    // protected static int cursorRow = 0;  --  = naar boven ++ = naar beneden
+    // protected static int cursorSeat = 0; --  = naar links ++ = naar rechts
+    // protected char LetterSeat { get; private set; }
+    // protected int NumberOfRows { get; private set; }       
+    // public override void MoveUp()
+    // {
+    //     if (cursorRow > 1){
+    //         if(cursorRow == 7 && cursorSeat == 4){
+    //             cursorSeat--;
+    //             RedrawSeats();
+    //         }
+    //         cursorRow--;
+    //         RedrawSeats();
+    //     }
+    //     else {
+    //         RedrawSeats();
+    //     }
+    // }
+    // public override void MoveDown(){
+    //     if (cursorRow > 1){
+    //         if(cursorRow == 6 && cursorSeat == 3){
+    //             cursorSeat++;
+    //             RedrawSeats();
+    //         }
+    //         cursorRow++;
+    //         RedrawSeats();
+    //     }
+    //     else {
+    //         cursorRow++;
+    //         RedrawSeats();
+    //     }
+    // }
 }

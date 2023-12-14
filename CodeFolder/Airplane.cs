@@ -75,7 +75,7 @@ public abstract class Airplane
         return key.Key == ConsoleKey.Y;
     }
 
-    public void MoveUp(){
+    public virtual void MoveUp(){
         if (cursorRow > 1){
             cursorRow--;
             RedrawSeats();
@@ -85,8 +85,8 @@ public abstract class Airplane
         }
     }
 
-    public void MoveDown(){
-        if (cursorRow < this.NumberOfRows){
+    public virtual void MoveDown(){
+        if (cursorRow < NumberOfRows){
             cursorRow++;
             RedrawSeats();
         }
@@ -94,7 +94,7 @@ public abstract class Airplane
             RedrawSeats();
         }
     }
-    public void MoveLeft(){
+    public virtual void MoveLeft(){
         if (cursorSeat > 0){
             cursorSeat--;
             RedrawSeats();
@@ -103,7 +103,7 @@ public abstract class Airplane
             RedrawSeats();
         }
     }
-    public void MoveRight(){
+    public virtual void MoveRight(){
         if (cursorSeat < LetterSeat - 'A'){
             cursorSeat++;
             RedrawSeats();
@@ -113,7 +113,7 @@ public abstract class Airplane
         }
     }
     public void RedrawSeats(){
-        // Console.SetCursorPosition(0, 0);
+        //Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
 }
