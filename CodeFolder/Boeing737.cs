@@ -131,24 +131,32 @@ public class Boeing737 : Airplane
                         Console.Write("||");
                         Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
                     }
-                    if(row == 5 && letter =='F'){
+                    if(row == 5 && letter == 'F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
+
+                    }
+                    if(row == 6 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
                         Console.Write(" Press ESC to finish the booking.");
                     }
-                    if(row == 7 && letter =='F'){
+                    if(row == 8 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" *");
                         Console.Write(" Price will vary depending on the selected seat. *");
                     }
-                    if(row == 8 && letter =='F'){
+                    if(row == 9 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("|| - Window Seats have a price increase of 20% on top of the starting price.");
                     }
-                    if(row == 9 && letter =='F'){
+                    if(row == 10 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("|| - Extra legroom seats have a price increase of 30 euro's on top of the starting price.");
