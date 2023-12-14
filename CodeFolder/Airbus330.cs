@@ -179,9 +179,16 @@ public class Airbus330 : Airplane
                     if(row == 7 && letter =='I'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write($"|| White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
+                        Console.Write("||");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
                     }
                     if(row == 8 && letter =='I'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write($"|| White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
+                    }
+                    if(row == 9 && letter =='I'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("|| BACKSPACE: To unselect a seat.");

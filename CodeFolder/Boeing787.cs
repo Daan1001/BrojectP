@@ -114,7 +114,8 @@ public class Boeing787 : Airplane
         }
         Console.WriteLine();
 
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
+        Console.Write($"  +{new string('-', totalWidth - 3)}+"); 
+        Console.WriteLine("|| Use arrow keys to navigate and press Enter to select a seat.");
 
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
@@ -156,32 +157,33 @@ public class Boeing787 : Airplane
                         // Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
-                    if(row == 1 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
-                    }
-                    if(row ==2 && letter =='F'){
+                    if(row ==1 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Red(" Red:", false);
                         Console.Write(" Booked Seat.");
                     }
-                    if(row == 3 && letter =='F'){
+                    if(row == 2 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Green(" Green:", false);
                         Console.Write($"  Available  First Class Seat. Starting at: {FirstClassPrice}");
                     }
-                    if(row == 4 && letter =='F'){
+                    if(row == 3 && letter =='F'){
                         Console.ResetColor();
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Blue(" Blue:", false); 
                         Console.Write($" Available Business Class Seat. Starting at: {BusinessClassPrice}");
+                    }
+                    if(row == 4 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("\t  ||");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
                     }
                     if(row == 5 && letter =='F'){
                         Console.ResetColor();
