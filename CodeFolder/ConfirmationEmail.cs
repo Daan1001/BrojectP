@@ -10,7 +10,7 @@ public class ConfirmationEmail
     {
         var message = new MimeMessage();
         message.From.Add (new MailboxAddress ("Rotterdam Airport", "rotterdamairport.brojectP@outlook.com"));
-        message.To.Add (new MailboxAddress (username, $"{emailAddress}"));
+        message.To.Add (new MailboxAddress ($"{username}", $"{emailAddress}"));
         message.Subject = $"Confirmation flight {flightCode}";
 
         message.Body = new TextPart ("plain") {
@@ -21,9 +21,9 @@ public class ConfirmationEmail
         using (var client = new SmtpClient())
         {
             // Connect to the outlook SMTP server
-            client.Connect("outlook.office365.com", 993, SecureSocketOptions.StartTls);
+            client.Connect("smtp.gmail.com", 465, SecureSocketOptions.Auto);
             //logging into outlook account
-            client.Authenticate("rotterdamairport.projectb@outlook.com", "ehlbomdiprnlxffh");
+            client.Authenticate("rotterdam.airport.hr@gmail.com", "kfdq itji zevu pxex");
             client.Send(message);
             client.Disconnect(true);
         }
