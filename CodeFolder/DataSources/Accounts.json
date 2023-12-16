@@ -8,6 +8,28 @@
     "isSuperAdmin": true
   },
   {
+    "username": "Daan",
+    "passwordHash": "451c79a2da0a63edf7428bda0b32bdc9ca92738038ca54c4d40a6a76629e0667",
+    "AccountFlights": [
+      {
+        "Flight id": "815784",
+        "Type Airplane": "Boeing 787",
+        "Terminal": "Gate 06",
+        "Country": "Sweden",
+        "Destination": "Stockholm",
+        "Flight date": "11-01-2024",
+        "Departure time": "18:00:00",
+        "Arrival time": "22:00:00",
+        "Seats Available": "189",
+        "Total Seats": "189",
+        "Base Price": "€40"
+      }
+    ],
+    "email": "1057813@hr.nl",
+    "isAdmin": false,
+    "isSuperAdmin": false
+  },
+  {
     "username": "Sander",
     "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
     "AccountFlights": [],
