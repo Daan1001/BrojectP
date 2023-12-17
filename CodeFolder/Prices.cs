@@ -46,9 +46,18 @@ public class Prices{
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
+        // Console.WriteLine("TESTING");
+        // Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
+        //     Console.WriteLine("TESTING 2");
+        // Console.ReadKey();
             if (Airplane.TemporarlySeat.Count() > 0){
+        //         Console.WriteLine("TESTING 3");
+        // Console.ReadKey();
                 if (MainMenu.currentUser is not null){
+                    // Console.WriteLine(MainMenu.currentUser);
+                    // Console.WriteLine("currenUser");
+                    // Console.ReadKey();
                     // Console.WriteLine("TESTING 1");
                     // Console.ReadKey();
 
@@ -57,23 +66,47 @@ public class Prices{
                     // Booking accountbookings = new Booking(accountFlight, seats);
 
                     if(OptionSelection<Account>.selectedAccount is not null){
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("Selected account 1");
+                        // Console.ReadKey();
                         // Console.WriteLine("TESTING 2");
                         // Console.ReadKey();
                         // AccountReservation.UpdateUser(OptionSelection<Account>.selectedAccount);
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
-                        OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                        // OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("Selected account 2");
+                        // Console.ReadKey();
                     } else {
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine("current user 2");
+                        // Console.ReadKey();
                         // Console.WriteLine("TESTING 3");
                         // Console.ReadKey();
                         // AccountReservation.UpdateUser();
                         MainMenu.currentUser.DeleteFromJson();
                         AddBooking(currentflight, MainMenu.currentUser);
                     }
+                    // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                    //     Console.WriteLine("Selected account 3");
+                    //     Console.ReadKey();
 
                     AccountReservation.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
-                    JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("TESTING 1");
+                        // Console.ReadKey();
+                        JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    } else {
+                        JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("TESTING 2");
+                        // Console.ReadKey();
+                    }
                 }
             }
         }

@@ -3,19 +3,24 @@ public static class AccountReservation{
     public static bool editing = false;
 
     public static void CancelReservation(Account account){
-        Console.WriteLine("Choose a reservation to cancel (press any key to continue)");
-        Console.ReadKey();
+        if(account.AccountBookings.Count() > 0){
+            Console.WriteLine("Choose a reservation to cancel (press any key to continue)");
+            Console.ReadKey();
 
-        List<string> options = new List<string>();
-        List<Flight> flights1 = new List<Flight>();
-        foreach(Booking booking1 in account.AccountBookings){
-            flights1.Add(booking1.BookedFlight);
+            List<string> options = new List<string>();
+            List<Flight> flights1 = new List<Flight>();
+            foreach(Booking booking1 in account.AccountBookings){
+                flights1.Add(booking1.BookedFlight);
+            }
+            foreach(Booking booking in account.AccountBookings){
+                string data = $"({booking.BookedFlight.ToString(flights1)})";
+                options.Add(data);
+            }
+            OptionSelection<string>.Start(options, OptionSelection<String>.GoBack);
+        } else {
+            Console.WriteLine("This account doesnt have any reservations yet (Press any key to continue)");
+            Console.ReadKey();
         }
-        foreach(Booking booking in account.AccountBookings){
-            string data = $"({booking.BookedFlight.ToString(flights1)})";
-            options.Add(data);
-        }
-        OptionSelection<string>.Start(options, OptionSelection<String>.GoBack);
     }
 
     public static void DeleteReservation(string reservation, Account account){
@@ -84,7 +89,7 @@ public static class AccountReservation{
             Console.ReadKey();
         }
         else{
-            Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
+            Console.WriteLine("This account doesnt have any reservations yet (Press any key to continue)");
             Console.ReadKey();
         }
     }
@@ -95,8 +100,13 @@ public static class AccountReservation{
             UpdateUser();
             OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
         } else {
-            OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
-            OptionSelection<Booking>.Start(OptionSelection<Account>.selectedAccount.AccountBookings, OptionSelection<Booking>.GoBack);
+            if(OptionSelection<Account>.selectedAccount.AccountBookings.Count() > 0){
+                OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                OptionSelection<Booking>.Start(OptionSelection<Account>.selectedAccount.AccountBookings, OptionSelection<Booking>.GoBack);
+            } else {
+                Console.WriteLine("This account doesnt have any reservations yet (Press any key to continue)");
+                Console.ReadKey();
+            }
         }
     }
 

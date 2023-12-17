@@ -139,11 +139,15 @@ public static class OptionSelection<T>{
                 ActionString("My reservations");
                 break;
             case "My reservations":
-                if (MainMenu.currentUser!.AccountBookings.Count() > 0){
+            if(OptionSelection<Account>.selectedAccount is null){
+                
+            }
+                if (MainMenu.currentUser!.AccountBookings.Count() > 0 || OptionSelection<Account>.selectedAccount is not null){
                     List<string> option = new List<string>();
                     if(OptionSelection<Account>.selectedAccount is null){
                         option.Add("See my reservations");
                     } else {
+                        option.Add("Book flight");
                         option.Add("See reservations");
                     }
                     option.Add("Cancel reservations");
@@ -153,10 +157,15 @@ public static class OptionSelection<T>{
                     break;
                 }
                 else{
-                    Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
-                    Console.ReadKey();
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
+                        Console.ReadKey();
+                    }
                     break;
                 }
+            case "Book flight":
+                ActionString("Show flights ");
+                break;
             case "See my reservations":
                 AccountReservation.ShowReservation();
                 break;
@@ -358,14 +367,14 @@ public static class OptionSelection<T>{
                 break; 
             case "Reset password":
                 if(selectedAccount is not null){
-                    selectedAccount!.ChangePassword();
+                    selectedAccount!.ChangePasswordInput();
                     Account.ViewAllAccount();
                 } else {
-                    MainMenu.currentUser!.ChangePassword();
+                    MainMenu.currentUser!.ChangePasswordInput();
                 }
                 break; 
             case "Change username":
-                MainMenu.currentUser!.changeUsername();
+                MainMenu.currentUser!.changeUsernameInput();
                 break; 
             case "See reservations":
                 AccountReservation.ShowReservation(OptionSelection<Account>.selectedAccount!);
@@ -383,7 +392,7 @@ public static class OptionSelection<T>{
                 String[] Strings = (selectedOption as String)!.Split(":");
                 switch (Strings[0]){ 
                 case "Username": //saving changes to flights
-                    selectedAccount.changeUsername();
+                    selectedAccount.changeUsernameInput();
                     selectedAccount.AccountInformation();
                     Console.ReadKey();
                     break;

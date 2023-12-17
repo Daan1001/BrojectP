@@ -68,7 +68,13 @@ public class Account: IEquatable<Account>{
             }
         }
     }
-    public void changeUsername(){
+    public void changeUsername(String NewUsername){
+        this.DeleteFromJson();
+        this.username = NewUsername;
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        Console.WriteLine("Username changed to \""+NewUsername+"\"");
+    }
+    public void changeUsernameInput(){
         Console.Clear();
         MainMenu.AirportName();
         JsonFile<Account>.Read("DataSources/Accounts.json");
@@ -80,11 +86,7 @@ public class Account: IEquatable<Account>{
             String NewUsername = Console.ReadLine()!;
             if(!allAccountList.Any(Account => Account.username == NewUsername)){
                 Console.CursorVisible = false;
-                this.DeleteFromJson();
-                this.username = NewUsername;
-                JsonFile<Account>.Write("DataSources/Accounts.json",this);
-                Console.WriteLine("Username changed to \""+NewUsername+"\"");
-                
+                changeUsername(NewUsername);
                 correctUsername = true;
             } else if(NewUsername == this.username){
                 Console.WriteLine("Username didn't change");
@@ -97,7 +99,15 @@ public class Account: IEquatable<Account>{
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
-    public void ChangePassword(){
+
+    public void ChangePassword(String NewPassword){
+        this.DeleteFromJson();
+        this.passwordHash = Password.Encrypt(NewPassword);
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        Console.WriteLine("Password changed");
+    }
+
+    public void ChangePasswordInput(){
         Console.Clear();
         MainMenu.AirportName();
         JsonFile<Account>.Read("DataSources/Accounts.json");
@@ -109,10 +119,7 @@ public class Account: IEquatable<Account>{
             NewPassword = Console.ReadLine()!;
         }while(!Password.CheckPasswordSecurity(NewPassword));
         Console.CursorVisible = false;
-        this.DeleteFromJson();
-        this.passwordHash = Password.Encrypt(NewPassword);
-        JsonFile<Account>.Write("DataSources/Accounts.json",this);
-        Console.WriteLine("Password changed");
+        ChangePassword(NewPassword);
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
