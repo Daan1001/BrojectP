@@ -43,13 +43,13 @@ public class MainMenu{
         MainMenu.AirportName();
         Console.WriteLine("For help:");
         Console.WriteLine("-Call: 112 or 911 (We advise 112 for quicker arrival of help)");
-        Console.WriteLine("-Email: INeedHelp.PleaseHelpMe@gmail.com");
+        Console.WriteLine("-Email: RotterdamAirport.ProjectB@gmail.com");
         Console.WriteLine();
         Console.WriteLine("Some tips for a more enjoyable stay:");
-        Console.WriteLine("-Avoid the restaurants completely (they will empty your wallet before you can no)");
+        Console.WriteLine("-Avoid the restaurants completely (they will empty your wallet before you can say 'where did my money go?')");
         Console.WriteLine("-Keep a 2m distance from everyone (to avoid any kind of bacteria from others)");
-        Console.WriteLine("-Come prepared for your flight");
-        Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, you won't make it on the flight)");
+        Console.WriteLine("-Come prepared for your flight (melee weapons are recommended)");
+        Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, we know where you live)");
         Console.WriteLine();
     }
 }

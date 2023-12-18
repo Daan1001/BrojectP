@@ -51,8 +51,6 @@ public static class AccountBookings{
             JsonFile<Account>.Read("DataSources/Accounts.json");
             JsonFile<Account>.Write("DataSources/Accounts.json", account);
 
-            Console.WriteLine("Booking canceled (press any key to continue)");
-            Console.ReadKey();
             MainMenu.Start();
         }
     }

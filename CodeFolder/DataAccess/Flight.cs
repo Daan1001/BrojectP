@@ -36,22 +36,53 @@ public class Flight
     [JsonProperty("Base Price")]
     public string? BasePrice { get; set; }
 
-    public string ToString(List<Flight> flights)
-    {
+    public string ToString(List<Flight> flights){
         int LenCountry = 0;
         int LenDes = 0;
         foreach (Flight flight in flights){
-            if (flight.Country!.Length > LenCountry){
+            if (flight.Country != null && flight.Country.Length > LenCountry){
                 LenCountry = flight.Country.Length;
             }
-            if (flight.Destination!.Length > LenDes){
+            if (flight.Destination != null && flight.Destination.Length > LenDes){
                 LenDes = flight.Destination.Length;
             }
         }
         string FlightID = $"{this.SeatsAvailable}/{this.TotalSeats}";
-        string paddedDestination = this.Destination!.PadRight(LenDes);
-        string paddedCountry = this.Country!.PadRight(LenCountry);
+        string paddedDestination = this.Destination != null ? this.Destination.PadRight(LenDes) : string.Empty;
+        string paddedCountry = this.Country != null ? this.Country.PadRight(LenCountry) : string.Empty;
         string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -8} | {this.ArrivalTime, -8} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
         return data;
+    }
+    public override string ToString(){
+        string FlightID = $"{this.SeatsAvailable}/{this.TotalSeats}";
+        string paddedDestination = this.Destination != null ? this.Destination.PadRight(this.Destination.Length) : string.Empty;
+        string paddedCountry = this.Country != null ? this.Country.PadRight(this.Country.Length) : string.Empty;
+        string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -8} | {this.ArrivalTime, -8} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
+        return data;
+    }
+
+    public bool Equals(Flight? other)
+    {
+        if(other is null){
+            return false;
+        } else if(this.FlightId == other?.FlightId && this.AirplaneType == other?.AirplaneType && this.Terminal == other?.Terminal &&  this.Country == other?.Country && this.Destination == other?.Destination && this.FlightDate == other?.FlightDate && this.DepartureTime == other?.DepartureTime && this.ArrivalTime == other?.ArrivalTime && this.SeatsAvailable == other?.SeatsAvailable && this.TotalSeats == other?.TotalSeats && this.BasePrice == other?.BasePrice){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static bool operator ==(Flight one, Flight two){
+        if(one is null || two is null){
+            if (one is null){
+                return two is null;
+            } else{
+                return false;
+            }
+        } else {
+            return one.Equals(two);
+        }
+    }
+    public static bool operator !=(Flight one, Flight two){
+       return !(one == two);
     }
 }

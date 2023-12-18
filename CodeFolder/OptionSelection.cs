@@ -14,6 +14,9 @@ public static class OptionSelection<T>{
         Start(list, null);
     }
     public static void Start(List<T> list, String[]? array){
+        if(MainMenu.currentUser is not null){
+            AccountBookings.UpdateUser();
+        }
         ArraySelected = false;
         ListSelected = true;
         hoveringOption = 0;
@@ -104,13 +107,35 @@ public static class OptionSelection<T>{
                 matchingFlights.Add(destination);
             }
         }
-        if(matchingFlights.Count > 0){
+        if(matchingFlights.Count > 0){ //checks if any flights match with the selected option if so shows those flights
             Console.Clear();
             ShowFlights.DisplayFlights(matchingFlights);
         }
         string sub = selectedOption.Substring(0, 1);
-        if(sub == "|"){
-            FlightSelection.Selection(selectedOption);
+        if(sub == "|"){ //Standard list with flights start with |
+            string clean = FlightSelection.RemoveWhitespace(selectedOption);
+            string clean2 = "|";
+            string[] stringarray = clean.Split("|");
+            for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
+                clean2 += " " + stringarray[i] + " |";
+            }
+            Console.WriteLine("Booking flight for:");
+            Console.WriteLine(clean2);
+            string plane = FlightSelection.Selection(selectedOption);
+            switch (plane){
+                case "Boeing 787":
+                    Boeing787 boeing787 = new('I',28);
+                    boeing787.Start(selectedFlight2!);
+                    break;
+                case "Boeing 737":
+                    Boeing737 boeing737 = new('F', 33);
+                    boeing737.Start(selectedFlight2!);
+                    break;
+                case "Airbus 330":
+                    Airbus330 airbus330 = new('I',44);
+                    airbus330.Start(selectedFlight2!);
+                    break;
+            }
         }
         if (sub == "["){ //Admin list with flights start with [
             List<String> option2 = new List<string>();
@@ -129,10 +154,10 @@ public static class OptionSelection<T>{
                 AccountBookings.DeleteBooking(selectedOption, OptionSelection<Account>.selectedAccount);
             }
         }
-        if (EditingFlights.airportstring.Contains(selectedOption)){
+        if (EditingFlights.airportstring.Contains(selectedOption)){ //Sends the admin back to editingflights after choosing a location to fly to
             EditingFlights.EditDestination2(selectedOption);
         }
-        if (AddingFlights.airportstring.Contains(selectedOption)){
+        if (AddingFlights.airportstring.Contains(selectedOption)){ //Sends the admin back to addingflights after choosing a location to fly to
             AddingFlights.AddFlight2(selectedOption);
         }
         switch (selectedOption){
@@ -206,7 +231,7 @@ public static class OptionSelection<T>{
                 AddingFlights.CancelFlights(selectedFlight!);
                 break;
             case "Change class seat prices": // change class seat price all of this kind of plane.
-                if(selectedFlight2.AirplaneType == "Boeing 737"){
+                if(selectedFlight2!.AirplaneType == "Boeing 737"){
                     Boeing737 boeing737 = new('F', 33);
                     boeing737.SetClassPrices();
                 }
@@ -223,29 +248,29 @@ public static class OptionSelection<T>{
             case "Add flights": //adding flights
                 AddingFlights.AddFlight();
                 break;
-            case "Log in":
+            case "Log in": //Logs user in with existing account
                 Login.LogInInput();
                 MainMenu.Start();
                 break;
-            case "Sign up":
+            case "Sign up": //Makes the user sign up with a new account
                 NewAccount.MakeInput();
                 MainMenu.Start();
                 break;
-            case "Log out":
+            case "Log out": //logs user out of current account
                 MainMenu.currentUser = null;
                 MainMenu.Start();
                 break;
-            case "Account information":
+            case "Account information": //Send user to its account information, admin can see all accounts
                 if(MainMenu.currentUser!.isAdmin){
                     OptionSelection<String>.Start(new List<string>{"My account","All accounts", "<-- Go back"});
                 } else {
                     MainMenu.currentUser.AccountInformation();
                 }
                 break;
-            case "My account":
+            case "My account": //Shows the admin ist own account
                 MainMenu.currentUser!.AccountInformation();
                 break;
-            case "All accounts":
+            case "All accounts": //shows the admin all the accounts.
                 Account.ViewAllAccount();
                 break;
             case "Book a flight":
@@ -259,47 +284,47 @@ public static class OptionSelection<T>{
                     SelectingFlights.Start();
                 }
                 break;
-            case "Edit flights":
+            case "Edit flights": //allows the admin choose a flight to edit
                 AddingFlights.ChooseFlights();
                 break;
             case "Book a flight ":
                 SelectingFlights.Start();
                 break;
-            case "Leave a review":
+            case "Leave a review": //allows user to leave a review
                 Review.CreateNewReviewInput();
                 ReviewMenu.Start();
                 break;
-            case "Reviews":
+            case "Reviews": // sends user to the review menu
                 ReviewMenu.Start();
                 break;
-            case "Show reviews":
+            case "Show reviews": //shows all reviews made by users
                 Review.ShowAllReviews();
                 break;
-            case "Search by country":
-                ShowFlights.SearchFlightsByCountry(SelectingFlights.flights);
+            case "Search by country": // allows the user to sort by a specific country
+                ShowFlights.SearchFlightsBy(SelectingFlights.flights, "Country");
                 break;
-            case "Search by city":
-                ShowFlights.SearchFlghtsByCity(SelectingFlights.flights);
+            case "Search by city": // allows the user to sort by a specific city
+                ShowFlights.SearchFlightsBy(SelectingFlights.flights, "City");
                 break;
-            case "Show all flights":
+            case "Show all flights": //shows all flights currently available
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
             case "<-- Go back":
                 MainMenu.Start();
                 break;
-            case "Airport contact details":
+            case "Airport contact details": // shows airport contact information
                 MainMenu.AirportDetails();
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 break;
-            case "Book flight -->":
+            case "Book flight -->": // Not sure if this is still required
                 ShowFlights.Column2(flights);
                 break;
             // case "Book a seat":
             //     Airplane airplane = new();
             //     // airplane.Boeing737();
             //     break;
-            case "Sort by ...":
+            case "Sort by ...": //gives the user options to sort the flights based on diffrent data
                     List<String> option1 = new List<string>();
                     option1.Add("Sort by country");
                     option1.Add("Sort by city");
@@ -309,11 +334,11 @@ public static class OptionSelection<T>{
                     option1.Add("Sort by departure time");
                     OptionSelection<String>.Start(option1);
                     break;
-            case "Sort by departure time":
+            case "Sort by departure time": //sort by departure time
                 List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
                 ShowFlights.Column2(SortedTimeList);
                 break;
-            case "Sort by date":
+            case "Sort by date": //sort by date
                 var SortedDateList = flights.OrderBy(flight =>{
                     if (DateTime.TryParse(flight.FlightDate, out DateTime flightDate)){
                         return flightDate;
@@ -322,23 +347,23 @@ public static class OptionSelection<T>{
                 }).ToList();
                 ShowFlights.Column2(SortedDateList);
                 break;
-            case "Sort by country":
+            case "Sort by country": //sort by country
                 List<Flight> SortedCountryList = flights.OrderBy(o=>o.Country).ToList();
                 ShowFlights.Column2(SortedCountryList);
                 break;
-            case "Sort by city":
+            case "Sort by city": //sort by city
                 List<Flight> SortedCityList = flights.OrderBy(o=>o.Destination).ToList();
                 ShowFlights.Column2(SortedCityList);
                 break;
-            case "Sort by type airplane":
+            case "Sort by type airplane": //sort by airplane
                 List<Flight> SortedTypePlaneList = flights.OrderBy(o=>o.AirplaneType).ToList();
                 ShowFlights.Column2(SortedTypePlaneList);
                 break;
-            case "Sort by price":
+            case "Sort by price": //sort by price
                 List<Flight> SortedPriceList = flights.OrderBy(o=>o.BasePrice).ToList();
                 ShowFlights.Column2(SortedPriceList);
                 break;
-            case "Exit":
+            case "Exit": // Closes the application
                 Color.Green("G", false);
                 Color.Red("o", false);
                 Color.Yellow("o", false);
@@ -350,7 +375,7 @@ public static class OptionSelection<T>{
                 // Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
                 break;
-            case "Delete account(!)":
+            case "Delete account(!)": // deletes the users account
                 if(selectedAccount is not null && selectedAccount != MainMenu.currentUser!){
                     selectedAccount!.DeleteFromJson();
                     Console.WriteLine("Account deleted");
@@ -364,7 +389,7 @@ public static class OptionSelection<T>{
                     MainMenu.Start();
                 }
                 break; 
-            case "Reset password":
+            case "Reset password": // allows the user to reset its password
                 if(selectedAccount is not null){
                     selectedAccount!.ChangePasswordInput();
                     Account.ViewAllAccount();

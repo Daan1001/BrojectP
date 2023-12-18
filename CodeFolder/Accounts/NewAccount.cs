@@ -1,14 +1,17 @@
+using System.Text.RegularExpressions;
+
+
 public static class NewAccount{
     private static Boolean newStandardAdminAccount = false;
     private static Boolean newSuperAdminAccount = false;
 
-    public static void Make(String username, String password){
+    public static void Make(string username, string password, string email){
         if(Password.CheckPasswordSecurity(password)){
             JsonFile<Account>.Read("DataSources/Accounts.json");
             if(CheckUsernamesExistence(username)){
                 return;
             }
-            JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, newStandardAdminAccount, newSuperAdminAccount));
+            JsonFile<Account>.Write("DataSources/Accounts.json", new Account(username, password, email, newStandardAdminAccount, newSuperAdminAccount));
             Console.Write("New ");
             if(newStandardAdminAccount){
                 Console.Write("admin ");
@@ -41,8 +44,9 @@ public static class NewAccount{
                 }
             }
         }
-        String username;
-        String password;
+        string username;
+        string password;
+        string email = "";
         Console.WriteLine("Fill in the username:");
         do{
             username = Console.ReadLine()!;
@@ -51,8 +55,13 @@ public static class NewAccount{
         do{
             password = Console.ReadLine()!;
         } while (!Password.CheckPasswordSecurity(password));
-        
-        Make(username, password);
+
+        do
+        {
+            Console.WriteLine("Enter your email address: ");
+            email = Console.ReadLine()!;
+        } while (!IsValidEmail(email));
+        Make(username, password, email);
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
     }
@@ -66,6 +75,16 @@ public static class NewAccount{
         } else {
             return true;
         }
+    }
+    
+    static bool IsValidEmail(string email)
+    {
+        // Regular expression for a simple email validation
+        string pattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+        Regex regex = new Regex(pattern);
+
+        // Check if the email matches the pattern
+        return regex.IsMatch(email);
     }
 
     public static bool CheckUsernamesExistence(String username){
