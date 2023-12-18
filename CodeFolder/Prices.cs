@@ -1,3 +1,6 @@
+using System;
+using CodeFolder;
+
 public class Prices{
     public static int Korting;
     public static double TotalpriceDouble;
@@ -15,13 +18,17 @@ public class Prices{
         string Basepricestring = currentflight.BasePrice!.Substring(1);
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
+        string seatsstring = $@"Selected seats:";
         foreach (var seat in Airplane.TemporarlySeat)
         {
             if(seat.Booked == true){
-                Console.WriteLine($"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}");
+                string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
+                Console.WriteLine(seatsstringlist);
                 count++;
                 totalprice = totalprice + seat.Price + BasePriceInt;
-            }   
+                seatsstring = seatsstring + $@"
+{seatsstringlist}"; //adds seat to own line
+            }  
         }
         double percentage = (double)Korting/100;
         double percentagekorting = 1.0 - percentage;
@@ -35,7 +42,10 @@ public class Prices{
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
-                if (MainMenu.currentUser is not null){
+                
+                if (MainMenu.currentUser! != null!){
+                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+
                     AccountReservation.UpdateUser();
                     MainMenu.currentUser.DeleteFromJson();
                     Flight accountFlight = currentflight;

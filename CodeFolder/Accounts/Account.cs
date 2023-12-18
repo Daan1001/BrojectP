@@ -14,13 +14,14 @@ public class Account: IEquatable<Account>{
     [JsonProperty(Order = 5)]
     public List<Booking> AccountBookings = new List<Booking>();
     // public DateTime dateOfBirth;
-    // public String email;
+    public string email;
     // public int phoneNumber;
-    public Account(string username, string password, Boolean isAdmin, Boolean isSuperAdmin){
+    public Account(string username, string password, string email, bool isAdmin, bool isSuperAdmin){
         this.username = username;
         if(password != null){
             this.passwordHash = Password.Encrypt(password);
         }
+        this.email = email;
         this.isAdmin = isSuperAdmin ? true : isAdmin;
         this.isSuperAdmin = isSuperAdmin;
     }
