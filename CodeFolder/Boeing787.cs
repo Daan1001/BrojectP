@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 public class Boeing787 : Airplane
 {
-    protected static int FirstClassPrice = 1000;
-    protected static int BusinessClassPrice = 750;
-    protected static int EconomyClassPrice = 500;
+    public static int FirstClassPrice = 1000;
+    public static int BusinessClassPrice = 750;
+    public static int EconomyClassPrice = 500;
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
@@ -44,7 +44,6 @@ public class Boeing787 : Airplane
                 }
             }
         }
-
         // Initialize economy-class seats
         for (char letter = 'A'; letter <= 'I'; letter++)
         {
@@ -101,6 +100,9 @@ public class Boeing787 : Airplane
 
     public override void DisplaySeats()
     {
+        Color.Green("                   [First class Seat]", false);
+        // Console.ResetColor();
+        Console.WriteLine();
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 3;
         Console.Write("    ");
         for (char letter = 'A'; letter <= 'F'; letter++)
@@ -112,7 +114,8 @@ public class Boeing787 : Airplane
         }
         Console.WriteLine();
 
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
+        Console.Write($"  +{new string('-', totalWidth - 3)}+"); 
+        Console.WriteLine("|| Use arrow keys to navigate and press Enter to select a seat.");
 
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
 
@@ -134,17 +137,17 @@ public class Boeing787 : Airplane
                     if (letter >= 'A' && letter <= 'F' && row <= 6)
                     {
                         // First-class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.Green;
                     }
                     else if (letter <= LetterSeat && row >= 7 && row <= 16)
                     {
                         // Business class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.Blue;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.Blue;
                     }
                     else if (letter <= LetterSeat && row >= 17 && row <= 28)
                     {
                         // Economy class seats
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s ==seat) ? ConsoleColor.Red :Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.White;
                     }
                     if(letter == 'C'  && row <= 6|| letter == 'E'  && row <= 6){
                         Console.Write("          ");
@@ -154,36 +157,43 @@ public class Boeing787 : Airplane
                         // Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
-                    if(row == 1 && letter =='F'){
+                    if(row ==1 && letter =='F'){
                         Console.ResetColor();
-                        Console.Write("\t  ||");
-                        Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
-                    }
-                    if(row ==2 && letter =='F'){
-                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Red(" Red:", false);
                         Console.Write(" Booked Seat.");
                     }
-                    if(row == 3 && letter =='F'){
+                    if(row == 2 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Color.Green(" Green:", false);
-                        Console.Write(" Available  First-Class Seat.");
+                        Console.Write($"  Available  First Class Seat. Starting at: {FirstClassPrice}");
+                    }
+                    if(row == 3 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("\t  ||");
+                        Color.Blue(" Blue:", false); 
+                        Console.Write($" Available Business Class Seat. Starting at: {BusinessClassPrice}");
                     }
                     if(row == 4 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
-                        Color.Blue(" Blue:", false);
-                        Console.Write(" Available Business Class Seat.");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
                     }
                     if(row == 5 && letter =='F'){
                         Console.ResetColor();
-                        Console.Write("\t  ||");
-                        Console.Write(" White: Available Economy Seat.");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("\t  ||"); 
+                        Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
                     }
                     if(row == 6 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("\t  ||");
                         Console.Write(" BACKSPACE: To unselect a seat.");
                     }
@@ -209,6 +219,9 @@ public class Boeing787 : Airplane
             }
             if (row == 6)
             {   
+                Console.WriteLine();
+                Color.Blue("                   [Business Class Seat]", false);
+                Console.WriteLine();
                 // Display headers A to I after row 6
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++)
@@ -220,10 +233,13 @@ public class Boeing787 : Airplane
                 }
                 Console.Write("* Price will vary depending on the selected seat. *");
                 Console.WriteLine();
-                Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+                Console.Write($"  +{new string('-', totalWidth - 3)}+");
+                Console.WriteLine("|| - Window Seats have a price increase of 20% on top of the starting price.");
             }
             if (row == 16)
             {   
+                Console.WriteLine();
+                Console.WriteLine("                   [Economy Class Seat]");
                 // Display headers A to I after row 6
                 Console.Write("    ");
                 for (char letter = 'A'; letter <= LetterSeat; letter++)
@@ -246,6 +262,7 @@ public class Boeing787 : Airplane
         cursorRow = 1;  
         cursorSeat = 0; 
         bookedSeats.Clear();
+        Seat.Seats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         // SetClassPrices();
@@ -339,4 +356,36 @@ public class Boeing787 : Airplane
             Start(CurrentFlight);
         }
     }
+    // protected static int cursorRow = 0;  --  = naar boven ++ = naar beneden
+    // protected static int cursorSeat = 0; --  = naar links ++ = naar rechts
+    // protected char LetterSeat { get; private set; }
+    // protected int NumberOfRows { get; private set; }       
+    // public override void MoveUp()
+    // {
+    //     if (cursorRow > 1){
+    //         if(cursorRow == 7 && cursorSeat == 4){
+    //             cursorSeat--;
+    //             RedrawSeats();
+    //         }
+    //         cursorRow--;
+    //         RedrawSeats();
+    //     }
+    //     else {
+    //         RedrawSeats();
+    //     }
+    // }
+    // public override void MoveDown(){
+    //     if (cursorRow > 1){
+    //         if(cursorRow == 6 && cursorSeat == 3){
+    //             cursorSeat++;
+    //             RedrawSeats();
+    //         }
+    //         cursorRow++;
+    //         RedrawSeats();
+    //     }
+    //     else {
+    //         cursorRow++;
+    //         RedrawSeats();
+    //     }
+    // }
 }

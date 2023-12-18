@@ -31,15 +31,20 @@ public abstract class Airplane
         //Seat? selectedSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedSeat = TemporarlySeat.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
         Seat? selectedBookedSeat = bookedSeats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
+        Seat? AlphaSeat = Seat.Seats.Find(s => s.Row == cursorRow && s.Letter == (char)(cursorSeat + 'A'));
 
         if (selectedSeat is not null){
             // Unselect the seat
             Console.WriteLine($"Seat: {selectedSeat.Letter}{selectedSeat.Row} unselected.");
-            selectedSeat.ResetSeat(); // you have a method to unbook the seat in your Seat class
+            selectedSeat.ResetBooking(); // you have a method to unbook the seat in your Seat class
             selectedBookedSeat!.ResetBooking();
+            AlphaSeat.Booked = false;
             TemporarlySeat.Remove(selectedSeat); // Remove the seat from the TemporarlySeat list
             bookedSeats.Remove(selectedSeat);
         }
+        // Console.WriteLine(selectedSeat.ShowSeat() + "this is TempList");
+        // Console.WriteLine();
+        // Console.WriteLine(selectedBookedSeat.ShowSeat()+ " This is BookedSeatsList");
     }
     public void LoadBookedSeatsFromJson(string filePath){
         if (File.Exists(filePath)){
@@ -69,7 +74,7 @@ public abstract class Airplane
         return key.Key == ConsoleKey.Y;
     }
 
-    public void MoveUp(){
+    public virtual void MoveUp(){
         if (cursorRow > 1){
             cursorRow--;
             RedrawSeats();
@@ -79,8 +84,8 @@ public abstract class Airplane
         }
     }
 
-    public void MoveDown(){
-        if (cursorRow < this.NumberOfRows){
+    public virtual void MoveDown(){
+        if (cursorRow < NumberOfRows){
             cursorRow++;
             RedrawSeats();
         }
@@ -88,7 +93,7 @@ public abstract class Airplane
             RedrawSeats();
         }
     }
-    public void MoveLeft(){
+    public virtual void MoveLeft(){
         if (cursorSeat > 0){
             cursorSeat--;
             RedrawSeats();
@@ -97,7 +102,7 @@ public abstract class Airplane
             RedrawSeats();
         }
     }
-    public void MoveRight(){
+    public virtual void MoveRight(){
         if (cursorSeat < LetterSeat - 'A'){
             cursorSeat++;
             RedrawSeats();
@@ -107,7 +112,7 @@ public abstract class Airplane
         }
     }
     public void RedrawSeats(){
-        // Console.SetCursorPosition(0, 0);
+        //Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
 }
