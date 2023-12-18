@@ -4,7 +4,4 @@ public class Program{
         MainMenu.Start();
         // Color.PrintAll();
     }
-    public static void test(){
-        
-    }
 }

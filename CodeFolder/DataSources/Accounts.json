@@ -1,5 +1,6 @@
 [
   {
+    "email": "1057813@hr.nl",
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
     "isAdmin": true,
@@ -7,29 +8,25 @@
     "AccountBookings": []
   },
   {
+    "email": "1057813@hr.nl",
+    "username": "Daan",
+    "passwordHash": "451c79a2da0a63edf7428bda0b32bdc9ca92738038ca54c4d40a6a76629e0667",
+    "isAdmin": false,
+    "isSuperAdmin": false,
+    "AccountBookings": []
+  },
+  {
+    "email": "1054914@hr.nl",
     "username": "Sander",
-    "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
+    "passwordHash": "fde66722c0d50bbc587e91101f8eebfd88bf6acca008218ee442f415271346fe",
     "isAdmin": true,
     "isSuperAdmin": true,
     "AccountBookings": []
   },
   {
-    "username": "Test",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
-    "isAdmin": false,
-    "isSuperAdmin": false,
-    "AccountBookings": []
-  },
-  {
-    "username": "testing",
+    "email": "1057813@hr.nl",
+    "username": "test",
     "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "isAdmin": false,
-    "isSuperAdmin": false,
-    "AccountBookings": []
-  },
-  {
-    "username": "Testing",
-    "passwordHash": "e13677d470aebac5d969e70b7d131e3c6c230f9760fb6a63e6aafa340a9af366",
     "isAdmin": false,
     "isSuperAdmin": false,
     "AccountBookings": []

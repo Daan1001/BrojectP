@@ -178,7 +178,8 @@ public class Boeing737 : Airplane
         cursorSeat = 0;
         bookedSeats.Clear();
         Seat.Seats.Clear();
-        LoadBookedSeatsFromJson(newFilePath);
+        //TemporarlySeat.Clear();
+        LoadBookedSeatsFromJson(new_filepath); 
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
     }

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Newtonsoft.Json;
 using Spectre.Console;
 
@@ -14,29 +15,54 @@ public class ShowFlights{
     }
 
     // Searches the flights list for matching countries
-    public static void SearchFlightsByCountry(List<Flight> flights){
+    // public static void SearchFlightsByCountry(List<Flight> flights){ //can refactor this woth searchbycity
+    //     flights = LoadFlightsFromJson("DataSources/flights.json");
+    //     options.Clear();
+    //     foreach (Flight flight in flights){
+    //         if(!options.Contains(flight.Country!)){
+    //             options.Add(flight.Country!);
+    //         }
+    //     }
+    //     options.Add("<-- Go back");
+    //     OptionSelection<String>.Start(options);
+    // }
+
+    public static void SearchFlightsBy(List<Flight> flights, string sortingType){ //can refactor this woth searchbycity
         flights = LoadFlightsFromJson("DataSources/flights.json");
         options.Clear();
-        foreach (Flight flight in flights){
-            if(!options.Contains(flight.Country!)){
-                options.Add(flight.Country!);
-            }
+        switch(sortingType){
+            case "Country":
+                foreach (Flight flight in flights){
+                    if(!options.Contains(flight.Country!)){
+                        options.Add(flight.Country!);
+                    }
+                }
+                options.Add("<-- Go back");
+                OptionSelection<String>.Start(options);
+                break;
+            case "City":
+                foreach (Flight flight in flights){
+                    if(!options.Contains(flight.Destination!)){
+                        options.Add(flight.Destination!);
+                    }
+                }
+                options.Add("<-- Go back");
+                OptionSelection<String>.Start(options);
+                break;
         }
-        options.Add("<-- Go back");
-        OptionSelection<String>.Start(options);
     }
     // Searches the flights list for matching cities
-    public static void SearchFlghtsByCity(List<Flight>flights){
-        flights = LoadFlightsFromJson("DataSources/flights.json");
-        options.Clear();
-        foreach (Flight flight in flights){
-            if(!options.Contains(flight.Destination!)){
-                options.Add(flight.Destination!);
-            }
-        }
-        options.Add("<-- Go back");
-        OptionSelection<String>.Start(options);
-    }
+    // public static void SearchFlghtsByCity(List<Flight>flights){
+    //     flights = LoadFlightsFromJson("DataSources/flights.json");
+    //     options.Clear();
+    //     foreach (Flight flight in flights){
+    //         if(!options.Contains(flight.Destination!)){
+    //             options.Add(flight.Destination!);
+    //         }
+    //     }
+    //     options.Add("<-- Go back");
+    //     OptionSelection<String>.Start(options);
+    // }
 
     // Method that displays all flights
     public static void ViewAllFlights(List<Flight> flights){
