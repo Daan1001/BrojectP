@@ -18,7 +18,8 @@ public class Prices{
         string Basepricestring = currentflight.BasePrice!.Substring(1);
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
-        string seatsstring = $@"Selected seats:";
+        string seatsstring = $@"Price P.P: {currentflight.BasePrice}.
+Selected seats:";
         foreach (var seat in Airplane.TemporarlySeat)
         {
             if(seat.Booked == true){
@@ -35,7 +36,12 @@ public class Prices{
         double totalpricedouble = CalculatePrice(Convert.ToDouble(totalprice), percentagekorting);
         TotalpriceDouble = totalpricedouble;
         TotalpriceDouble = Math.Round(TotalpriceDouble, 2);
-        Console.WriteLine($"Price before discount: {totalprice}");
+        seatsstring = seatsstring + $@"
+Price before discount: €{totalprice}
+Current discount: {Korting}%
+Total price: €{TotalpriceDouble}
+Have a great flight!";
+        Console.WriteLine($"Price before discount: €{totalprice}");
         Console.WriteLine($"Current discount: {Korting}%");
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");

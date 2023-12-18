@@ -1,5 +1,18 @@
 [
   {
+    "Flight id": "857243",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 17",
+    "Country": "Greece",
+    "Destination": "Athens",
+    "Flight date": "03-07-2024",
+    "Departure time": "05:00:00",
+    "Arrival time": "08:00:00",
+    "Seats Available": "229",
+    "Total Seats": "234",
+    "Base Price": "€90"
+  },
+  {
     "Flight id": "634319",
     "Type Airplane": "Boeing 787",
     "Terminal": "Gate 09",
@@ -13,30 +26,17 @@
     "Base Price": "€90"
   },
   {
-    "Flight id": "402095",
-    "Type Airplane": "Boeing 787",
-    "Terminal": "Gate 04",
-    "Country": "Turkey",
-    "Destination": "Istanbul",
-    "Flight date": "09-01-2024",
-    "Departure time": "10:00:00",
-    "Arrival time": "13:00:00",
-    "Seats Available": "234",
-    "Total Seats": "234",
-    "Base Price": "€90"
-  },
-  {
-    "Flight id": "790159",
-    "Type Airplane": "Airbus 330",
-    "Terminal": "Gate 02",
-    "Country": "Spain",
-    "Destination": "Madrid",
-    "Flight date": "01-01-2024",
-    "Departure time": "13:00:00",
-    "Arrival time": "15:00:00",
-    "Seats Available": "378",
-    "Total Seats": "378",
-    "Base Price": "€60"
+    "Flight id": "428463",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 01",
+    "Country": "Belgium",
+    "Destination": "Brussels",
+    "Flight date": "23-12-2023",
+    "Departure time": "12:30:00",
+    "Arrival time": "13:30:00",
+    "Seats Available": "198",
+    "Total Seats": "198",
+    "Base Price": "€30"
   },
   {
     "Flight id": "684633",
@@ -76,5 +76,57 @@
     "Seats Available": "234",
     "Total Seats": "234",
     "Base Price": "€30"
+  },
+  {
+    "Flight id": "829473",
+    "Type Airplane": "Airbus 330",
+    "Terminal": "Gate 02",
+    "Country": "Sweden",
+    "Destination": "Stockholm",
+    "Flight date": "24-06-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "17:30:00",
+    "Seats Available": "378",
+    "Total Seats": "378",
+    "Base Price": "€60"
+  },
+  {
+    "Flight id": "856956",
+    "Type Airplane": "Boeing 737",
+    "Terminal": "Gate 06",
+    "Country": "France",
+    "Destination": "Paris",
+    "Flight date": "10-02-2024",
+    "Departure time": "15:00:00",
+    "Arrival time": "16:30:00",
+    "Seats Available": "204",
+    "Total Seats": "198",
+    "Base Price": "€30"
+  },
+  {
+    "Flight id": "790159",
+    "Type Airplane": "Airbus 330",
+    "Terminal": "Gate 02",
+    "Country": "Spain",
+    "Destination": "Madrid",
+    "Flight date": "01-01-2024",
+    "Departure time": "13:00:00",
+    "Arrival time": "15:00:00",
+    "Seats Available": "381",
+    "Total Seats": "378",
+    "Base Price": "€60"
+  },
+  {
+    "Flight id": "402095",
+    "Type Airplane": "Boeing 787",
+    "Terminal": "Gate 04",
+    "Country": "Turkey",
+    "Destination": "Istanbul",
+    "Flight date": "09-01-2024",
+    "Departure time": "10:00:00",
+    "Arrival time": "13:00:00",
+    "Seats Available": "234",
+    "Total Seats": "234",
+    "Base Price": "€90"
   }
 ]

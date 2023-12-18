@@ -14,7 +14,9 @@ public class ConfirmationEmail
         message.Subject = $"Confirmation flight {flightCode}";
 
         message.Body = new TextPart ("plain") {
-            Text = $"flight {flightCode} from {leavingFrom} to {destination} leaving at {departureTime} to arrive at {arrivalTime} booked by {username} at {DateTime.Now} \n{seatsString} "
+            Text = @$"Flight {flightCode} from {leavingFrom} to {destination} leaving at {departureTime} to arrive at {arrivalTime}. 
+Booked by {username} at {DateTime.Now} 
+{seatsString}."
         };
         
         // Set up the SMTP client for Gmail

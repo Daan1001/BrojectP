@@ -1,96 +1,42 @@
 [
   {
+    "email": null,
     "username": "admin",
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-    "AccountFlights": [],
-    "email": null,
     "isAdmin": true,
-    "isSuperAdmin": true
+    "isSuperAdmin": true,
+    "AccountBookings": []
   },
   {
+    "email": "1057813@hr.nl",
     "username": "Daan",
     "passwordHash": "451c79a2da0a63edf7428bda0b32bdc9ca92738038ca54c4d40a6a76629e0667",
-    "AccountFlights": [
-      {
-        "Flight id": "815784",
-        "Type Airplane": "Boeing 787",
-        "Terminal": "Gate 06",
-        "Country": "Sweden",
-        "Destination": "Stockholm",
-        "Flight date": "11-01-2024",
-        "Departure time": "18:00:00",
-        "Arrival time": "22:00:00",
-        "Seats Available": "189",
-        "Total Seats": "189",
-        "Base Price": "€40"
-      }
-    ],
-    "email": "1057813@hr.nl",
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   },
   {
+    "email": "1054914@hr.nl",
     "username": "Sander",
-    "passwordHash": "816bfa8c98cd203bbe72540e2295c2902c828caf37d9efcaada85fa6b1f5e970",
-    "AccountFlights": [],
-    "email": null,
+    "passwordHash": "fde66722c0d50bbc587e91101f8eebfd88bf6acca008218ee442f415271346fe",
     "isAdmin": true,
-    "isSuperAdmin": true
+    "isSuperAdmin": true,
+    "AccountBookings": []
   },
   {
+    "email": null,
     "username": "test",
     "passwordHash": "622455fd326f4661e6e8979fa0fcef23c168fa39b202a92814036110627cce50",
-    "AccountFlights": [],
-    "email": null,
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   },
   {
+    "email": "tomjb.4tee2@gmail.com",
     "username": "Tom",
     "passwordHash": "241c803e143f6fcc14277a40b36c4d96b9aca7e4f30c2b7ea50c7b3c3f5e3d4b",
-    "AccountFlights": [
-      {
-        "Flight id": "345678",
-        "Type Airplane": "Boeing 737",
-        "Terminal": "Gate 05",
-        "Country": "Italy",
-        "Destination": "Rome",
-        "Flight date": "15-01-2024",
-        "Departure time": "11:45:00",
-        "Arrival time": "14:55:00",
-        "Seats Available": "167",
-        "Total Seats": "170",
-        "Base Price": "€22"
-      },
-      {
-        "Flight id": "345678",
-        "Type Airplane": "Boeing 737",
-        "Terminal": "Gate 05",
-        "Country": "Italy",
-        "Destination": "Rome",
-        "Flight date": "15-01-2024",
-        "Departure time": "11:45:00",
-        "Arrival time": "14:55:00",
-        "Seats Available": "166",
-        "Total Seats": "170",
-        "Base Price": "€22"
-      },
-      {
-        "Flight id": "345678",
-        "Type Airplane": "Boeing 737",
-        "Terminal": "Gate 05",
-        "Country": "Italy",
-        "Destination": "Rome",
-        "Flight date": "15-01-2024",
-        "Departure time": "11:45:00",
-        "Arrival time": "14:55:00",
-        "Seats Available": "166",
-        "Total Seats": "170",
-        "Base Price": "€22"
-      }
-    ],
-    "email": "tomjb.4tee2@gmail.com",
     "isAdmin": false,
-    "isSuperAdmin": false
+    "isSuperAdmin": false,
+    "AccountBookings": []
   }
 ]
