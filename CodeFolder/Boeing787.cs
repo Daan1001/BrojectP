@@ -256,6 +256,10 @@ public class Boeing787 : Airplane
 
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
     }
+    // public override void Start(Flight currentFlight)
+    // {
+    //     base.Start(currentFlight);
+    // }
     public override void Start(Flight CurrentFlight)
     {
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
@@ -271,46 +275,7 @@ public class Boeing787 : Airplane
         bool isBookingComplete = false;
         while (!isBookingComplete)
         {
-            ConsoleKeyInfo key = Console.ReadKey();
-            Console.Clear();
-
-            switch (key.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    MoveUp();
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    MoveDown();
-                    break;
-
-                case ConsoleKey.LeftArrow:
-                    MoveLeft();
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    MoveRight();
-                    break;
-
-                case ConsoleKey.Enter:
-                    // SelectAndBookSeat();
-                    DisplaySeats();
-                    SelectAndBookSeat();
-                    break;
-
-                case ConsoleKey.Backspace:
-                    DisplaySeats();
-                    UnselectSeat();
-                    break;
-
-                case ConsoleKey.Escape:
-                    isBookingComplete = true;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid input. Please use arrow keys to navigate.");
-                    break;
-            }
+            isBookingComplete = Movement.MovementInPut(this);
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
@@ -356,36 +321,4 @@ public class Boeing787 : Airplane
             Start(CurrentFlight);
         }
     }
-    // protected static int cursorRow = 0;  --  = naar boven ++ = naar beneden
-    // protected static int cursorSeat = 0; --  = naar links ++ = naar rechts
-    // protected char LetterSeat { get; private set; }
-    // protected int NumberOfRows { get; private set; }       
-    // public override void MoveUp()
-    // {
-    //     if (cursorRow > 1){
-    //         if(cursorRow == 7 && cursorSeat == 4){
-    //             cursorSeat--;
-    //             RedrawSeats();
-    //         }
-    //         cursorRow--;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         RedrawSeats();
-    //     }
-    // }
-    // public override void MoveDown(){
-    //     if (cursorRow > 1){
-    //         if(cursorRow == 6 && cursorSeat == 3){
-    //             cursorSeat++;
-    //             RedrawSeats();
-    //         }
-    //         cursorRow++;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         cursorRow++;
-    //         RedrawSeats();
-    //     }
-    // }
 }

@@ -5,10 +5,7 @@ public class Boeing737 : Airplane
     protected static int FirstClassPrice = 0;
     protected static int BusinessClassPrice = 0;
     protected static int EconomyClassPrice = 500;
-    public Boeing737(char letter, int numbers) : base (letter, numbers) {
-        
-    }
-
+    public Boeing737(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice , int businessClassPrice = 0, int economyClassPrice = 500)
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
@@ -174,60 +171,34 @@ public class Boeing737 : Airplane
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
     }
-    public override void Start(Flight CurrentFlight)
-    {
-        string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-        cursorRow = 1;  
-        cursorSeat = 0; 
+    
+    public override void UpdateSeat(Flight currentFlight){
+        string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+        cursorRow = 1;
+        cursorSeat = 0;
         bookedSeats.Clear();
-        //TemporarlySeat.Clear();
-        LoadBookedSeatsFromJson(new_filepath); 
-        // SetClassPrices();
+        Seat.Seats.Clear();
+        LoadBookedSeatsFromJson(newFilePath);
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
+    }
+    
+    public override void Start(Flight CurrentFlight)
+    {
+        // string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
+        // cursorRow = 1;  
+        // cursorSeat = 0; 
+        // bookedSeats.Clear();
+        // Seat.Seats.Clear();
+        // //TemporarlySeat.Clear();
+        // LoadBookedSeatsFromJson(new_filepath); 
+        // InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+        // DisplaySeats();
+        UpdateSeat(CurrentFlight);
         bool isBookingComplete = false;
-        while (!isBookingComplete)
+        while (!isBookingComplete) 
         {
-            ConsoleKeyInfo key = Console.ReadKey();
-            Console.Clear();
-
-            switch (key.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    MoveUp();
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    MoveDown();
-                    break;
-
-                case ConsoleKey.LeftArrow:
-                    MoveLeft();
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    MoveRight();
-                    break;
-
-                case ConsoleKey.Enter:
-                    // SelectAndBookSeat();
-                    DisplaySeats();
-                    SelectAndBookSeat();
-                    break;
-
-                case ConsoleKey.Backspace:
-                    DisplaySeats();
-                    UnselectSeat();
-                    break;
-
-                case ConsoleKey.Escape:
-                    isBookingComplete = true;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid input. Please use arrow keys to navigate.");
-                    break;
-            }
+            isBookingComplete = Movement.MovementInPut(this);
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
