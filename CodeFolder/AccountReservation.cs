@@ -66,7 +66,6 @@ public static class AccountReservation{
                 MainMenu.currentUser.AccountBookings.Remove(booking);
                 JsonFile<Account>.Read("DataSources/Accounts.json");
                 JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
-
                 Console.WriteLine("Reservation canceled(press any key to continue)");
                 Console.ReadKey();
                 MainMenu.Start();

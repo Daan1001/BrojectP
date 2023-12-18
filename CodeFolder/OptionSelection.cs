@@ -110,7 +110,29 @@ public static class OptionSelection<T>{
         }
         string sub = selectedOption.Substring(0, 1);
         if(sub == "|"){ //Standard list with flights start with |
-            FlightSelection.Selection(selectedOption);
+            string clean = FlightSelection.RemoveWhitespace(selectedOption);
+            string clean2 = "|";
+            string[] stringarray = clean.Split("|");
+            for(int i = 0 + 1; i < stringarray.Count() - 1; i++){
+                clean2 += " " + stringarray[i] + " |";
+            }
+            Console.WriteLine("Booking flight for:");
+            Console.WriteLine(clean2);
+            string plane = FlightSelection.Selection(selectedOption);
+            switch (plane){
+                case "Boeing 787":
+                    Boeing787 boeing787 = new('I',28);
+                    boeing787.Start(selectedFlight2!);
+                    break;
+                case "Boeing 737":
+                    Boeing737 boeing737 = new('F', 33);
+                    boeing737.Start(selectedFlight2!);
+                    break;
+                case "Airbus 330":
+                    Airbus330 airbus330 = new('I',44);
+                    airbus330.Start(selectedFlight2!);
+                    break;
+            }
         }
         if (sub == "["){ //Admin list with flights start with [
             List<String> option2 = new List<string>();
@@ -184,7 +206,7 @@ public static class OptionSelection<T>{
                 AddingFlights.CancelFlights(selectedFlight!);
                 break;
             case "Change class seat prices": // change class seat price all of this kind of plane.
-                if(selectedFlight2.AirplaneType == "Boeing 737"){
+                if(selectedFlight2!.AirplaneType == "Boeing 737"){
                     Boeing737 boeing737 = new('F', 33);
                     boeing737.SetClassPrices();
                 }
@@ -254,10 +276,10 @@ public static class OptionSelection<T>{
                 Review.ShowAllReviews();
                 break;
             case "Search by country": // allows the user to sort by a specific country
-                ShowFlights.SearchFlightsByCountry(SelectingFlights.flights);
+                ShowFlights.SearchFlightsBy(SelectingFlights.flights, "Country");
                 break;
             case "Search by city": // allows the user to sort by a specific city
-                ShowFlights.SearchFlghtsByCity(SelectingFlights.flights);
+                ShowFlights.SearchFlightsBy(SelectingFlights.flights, "City");
                 break;
             case "Show all flights": //shows all flights currently available
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
@@ -361,6 +383,7 @@ public static class OptionSelection<T>{
                 }
                 else{
                     Console.WriteLine("No bookings registered on this account");
+                    Console.ReadKey();
                 }
                 break;
             default:
