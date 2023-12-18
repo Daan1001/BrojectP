@@ -64,6 +64,7 @@ public class Boeing737 : Airplane
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
+        Console.WriteLine("             [Economy Class Seat]");
         int totalWidth = (LetterSeat - 'A' + 1) * 6 + 5;
         Console.Write("     ");
         for (char letter = 'A'; letter <= LetterSeat; letter++){
@@ -106,35 +107,59 @@ public class Boeing737 : Airplane
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
                     if(row == 1 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
                         Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
                     }
                     if(row ==2 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
                         Color.Red(" Red:", false);
                         Console.Write(" Booked Seat.");
                     }
                     if(row == 3 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
                         Color.Yellow(" Yelow:", false);
-                        Console.Write(" Extra legroom seat.");
+                        Console.Write(": Available Economy Class Seat with extra legroom.");
                     }
                     if(row == 4 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
-                        Console.Write(" White: Available Seat.");
+                        Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
                     }
-                    if(row == 5 && letter =='F'){
+                    if(row == 5 && letter == 'F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("||");
-                        Console.Write(" Press ESC to finish the booking.");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
+
                     }
                     if(row == 6 && letter =='F'){
                         Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Console.Write(" Press ESC to finish the booking.");
+                    }
+                    if(row == 8 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" *");
-                        Console.Write(" Price will vary depending on the selected seat.*");
+                        Console.Write(" Price will vary depending on the selected seat. *");
+                    }
+                    if(row == 9 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Window Seats have a price increase of 20% on top of the starting price.");
+                    }
+                    if(row == 10 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Extra legroom seats have a price increase of 30 euro's on top of the starting price.");
                     }
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
