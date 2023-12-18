@@ -29,15 +29,17 @@ public class Prices{
         string Basepricestring = currentflight.BasePrice!.Substring(1);
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
+        string seatsstring = $@"Selected seats:";
         foreach (var seat in Airplane.TemporarlySeat)
         {
             if(seat.Booked == true){
-                Console.WriteLine($"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}");
+                string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
+                Console.WriteLine(seatsstringlist);
                 count++;
                 totalprice = totalprice + seat.Price + BasePriceInt;
-            }   
-            // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
-            // switch layout around and add total price
+                seatsstring = seatsstring + $@"
+{seatsstringlist}"; //adds seat to own line
+            }  
         }
         double percentage = (double)korting/100;
         double percentagekorting = 1.0 - percentage;
@@ -49,10 +51,10 @@ public class Prices{
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
-            ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}");
             if (Airplane.TemporarlySeat.Count() > 0){
                 
                 if (MainMenu.currentUser! != null!){
+                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
                     MainMenu.currentUser.DeleteFromJson();
                     MainMenu.currentUser.AccountFlights.Add(currentflight);
                     JsonFile<Account>.Read("DataSources/Accounts.json");
