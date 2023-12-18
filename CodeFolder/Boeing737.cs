@@ -173,13 +173,13 @@ public class Boeing737 : Airplane
     }
     
     public override void UpdateSeat(Flight currentFlight){
-        string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
         cursorRow = 1;
         cursorSeat = 0;
         bookedSeats.Clear();
         Seat.Seats.Clear();
         //TemporarlySeat.Clear();
-        LoadBookedSeatsFromJson(new_filepath); 
+        LoadBookedSeatsFromJson(new_filePath); 
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
     }
