@@ -172,30 +172,30 @@ public class Boeing737 : Airplane
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
     }
     
-    public override void UpdateSeat(Flight currentFlight){
-        string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-        cursorRow = 1;
-        cursorSeat = 0;
+    // public override void UpdateSeat(Flight currentFlight){
+    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+    //     cursorRow = 1;
+    //     cursorSeat = 0;
+    //     bookedSeats.Clear();
+    //     Seat.Seats.Clear();
+    //     //TemporarlySeat.Clear();
+    //     LoadBookedSeatsFromJson(new_filepath); 
+    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+    //     DisplaySeats();
+    // }
+    
+    public override void Start(Flight CurrentFlight)
+    {
+        string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
+        cursorRow = 1;  
+        cursorSeat = 0; 
         bookedSeats.Clear();
         Seat.Seats.Clear();
         //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
-    }
-    
-    public override void Start(Flight CurrentFlight)
-    {
-        // string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-        // cursorRow = 1;  
-        // cursorSeat = 0; 
-        // bookedSeats.Clear();
-        // Seat.Seats.Clear();
-        // //TemporarlySeat.Clear();
-        // LoadBookedSeatsFromJson(new_filepath); 
-        // InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        // DisplaySeats();
-        UpdateSeat(CurrentFlight);
+        // UpdateSeat(CurrentFlight);
         bool isBookingComplete = false;
         while (!isBookingComplete) 
         {
