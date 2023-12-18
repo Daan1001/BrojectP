@@ -1,10 +1,14 @@
 using Newtonsoft.Json;
 public class Airbus330 : Airplane
 {
-    protected static int FirstClassPrice = 250;
-    protected static int BusinessClassPrice = 150;
-    protected static int EconomyClassPrice = 90;
-    public Airbus330(char letter, int numbers) : base(letter, numbers){}
+    public static int FirstClassPrice = 250;
+    public static int BusinessClassPrice = 90;
+    public static int EconomyClassPrice = 50;
+    public Airbus330(char letter, int numbers) : base(letter, numbers){
+        // Airplane.FirstClassPrice = 250;
+        // Airplane.BusinessClassPrice = 150;
+        // Airplane.EconomyClassPrice = 90;
+    }
 
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
@@ -56,6 +60,8 @@ public class Airbus330 : Airplane
         FirstClassPrice = firstClassPrice;
         BusinessClassPrice = businessClassPrice;
         EconomyClassPrice = economyClassPrice;
+
+        InitializeSeats(FirstClassPrice, BusinessClassPrice, economyClassPrice);
     }
     public override void SetClassPrices(){
         int firstclassPrice, businessclassPrice, economyclassPrice;
@@ -75,14 +81,22 @@ public class Airbus330 : Airplane
             Console.Write(">>> ");
         } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
         Console.Clear();
-        Console.WriteLine("The new prices has been set.");
-        Console.WriteLine($"First Class seat price: {firstclassPrice}.");
-        Console.WriteLine($"Business Class seat price: {businessclassPrice}.");
-        Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
-        Console.WriteLine();
-        Console.WriteLine("Press any button to continue.");
-        Console.ReadKey();
         SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
+        if(FirstClassPrice == firstclassPrice && BusinessClassPrice ==businessclassPrice &&  EconomyClassPrice == economyclassPrice ){
+            Console.WriteLine("The new prices has been set.");
+            Console.WriteLine($"First Class seat price: {firstclassPrice}.");
+            Console.WriteLine($"Business Class seat price: {businessclassPrice}.");
+            Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
+            Console.WriteLine();
+            Console.WriteLine("Press any button to continue.");
+            Console.ReadKey();
+        }
+        else{
+            Console.WriteLine("NOPEEEEE it does not work");
+            Console.ReadKey();
+        }
+        
+
     }
     public override void DisplaySeats()
     {   
@@ -249,58 +263,42 @@ public class Airbus330 : Airplane
         }
         Console.WriteLine();
     }
+    // public override void Start(Flight currentFlight)
+    // {
+    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+    //     base.Start(currentFlight);
+    // }
 
+    // public override void UpdateSeat(Flight currentFlight){
+    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+    //     bookedSeats.Clear();
+    //     Seat.Seats.Clear();
+    //     LoadBookedSeatsFromJson(newFilePath);
+    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+    //     DisplaySeats();
+    // }
     public override void Start(Flight CurrentFlight){
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-        cursorRow = 1;  
+        cursorRow = 1;    
         cursorSeat = 0; 
         bookedSeats.Clear();
         Seat.Seats.Clear();
         // TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
-        // SetClassPrices();
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
+        cursorRow = 1;
+        cursorSeat = 0;
         bool isBookingComplete = false;
-        while (!isBookingComplete){
-            ConsoleKeyInfo key = Console.ReadKey();
-            Console.Clear();
-            switch (key.Key){
-                case ConsoleKey.UpArrow:
-                    MoveUp();
-                    break;
-                case ConsoleKey.DownArrow:
-                    MoveDown();
-                    break;
-                case ConsoleKey.LeftArrow:
-                    MoveLeft();
-                    break;
-                case ConsoleKey.RightArrow:
-                    MoveRight();
-                    break;
-                case ConsoleKey.Enter:
-                    // SelectAndBookSeat();
-                    DisplaySeats();
-                    SelectAndBookSeat();
-                    break;
-                case ConsoleKey.Backspace:
-                    DisplaySeats();
-                    UnselectSeat();
-                    break;
-                case ConsoleKey.Escape:
-                    isBookingComplete = true;
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Please use arrow keys to navigate.");
-                    break;
-            }
+        while (!isBookingComplete)
+        {
+            isBookingComplete = Movement.MovementInPut(this);
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
         if (confirmBooking)
         {
             Console.Clear();
-
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
@@ -335,7 +333,7 @@ public class Airbus330 : Airplane
         else{
             // Roll back the booked seats to available
             foreach (var seat in TemporarlySeat){
-                
+
                 seat.ResetSeat();
             }
             Console.Clear();
