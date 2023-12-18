@@ -21,7 +21,18 @@ public abstract class Airplane
     public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void SetClassPrices();
 
-    public virtual void UpdateSeat(Flight currentFlight){
+    // public virtual void UpdateSeat(Flight currentFlight){
+    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+    //     cursorRow = 1;
+    //     cursorSeat = 0;
+    //     bookedSeats.Clear();
+    //     Seat.Seats.Clear();
+    //     LoadBookedSeatsFromJson(newFilePath);
+    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+    //     DisplaySeats();
+    // }
+    public virtual void Start(Flight currentFlight)
+    {
         string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
         cursorRow = 1;
         cursorSeat = 0;
@@ -30,18 +41,7 @@ public abstract class Airplane
         LoadBookedSeatsFromJson(newFilePath);
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
-    }
-    public virtual void Start(Flight currentFlight)
-    {
-        // string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-        // cursorRow = 1;
-        // cursorSeat = 0;
-        // bookedSeats.Clear();
-        // Seat.Seats.Clear();
-        // LoadBookedSeatsFromJson(newFilePath);
-        // InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        // DisplaySeats();
-        UpdateSeat(currentFlight);
+        // UpdateSeat(currentFlight);
         bool isBookingComplete = false;
 
         while (!isBookingComplete)
