@@ -15,7 +15,7 @@ public class UnitTest1
             i++;
             username = "UserName"+i;
         }
-        NewAccount.Make(username, password); // makes account
+        NewAccount.Make(username, password, "1064928@hr.nl"); // makes account
  
         JsonFile<Account>.Read("DataSources/Accounts.json");
         int amountAfter = JsonFile<Account>.listOfObjects!.Count(); // get object count in json
@@ -35,8 +35,8 @@ public class UnitTest1
             i++;
             username = "UserName"+i;
         }
-        NewAccount.Make(username, password); // makes account
-        NewAccount.Make(username, password); // makes account
+        NewAccount.Make(username, password, "1064928@hr.nl"); // makes account
+        NewAccount.Make(username, password, "1064928@hr.nl"); // makes account
  
         JsonFile<Account>.Read("DataSources/Accounts.json");
         int amountAfter = JsonFile<Account>.listOfObjects.Count(); // get object count in json
@@ -46,7 +46,7 @@ public class UnitTest1
  
     [TestMethod]
     public void TestNewAccountPasswordEncryption(){
-        Account account = new Account("UserName", "Password1!", false, false);
+        Account account = new Account("UserName", "Password1!", "1064928@hr.nl", false, false);
         String manuallyEncrypted = Password.Encrypt("Password1!");
         String AutoEncrypted = account.passwordHash;
  
@@ -54,12 +54,14 @@ public class UnitTest1
     }
  
     [TestMethod]
-    public void TestingPlusOperatorAndEqualsOperatorBooking(){
+    [DataRow("Economy", "Business", 'A', 'D', 1, 2, true, 22)]
+    [DataRow("Business", "First-Class", 'E', 'F', 3, 1, true, 50)]
+    public void TestingPlusOperatorAndEqualsOperatorBooking(String clas, String clas2, Char letter, Char letter2, int row, int row2, bool booked, int price){
         JsonFile<Flight>.Read("DataSources/Flights.json");
         Flight flight = JsonFile<Flight>.listOfObjects![0];
-        Seat seat1 = new Seat("Economy", 'A', 1, true, 22);
-        Seat seat2 = new Seat("Economy", 'B', 1, true, 22);
-        Seat seat3 = new Seat("Business", 'A', 2, true, 22);
+        Seat seat1 = new Seat(clas, letter, row, booked, price);
+        Seat seat2 = new Seat(clas, letter2, row, booked, price);
+        Seat seat3 = new Seat(clas2, letter, row2, booked, price);
         Booking Booking1 = new Booking(flight, new List<Seat>{seat1, seat2});
         Booking Booking2 = new Booking(flight, new List<Seat>{seat3});
         Booking ExpectedResult = new Booking(flight, new List<Seat>{seat1, seat2, seat3});
@@ -70,13 +72,18 @@ public class UnitTest1
     }
  
     [TestMethod]
-    [DataRow("Economy", 'A', 1, true, 22)]
-    public void TestingEqualsSeats(String clas, Char letter, int row, bool booked, int price){
+    [DataRow("Economy", 'A', 1, true, 22, true)]
+    [DataRow("Economy", 'B', 1, true, 22, false)]
+    [DataRow("Business", 'D', 14, true, 50, false)]
+    [DataRow("First-Class", 'B', 6, true, 40, false)]
+    public void TestingEqualsSeats(String clas, Char letter, int row, bool booked, int price, bool expected){
         Seat seat1 = new Seat(clas, letter, row, booked, price);
-        Seat seat2 = new Seat(clas, letter, row, booked, price);
- 
+        Seat seat2 = new Seat("Economy", 'A', 1, true, 22);
+
         // Assert.AreEqual(seat1, seat2);
-        Assert.IsTrue(seat1 == seat2);
+        Assert.IsTrue((seat1 == seat2) == expected);
+        //Assert.IsFalse(seat1 == seat3);
+
     }
  
     // test if create flight porperly creates flights
@@ -112,11 +119,11 @@ public class UnitTest1
         List<Seat> seats = new List<Seat>();
         seats.Add(seat2);
         Booking booking = new Booking(flight2, seats);
-        Account account = new Account(name, password, bool1, bool2);
+        Account account = new Account(name, password, "1064928@hr.nl", bool1, bool2);
         account.AccountBookings.Add(booking);
         MainMenu.currentUser = account;
-        AccountReservation.DeleteReservation(flight2.ToString(flights));
-        AccountReservation.UpdateUser();
+        AccountBookings.DeleteBooking(flight2.ToString(flights), account);
+        AccountBookings.UpdateUser();
         Assert.IsTrue(MainMenu.currentUser.AccountBookings.Count == 0);
     }
  
@@ -153,7 +160,7 @@ public class UnitTest1
         List<Seat> seats = new List<Seat>();
         seats.Add(seat2);
         Booking booking = new Booking(flight2, seats);
-        Account account = new Account("Sander", "Password", false, false);
+        Account account = new Account("Sander", "Password", "1064928@hr.nl", false, false);
         for (int i = 0; i < amount; i++){
             account.AccountBookings.Add(booking);
         }

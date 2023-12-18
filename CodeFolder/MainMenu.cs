@@ -6,9 +6,12 @@ public class MainMenu{
     public static Account? currentUser;
     private static List<String> options = new List<string>();
     public static void Start(){
+        OptionSelection<String>.selectedAccount = null;
+        OptionSelection<Account>.selectedAccount = null;
+        OptionSelection<Booking>.selectedAccount = null;
         options.Clear();
         options.Add("Airport contact details");
-        options.Add("Show flights");
+        options.Add("Book a flight");
         options.Add("Reviews");
         if(currentUser is null || currentUser.isSuperAdmin){
             options.Add("Sign up");
@@ -19,7 +22,7 @@ public class MainMenu{
         if(currentUser is not null){
 
             options.Add("Account information");
-            options.Add("My reservations");
+            options.Add("My bookings");
             options.Add("Log out");
         }
         options.Add("Exit");

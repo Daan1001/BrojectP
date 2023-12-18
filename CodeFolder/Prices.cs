@@ -46,37 +46,68 @@ Have a great flight!";
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
+        // Console.WriteLine("TESTING");
+        // Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
+        //     Console.WriteLine("TESTING 2");
+        // Console.ReadKey();
             if (Airplane.TemporarlySeat.Count() > 0){
-                
-                if (MainMenu.currentUser! != null!){
+        //         Console.WriteLine("TESTING 3");
+        // Console.ReadKey();
+                if (MainMenu.currentUser is not null){
                     ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    // Console.WriteLine(MainMenu.currentUser);
+                    // Console.WriteLine("currenUser");
+                    // Console.ReadKey();
+                    // Console.WriteLine("TESTING 1");
+                    // Console.ReadKey();
 
-                    AccountReservation.UpdateUser();
-                    MainMenu.currentUser.DeleteFromJson();
-                    Flight accountFlight = currentflight;
-                    List<Seat> seats = Airplane.TemporarlySeat;
-                    Booking accountbookings = new Booking(accountFlight, seats);
+                    // Flight accountFlight = currentflight;
+                    // List<Seat> seats = Airplane.TemporarlySeat;
+                    // Booking accountbookings = new Booking(accountFlight, seats);
 
-                    if(MainMenu.currentUser.AccountBookings.Any(b => b == accountbookings)){
-                        Booking existingBooking = MainMenu.currentUser.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-                        if(!AccountReservation.editing){
-                            for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
-                                if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
-                                    accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
-                                    i--;
-                                }
-                            }
-                            accountbookings = (existingBooking + accountbookings)!;
-                        } else {
-                            accountbookings.BookedSeats = seats;
-                        }
-                        MainMenu.currentUser.AccountBookings.Remove(existingBooking);
+                    if(OptionSelection<Account>.selectedAccount is not null){
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("Selected account 1");
+                        // Console.ReadKey();
+                        // Console.WriteLine("TESTING 2");
+                        // Console.ReadKey();
+                        // AccountBookings.UpdateUser(OptionSelection<Account>.selectedAccount);
+                        OptionSelection<Account>.selectedAccount.DeleteFromJson();
+                        AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
+                        // OptionSelection<Account>.selectedAccount = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("Selected account 2");
+                        // Console.ReadKey();
+                    } else {
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine("current user 2");
+                        // Console.ReadKey();
+                        // Console.WriteLine("TESTING 3");
+                        // Console.ReadKey();
+                        // AccountBookings.UpdateUser();
+                        MainMenu.currentUser.DeleteFromJson();
+                        AddBooking(currentflight, MainMenu.currentUser);
                     }
-                    AccountReservation.editing = false;
-                    MainMenu.currentUser.AccountBookings.Add(accountbookings);
+                    // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                    //     Console.WriteLine("Selected account 3");
+                    //     Console.ReadKey();
+
+                    AccountBookings.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
-                    JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("TESTING 1");
+                        // Console.ReadKey();
+                        JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    } else {
+                        JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine(MainMenu.currentUser);
+                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
+                        // Console.WriteLine("TESTING 2");
+                        // Console.ReadKey();
+                    }
                 }
             }
         }
@@ -106,5 +137,27 @@ Have a great flight!";
     }
     public static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
+    }
+
+    private static void AddBooking(Flight currentflight, Account account){
+        Flight accountFlight = currentflight;
+        List<Seat> seats = Airplane.TemporarlySeat;
+        Booking accountbookings = new Booking(accountFlight, seats);
+        if(account.AccountBookings.Any(b => b == accountbookings)){
+            Booking existingBooking = account.AccountBookings.Where(a => a == accountbookings).ToList()[0];
+            if(!AccountBookings.editing){
+                for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
+                    if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
+                        accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
+                        i--;
+                    }
+                }
+                accountbookings = (existingBooking + accountbookings)!;
+            } else {
+                accountbookings.BookedSeats = seats;
+            }
+            account.AccountBookings.Remove(existingBooking);
+        }
+        account.AccountBookings.Add(accountbookings);
     }
 }

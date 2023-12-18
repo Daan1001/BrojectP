@@ -14,7 +14,9 @@ public static class OptionSelection<T>{
         Start(list, null);
     }
     public static void Start(List<T> list, String[]? array){
-        AccountReservation.UpdateUser();
+        if(MainMenu.currentUser is not null){
+            AccountBookings.UpdateUser();
+        }
         ArraySelected = false;
         ListSelected = true;
         hoveringOption = 0;
@@ -29,11 +31,12 @@ public static class OptionSelection<T>{
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
-                if(list[i] as String == "Exit" || list[i] as String == "Delete account(!)"){
+                Boolean isString = list[i] is String;
+                if(isString && (list[i] as String)!.ToUpper().Contains("DELETE") || isString && (list[i] as String)!.ToUpper().Contains("REMOVE") || isString && (list[i] as String)!.ToUpper().Contains("EXIT") || isString && (list[i] as String)!.ToUpper().Contains("CANCEL")){
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(list[i]);
                     Console.ForegroundColor = ConsoleColor.White;
-                } else if(list[i] is String && (list[i] as String)!.ToUpper().Contains("ADD")){
+                } else if(isString && (list[i] as String)!.ToUpper().Contains("ADD")){
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(list[i]);
                     Console.ForegroundColor = ConsoleColor.White;
@@ -144,8 +147,12 @@ public static class OptionSelection<T>{
             option2.Add("<-- Go back");
             OptionSelection<String>.Start(option2);
         }
-        if (sub == "("){ //Reservations list with flights start with (
-            AccountReservation.DeleteReservation(selectedOption);
+        if (sub == "("){
+            if(OptionSelection<Account>.selectedAccount is null){
+                AccountBookings.DeleteBooking(selectedOption, MainMenu.currentUser!);
+            } else {
+                AccountBookings.DeleteBooking(selectedOption, OptionSelection<Account>.selectedAccount);
+            }
         }
         if (EditingFlights.airportstring.Contains(selectedOption)){ //Sends the admin back to editingflights after choosing a location to fly to
             EditingFlights.EditDestination2(selectedOption);
@@ -154,29 +161,47 @@ public static class OptionSelection<T>{
             AddingFlights.AddFlight2(selectedOption);
         }
         switch (selectedOption){
-            case "My reservations": // Sends the user to the reservations menu
-                if (MainMenu.currentUser!.AccountBookings.Count() > 0){
+            case "Bookings":
+                ActionString("My bookings");
+                break;
+            case "My bookings":
+                AccountBookings.UpdateUser();
+                if (MainMenu.currentUser!.AccountBookings.Count() > 0 || OptionSelection<Account>.selectedAccount is not null){
                     List<string> option = new List<string>();
-                    option.Add("See my reservations");
-                    option.Add("Cancel reservations");
-                    option.Add("Edit reservations");
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        option.Add("See my bookings");
+                    } else {
+                        option.Add("Book flight");
+                        option.Add("See bookings");
+                    }
+                    option.Add("Edit booking");
+                    option.Add("Cancel booking");
                     option.Add("<-- Go back");
                     OptionSelection<string>.Start(option);
                     break;
                 }
                 else{
-                    Console.WriteLine("This account doesnt have any reservations yet(Press any key to continue)");
-                    Console.ReadKey();
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        Console.WriteLine("This account doesnt have any bookings yet (Press any key to continue)");
+                        Console.ReadKey();
+                    }
                     break;
                 }
-            case "See my reservations": //Allows the user to see all reservations currently on this account
-                AccountReservation.ShowReservation();
+            case "Book flight":
+                ActionString("Book a flight ");
                 break;
-            case "Cancel reservations": //Allows user to cancel reservation entirely
-                AccountReservation.CancelReservation();
+            case "See my bookings":
+                AccountBookings.ShowBooking();
                 break;
-            case "Edit reservations": //Allows user to edit reservations(Work in progress)
-                AccountReservation.EditReservation();
+            case "Cancel booking":
+                if(OptionSelection<Account>.selectedAccount is null){
+                    AccountBookings.CancelBooking(MainMenu.currentUser!);
+                } else {
+                    AccountBookings.CancelBooking(OptionSelection<Account>.selectedAccount);
+                }
+                break;
+            case "Edit booking":
+                AccountBookings.EditBooking();
                 break;
             case "Save changes": //saving changes to flights
                 AddingFlights.SaveChanges(selectedFlight2!);
@@ -248,10 +273,10 @@ public static class OptionSelection<T>{
             case "All accounts": //shows the admin all the accounts.
                 Account.ViewAllAccount();
                 break;
-            case "Show flights": //shows flights, if admin get extra options to add or edit flights
+            case "Book a flight":
                 if(MainMenu.currentUser is not null){
                     if(MainMenu.currentUser.isAdmin){
-                        OptionSelection<String>.Start(new List<string>{"Show flights ","Edit flights", "Add flights","<-- Go back"});
+                        OptionSelection<String>.Start(new List<string>{"Book a flight ","Edit flights", "Add flights","<-- Go back"});
                     } else {
                     SelectingFlights.Start();
                 }
@@ -262,7 +287,7 @@ public static class OptionSelection<T>{
             case "Edit flights": //allows the admin choose a flight to edit
                 AddingFlights.ChooseFlights();
                 break;
-            case "Show flights ": //Allows admin to see all flights
+            case "Book a flight ":
                 SelectingFlights.Start();
                 break;
             case "Leave a review": //allows user to leave a review
@@ -284,9 +309,7 @@ public static class OptionSelection<T>{
             case "Show all flights": //shows all flights currently available
                 ShowFlights.ViewAllFlights(SelectingFlights.flights);
                 break;
-            case "<-- Go back": // sends user back to main menu
-                OptionSelection<String>.selectedAccount = null;
-                OptionSelection<Account>.selectedAccount = null;
+            case "<-- Go back":
                 MainMenu.Start();
                 break;
             case "Airport contact details": // shows airport contact information
@@ -368,23 +391,17 @@ public static class OptionSelection<T>{
                 break; 
             case "Reset password": // allows the user to reset its password
                 if(selectedAccount is not null){
-                    selectedAccount!.ChangePassword();
+                    selectedAccount!.ChangePasswordInput();
                     Account.ViewAllAccount();
                 } else {
-                    MainMenu.currentUser!.ChangePassword();
+                    MainMenu.currentUser!.ChangePasswordInput();
                 }
                 break; 
-            case "Change username": // allows the user to change its username
-                MainMenu.currentUser!.changeUsername();
+            case "Change username":
+                MainMenu.currentUser!.changeUsernameInput();
                 break; 
-            case "See reservations": // allows admin to see reservation based on specific acocunt
-                if (OptionSelection<Account>.selectedAccount!.AccountBookings.Count > 0){
-                    AccountReservation.ShowReservation(OptionSelection<Account>.selectedAccount!);
-                }
-                else{
-                    Console.WriteLine("No bookings registered on this account");
-                    Console.ReadKey();
-                }
+            case "See bookings":
+                AccountBookings.ShowBooking(OptionSelection<Account>.selectedAccount!);
                 break;
             default:
                 Console.WriteLine("Still a W.I.P. (press any key to continue)");
@@ -399,7 +416,7 @@ public static class OptionSelection<T>{
                 String[] Strings = (selectedOption as String)!.Split(":");
                 switch (Strings[0]){ 
                 case "Username": //saving changes to flights
-                    selectedAccount.changeUsername();
+                    selectedAccount.changeUsernameInput();
                     selectedAccount.AccountInformation();
                     Console.ReadKey();
                     break;

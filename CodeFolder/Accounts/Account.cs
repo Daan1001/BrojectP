@@ -35,7 +35,7 @@ public class Account: IEquatable<Account>{
             if(MainMenu.currentUser.isSuperAdmin){
                 options.Add("Is Admin: "+Convert.ToString(this.isAdmin));
                 options.Add("Is Super Admin: "+Convert.ToString(this.isSuperAdmin));
-                options.Add("See reservations");
+                options.Add("Bookings");
             }
             options.Add("Reset password");
             options.Add("Delete account(!)");
@@ -55,21 +55,20 @@ public class Account: IEquatable<Account>{
 
     public void DeleteFromJson(){
         JsonFile<Account>.Read("DataSources/Accounts.json");
-        // Console.WriteLine(this);
-        // Console.ReadKey();
         List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
-        foreach(Account i in allAccountList){
-            if (i == this){
-                allAccountList.Remove(i);
-                string updatedJson = JsonConvert.SerializeObject(allAccountList, Formatting.Indented);
-                File.WriteAllText("DataSources/Accounts.json", updatedJson);
-                // Console.WriteLine("TESTING: Deleted");
-                // Console.ReadKey();
-                break;
-            }
-        }
+
+        allAccountList.Where(a => a == this).ToList()
+            .ForEach(a => {allAccountList.Remove(a);
+        string updatedJson = JsonConvert.SerializeObject(allAccountList, Formatting.Indented);
+        File.WriteAllText("DataSources/Accounts.json", updatedJson);});
     }
-    public void changeUsername(){
+    public void changeUsername(String NewUsername){
+        this.DeleteFromJson();
+        this.username = NewUsername;
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        Console.WriteLine("Username changed to \""+NewUsername+"\"");
+    }
+    public void changeUsernameInput(){
         Console.Clear();
         MainMenu.AirportName();
         JsonFile<Account>.Read("DataSources/Accounts.json");
@@ -81,11 +80,7 @@ public class Account: IEquatable<Account>{
             String NewUsername = Console.ReadLine()!;
             if(!allAccountList.Any(Account => Account.username == NewUsername)){
                 Console.CursorVisible = false;
-                this.DeleteFromJson();
-                this.username = NewUsername;
-                JsonFile<Account>.Write("DataSources/Accounts.json",this);
-                Console.WriteLine("Username changed to \""+NewUsername+"\"");
-                
+                changeUsername(NewUsername);
                 correctUsername = true;
             } else if(NewUsername == this.username){
                 Console.WriteLine("Username didn't change");
@@ -98,7 +93,15 @@ public class Account: IEquatable<Account>{
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
-    public void ChangePassword(){
+
+    public void ChangePassword(String NewPassword){
+        this.DeleteFromJson();
+        this.passwordHash = Password.Encrypt(NewPassword);
+        JsonFile<Account>.Write("DataSources/Accounts.json",this);
+        Console.WriteLine("Password changed");
+    }
+
+    public void ChangePasswordInput(){
         Console.Clear();
         MainMenu.AirportName();
         JsonFile<Account>.Read("DataSources/Accounts.json");
@@ -110,10 +113,7 @@ public class Account: IEquatable<Account>{
             NewPassword = Console.ReadLine()!;
         }while(!Password.CheckPasswordSecurity(NewPassword));
         Console.CursorVisible = false;
-        this.DeleteFromJson();
-        this.passwordHash = Password.Encrypt(NewPassword);
-        JsonFile<Account>.Write("DataSources/Accounts.json",this);
-        Console.WriteLine("Password changed");
+        ChangePassword(NewPassword);
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
@@ -125,10 +125,6 @@ public class Account: IEquatable<Account>{
             this.isAdmin = true;
         }
         JsonFile<Account>.Write("DataSources/Accounts.json",this);
-        // Console.WriteLine("TESTING: Created");
-        // Console.ReadKey();
-        // Console.WriteLine(this);
-        // Console.ReadKey();
     }
     public void switchSuperAdminBoolean(){
         this.DeleteFromJson();
@@ -139,10 +135,6 @@ public class Account: IEquatable<Account>{
             this.isSuperAdmin = true;
         }
         JsonFile<Account>.Write("DataSources/Accounts.json",this);
-        // Console.WriteLine("TESTING: Created");
-        // Console.ReadKey();
-        // Console.WriteLine(this);
-        // Console.ReadKey();
     }
 
     public override string ToString(){
@@ -182,23 +174,6 @@ public class Account: IEquatable<Account>{
     public static bool operator !=(Account one, Account two){
        return !(one == two);
     }
-
-    // public static Account GetAccount(string Username)
-    // {
-    //     List<Account> accountlist;
-    //     JsonFile<Account>.Read("DataSources/Accounts.json");
-    //     accountlist = JsonFile<Account>.listOfObjects!;
-    //     Account _account;
-
-    //     foreach (var account in accountlist)
-    //     {
-    //         if (account.username == Username)
-    //         {
-    //             _account = account;
-    //         }
-    //     }
-    //     return _account;
-    // }
 
     // public static bool ConfirmDoB(string dateOfBirth)
     // {
