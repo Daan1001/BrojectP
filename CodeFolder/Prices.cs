@@ -71,10 +71,10 @@ public class Prices{
                         // Console.ReadKey();
                         // Console.WriteLine("TESTING 2");
                         // Console.ReadKey();
-                        // AccountReservation.UpdateUser(OptionSelection<Account>.selectedAccount);
+                        // AccountBookings.UpdateUser(OptionSelection<Account>.selectedAccount);
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
-                        // OptionSelection<Account>.selectedAccount = AccountReservation.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                        // OptionSelection<Account>.selectedAccount = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
                         // Console.WriteLine(OptionSelection<Account>.selectedAccount);
                         // Console.WriteLine("Selected account 2");
                         // Console.ReadKey();
@@ -84,7 +84,7 @@ public class Prices{
                         // Console.ReadKey();
                         // Console.WriteLine("TESTING 3");
                         // Console.ReadKey();
-                        // AccountReservation.UpdateUser();
+                        // AccountBookings.UpdateUser();
                         MainMenu.currentUser.DeleteFromJson();
                         AddBooking(currentflight, MainMenu.currentUser);
                     }
@@ -92,7 +92,7 @@ public class Prices{
                     //     Console.WriteLine("Selected account 3");
                     //     Console.ReadKey();
 
-                    AccountReservation.editing = false;
+                    AccountBookings.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     if(OptionSelection<Account>.selectedAccount is null){
                         // Console.WriteLine(MainMenu.currentUser);
@@ -134,7 +134,7 @@ public class Prices{
         Booking accountbookings = new Booking(accountFlight, seats);
         if(account.AccountBookings.Any(b => b == accountbookings)){
             Booking existingBooking = account.AccountBookings.Where(a => a == accountbookings).ToList()[0];
-            if(!AccountReservation.editing){
+            if(!AccountBookings.editing){
                 for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
                     if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
                         accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
