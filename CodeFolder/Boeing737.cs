@@ -89,17 +89,14 @@ public class Boeing737 : Airplane
                     }
                     if (row == 16 || row == 17) {
                         // Check if the extra legroom seat is booked
-                        if (seat.Booked){
-                            Console.ForegroundColor = ConsoleColor.Red; // Extra legroom seat is booked, set to red
-                        }
-                        else{
-                            Console.ForegroundColor = ConsoleColor.Yellow; // Extra legroom seat is not booked, set to yellow
-                        }
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.Yellow;
+
                     }
                     else{
                         // Set the text color to red if the seat is booked
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.White;
                     }
+
                     // Display the seat letter and number with dynamic spacing for better alignment
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
                     if(row == 1 && letter =='F'){
@@ -173,13 +170,13 @@ public class Boeing737 : Airplane
     }
     
     // public override void UpdateSeat(Flight currentFlight){
-    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
+    //     string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
     //     cursorRow = 1;
     //     cursorSeat = 0;
     //     bookedSeats.Clear();
     //     Seat.Seats.Clear();
     //     //TemporarlySeat.Clear();
-    //     LoadBookedSeatsFromJson(new_filepath); 
+    //     LoadBookedSeatsFromJson(new_filePath); 
     //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
     //     DisplaySeats();
     // }
