@@ -5,6 +5,7 @@ public class EditingFlights{
     public static Flight? SelectedFlight;
 
     public static void EditDestination(Flight selectedFlight){
+        airportstring.Clear();
         foreach (string[] airport in airports){
             string airportloc = $"{airport[0]}, {airport[1]}";
             airportstring.Add(airportloc);

@@ -2,13 +2,18 @@ using Newtonsoft.Json;
 
 public class Boeing737 : Airplane
 {
-    public Boeing737(char letter, int numbers) : base (letter, numbers) {}
+    protected static int FirstClassPrice = 0;
+    protected static int BusinessClassPrice = 0;
+    protected static int EconomyClassPrice = 500;
+    public Boeing737(char letter, int numbers) : base (letter, numbers) {
+        
+    }
 
-    public override void InitializeSeats(int firstClassPrice = 0, int businessClassPrice = 0, int economyClassPrice = 500)
+    public override void InitializeSeats(int firstClassPrice , int businessClassPrice = 0, int economyClassPrice = 500)
     {
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             for (int row = 1; row <= NumberOfRows; row++){
-                Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
+                Seat? existingSeat = bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 if (existingSeat != null){
                     // The seat is already booked (based on the JSON data)
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
@@ -33,10 +38,34 @@ public class Boeing737 : Airplane
             }
         }
     }
+
+    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
+        FirstClassPrice = firstClassPrice;
+        BusinessClassPrice = businessClassPrice;
+        EconomyClassPrice = economyClassPrice;
+        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+    }
+
+    public override void SetClassPrices(){
+        int economyclassPrice;
+        do{
+            Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
+            Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
+            Console.Write(">>> ");
+        } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
+        Console.Clear();
+        Console.WriteLine("The new prices has been set.");
+        Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
+        Console.WriteLine();
+        Console.WriteLine("Press any button to continue.");
+        Console.ReadKey();
+        SetPrices(0, 0, economyclassPrice);
+    }
     public override void DisplaySeats()
     {
         // Calculate the total width of the seating arrangement
-        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 20;
+        Console.WriteLine("             [Economy Class Seat]");
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 5;
         Console.Write("     ");
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             // Add an extra space after column C
@@ -46,7 +75,7 @@ public class Boeing737 : Airplane
             Console.Write($"{letter,-5} ");
         }
         Console.WriteLine();
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
         // Dictionary to store the maximum length of seat identifier for each column
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
         for (int row = 1; row <= NumberOfRows; row++){
@@ -76,6 +105,62 @@ public class Boeing737 : Airplane
                     }
                     // Display the seat letter and number with dynamic spacing for better alignment
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
+                    if(row == 1 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Console.Write(" Use arrow keys to navigate and press Enter to select a seat.");
+                    }
+                    if(row ==2 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Color.Red(" Red:", false);
+                        Console.Write(" Booked Seat.");
+                    }
+                    if(row == 3 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Color.Yellow(" Yelow:", false);
+                        Console.Write(": Available Economy Class Seat with extra legroom.");
+                    }
+                    if(row == 4 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
+                    }
+                    if(row == 5 && letter == 'F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Color.Magenta(" Magenta:", false);
+                        Console.Write($" Your current selected seats.");
+
+                    }
+                    if(row == 6 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("||");
+                        Console.Write(" Press ESC to finish the booking.");
+                    }
+                    if(row == 8 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write(" *");
+                        Console.Write(" Price will vary depending on the selected seat. *");
+                    }
+                    if(row == 9 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Window Seats have a price increase of 20% on top of the starting price.");
+                    }
+                    if(row == 10 && letter =='F'){
+                        Console.ResetColor();
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("|| - Extra legroom seats have a price increase of 30 euro's on top of the starting price.");
+                    }
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
                     // Reset text and background color after printing the current seat
@@ -88,25 +173,17 @@ public class Boeing737 : Airplane
             Console.WriteLine();
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-        Console.WriteLine("Use arrow keys to navigate and press Enter to select a seat.");
-        Color.Red(" Red:", false);
-        Console.WriteLine(" Booked Seat.");
-        Color.Yellow(" Yelow:", false);
-        Console.WriteLine(" Extra legroom seat.");
-        Console.WriteLine(" White: Available Seat.");
-        Console.WriteLine(" BACKSPACE: To unselect a seat.");
-        Console.WriteLine(" Press ESC to finish the booking.");
-        Console.WriteLine();
     }
     public override void Start(Flight CurrentFlight)
     {
         string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
         cursorRow = 1;  
         cursorSeat = 0; 
-        // bookedSeats.Clear();
-        // TemporarlySeat.Clear();
+        bookedSeats.Clear();
+        //TemporarlySeat.Clear();
         LoadBookedSeatsFromJson(new_filepath); 
-        InitializeSeats();
+        // SetClassPrices();
+        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
         bool isBookingComplete = false;
         while (!isBookingComplete)
@@ -154,15 +231,14 @@ public class Boeing737 : Airplane
         }
         Console.Clear();
         bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
-
         if (confirmBooking)
         {
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
-            int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
-            SeatsAvailable = SeatsAvailable - bookedSeats.Count();
+            int SeatsAvailable = Convert.ToInt32(CurrentFlight.SeatsAvailable);
+            SeatsAvailable = SeatsAvailable - TemporarlySeat.Count();
             string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
             CurrentFlight.SeatsAvailable = SeatsAvailablestring;
             string json = File.ReadAllText("DataSources/Flights.json");
@@ -172,9 +248,11 @@ public class Boeing737 : Airplane
                     flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
                 }
             }
-            string filepath = $"DataSources/{CurrentFlight.FlightId}";
+            string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
             SaveBookedSeatsToJson(filepath); // Specify the desired file path
             TemporarlySeat.Clear();
+            bookedSeats.Clear();
+            Seat.Seats.Clear();
             Console.ReadKey();
             string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText("DataSources/Flights.json", updatedJson);

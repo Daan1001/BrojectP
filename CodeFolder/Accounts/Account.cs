@@ -3,11 +3,16 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 public class Account: IEquatable<Account>{
+    [JsonProperty(Order = 3)]
     public Boolean isAdmin{get; set;}
+    [JsonProperty(Order = 4)]
     public Boolean isSuperAdmin{get; set;}
+    [JsonProperty(Order = 1)]
     public string username;
+    [JsonProperty(Order = 2)]
     public string? passwordHash;
-    public List<Flight> AccountFlights = new List<Flight>();
+    [JsonProperty(Order = 5)]
+    public List<Booking> AccountBookings = new List<Booking>();
     // public DateTime dateOfBirth;
     public string email;
     // public int phoneNumber;
@@ -30,6 +35,7 @@ public class Account: IEquatable<Account>{
             if(MainMenu.currentUser.isSuperAdmin){
                 options.Add("Is Admin: "+Convert.ToString(this.isAdmin));
                 options.Add("Is Super Admin: "+Convert.ToString(this.isSuperAdmin));
+                options.Add("See reservations");
             }
             options.Add("Reset password");
             options.Add("Delete account(!)");
