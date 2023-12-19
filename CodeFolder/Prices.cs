@@ -19,9 +19,8 @@ public class Prices{
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
         string seatsstring = $@"Price P.P: {currentflight.BasePrice}.
-        Selected seats:";
-        foreach (var seat in Airplane.TemporarlySeat)
-        {
+Selected seats:";
+        foreach (var seat in Airplane.TemporarlySeat){
             if(seat.Booked == true){
                 string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
                 Console.WriteLine(seatsstringlist);
@@ -46,67 +45,24 @@ public class Prices{
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
         ConsoleKeyInfo key = Console.ReadKey();
-        // Console.WriteLine("TESTING");
-        // Console.ReadKey();
         if (key.Key == ConsoleKey.Y){
-        //     Console.WriteLine("TESTING 2");
-        // Console.ReadKey();
             if (Airplane.TemporarlySeat.Count() > 0){
-        //         Console.WriteLine("TESTING 3");
-        // Console.ReadKey();
                 if (MainMenu.currentUser is not null){
                     ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
-                    // Console.WriteLine(MainMenu.currentUser);
-                    // Console.WriteLine("currenUser");
-                    // Console.ReadKey();
-                    // Console.WriteLine("TESTING 1");
-                    // Console.ReadKey();
-
-                    // Flight accountFlight = currentflight;
-                    // List<Seat> seats = Airplane.TemporarlySeat;
-                    // Booking accountbookings = new Booking(accountFlight, seats);
-
                     if(OptionSelection<Account>.selectedAccount is not null){
-                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine("Selected account 1");
-                        // Console.ReadKey();
-                        // Console.WriteLine("TESTING 2");
-                        // Console.ReadKey();
-                        // AccountBookings.UpdateUser(OptionSelection<Account>.selectedAccount);
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
-                        // OptionSelection<Account>.selectedAccount = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine("Selected account 2");
-                        // Console.ReadKey();
                     } else {
-                        // Console.WriteLine(MainMenu.currentUser);
-                        // Console.WriteLine("current user 2");
-                        // Console.ReadKey();
-                        // Console.WriteLine("TESTING 3");
-                        // Console.ReadKey();
-                        // AccountBookings.UpdateUser();
                         MainMenu.currentUser.DeleteFromJson();
                         AddBooking(currentflight, MainMenu.currentUser);
                     }
-                    // Console.WriteLine(OptionSelection<Account>.selectedAccount);
-                    //     Console.WriteLine("Selected account 3");
-                    //     Console.ReadKey();
 
                     AccountBookings.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     if(OptionSelection<Account>.selectedAccount is null){
-                        // Console.WriteLine(MainMenu.currentUser);
-                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine("TESTING 1");
-                        // Console.ReadKey();
                         JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
                     } else {
                         JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine(MainMenu.currentUser);
-                        // Console.WriteLine(OptionSelection<Account>.selectedAccount);
-                        // Console.WriteLine("TESTING 2");
-                        // Console.ReadKey();
                     }
                 }
             }

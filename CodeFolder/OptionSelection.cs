@@ -14,6 +14,7 @@ public static class OptionSelection<T>{
         Start(list, null);
     }
     public static void Start(List<T> list, String[]? array){
+        CheckingFlights.OrderingFlightsInJson();
         if(MainMenu.currentUser is not null){
             AccountBookings.UpdateUser();
         }
@@ -402,6 +403,23 @@ public static class OptionSelection<T>{
                 break; 
             case "See bookings":
                 AccountBookings.ShowBooking(OptionSelection<Account>.selectedAccount!);
+                break;
+            case "See food selection":
+                List<string> option3 = new List<string>();
+                option3.Add("Business class menu");
+                option3.Add("Economy class menu");
+                option3.Add("First class menu");
+                option3.Add("<-- Go back");
+                OptionSelection<String>.Start(option3);
+                break;
+            case "Business class menu":
+                FoodMenu.PrintMenuDescriptions<BusinessMenu>();
+                break;
+            case "Economy class menu":
+                FoodMenu.PrintMenuDescriptions<EconomyMenu>();
+                break;
+            case "First class menu":
+                FoodMenu.PrintMenuDescriptions<FirstClassMenu>();
                 break;
             default:
                 Console.WriteLine("Still a W.I.P. (press any key to continue)");
