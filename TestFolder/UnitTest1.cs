@@ -160,7 +160,7 @@ public class UnitTest1
         List<Seat> seats = new List<Seat>();
         seats.Add(seat2);
         Booking booking = new Booking(flight2, seats);
-        Account account = new Account("Sander", "Password", "1064928@hr.nl", false, false);
+        Account account = new Account("Sander", "Password", "1054914@hr.nl", false, false);
         for (int i = 0; i < amount; i++){
             account.AccountBookings.Add(booking);
         }

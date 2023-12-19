@@ -14,20 +14,7 @@ public class ShowFlights{
         return flights;
     }
 
-    // Searches the flights list for matching countries
-    // public static void SearchFlightsByCountry(List<Flight> flights){ //can refactor this woth searchbycity
-    //     flights = LoadFlightsFromJson("DataSources/flights.json");
-    //     options.Clear();
-    //     foreach (Flight flight in flights){
-    //         if(!options.Contains(flight.Country!)){
-    //             options.Add(flight.Country!);
-    //         }
-    //     }
-    //     options.Add("<-- Go back");
-    //     OptionSelection<String>.Start(options);
-    // }
-
-    public static void SearchFlightsBy(List<Flight> flights, string sortingType){ //can refactor this woth searchbycity
+    public static void SearchFlightsBy(List<Flight> flights, string sortingType){ //sorts flights by either Country or city
         flights = LoadFlightsFromJson("DataSources/flights.json");
         options.Clear();
         switch(sortingType){
@@ -51,18 +38,6 @@ public class ShowFlights{
                 break;
         }
     }
-    // Searches the flights list for matching cities
-    // public static void SearchFlghtsByCity(List<Flight>flights){
-    //     flights = LoadFlightsFromJson("DataSources/flights.json");
-    //     options.Clear();
-    //     foreach (Flight flight in flights){
-    //         if(!options.Contains(flight.Destination!)){
-    //             options.Add(flight.Destination!);
-    //         }
-    //     }
-    //     options.Add("<-- Go back");
-    //     OptionSelection<String>.Start(options);
-    // }
 
     // Method that displays all flights
     public static void ViewAllFlights(List<Flight> flights){
@@ -70,7 +45,7 @@ public class ShowFlights{
         Console.Clear();
         DisplayFlights(flights);
         Console.WriteLine("Press any key to continue...");
-        Console.ReadKey(); // alleen tijdens wip nodig
+        Console.ReadKey();
     }
 
     // Method that displays the given flights
@@ -111,7 +86,7 @@ public class ShowFlights{
         Console.ReadKey();
         Column2(flights);
     }
-    public static void Column2(List<Flight> flights){
+    public static void Column2(List<Flight> flights){ // Method that makes a selectable menu for flights
         List<String> option1 = new List<string>();
         foreach (Flight flight in flights){
             string data = $"|{flight.ToString(flights)}|";

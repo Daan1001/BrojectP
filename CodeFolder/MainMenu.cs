@@ -13,6 +13,7 @@ public class MainMenu{
         options.Add("Airport contact details");
         options.Add("Book a flight");
         options.Add("Reviews");
+        options.Add("See food selection");
         if(currentUser is null || currentUser.isSuperAdmin){
             options.Add("Sign up");
             if(currentUser is null){

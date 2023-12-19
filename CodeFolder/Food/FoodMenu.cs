@@ -34,10 +34,14 @@ public enum FirstClassMenu{
 
 public class FoodMenu{
     public static void PrintMenuDescriptions<TEnum>(){
+        int Count = 0;
         foreach (TEnum value in Enum.GetValues(typeof(TEnum))){
+            Count++;
             FieldInfo field = value.GetType().GetField(value.ToString()!)!;
             DescriptionAttribute attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute))!;
-            Console.WriteLine($"{value}: {attribute.Description}");
+            Console.WriteLine($"{Count}. {value}: {attribute.Description}");
         }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 }
