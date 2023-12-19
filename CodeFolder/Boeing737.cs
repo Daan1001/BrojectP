@@ -89,17 +89,14 @@ public class Boeing737 : Airplane
                     }
                     if (row == 16 || row == 17) {
                         // Check if the extra legroom seat is booked
-                        if (seat.Booked){
-                            Console.ForegroundColor = ConsoleColor.Red; // Extra legroom seat is booked, set to red
-                        }
-                        else{
-                            Console.ForegroundColor = ConsoleColor.Yellow; // Extra legroom seat is not booked, set to yellow
-                        }
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.Yellow;
+
                     }
                     else{
                         // Set the text color to red if the seat is booked
-                        Console.ForegroundColor = seat.Booked ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.White;
                     }
+
                     // Display the seat letter and number with dynamic spacing for better alignment
                     Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
                     if(row == 1 && letter =='F'){
@@ -232,17 +229,28 @@ public class Boeing737 : Airplane
         }
         else{
             // Roll back the booked seats to available
-            foreach (var seat in TemporarlySeat){
-                seat.ResetSeat();
-            }
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
-            TemporarlySeat.Clear();
-            // bookedSeats.Clear();
-            // InitializeSeats();
-            // LoadBookedSeatsFromJson(new_filepath); 
-            Start(CurrentFlight);
+            if(AccountBookings.editing){
+                TemporarlySeat.Clear();
+                Account account;
+                if(OptionSelection<Account>.selectedAccount is null){
+                    AccountBookings.UpdateUser();
+                    account = MainMenu.currentUser!;
+                } else {
+                    
+                    account = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                }
+
+                OptionSelection<Booking>.Action(account.AccountBookings.Where(b => b.BookedFlight == CurrentFlight).First());
+            } else {
+                foreach (var seat in TemporarlySeat){
+                    seat.ResetSeat();
+                }
+                TemporarlySeat.Clear();
+                Start(CurrentFlight);
+            }
         }
     }
 }

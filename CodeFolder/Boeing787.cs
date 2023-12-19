@@ -309,16 +309,28 @@ public class Boeing787 : Airplane
         }
         else{
             // Roll back the booked seats to available
-            foreach (var seat in TemporarlySeat){
-                
-                seat.ResetSeat();
-            }
             Console.Clear();
             Console.WriteLine("Booking canceled. Selected seats are now available.");
             Console.WriteLine();
-            TemporarlySeat.Clear();
-            // bookedSeats.Clear();
-            Start(CurrentFlight);
+            if(AccountBookings.editing){
+                TemporarlySeat.Clear();
+                Account account;
+                if(OptionSelection<Account>.selectedAccount is null){
+                    AccountBookings.UpdateUser();
+                    account = MainMenu.currentUser!;
+                } else {
+                    
+                    account = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                }
+
+                OptionSelection<Booking>.Action(account.AccountBookings.Where(b => b.BookedFlight == CurrentFlight).First());
+            } else {
+                foreach (var seat in TemporarlySeat){
+                    seat.ResetSeat();
+                }
+                TemporarlySeat.Clear();
+                Start(CurrentFlight);
+            }
         }
     }
 }
