@@ -8,24 +8,10 @@
   },
   {
     "TypeClass": "Economy Class",
-    "Letter": "A",
-    "Row": 2,
+    "Letter": "B",
+    "Row": 1,
     "Booked": true,
-    "Price": 600
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "A",
-    "Row": 3,
-    "Booked": true,
-    "Price": 600
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "A",
-    "Row": 5,
-    "Booked": true,
-    "Price": 600
+    "Price": 500
   },
   {
     "TypeClass": "Economy Class",
@@ -36,107 +22,23 @@
   },
   {
     "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 2,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 3,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 4,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 2,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 3,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 4,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 5,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 13,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 14,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "C",
-    "Row": 15,
-    "Booked": true,
-    "Price": 500
-  },
-  {
-    "TypeClass": "Economy Class",
     "Letter": "A",
-    "Row": 6,
-    "Booked": true,
-    "Price": 720
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 6,
+    "Row": 4,
     "Booked": true,
     "Price": 600
   },
   {
     "TypeClass": "Economy Class",
     "Letter": "B",
-    "Row": 7,
+    "Row": 4,
     "Booked": true,
-    "Price": 600
+    "Price": 500
   },
   {
     "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 8,
+    "Letter": "C",
+    "Row": 4,
     "Booked": true,
-    "Price": 600
-  },
-  {
-    "TypeClass": "Economy Class",
-    "Letter": "B",
-    "Row": 9,
-    "Booked": true,
-    "Price": 600
+    "Price": 500
   }
 ]

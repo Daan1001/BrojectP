@@ -44,29 +44,16 @@ Selected seats:";
         Console.WriteLine($"Current discount: {Korting}%");
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
-        ConsoleKeyInfo key = Console.ReadKey();
+        ConsoleKeyInfo key;
+        do{
+            key = Console.ReadKey();
+            Console.WriteLine();
+        } while(!(key.Key == ConsoleKey.Y || key.Key == ConsoleKey.N));
+
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
-        //     Console.WriteLine("TESTING 3");
-        // Console.ReadKey();
                 if (MainMenu.currentUser is not null){
-                    if (AccountBookings.editing){
-                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId!, seatsstring);
-                    }
-                    else
-                    {
-                        ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
-                    }
-                    // Console.WriteLine(MainMenu.currentUser);
-                    // Console.WriteLine("currenUser");
-                    // Console.ReadKey();
-                    // Console.WriteLine("TESTING 1");
-                    // Console.ReadKey();
-
-                    // Flight accountFlight = currentflight;
-                    // List<Seat> seats = Airplane.TemporarlySeat;
-                    // Booking accountbookings = new Booking(accountFlight, seats);
-
+                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
                     if(OptionSelection<Account>.selectedAccount is not null){
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
@@ -74,8 +61,6 @@ Selected seats:";
                         MainMenu.currentUser.DeleteFromJson();
                         AddBooking(currentflight, MainMenu.currentUser);
                     }
-
-                    AccountBookings.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     if(OptionSelection<Account>.selectedAccount is null){
                         JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
@@ -83,7 +68,20 @@ Selected seats:";
                         JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
                     }
                 }
+            } else {
+                if(AccountBookings.editing){
+                    Account account;
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        account = MainMenu.currentUser!;
+                    } else {
+                        account = OptionSelection<Account>.selectedAccount;
+                    }
+                    account!.DeleteFromJson();
+                    account!.AccountBookings.Remove(account.AccountBookings.Where(b => b.BookedFlight == currentflight).First());
+                    JsonFile<Account>.Write("DataSources/Accounts.json", account);
+                }
             }
+            AccountBookings.editing = false;
         }
         // Return true if the user pressed 'Y' (yes), otherwise return false
         return key.Key == ConsoleKey.Y;
@@ -94,12 +92,16 @@ Selected seats:";
     }
     private static int CalculateDiscount(Account account){
         int korting = 0;
+        int count = account.AccountBookings.Count();
+        if(AccountBookings.editing){
+            count--;
+        }
         //decides the discount based on how many flights user has booked
-        if(account.AccountBookings.Count == 0){
+        if(count == 0){
             korting = 0;
         }
         else{
-            int modulo = account.AccountBookings.Count() % 3;
+            int modulo = count % 3;
             if (modulo == 1){
                 korting = 5;
             }

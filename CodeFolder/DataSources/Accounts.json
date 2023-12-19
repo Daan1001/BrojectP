@@ -5,6 +5,126 @@
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
     "isAdmin": true,
     "isSuperAdmin": true,
+    "AccountBookings": [
+      {
+        "BookedFlight": {
+          "Flight id": "597038",
+          "Type Airplane": "Airbus 330",
+          "Terminal": "Gate 10",
+          "Country": "Italy",
+          "Destination": "Rome",
+          "Flight date": "23-04-2024",
+          "Departure time": "10:00:00",
+          "Arrival time": "12:00:00",
+          "Seats Available": "378",
+          "Total Seats": "378",
+          "Base Price": "€60"
+        },
+        "BookedSeats": [
+          {
+            "TypeClass": "First Class",
+            "Letter": "A",
+            "Row": 1,
+            "Booked": true,
+            "Price": 300
+          },
+          {
+            "TypeClass": "First Class",
+            "Letter": "B",
+            "Row": 1,
+            "Booked": true,
+            "Price": 250
+          },
+          {
+            "TypeClass": "First Class",
+            "Letter": "C",
+            "Row": 1,
+            "Booked": true,
+            "Price": 250
+          },
+          {
+            "TypeClass": "First Class",
+            "Letter": "D",
+            "Row": 1,
+            "Booked": true,
+            "Price": 250
+          },
+          {
+            "TypeClass": "First Class",
+            "Letter": "A",
+            "Row": 2,
+            "Booked": true,
+            "Price": 300
+          },
+          {
+            "TypeClass": "First Class",
+            "Letter": "B",
+            "Row": 2,
+            "Booked": true,
+            "Price": 250
+          },
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "A",
+            "Row": 12,
+            "Booked": true,
+            "Price": 60
+          },
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "B",
+            "Row": 12,
+            "Booked": true,
+            "Price": 50
+          }
+        ]
+      },
+      {
+        "BookedFlight": {
+          "Flight id": "428463",
+          "Type Airplane": "Boeing 737",
+          "Terminal": "Gate 01",
+          "Country": "Belgium",
+          "Destination": "Brussels",
+          "Flight date": "23-12-2023",
+          "Departure time": "12:30:00",
+          "Arrival time": "13:30:00",
+          "Seats Available": "173",
+          "Total Seats": "198",
+          "Base Price": "€30"
+        },
+        "BookedSeats": [
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "A",
+            "Row": 4,
+            "Booked": true,
+            "Price": 600
+          },
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "B",
+            "Row": 4,
+            "Booked": true,
+            "Price": 500
+          },
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "C",
+            "Row": 4,
+            "Booked": true,
+            "Price": 500
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "email": "1040029@hr.nl",
+    "username": "Aymane",
+    "passwordHash": "8d28229c05fc5113e4c4362c479237d3c1ab3f728538106dcd7c62fd6e419981",
+    "isAdmin": false,
+    "isSuperAdmin": false,
     "AccountBookings": []
   },
   {
