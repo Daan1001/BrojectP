@@ -52,16 +52,6 @@ public class UnitTest1
  
         Assert.AreEqual(manuallyEncrypted, AutoEncrypted);
     }
-//     // [TestMethod]
-//     // public void TestDiscountPrices(){
-//     //     Account account = new Account("Sander5", "Sander123!", false, false);
-//     //     MainMenu.currentUser = account;
-//     //     List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-//     //     account.AccountFlights.Add(flights[1]);
-//     //     Seat seat= new Seat("First Class", 'B', 1, true, 500);
-//     //     DisplaySeating.TemporarlySeat.Add(seat);
-//     //     Prices.TicketPrices(flights[2]);
-
  
     [TestMethod]
     [DataRow("Economy", "Business", 'A', 'D', 1, 2, true, 22)]
@@ -174,7 +164,7 @@ public class UnitTest1
         for (int i = 0; i < amount; i++){
             account.AccountBookings.Add(booking);
         }
-        int discount = Prices.CalculateDiscount(account);
+        int discount = Prices.GetCalcDiscount(account);
         Assert.IsTrue(discount == totalkorting);
     }
  
@@ -201,7 +191,7 @@ public class UnitTest1
     [TestMethod]
     [DataRow(100, 0.5, 50)]
     public void TestCalculatePrice(double totalprice, double percentagekorting, double totaltotalprice){
-        double answer = Prices.CalculatePrice(totalprice, percentagekorting);
+        double answer = Prices.GetCalcPrice(totalprice, percentagekorting);
         Assert.IsTrue(answer == totaltotalprice);
     }
  

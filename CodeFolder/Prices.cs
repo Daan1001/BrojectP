@@ -50,9 +50,8 @@ Selected seats:";
         //     Console.WriteLine("TESTING 3");
         // Console.ReadKey();
                 if (MainMenu.currentUser is not null){
-                    if (AccountBookings.editing)
-                    {
-                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, seatsstring);
+                    if (AccountBookings.editing){
+                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId!, seatsstring);
                     }
                     else
                     {
@@ -90,7 +89,10 @@ Selected seats:";
         return key.Key == ConsoleKey.Y;
     }
 
-    public static int CalculateDiscount(Account account){
+    public static int GetCalcDiscount(Account account){
+        return CalculateDiscount(account);
+    }
+    private static int CalculateDiscount(Account account){
         int korting = 0;
         //decides the discount based on how many flights user has booked
         if(account.AccountBookings.Count == 0){
@@ -110,7 +112,10 @@ Selected seats:";
         }
         return korting;
     }
-    public static double CalculatePrice(double totalprice, double percentagekorting){
+    public static double GetCalcPrice(double totalprice, double percentagekorting){
+        return CalculatePrice(totalprice, percentagekorting);
+    }
+    private static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
     }
 
