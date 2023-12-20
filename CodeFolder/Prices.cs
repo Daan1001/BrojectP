@@ -52,10 +52,17 @@ Have a great flight!";
         //     Console.WriteLine("TESTING 2");
         // Console.ReadKey();
             if (Airplane.TemporarlySeat.Count() > 0){
-        //         Console.WriteLine("TESTING 3");
+        //     Console.WriteLine("TESTING 3");
         // Console.ReadKey();
                 if (MainMenu.currentUser is not null){
-                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    if (AccountBookings.editing)
+                    {
+                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, seatsstring);
+                    }
+                    else
+                    {
+                        ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    }
                     // Console.WriteLine(MainMenu.currentUser);
                     // Console.WriteLine("currenUser");
                     // Console.ReadKey();
