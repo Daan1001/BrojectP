@@ -44,7 +44,12 @@ Have a great flight!";
         Console.WriteLine($"Current discount: {Korting}%");
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
         Console.Write("Confirm booking? (Y/N): ");
-        ConsoleKeyInfo key = Console.ReadKey();
+        ConsoleKeyInfo key;
+        do{
+            key = Console.ReadKey();
+            Console.WriteLine();
+        } while(!(key.Key == ConsoleKey.Y || key.Key == ConsoleKey.N));
+
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
@@ -61,8 +66,6 @@ Have a great flight!";
                         MainMenu.currentUser.DeleteFromJson();
                         AddBooking(currentflight, MainMenu.currentUser);
                     }
-
-                    AccountBookings.editing = false;
                     JsonFile<Account>.Read("DataSources/Accounts.json");
                     if(OptionSelection<Account>.selectedAccount is null){
                         JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
@@ -70,7 +73,20 @@ Have a great flight!";
                         JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
                     }
                 }
+            } else {
+                if(AccountBookings.editing){
+                    Account account;
+                    if(OptionSelection<Account>.selectedAccount is null){
+                        account = MainMenu.currentUser!;
+                    } else {
+                        account = OptionSelection<Account>.selectedAccount;
+                    }
+                    account!.DeleteFromJson();
+                    account!.AccountBookings.Remove(account.AccountBookings.Where(b => b.BookedFlight == currentflight).First());
+                    JsonFile<Account>.Write("DataSources/Accounts.json", account);
+                }
             }
+            AccountBookings.editing = false;
         }
         // Return true if the user pressed 'Y' (yes), otherwise return false
         return key.Key == ConsoleKey.Y;
@@ -81,12 +97,16 @@ Have a great flight!";
     }
     private static int CalculateDiscount(Account account){
         int korting = 0;
+        int count = account.AccountBookings.Count();
+        if(AccountBookings.editing){
+            count--;
+        }
         //decides the discount based on how many flights user has booked
-        if(account.AccountBookings.Count == 0){
+        if(count == 0){
             korting = 0;
         }
         else{
-            int modulo = account.AccountBookings.Count() % 3;
+            int modulo = count % 3;
             if (modulo == 1){
                 korting = 5;
             }
