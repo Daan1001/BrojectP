@@ -7,41 +7,35 @@ public abstract class Airplane
     public static List<Seat> TemporarlySeat = new List<Seat>();
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }   
-    public static int FirstClassPrice{get;set;}
-    public static int BusinessClassPrice {get;set;}
-    public static int EconomyClassPrice {get;set;}
+    public static int FirstClassPrice{get; protected set;}
+    public static int BusinessClassPrice {get; protected set;}
+    public static int EconomyClassPrice {get; protected set;}
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
     }
     public abstract void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice);
-    //public abstract void Start(Flight CurrentFlight);
     public abstract void DisplaySeats();
 
     public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void SetClassPrices();
 
-    // public virtual void UpdateSeat(Flight currentFlight){
-    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-    //     cursorRow = 1;
-    //     cursorSeat = 0;
-    //     bookedSeats.Clear();
-    //     Seat.Seats.Clear();
-    //     LoadBookedSeatsFromJson(newFilePath);
-    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-    //     DisplaySeats();
-    // }
-    public virtual void Start(Flight currentFlight)
-    {
+    public virtual void UpdateSeat(Flight currentFlight){
         string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-        cursorRow = 1;
-        cursorSeat = 0;
+        // cursorRow = 1;
+        // cursorSeat = 0;
         bookedSeats.Clear();
         Seat.Seats.Clear();
         LoadBookedSeatsFromJson(newFilePath);
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
-        // UpdateSeat(currentFlight);
+    }
+
+    public virtual void Start(Flight currentFlight)
+    {
+        UpdateSeat(currentFlight);
+        cursorRow = 1;
+        cursorSeat = 0;
         bool isBookingComplete = false;
 
         while (!isBookingComplete)
@@ -53,7 +47,6 @@ public abstract class Airplane
         if (confirmBooking)
         {
             Console.Clear();
-
             Console.WriteLine();
             Console.WriteLine("Booking completed. Thank you!");
             Console.WriteLine();
