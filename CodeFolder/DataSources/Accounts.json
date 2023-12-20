@@ -8,6 +8,14 @@
     "AccountBookings": []
   },
   {
+    "email": "1040029@hr.nl",
+    "username": "Aymane",
+    "passwordHash": "8d28229c05fc5113e4c4362c479237d3c1ab3f728538106dcd7c62fd6e419981",
+    "isAdmin": false,
+    "isSuperAdmin": false,
+    "AccountBookings": []
+  },
+  {
     "email": "1057813@hr.nl",
     "username": "Daan",
     "passwordHash": "451c79a2da0a63edf7428bda0b32bdc9ca92738038ca54c4d40a6a76629e0667",
