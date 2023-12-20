@@ -21,7 +21,7 @@
     "Flight date": "23-04-2024",
     "Departure time": "10:00:00",
     "Arrival time": "12:00:00",
-    "Seats Available": "370",
+    "Seats Available": "367",
     "Total Seats": "378",
     "Base Price": "€60"
   },
@@ -47,7 +47,7 @@
     "Flight date": "09-01-2024",
     "Departure time": "10:00:00",
     "Arrival time": "13:00:00",
-    "Seats Available": "234",
+    "Seats Available": "231",
     "Total Seats": "234",
     "Base Price": "€90"
   },
@@ -125,7 +125,7 @@
     "Flight date": "09-01-2024",
     "Departure time": "10:00:00",
     "Arrival time": "13:00:00",
-    "Seats Available": "234",
+    "Seats Available": "231",
     "Total Seats": "234",
     "Base Price": "€90"
   },
