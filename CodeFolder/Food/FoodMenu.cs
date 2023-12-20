@@ -3,7 +3,7 @@ using System.Reflection;
 
 public enum EconomyMenu{
     [Description("Grilled chicken with roasted vegetables and mashed potatoes")]
-    Chicken=1,
+    Chicken,
     [Description("Pasta primavera with tomato and basil sauce")]
     Pasta,
     [Description("Beef stir-fry with steamed rice")]
