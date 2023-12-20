@@ -20,8 +20,7 @@ public class Prices{
         int count = 1;
         string seatsstring = $@"Price P.P: {currentflight.BasePrice}.
 Selected seats:";
-        foreach (var seat in Airplane.TemporarlySeat)
-        {
+        foreach (var seat in Airplane.TemporarlySeat){
             if(seat.Booked == true){
                 string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
                 Console.WriteLine(seatsstringlist);
@@ -54,7 +53,12 @@ Have a great flight!";
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
-                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    if (AccountBookings.editing){
+                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, seatsstring);
+                    }
+                    else{
+                        ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    }
                     if(OptionSelection<Account>.selectedAccount is not null){
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);

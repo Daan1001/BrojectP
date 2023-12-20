@@ -3,7 +3,7 @@ using System.Reflection;
 
 public enum EconomyMenu{
     [Description("Grilled chicken with roasted vegetables and mashed potatoes")]
-    Chicken=1,
+    Chicken,
     [Description("Pasta primavera with tomato and basil sauce")]
     Pasta,
     [Description("Beef stir-fry with steamed rice")]
@@ -34,10 +34,14 @@ public enum FirstClassMenu{
 
 public class FoodMenu{
     public static void PrintMenuDescriptions<TEnum>(){
+        int Count = 0;
         foreach (TEnum value in Enum.GetValues(typeof(TEnum))){
+            Count++;
             FieldInfo field = value.GetType().GetField(value.ToString()!)!;
             DescriptionAttribute attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute))!;
-            Console.WriteLine($"{value}: {attribute.Description}");
+            Console.WriteLine($"{Count}. {value}: {attribute.Description}");
         }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 }

@@ -1,20 +1,18 @@
+using Newtonsoft.Json;
 public class EditingFlights{
     // code that allows the admin to change flights.
     public static List<string[]> airports = AddingFlights.airports;
     public static List<string> airportstring = new List<string>();
     public static Flight? SelectedFlight;
-
     public static void EditDestination(Flight selectedFlight){
+        // Use LINQ to write the airports into the desired format
         airportstring.Clear();
-        foreach (string[] airport in airports){
-            string airportloc = $"{airport[0]}, {airport[1]}";
-            airportstring.Add(airportloc);
-        }
+        airportstring = airports.Select(airport => $"{airport[0]}, {airport[1]}").ToList();
         Console.WriteLine($"Current destination: {selectedFlight.Destination}, {selectedFlight.Country}");
         Console.WriteLine("Choose the new destination (City, Country)(press any key to continue...)");
         Console.ReadKey();
         SelectedFlight = selectedFlight;
-        OptionSelection<String>.Start(airportstring);
+        OptionSelection<string>.Start(airportstring);
     }
     public static void EditDestination2(string selectedOption){
         string[] data = selectedOption.Split(',');
@@ -25,7 +23,7 @@ public class EditingFlights{
                 double time = Convert.ToDouble(location[2]);
                 DateTime depart = Convert.ToDateTime(SelectedFlight.DepartureTime);
                 DateTime arrival = depart.AddHours(time);
-                string arrivalstring = arrival.ToString("HH:mm:ss");
+                string arrivalstring = arrival.ToString("HH:mm");
                 SelectedFlight.ArrivalTime = arrivalstring;
                 Console.WriteLine($"Changed destination to {SelectedFlight.Destination}, {SelectedFlight.Country}");
                 Console.WriteLine("Press any key to continue...");
@@ -75,8 +73,16 @@ public class EditingFlights{
             }
             int seats = AddingFlights.GetTotalSeats(selectedFlight.AirplaneType!);
             string seats2 = Convert.ToString(seats);
+            string filePath = $"DataSources/{selectedFlight.FlightId}.json";
+            List<Seat> bookedSeats = new List<Seat>();
+            if (File.Exists(filePath)){
+                string json = File.ReadAllText(filePath);
+                // updates current list of seat or starts a new empty list
+                bookedSeats = JsonConvert.DeserializeObject<List<Seat>>(json) ?? new List<Seat>();
+            }
+            string seats3 = Convert.ToString(seats - bookedSeats.Count());
             selectedFlight.TotalSeats = seats2;
-            selectedFlight.SeatsAvailable = seats2;
+            selectedFlight.SeatsAvailable = seats3;
             AddingFlights.EditFlight(selectedFlight);
         }
         else{
@@ -98,19 +104,19 @@ public class EditingFlights{
     }
     public static void EditTime(Flight selectedFlight){
         Console.WriteLine("Current departure time: " + selectedFlight.DepartureTime);
-        Console.Write("enter new departure time (HH:mm:ss): ");
+        Console.Write("enter new departure time (HH:mm): ");
         DateTime departureTime;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out departureTime)){
-            Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
+        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm", null, System.Globalization.DateTimeStyles.None, out departureTime)){
+            Console.WriteLine("Invalid time format. Please enter the time in HH:mm format.");
         }
-        string departureTimestring = departureTime.ToString("HH:mm:ss");
+        string departureTimestring = departureTime.ToString("HH:mm");
         selectedFlight.DepartureTime = departureTimestring;
         foreach (string[] location in airports){
                 if (location[0] == selectedFlight.Destination && location[1] == selectedFlight.Country){
                     double time = Convert.ToDouble(location[2]);
                     DateTime depart = Convert.ToDateTime(selectedFlight.DepartureTime);
                     DateTime arrival = depart.AddHours(time);
-                    string arrivalstring = arrival.ToString("HH:mm:ss");
+                    string arrivalstring = arrival.ToString("HH:mm");
                     selectedFlight.ArrivalTime = arrivalstring;
                     break;
                 }

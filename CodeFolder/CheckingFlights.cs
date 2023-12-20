@@ -16,4 +16,12 @@ public class CheckingFlights{
         string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
         File.WriteAllText("DataSources/Flights.json", updatedJson);
     }
+    public static void OrderingFlightsInJson(){ //sorts flights by id
+        string filePath = "DataSources/Flights.json";
+        string json = File.ReadAllText(filePath);
+        List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
+        List<Flight> sortedFlights = flights.OrderBy(f => f.FlightId).ToList();
+        string sortedJson = JsonConvert.SerializeObject(sortedFlights, Formatting.Indented);
+        File.WriteAllText(filePath, sortedJson);
+    }
 }
