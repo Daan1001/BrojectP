@@ -1,3 +1,4 @@
+using CodeFolder;
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
@@ -227,6 +228,16 @@ public class AddingFlights{
         List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(filePath))!;
         // Remove bookings for the selected flight
         foreach (Account account in accounts){
+            // send email to every account with this flight
+            var bookingsToUpdate = account.AccountBookings.Where(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId).ToList();
+            foreach (Booking booking in bookingsToUpdate){
+                List<Flight> flights2 = new List<Flight>();
+                flights2.Add(selectedFlight);
+                string text = $@"Your reservation of the following flight has been canceled:
+{selectedFlight.ToString(flights2)}
+We apologize for any inconvenience.";
+                ConfirmationEmail.SendFlightEditNotification(account.username, account.email, selectedFlight, text);
+            }
             account.AccountBookings.RemoveAll(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId);
         }
         // Write the modified list of accounts back to the JSON file
@@ -250,6 +261,12 @@ public class AddingFlights{
         foreach (Account account in accounts){
             var bookingsToUpdate = account.AccountBookings.Where(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId).ToList();
             foreach (Booking booking in bookingsToUpdate){
+                // send email to every account with this flight
+                List<Flight> flights2 = new List<Flight>();
+                flights2.Add(selectedFlight);
+                string text = $@"Your reservation on flight {selectedFlight.FlightId} has been changed. your new flight is the following:
+{selectedFlight.ToString(flights2)}";
+                ConfirmationEmail.SendFlightEditNotification(account.username, account.email, selectedFlight, text);
                 booking.BookedFlight = selectedFlight;
             }
             account.AccountBookings.RemoveAll(bookingsToUpdate.Contains);
