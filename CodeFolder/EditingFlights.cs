@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 public class EditingFlights{
     // code that allows the admin to change flights.
     public static List<string[]> airports = AddingFlights.airports;
@@ -72,8 +73,16 @@ public class EditingFlights{
             }
             int seats = AddingFlights.GetTotalSeats(selectedFlight.AirplaneType!);
             string seats2 = Convert.ToString(seats);
+            string filePath = $"DataSources/{selectedFlight.FlightId}.json";
+            List<Seat> bookedSeats = new List<Seat>();
+            if (File.Exists(filePath)){
+                string json = File.ReadAllText(filePath);
+                // updates current list of seat or starts a new empty list
+                bookedSeats = JsonConvert.DeserializeObject<List<Seat>>(json) ?? new List<Seat>();
+            }
+            string seats3 = Convert.ToString(seats - bookedSeats.Count());
             selectedFlight.TotalSeats = seats2;
-            selectedFlight.SeatsAvailable = seats2;
+            selectedFlight.SeatsAvailable = seats3;
             AddingFlights.EditFlight(selectedFlight);
         }
         else{
