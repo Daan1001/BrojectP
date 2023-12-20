@@ -130,26 +130,10 @@ public class Boeing787 : Airplane
 
                 if (seat != null)
                 {
-                    if (cursorRow == row && cursorSeat == letter - 'A')
-                    {
-                        Console.BackgroundColor = ConsoleColor.DarkGray;
-                    }
 
-                    if (letter >= 'A' && letter <= 'F' && row <= 6)
-                    {
-                        // First-class seats
-                        Console.ForegroundColor = seat.Booked &&!TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta :ConsoleColor.Green;
-                    }
-                    else if (letter <= LetterSeat && row >= 7 && row <= 16)
-                    {
-                        // Business class seats
-                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s == seat)? ConsoleColor.Red : Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.Blue;
-                    }
-                    else if (letter <= LetterSeat && row >= 17 && row <= 28)
-                    {
-                        // Economy class seats
-                        Console.ForegroundColor = seat.Booked && !TemporarlySeat.Any(s => s ==seat) ? ConsoleColor.Red :Console.ForegroundColor = seat.Booked && TemporarlySeat.Any(s => s == seat)? ConsoleColor.Magenta: ConsoleColor.White;
-                    }
+                    SeatColoring.SetColor(cursorRow, row, cursorSeat, letter, TemporarlySeat, seat, LetterSeat, this);
+
+
                     if(letter == 'C'  && row <= 6|| letter == 'E'  && row <= 6){
                         Console.Write("          ");
                     }
@@ -158,46 +142,8 @@ public class Boeing787 : Airplane
                         // Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
                     }
                     Console.Write(seat.Booked ? $"{letter}{row,-3} " : $"{letter}{row,-3} ");
-                    if(row ==1 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Color.Red(" Red:", false);
-                        Console.Write(" Booked Seat.");
-                    }
-                    if(row == 2 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Color.Green(" Green:", false);
-                        Console.Write($"  Available  First Class Seat. Starting at: {FirstClassPrice}");
-                    }
-                    if(row == 3 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Color.Blue(" Blue:", false); 
-                        Console.Write($" Available Business Class Seat. Starting at: {BusinessClassPrice}");
-                    }
-                    if(row == 4 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Color.Magenta(" Magenta:", false);
-                        Console.Write($" Your current selected seats.");
-                    }
-                    if(row == 5 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||"); 
-                        Console.Write($" White: Available Economy Class Seat. Starting at: {EconomyClassPrice}");
-                    }
-                    if(row == 6 && letter =='F'){
-                        Console.ResetColor();
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("\t  ||");
-                        Console.Write(" BACKSPACE: To unselect a seat.");
-                    }
+
+                    Legend.print(row, letter, this);
 
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
 
