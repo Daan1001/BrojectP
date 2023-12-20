@@ -49,7 +49,7 @@ Have a great flight!";
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
                     if (AccountBookings.editing){
-                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, seatsstring);
+                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId!, seatsstring);
                     }
                     else{
                         ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
@@ -76,7 +76,10 @@ Have a great flight!";
         return key.Key == ConsoleKey.Y;
     }
 
-    public static int CalculateDiscount(Account account){
+    public static int GetCalcDiscount(Account account){
+        return CalculateDiscount(account);
+    }
+    private static int CalculateDiscount(Account account){
         int korting = 0;
         //decides the discount based on how many flights user has booked
         if(account.AccountBookings.Count == 0){
@@ -96,7 +99,10 @@ Have a great flight!";
         }
         return korting;
     }
-    public static double CalculatePrice(double totalprice, double percentagekorting){
+    public static double GetCalcPrice(double totalprice, double percentagekorting){
+        return CalculatePrice(totalprice, percentagekorting);
+    }
+    private static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
     }
 
