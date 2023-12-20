@@ -4,12 +4,7 @@ public class Airbus330 : Airplane
     public static int FirstClassPrice = 250;
     public static int BusinessClassPrice = 90;
     public static int EconomyClassPrice = 50;
-    public Airbus330(char letter, int numbers) : base(letter, numbers){
-        // Airplane.FirstClassPrice = 250;
-        // Airplane.BusinessClassPrice = 150;
-        // Airplane.EconomyClassPrice = 90;
-    }
-
+    public Airbus330(char letter, int numbers) : base(letter, numbers){}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
         // Initialize first-class seats
@@ -60,7 +55,6 @@ public class Airbus330 : Airplane
         FirstClassPrice = firstClassPrice;
         BusinessClassPrice = businessClassPrice;
         EconomyClassPrice = economyClassPrice;
-
         InitializeSeats(FirstClassPrice, BusinessClassPrice, economyClassPrice);
     }
     public override void SetClassPrices(){
@@ -263,86 +257,19 @@ public class Airbus330 : Airplane
         }
         Console.WriteLine();
     }
-    // public override void Start(Flight currentFlight)
-    // {
-    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-    //     base.Start(currentFlight);
-    // }
-
-    // public override void UpdateSeat(Flight currentFlight){
-    //     string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-    //     bookedSeats.Clear();
-    //     Seat.Seats.Clear();
-    //     LoadBookedSeatsFromJson(newFilePath);
-    //     InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-    //     DisplaySeats();
-    // }
-    public override void Start(Flight CurrentFlight){
-        string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-        cursorRow = 1;    
-        cursorSeat = 0; 
+    public override void UpdateSeat(Flight currentFlight){
+        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
         bookedSeats.Clear();
         Seat.Seats.Clear();
-        // TemporarlySeat.Clear();
-        LoadBookedSeatsFromJson(new_filepath); 
+        LoadBookedSeatsFromJson(new_filePath); 
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
-        cursorRow = 1;
-        cursorSeat = 0;
-        bool isBookingComplete = false;
-        while (!isBookingComplete)
-        {
-            isBookingComplete = Movement.MovementInPut(this);
-        }
+    }
+    public override void Start(Flight currentFlight)
+    {
         Console.Clear();
-        bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
-        if (confirmBooking)
-        {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("Booking completed. Thank you!");
-            Console.WriteLine();
-            int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
-            SeatsAvailable = SeatsAvailable - bookedSeats.Count();
-            string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
-            CurrentFlight.SeatsAvailable = SeatsAvailablestring;
-            string json = File.ReadAllText("DataSources/Flights.json");
-            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
-            foreach (Flight flight in flights!){   
-                if (flight.FlightId == CurrentFlight.FlightId){
-                    flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
-                }
-            }
-            string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-            // foreach(var seat in bookedSeats){
-            //     Console.WriteLine(seat.ShowSeat()+ "This is in BookseatList.");
-            // }
-
-            // foreach( var seat in TemporarlySeat){
-            //     Console.WriteLine(seat.ShowSeat() + "this is in TempSeatList");
-            // }
-            SaveBookedSeatsToJson(filepath); // Specify the desired file path
-            TemporarlySeat.Clear();
-            bookedSeats.Clear();
-            Seat.Seats.Clear();
-            Console.ReadKey();
-            string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
-            File.WriteAllText("DataSources/Flights.json", updatedJson);
-            Program.Main();
-        }
-        else{
-            // Roll back the booked seats to available
-            foreach (var seat in TemporarlySeat){
-
-                seat.ResetSeat();
-            }
-            Console.Clear();
-            Console.WriteLine("Booking canceled. Selected seats are now available.");
-            Console.WriteLine();
-            TemporarlySeat.Clear();
-            // bookedSeats.Clear();
-            Start(CurrentFlight);
-        }
+        UpdateSeat(currentFlight);
+        base.Start(currentFlight);
     }
 }
 
