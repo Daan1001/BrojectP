@@ -50,14 +50,14 @@ public class Flight
         string FlightID = $"{this.SeatsAvailable}/{this.TotalSeats}";
         string paddedDestination = this.Destination != null ? this.Destination.PadRight(LenDes) : string.Empty;
         string paddedCountry = this.Country != null ? this.Country.PadRight(LenCountry) : string.Empty;
-        string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -8} | {this.ArrivalTime, -8} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
+        string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -5} | {this.ArrivalTime, -5} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
         return data;
     }
     public override string ToString(){
         string FlightID = $"{this.SeatsAvailable}/{this.TotalSeats}";
         string paddedDestination = this.Destination != null ? this.Destination.PadRight(this.Destination.Length) : string.Empty;
         string paddedCountry = this.Country != null ? this.Country.PadRight(this.Country.Length) : string.Empty;
-        string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -8} | {this.ArrivalTime, -8} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
+        string data = $"{this.FlightId, -6} | {this.Terminal, -7} | {paddedDestination} | {paddedCountry} | {this.FlightDate, -10} | {this.DepartureTime, -5} | {this.ArrivalTime, -5} | {this.AirplaneType, -10} |{FlightID, -7} | {this.BasePrice, -3:C} ";
         return data;
     }
 

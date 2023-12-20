@@ -1,3 +1,4 @@
+using CodeFolder;
 using Newtonsoft.Json;
 public class AddingFlights{
     public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
@@ -25,14 +26,13 @@ public class AddingFlights{
         };
     public static List<string> airportstring = new List<string>();
     public static void AddFlight(){
-        airportstring.Clear();
-        foreach (string[] airport in airports){
+        airportstring = airports.Select(airport =>{
             string airporttime = Convert.ToString(airport[2]);
-            string airportloc = $"{airport[0]}, {airport[1]}, {airporttime}";
-            airportstring.Add(airportloc);
-        }
+            return $"{airport[0]}, {airport[1]}, {airporttime}";
+        }).ToList();
         OptionSelection<string>.Start(airportstring);
     }
+
     public static void AddFlight2(string selectedoption){
         Console.CursorVisible = true;
         // Code that allows the admin to add flights
@@ -42,10 +42,10 @@ public class AddingFlights{
         while (!DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
             Console.WriteLine("Invalid date format. Please enter the date in dd-MM-yyyy format.");
         }
-        Console.Write("Departure Time (HH:mm:ss): ");
+        Console.Write("Departure Time (HH:mm): ");
         DateTime departureTime;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out departureTime)){
-            Console.WriteLine("Invalid time format. Please enter the time in HH:mm:ss format.");
+        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm", null, System.Globalization.DateTimeStyles.None, out departureTime)){
+            Console.WriteLine("Invalid time format. Please enter the time in HH:mm format.");
         }
         string country = "";
         string city = "";
@@ -56,7 +56,7 @@ public class AddingFlights{
             if (location[0] == data[0].Trim() && location[1] == data[1].Trim()){
                 double time = Convert.ToDouble(location[2]);
                 DateTime arrival = departureTime.AddHours(time);
-                arrivalstring = arrival.ToString("HH:mm:ss");
+                arrivalstring = arrival.ToString("HH:mm");
                 country = data[0].Trim();
                 city = data[1].Trim();
                 double price = Convert.ToDouble(data[2].Trim());
@@ -104,7 +104,7 @@ public class AddingFlights{
         int seatsAvailable = totalSeats;
 
         Console.CursorVisible = false;
-        Flight newFlight = CreateFlight(GetRandomNumber(), airplaneType, gate, city, country, flightDate.ToString("dd-MM-yyyy"), departureTime.ToString("HH:mm:ss"), arrivalstring, seatsAvailable.ToString(), totalSeats.ToString(), Baseprice);
+        Flight newFlight = CreateFlight(GetRandomNumber(), airplaneType, gate, city, country, flightDate.ToString("dd-MM-yyyy"), departureTime.ToString("HH:mm"), arrivalstring, seatsAvailable.ToString(), totalSeats.ToString(), Baseprice);
         var existingFlights = JsonConvert.DeserializeObject<List<Flight>>(File.ReadAllText("DataSources/Flights.json")) ?? new List<Flight>();
         existingFlights.Add(newFlight);
         File.WriteAllText("DataSources/Flights.json", JsonConvert.SerializeObject(existingFlights, Formatting.Indented));
@@ -202,7 +202,7 @@ public class AddingFlights{
         switch (answer.ToLower()){
             case "y":
             case "yes":
-                Console.WriteLine($"Deleting flight {selectedOption}...");
+                Console.WriteLine($"Deleting flight {FlightSelection.RemoveWhitespace(selectedOption)}...");
                 Flight selectedFlight = FindFlight(selectedOption.Substring(1, 6))!;
                 DeletingFlight(selectedFlight);
                 break;
@@ -225,70 +225,62 @@ public class AddingFlights{
 
     public static void DeletingFlight(Flight selectedFlight){
         string filePath = "DataSources/Accounts.json";
-        string jsonContent = File.ReadAllText(filePath);
-        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
+        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(filePath))!;
+        // Remove bookings for the selected flight
         foreach (Account account in accounts){
-            List<Booking> bookingsToRemove = new List<Booking>();
-            foreach (Booking booking in account.AccountBookings){
-                if (booking.BookedFlight.FlightId == selectedFlight.FlightId){
-                    // Remove the booking for the selected flight
-                    bookingsToRemove.Add(booking);
-                }
+            // send email to every account with this flight
+            var bookingsToUpdate = account.AccountBookings.Where(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId).ToList();
+            foreach (Booking booking in bookingsToUpdate){
+                List<Flight> flights2 = new List<Flight>();
+                flights2.Add(selectedFlight);
+                string text = $@"Your reservation of the following flight has been canceled:
+{selectedFlight.ToString(flights2)}
+We apologize for any inconvenience.";
+                ConfirmationEmail.SendFlightEditNotification(account.username, account.email, selectedFlight, text);
             }
-            // Remove the outdated bookings
-            foreach (Booking bookingToRemove in bookingsToRemove){
-                account.AccountBookings.Remove(bookingToRemove);
-            }
+            account.AccountBookings.RemoveAll(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId);
         }
         // Write the modified list of accounts back to the JSON file
         string updatedJson1 = JsonConvert.SerializeObject(accounts, Formatting.Indented);
         File.WriteAllText(filePath, updatedJson1);
-
-        // remove flight from flights
-        foreach(Flight flight in flights){
-            if (flight == selectedFlight){
-                flights.Remove(flight);
-                string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
-                File.WriteAllText("DataSources/Flights.json", updatedJson);
-                MainMenu.Start();
-            }
-        }
+        // Remove flight from flights
+        List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(File.ReadAllText("DataSources/Flights.json"))!;
+        flights.RemoveAll(flight => flight == selectedFlight);
+        // Write the modified list of flights back to the JSON file
+        string updatedJson2 = JsonConvert.SerializeObject(flights, Formatting.Indented);
+        File.WriteAllText("DataSources/Flights.json", updatedJson2);
+        Console.WriteLine("Flight deleted (press any key to continue...)");
+        Console.ReadKey();
+        MainMenu.Start();
     }
-    public static void SaveChanges(Flight selectedFlight){ //saves the changes made to selectedFlight
-        string filePath = "DataSources/Accounts.json"; //if admin changes flight also change it in acoount.json
+
+    public static void SaveChanges(Flight selectedFlight){
+        string filePath = "DataSources/Accounts.json";
         string jsonContent = File.ReadAllText(filePath);
         List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
         foreach (Account account in accounts){
-            List<Booking> bookingsToRemove = new List<Booking>();
-            foreach (Booking booking in account.AccountBookings){
-                if (booking.BookedFlight.FlightId == selectedFlight.FlightId){
-                    // Update the booked flight for the matching booking
-                    booking.BookedFlight = selectedFlight;
-                    bookingsToRemove.Add(booking);
-                }
+            var bookingsToUpdate = account.AccountBookings.Where(booking => booking.BookedFlight.FlightId == selectedFlight.FlightId).ToList();
+            foreach (Booking booking in bookingsToUpdate){
+                // send email to every account with this flight
+                List<Flight> flights2 = new List<Flight>();
+                flights2.Add(selectedFlight);
+                string text = $@"Your reservation on flight {selectedFlight.FlightId} has been changed. your new flight is the following:
+{selectedFlight.ToString(flights2)}";
+                ConfirmationEmail.SendFlightEditNotification(account.username, account.email, selectedFlight, text);
+                booking.BookedFlight = selectedFlight;
             }
-            // Remove the outdated bookings
-            foreach (Booking bookingToRemove in bookingsToRemove){
-                account.AccountBookings.Remove(bookingToRemove);
-            }
-            // Add the modified bookings back to the list
-            account.AccountBookings.AddRange(bookingsToRemove);
+            account.AccountBookings.RemoveAll(bookingsToUpdate.Contains);
+            account.AccountBookings.AddRange(bookingsToUpdate);
         }
-        // Write the modified list of accounts back to the JSON file
-        string updatedJson1 = JsonConvert.SerializeObject(accounts, Formatting.Indented);
-        File.WriteAllText(filePath, updatedJson1);
-
-        // changes flights in flights.json
-        List<Flight> flightsCopy = new List<Flight>(flights);
-        for (int i = 0; i < flightsCopy.Count; i++){
-            Flight flight = flightsCopy[i];
-            if (flight.FlightId == selectedFlight.FlightId){
-                flights.Remove(flight);
-                flights.Add(selectedFlight);
-                string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
-                File.WriteAllText("DataSources/Flights.json", updatedJson);
-                break;
-            }
+        string updatedJsonAccounts = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+        File.WriteAllText(filePath, updatedJsonAccounts);
+        // Update flights.json using LINQ
+        Flight matchingFlight = flights.FirstOrDefault(flight => flight.FlightId == selectedFlight.FlightId)!;
+        if (matchingFlight != null!){
+            flights.Remove(matchingFlight);
+            flights.Add(selectedFlight);
+            string updatedJsonFlights = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText("DataSources/Flights.json", updatedJsonFlights);
         }
         Console.WriteLine("Saved changes, press any key to continue");
         Console.ReadKey();
