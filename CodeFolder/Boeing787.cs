@@ -1,5 +1,6 @@
 using System.Reflection;
 using Newtonsoft.Json;
+using Spectre.Console;
 
 public class Boeing787 : Airplane
 {
@@ -253,72 +254,19 @@ public class Boeing787 : Airplane
                 Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
             }
         }
-
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
     }
-    // public override void Start(Flight currentFlight)
-    // {
-    //     base.Start(currentFlight);
-    // }
-    public override void Start(Flight CurrentFlight)
-    {
-        string new_filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-        cursorRow = 1;  
-        cursorSeat = 0; 
+    public override void UpdateSeat(Flight currentFlight){
+        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
         bookedSeats.Clear();
         Seat.Seats.Clear();
-        // TemporarlySeat.Clear();
-        LoadBookedSeatsFromJson(new_filepath); 
-        // SetClassPrices();
+        LoadBookedSeatsFromJson(new_filePath); 
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
-        bool isBookingComplete = false;
-        while (!isBookingComplete)
-        {
-            isBookingComplete = Movement.MovementInPut(this);
-        }
+    }
+    public override void Start(Flight currentFlight){
         Console.Clear();
-        bool confirmBooking = Prices.TicketPrices(CurrentFlight); // Ask for confirmation after finishing the booking
-
-        if (confirmBooking)
-        {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("Booking completed. Thank you!");
-            Console.WriteLine();
-            int SeatsAvailable = Convert.ToInt32(CurrentFlight.TotalSeats);
-            SeatsAvailable = SeatsAvailable - bookedSeats.Count();
-            string SeatsAvailablestring = Convert.ToString(SeatsAvailable);
-            CurrentFlight.SeatsAvailable = SeatsAvailablestring;
-            string json = File.ReadAllText("DataSources/Flights.json");
-            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(json)!;
-            foreach (Flight flight in flights!){   
-                if (flight.FlightId == CurrentFlight.FlightId){
-                    flight.SeatsAvailable = CurrentFlight.SeatsAvailable;
-                }
-            }
-            string filepath = $"DataSources/{CurrentFlight.FlightId}.json";
-            SaveBookedSeatsToJson(filepath); // Specify the desired file path
-            TemporarlySeat.Clear();
-            bookedSeats.Clear();
-            Seat.Seats.Clear();
-            Console.ReadKey();
-            string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);
-            File.WriteAllText("DataSources/Flights.json", updatedJson);
-            Program.Main(); 
-        }
-        else{
-            // Roll back the booked seats to available
-            foreach (var seat in TemporarlySeat){
-                
-                seat.ResetSeat();
-            }
-            Console.Clear();
-            Console.WriteLine("Booking canceled. Selected seats are now available.");
-            Console.WriteLine();
-            TemporarlySeat.Clear();
-            // bookedSeats.Clear();
-            Start(CurrentFlight);
-        }
+        UpdateSeat(currentFlight);
+        base.Start(currentFlight);
     }
 }
