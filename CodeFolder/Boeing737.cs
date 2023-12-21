@@ -35,21 +35,6 @@ public class Boeing737 : Airplane
                 }
             }
         }
-        Console.WriteLine("AFTER INITS CHANGES");
-        Console.WriteLine(FirstClassPrice);
-        Console.WriteLine(BusinessClassPrice);
-        Console.WriteLine(EconomyClassPrice);
-        Console.ReadKey();
-
-
-    }
-
-    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
-       
-        FirstClassPrice = firstClassPrice;
-        BusinessClassPrice = businessClassPrice;
-        EconomyClassPrice = economyClassPrice;
-        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
     }
     public override void SetClassPrices(){
         int economyclassPrice;
@@ -111,18 +96,5 @@ public class Boeing737 : Airplane
             Console.WriteLine();
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-    }
-    public override void UpdateSeat(Flight currentFlight){
-        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
-        bookedSeats.Clear();
-        Seat.Seats.Clear();
-        LoadBookedSeatsFromJson(new_filePath); 
-        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        DisplaySeats();
-    }
-    public override void Start(Flight currentFlight){
-        Console.Clear();
-        UpdateSeat(currentFlight);
-        base.Start(currentFlight);
     }
 }

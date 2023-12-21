@@ -50,13 +50,6 @@ public class Airbus330 : Airplane
             }
         }
     }
-    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
-    {
-        FirstClassPrice = firstClassPrice;
-        // BusinessClassPrice = businessClassPrice;
-        EconomyClassPrice = economyClassPrice;
-        InitializeSeats(FirstClassPrice, 0, economyClassPrice);
-    }
     public override void SetClassPrices(){
         int firstclassPrice, businessclassPrice, economyclassPrice;
         do{
@@ -64,11 +57,6 @@ public class Airbus330 : Airplane
             Console.WriteLine("What is the new First Class seat price (positive number only): ");
             Console.Write(">>> ");
         } while (!int.TryParse(Console.ReadLine(), out firstclassPrice) || firstclassPrice <= 0);
-        // do{
-        //     Console.WriteLine($"This is the current Business Class seat price: {BusinessClassPrice}");
-        //     Console.WriteLine("What is the new Business Class seat price (positive number only): ");
-        //     Console.Write(">>> ");
-        // } while (!int.TryParse(Console.ReadLine(), out businessclassPrice) || businessclassPrice <= 0);
         do{
             Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
             Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
@@ -173,19 +161,5 @@ public class Airbus330 : Airplane
             }
         }
         Console.WriteLine();
-    }
-    public override void UpdateSeat(Flight currentFlight){
-        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
-        bookedSeats.Clear();
-        Seat.Seats.Clear();
-        LoadBookedSeatsFromJson(new_filePath); 
-        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        DisplaySeats();
-    }
-    public override void Start(Flight currentFlight)
-    {
-        Console.Clear();
-        UpdateSeat(currentFlight);
-        base.Start(currentFlight);
     }
 }
