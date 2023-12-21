@@ -18,7 +18,7 @@ public static class Legend{
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("||");
                 Color.Green(" Green:", false);
-                Console.Write($" Available  First Class Seat. Starting at: {Airbus330.FirstClassPrice}");
+                Console.Write($" Available  First Class Seat. Starting at: {Airplane.airbus330.FirstClassPrice}");
             }
             if(row == 6 && letter =='I'){
                 Console.ResetColor();
@@ -37,7 +37,7 @@ public static class Legend{
             if(row == 8 && letter =='I'){
                 Console.ResetColor();
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.Write($"|| White: Available Economy Class Seat. Starting at: {Airbus330.EconomyClassPrice}");
+                Console.Write($"|| White: Available Economy Class Seat. Starting at: {Airplane.airbus330.EconomyClassPrice}");
             }
             if(row == 9 && letter =='I'){
                 Console.ResetColor();
@@ -85,7 +85,7 @@ public static class Legend{
                 Console.ResetColor();
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("||");
-                Console.Write($" White: Available Economy Class Seat. Starting at: {Boeing737.EconomyClassPrice}");
+                Console.Write($" White: Available Economy Class Seat. Starting at: {Airplane.boeing737.EconomyClassPrice}");
             }
             if(row == 5 && letter == 'F'){
                 Console.ResetColor();
@@ -130,14 +130,14 @@ public static class Legend{
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("\t  ||");
                 Color.Green(" Green:", false);
-                Console.Write($"  Available  First Class Seat. Starting at: {Boeing787.FirstClassPrice}");
+                Console.Write($"  Available  First Class Seat. Starting at: {Airplane.boeing787.FirstClassPrice}");
             }
             if(row == 3 && letter =='F'){
                 Console.ResetColor();
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("\t  ||");
                 Color.Blue(" Blue:", false); 
-                Console.Write($" Available Business Class Seat. Starting at: {Boeing787.BusinessClassPrice}");
+                Console.Write($" Available Business Class Seat. Starting at: {Airplane.boeing787.BusinessClassPrice}");
             }
             if(row == 4 && letter =='F'){
                 Console.ResetColor();
@@ -150,7 +150,7 @@ public static class Legend{
                 Console.ResetColor();
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write("\t  ||"); 
-                Console.Write($" White: Available Economy Class Seat. Starting at: {Boeing787.EconomyClassPrice}");
+                Console.Write($" White: Available Economy Class Seat. Starting at: {Airplane.boeing787.EconomyClassPrice}");
             }
             if(row == 6 && letter =='F'){
                 Console.ResetColor();
