@@ -52,16 +52,6 @@ public class UnitTest1
  
         Assert.AreEqual(manuallyEncrypted, AutoEncrypted);
     }
-//     // [TestMethod]
-//     // public void TestDiscountPrices(){
-//     //     Account account = new Account("Sander5", "Sander123!", false, false);
-//     //     MainMenu.currentUser = account;
-//     //     List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
-//     //     account.AccountFlights.Add(flights[1]);
-//     //     Seat seat= new Seat("First Class", 'B', 1, true, 500);
-//     //     DisplaySeating.TemporarlySeat.Add(seat);
-//     //     Prices.TicketPrices(flights[2]);
-
  
     [TestMethod]
     [DataRow("Economy", "Business", 'A', 'D', 1, 2, true, 22)]
@@ -174,7 +164,7 @@ public class UnitTest1
         for (int i = 0; i < amount; i++){
             account.AccountBookings.Add(booking);
         }
-        int discount = Prices.CalculateDiscount(account);
+        int discount = Prices.GetCalcDiscount(account);
         Assert.IsTrue(discount == totalkorting);
     }
  
@@ -201,7 +191,7 @@ public class UnitTest1
     [TestMethod]
     [DataRow(100, 0.5, 50)]
     public void TestCalculatePrice(double totalprice, double percentagekorting, double totaltotalprice){
-        double answer = Prices.CalculatePrice(totalprice, percentagekorting);
+        double answer = Prices.GetCalcPrice(totalprice, percentagekorting);
         Assert.IsTrue(answer == totaltotalprice);
     }
  
@@ -218,12 +208,10 @@ public class UnitTest1
     [DataRow(1200, 900, 600)]
     public void SetPrices_UpdatesPricesCorrectly(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
-        Boeing787 boeing787 = new Boeing787('A', 1);
-        boeing787.SetPrices(firstClassPrice, businessClassPrice, economyClassPrice);
- 
+        Airplane.boeing787.SetPrices(firstClassPrice, businessClassPrice, economyClassPrice);
         // Assert
-        Assert.AreEqual(firstClassPrice, Boeing787.FirstClassPrice);
-        Assert.AreEqual(businessClassPrice, Boeing787.BusinessClassPrice);
-        Assert.AreEqual(economyClassPrice, Boeing787.EconomyClassPrice);
+        Assert.AreEqual(firstClassPrice, Airplane.boeing787.FirstClassPrice);
+        Assert.AreEqual(businessClassPrice, Airplane.boeing787.BusinessClassPrice);
+        Assert.AreEqual(economyClassPrice, Airplane.boeing787.EconomyClassPrice);
     }
 }

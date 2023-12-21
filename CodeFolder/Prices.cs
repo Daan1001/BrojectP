@@ -30,6 +30,7 @@ Selected seats:";
                 totalprice = totalprice + seat.Price + BasePriceInt;
                 Booking.seatsstring = Booking.seatsstring + $@"
 {seatsstringlist}"; //adds seat to own line
+
             }  
         }
         double percentage = (double)Korting/100;
@@ -97,7 +98,10 @@ Have a great flight!";
     //     return key.Key == ConsoleKey.Y;
     // }
 
-    public static int CalculateDiscount(Account account){
+    public static int GetCalcDiscount(Account account){
+        return CalculateDiscount(account);
+    }
+    private static int CalculateDiscount(Account account){
         int korting = 0;
         int count = account.AccountBookings.Count();
         if(AccountBookings.editing){
@@ -121,7 +125,10 @@ Have a great flight!";
         }
         return korting;
     }
-    public static double CalculatePrice(double totalprice, double percentagekorting){
+    public static double GetCalcPrice(double totalprice, double percentagekorting){
+        return CalculatePrice(totalprice, percentagekorting);
+    }
+    private static double CalculatePrice(double totalprice, double percentagekorting){
         return totalprice * percentagekorting;
     }
 

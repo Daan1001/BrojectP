@@ -7,10 +7,15 @@ public abstract class Airplane
     public static List<Seat> bookedSeats = new List<Seat>();
     public static List<Seat> TemporarlySeat = new List<Seat>();
     public char LetterSeat { get; private set; }
-    public int NumberOfRows { get; private set; }
-    public static int FirstClassPrice{get; protected set;}
-    public static int BusinessClassPrice {get; protected set;}
-    public static int EconomyClassPrice {get; protected set;}
+    public int NumberOfRows { get; private set; }   
+    public abstract int FirstClassPrice{get; set;}
+    public abstract int BusinessClassPrice {get; set;}
+    public abstract int EconomyClassPrice {get; set;}
+
+    public static Boeing737 boeing737 = new('F', 33);
+    public static Boeing787 boeing787 = new('I', 28);
+    public static Airbus330 airbus330 = new('I',44);
+
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
@@ -139,7 +144,6 @@ public abstract class Airplane
         File.WriteAllText(filePath, json);
         //Console.WriteLine($"Booked seats saved to {filePath}");
     }
-    
     public Boolean ConfirmBooking(Flight currentflight){
         // string seatsstring = $"Price P.P: {currentflight.BasePrice}.\nSelected seats:";
         // seatsstring = seatsstring + $"\nPrice before discount: €{totalprice}\nCurrent discount: {Korting}%\nTotal price: €{TotalpriceDouble}\nHave a great flight!";
@@ -215,7 +219,6 @@ public abstract class Airplane
     }
 
     public void RedrawSeats(){
-        //Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
 }
