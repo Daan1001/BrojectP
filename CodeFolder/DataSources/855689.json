@@ -1,0 +1,9 @@
+[
+  {
+    "TypeClass": "Business Class",
+    "Letter": "E",
+    "Row": 10,
+    "Booked": true,
+    "Price": 750
+  }
+]

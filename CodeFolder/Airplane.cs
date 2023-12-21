@@ -7,9 +7,14 @@ public abstract class Airplane
     public static List<Seat> TemporarlySeat = new List<Seat>();
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }   
-    public static int FirstClassPrice{get; protected set;}
-    public static int BusinessClassPrice {get; protected set;}
-    public static int EconomyClassPrice {get; protected set;}
+    public abstract int FirstClassPrice{get; set;}
+    public abstract int BusinessClassPrice {get; set;}
+    public abstract int EconomyClassPrice {get; set;}
+
+    public static Boeing737 boeing737 = new('F', 33);
+    public static Boeing787 boeing787 = new('I', 28);
+    public static Airbus330 airbus330 = new('I',44);
+
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
@@ -134,36 +139,7 @@ public abstract class Airplane
         File.WriteAllText(filePath, json);
         //Console.WriteLine($"Booked seats saved to {filePath}");
     }
-    // public bool ConfirmBooking(){
-    //     Console.WriteLine("Confirmation Screen:");
-    //     Console.WriteLine("Selected Seats:");
-    //     foreach (var seat in TemporarlySeat){
-    //         if(seat.Booked == true){
-    //             Console.WriteLine(seat.ShowSeat());
-    //         }   
-    //         // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
-    //     }
-        
-    //     bool check =true;
-    //     bool confirm = false;
-    //     while(!confirm){
-    //         Console.Write("Confirm booking? (Y/N): ");
-    //         ConsoleKeyInfo key = Console.ReadKey();
-    //         if(key.Key == ConsoleKey.Y){
-    //             confirm = true;
-    //             check = true;    
-    //         }
-    //         else if (key.Key == ConsoleKey.N){
-    //             confirm = false;
-    //             check = false;
-    //         }
-    //         return false;
-    //     }
-    //     return check;
-    //     // Return true if the user pressed 'Y' (yes), otherwise return false
-    //}
     public void RedrawSeats(){
-        //Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
 }

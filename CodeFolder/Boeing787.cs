@@ -4,9 +4,10 @@ using Spectre.Console;
 
 public class Boeing787 : Airplane
 {
-    public static int FirstClassPrice = 250;
-    public static int BusinessClassPrice = 90;
-    public static int EconomyClassPrice = 50;
+    public override int FirstClassPrice {get;set;} = 250;
+    public override int BusinessClassPrice{get;set;} = 90;
+    public override int EconomyClassPrice{get;set;} = 50;
+
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {

@@ -19,15 +19,16 @@ public class Prices{
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
         string seatsstring = $@"Price P.P: {currentflight.BasePrice}.
-Selected seats:";
-        foreach (var seat in Airplane.TemporarlySeat){
+        Selected seats:";
+        foreach (var seat in Airplane.TemporarlySeat)
+        {
             if(seat.Booked == true){
                 string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
                 Console.WriteLine(seatsstringlist);
                 count++;
                 totalprice = totalprice + seat.Price + BasePriceInt;
                 seatsstring = seatsstring + $@"
-{seatsstringlist}"; //adds seat to own line
+                {seatsstringlist}"; //adds seat to own line
             }  
         }
         double percentage = (double)Korting/100;
@@ -36,10 +37,10 @@ Selected seats:";
         TotalpriceDouble = totalpricedouble;
         TotalpriceDouble = Math.Round(TotalpriceDouble, 2);
         seatsstring = seatsstring + $@"
-Price before discount: €{totalprice}
-Current discount: {Korting}%
-Total price: €{TotalpriceDouble}
-Have a great flight!";
+        Price before discount: €{totalprice}
+        Current discount: {Korting}%
+        Total price: €{TotalpriceDouble}
+        Have a great flight!";
         Console.WriteLine($"Price before discount: €{totalprice}");
         Console.WriteLine($"Current discount: {Korting}%");
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
