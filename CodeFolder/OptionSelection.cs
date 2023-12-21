@@ -16,7 +16,7 @@ public static class OptionSelection<T>{
     public static void Start(List<T> list, String[]? array){
         CheckingFlights.OrderingFlightsInJson();
         if(MainMenu.currentUser is not null){
-            AccountBookings.UpdateUser();
+            Account.UpdateUser();
         }
         ArraySelected = false;
         ListSelected = true;
@@ -166,7 +166,7 @@ public static class OptionSelection<T>{
                 ActionString("My bookings");
                 break;
             case "My bookings":
-                AccountBookings.UpdateUser();
+                Account.UpdateUser();
                 if (MainMenu.currentUser!.AccountBookings.Count() > 0 || OptionSelection<Account>.selectedAccount is not null){
                     List<string> option = new List<string>();
                     if(OptionSelection<Account>.selectedAccount is null){

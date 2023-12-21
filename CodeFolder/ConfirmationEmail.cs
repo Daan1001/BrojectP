@@ -29,7 +29,7 @@ Booked by {username} at {DateTime.Now}
         message.Subject = $"Your reservation on flight {flightCode} has been changed.";
 
         message.Body = new TextPart ("plain") {
-            Text = $"Your reservation on flight {flightCode} has been changed. your new seats are the following: \n{changedSeats}\n\n If do not agree with these changes, please do not hesitate to contact Customer Service."
+            Text = $"Your reservation on flight {flightCode} has been changed. your new seats are the following: \n{changedSeats}\n\n If you do not agree with these changes, please do not hesitate to contact Customer Service."
         };
         SetUpSmtpClient(message);
     }

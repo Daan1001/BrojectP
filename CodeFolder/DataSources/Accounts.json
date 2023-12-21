@@ -5,7 +5,39 @@
     "passwordHash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
     "isAdmin": true,
     "isSuperAdmin": true,
-    "AccountBookings": []
+    "AccountBookings": [
+      {
+        "BookedFlight": {
+          "Flight id": "428463",
+          "Type Airplane": "Boeing 737",
+          "Terminal": "Gate 01",
+          "Country": "Belgium",
+          "Destination": "Brussels",
+          "Flight date": "23-12-2023",
+          "Departure time": "12:30",
+          "Arrival time": "13:30",
+          "Seats Available": "198",
+          "Total Seats": "198",
+          "Base Price": "€30"
+        },
+        "BookedSeats": [
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "B",
+            "Row": 2,
+            "Booked": true,
+            "Price": 50
+          },
+          {
+            "TypeClass": "Economy Class",
+            "Letter": "B",
+            "Row": 3,
+            "Booked": true,
+            "Price": 50
+          }
+        ]
+      }
+    ]
   },
   {
     "email": "1040029@hr.nl",

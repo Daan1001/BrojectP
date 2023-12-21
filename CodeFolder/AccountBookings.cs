@@ -19,7 +19,7 @@ public static class AccountBookings{
     }
 
     public static void DeleteBooking(string booking, Account account){
-        account = AccountBookings.UpdateAccount(account);
+        account = Account.UpdateAccount(account);
         List<Flight> flights2 = account.AccountBookings.Select(b => b.BookedFlight).ToList();
 
         foreach (Booking bookings in account.AccountBookings.Where( b => ("("+b.BookedFlight.ToString(flights2)+")").Substring(1, 6) == booking.Substring(1, 6))){
@@ -56,7 +56,7 @@ public static class AccountBookings{
     }
 
     public static void ShowBooking(){
-        UpdateUser();
+        Account.UpdateUser();
         ShowBooking(MainMenu.currentUser!);
     }
 
@@ -80,11 +80,11 @@ public static class AccountBookings{
     public static void EditBooking(){
         editing = true;
         if(OptionSelection<Account>.selectedAccount is null){
-            UpdateUser();
+            Account.UpdateUser();
             OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
         } else {
             if(OptionSelection<Account>.selectedAccount.AccountBookings.Count() > 0){
-                OptionSelection<Account>.selectedAccount = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
+                OptionSelection<Account>.selectedAccount = Account.UpdateAccount(OptionSelection<Account>.selectedAccount);
                 OptionSelection<Booking>.Start(OptionSelection<Account>.selectedAccount.AccountBookings, OptionSelection<Booking>.GoBack);
             } else {
                 Console.WriteLine("This account doesnt have any bookings yet (Press any key to continue)");
@@ -93,14 +93,14 @@ public static class AccountBookings{
         }
     }
 
-    public static void UpdateUser(){
-        MainMenu.currentUser = UpdateAccount(MainMenu.currentUser!);
-    }
-    public static Account UpdateAccount(Account accountToUpdate){
-        string filePath = "DataSources/Accounts.json";
-        string jsonContent = File.ReadAllText(filePath);
-        List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
-        accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
-        return accountToUpdate;
-    }
+    // public static void UpdateUser(){
+    //     MainMenu.currentUser = UpdateAccount(MainMenu.currentUser!);
+    // }
+    // public static Account UpdateAccount(Account accountToUpdate){
+    //     string filePath = "DataSources/Accounts.json";
+    //     string jsonContent = File.ReadAllText(filePath);
+    //     List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
+    //     accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
+    //     return accountToUpdate;
+    // }
 }

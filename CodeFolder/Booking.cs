@@ -7,6 +7,8 @@ public class Booking: IEquatable<Booking>{
     [JsonProperty]
     public List<Seat> BookedSeats;
 
+    public static String seatsstring;
+
     public Booking(Flight BookedFlight, List<Seat> BookedSeats){
         this.BookedFlight = BookedFlight;
         this.BookedSeats = BookedSeats;
