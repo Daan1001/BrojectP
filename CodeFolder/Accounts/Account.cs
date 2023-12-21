@@ -137,6 +137,17 @@ public class Account: IEquatable<Account>{
         JsonFile<Account>.Write("DataSources/Accounts.json",this);
     }
 
+    public static void UpdateUser(){
+        MainMenu.currentUser = UpdateAccount(MainMenu.currentUser!);
+    }
+    public static Account UpdateAccount(Account accountToUpdate){
+        string filePath = "DataSources/Accounts.json";
+        string jsonContent = File.ReadAllText(filePath);
+        List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
+        accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
+        return accountToUpdate;
+    }
+
     public override string ToString(){
         String accountType = "";
         if(isSuperAdmin){

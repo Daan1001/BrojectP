@@ -133,7 +133,7 @@ public class UnitTest1
         account.AccountBookings.Add(booking);
         MainMenu.currentUser = account;
         AccountBookings.DeleteBooking(flight2.ToString(flights), account);
-        AccountBookings.UpdateUser();
+        Account.UpdateUser();
         Assert.IsTrue(MainMenu.currentUser.AccountBookings.Count == 0);
     }
  
