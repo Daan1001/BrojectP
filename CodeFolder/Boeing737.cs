@@ -54,17 +54,17 @@ public class Boeing737 : Airplane
     public override void DisplaySeats(){
         // Calculate the total width of the seating arrangement
         Console.WriteLine("             [Economy Class Seat]");
-        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 5;
+        int totalWidth = (LetterSeat - 'A' + 1) * 6 + 6;
         Console.Write("     ");
         for (char letter = 'A'; letter <= LetterSeat; letter++){
             // Add an extra space after column C
             if (letter == 'D'){
-                Console.Write("   ");
+                Console.Write("  ");
             }
             Console.Write($"{letter,-5} ");
         }
         Console.WriteLine();
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+"); 
+        Console.WriteLine($"+{new string('-', totalWidth - 3)}+"); 
         // Dictionary to store the maximum length of seat identifier for each column
         Dictionary<char, int> maxColumnLengths = new Dictionary<char, int>();
         for (int row = 1; row <= NumberOfRows; row++){
@@ -72,17 +72,13 @@ public class Boeing737 : Airplane
             for (char letter = 'A'; letter <= LetterSeat; letter++){
                 Seat? seat = Seat.Seats.Find(s => s.Row == row && s.Letter == letter);
                 if (seat != null){
-
                     SeatColoring.SetColor(cursorRow, row, cursorSeat, letter, TemporarlySeat, seat, LetterSeat, this);
-
                     if (letter == 'D') {
                         // Add an extra space after column C
-                        Console.Write("   ");
+                        Console.Write("  ");
                     }
-
                     // Display the seat letter and number with dynamic spacing for better alignment
-                    Console.Write(seat.Booked ? $"|{letter}{row,-2}| " : $"|{letter}{row,-2}| ");
-
+                    Console.Write(seat.Booked ? $" {letter}{row,-3} " : $" {letter}{row,-3} ");
                     Legend.print(row, letter, this);
                     // Update the maximum length for the current column
                     maxColumnLengths[letter] = Math.Max(maxColumnLengths.GetValueOrDefault(letter), $"{letter}{row}".Length);
@@ -92,9 +88,9 @@ public class Boeing737 : Airplane
                 }
             }
             // Add extra spacing for the walking path (after every section)
-            Console.Write("   ");
+            Console.Write("  ");
             Console.WriteLine();
         }
-        Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
+        Console.WriteLine($"+{new string('-', totalWidth - 3)}+");
     }
 }
