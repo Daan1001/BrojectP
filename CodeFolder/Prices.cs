@@ -19,8 +19,9 @@ public class Prices{
         int BasePriceInt = Convert.ToInt32(Basepricestring);
         int count = 1;
         string seatsstring = $@"Price P.P: {currentflight.BasePrice}.
-Selected seats:";
-        foreach (var seat in Airplane.TemporarlySeat){
+        Selected seats:";
+        foreach (var seat in Airplane.TemporarlySeat)
+        {
             if(seat.Booked == true){
                 string seatsstringlist = $"{count}. Class: {seat.TypeClass} Seat: {seat.Letter}{seat.Row} Price: €{seat.Price}";
                 Console.WriteLine(seatsstringlist);
