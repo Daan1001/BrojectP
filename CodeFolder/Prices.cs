@@ -54,7 +54,12 @@ public class Prices{
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
-                    ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    if (AccountBookings.editing){
+                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId!, seatsstring);
+                    }
+                    else{
+                        ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", seatsstring);
+                    }
                     if(OptionSelection<Account>.selectedAccount is not null){
                         OptionSelection<Account>.selectedAccount.DeleteFromJson();
                         AddBooking(currentflight, OptionSelection<Account>.selectedAccount);

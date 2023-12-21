@@ -7,6 +7,7 @@ public class Boeing787 : Airplane
     public override int FirstClassPrice {get;set;} = 250;
     public override int BusinessClassPrice{get;set;} = 90;
     public override int EconomyClassPrice{get;set;} = 50;
+
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
