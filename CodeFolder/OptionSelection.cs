@@ -124,16 +124,16 @@ public static class OptionSelection<T>{
             string plane = FlightSelection.Selection(selectedOption);
             switch (plane){
                 case "Boeing 787":
-                    Boeing787 boeing787 = new('I',28);
-                    boeing787.Start(selectedFlight2!);
+                    // Boeing787 boeing787 = new('I',28);
+                    Airplane.boeing787.Start(selectedFlight2!);
                     break;
                 case "Boeing 737":
-                    Boeing737 boeing737 = new('F', 33);
-                    boeing737.Start(selectedFlight2!);
+                    // Airplane.boeing737 = new('F', 33);
+                    Airplane.boeing737.Start(selectedFlight2!);
                     break;
                 case "Airbus 330":
-                    Airbus330 airbus330 = new('I',44);
-                    airbus330.Start(selectedFlight2!);
+                    // Airbus330 airbus330 = new('I',44);
+                    Airplane.airbus330.Start(selectedFlight2!);
                     break;
             }
         }
@@ -232,16 +232,16 @@ public static class OptionSelection<T>{
                 break;
             case "Change class seat prices": // change class seat price all of this kind of plane.
                 if(selectedFlight2!.AirplaneType == "Boeing 737"){
-                    Boeing737 boeing737 = new('F', 33);
-                    boeing737.SetClassPrices();
+                    // Boeing737 boeing737 = new('F', 33);
+                    Airplane.boeing737.SetClassPrices();
                 }
                 if(selectedFlight2.AirplaneType == "Boeing 787"){
-                    Boeing787 boeing787 = new('I',28);
-                    boeing787.SetClassPrices();
+                    // Boeing787 boeing787 = new('I',28);
+                    Airplane.boeing787.SetClassPrices();
                 }
                 if(selectedFlight2.AirplaneType == "Airbus 330"){
-                    Airbus330 airbus330 = new('I', 44);
-                    airbus330.SetClassPrices();
+                    // Airbus330 airbus330 = new('I', 44);
+                    Airplane.airbus330.SetClassPrices();
                 }
                 
                 break;

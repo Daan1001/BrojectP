@@ -2,9 +2,9 @@ using Newtonsoft.Json;
 
 public class Boeing737 : Airplane
 {
-    protected static int FirstClassPrice {get;set;} = 0;
-    protected static int BusinessClassPrice = 0;
-    protected static int EconomyClassPrice = 500;
+    public override int FirstClassPrice {get;set;} = 0;
+    public override int BusinessClassPrice{get;set;} = 0;
+    public override int EconomyClassPrice{get;set;} = 50;
     public Boeing737(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice , int businessClassPrice = 0, int economyClassPrice = 500)
     {
@@ -34,15 +34,22 @@ public class Boeing737 : Airplane
                 }
             }
         }
+        Console.WriteLine("AFTER INITS CHANGES");
+        Console.WriteLine(FirstClassPrice);
+        Console.WriteLine(BusinessClassPrice);
+        Console.WriteLine(EconomyClassPrice);
+        Console.ReadKey();
+
+
     }
 
     public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
+       
         FirstClassPrice = firstClassPrice;
         BusinessClassPrice = businessClassPrice;
         EconomyClassPrice = economyClassPrice;
         InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
     }
-
     public override void SetClassPrices(){
         int economyclassPrice;
         do{
