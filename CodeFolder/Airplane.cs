@@ -23,14 +23,16 @@ public abstract class Airplane
     }
     public abstract void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void DisplaySeats();
-
-    public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
+    public void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
+        FirstClassPrice = firstClassPrice;
+        BusinessClassPrice = businessClassPrice;
+        EconomyClassPrice = economyClassPrice;
+        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+    }
     public abstract void SetClassPrices();
 
-    public virtual void UpdateSeat(Flight currentFlight){
+    public void UpdateSeat(Flight currentFlight){
         string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-        // cursorRow = 1;
-        // cursorSeat = 0;
         bookedSeats.Clear();
         Seat.Seats.Clear();
         LoadBookedSeatsFromJson(newFilePath);
@@ -45,7 +47,7 @@ public abstract class Airplane
         // DisplaySeats();
     }
 
-    public virtual void Start(Flight currentFlight)
+    public void Start(Flight currentFlight)
     {
         // UpdateSeat(currentFlight);
         // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
@@ -68,9 +70,6 @@ public abstract class Airplane
         // Console.WriteLine("TEST");
         // Console.ReadKey();
         bool confirmBooking = ConfirmBooking(currentFlight); // Ask for confirmation after finishing the booking
-        //###############################
-
-        //###############################
         if (confirmBooking)
         {
             Console.Clear();
@@ -108,7 +107,7 @@ public abstract class Airplane
         else{
             // Roll back the booked seats to available
             foreach (var seat in TemporarlySeat){
-                
+  
                 seat.ResetSeat();
             }
             Console.Clear();
