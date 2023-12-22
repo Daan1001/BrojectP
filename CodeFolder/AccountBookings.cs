@@ -3,13 +3,14 @@ public static class AccountBookings{
     public static bool editing = false;
 
     public static void CancelBooking(Account account){
-        if(account.AccountBookings.Count() > 0){
+        List<Booking> bookings1 = CreateAccountBookingsList(account.AccountBookings, false);
+        if(bookings1.Count() > 0){
             Console.WriteLine("Choose a booking to cancel (press any key to continue)");
             Console.ReadKey();
 
-            List<Flight> flights1 = account.AccountBookings.Select(b => b.BookedFlight).ToList();
+            List<Flight> flights1 = bookings1.Select(b => b.BookedFlight).ToList();
 
-            List<String> options = account.AccountBookings.Select(b => "("+b.BookedFlight.ToString(flights1)+")").ToList();
+            List<String> options = bookings1.Select(b => "("+b.BookedFlight.ToString(flights1)+")").ToList();
 
             OptionSelection<string>.Start(options, OptionSelection<String>.GoBack);
         } else {
@@ -60,12 +61,15 @@ public static class AccountBookings{
         ShowBooking(MainMenu.currentUser!);
     }
 
-    public static void ShowBooking(Account account){
+    public static void ShowBooking(Account account, bool outdated=false){
         Account currentAccount = account;
-        if (currentAccount.AccountBookings.Count() > 0){
+        List<Booking> bookings1 = CreateAccountBookingsList(currentAccount.AccountBookings, outdated);
+        if (bookings1.Count() > 0){
             foreach(Booking flight in currentAccount.AccountBookings){
-                Console.WriteLine("---------------------------------------------------------------------");
-                Console.WriteLine(flight);
+                if (flight.Outdated == outdated){
+                    Console.WriteLine("---------------------------------------------------------------------");
+                    Console.WriteLine(flight);
+                }
             }
             Console.WriteLine("---------------------------------------------------------------------");
             Console.WriteLine("Press any key to continue");
@@ -81,11 +85,13 @@ public static class AccountBookings{
         editing = true;
         if(OptionSelection<Account>.selectedAccount is null){
             UpdateUser();
-            OptionSelection<Booking>.Start(MainMenu.currentUser!.AccountBookings, OptionSelection<Booking>.GoBack);
+            List<Booking> bookings1 = CreateAccountBookingsList(MainMenu.currentUser!.AccountBookings, false);
+            OptionSelection<Booking>.Start(bookings1, OptionSelection<Booking>.GoBack);
         } else {
-            if(OptionSelection<Account>.selectedAccount.AccountBookings.Count() > 0){
+            List<Booking> bookings1 = CreateAccountBookingsList(OptionSelection<Account>.selectedAccount.AccountBookings, false);
+            if(bookings1.Count() > 0){
                 OptionSelection<Account>.selectedAccount = AccountBookings.UpdateAccount(OptionSelection<Account>.selectedAccount);
-                OptionSelection<Booking>.Start(OptionSelection<Account>.selectedAccount.AccountBookings, OptionSelection<Booking>.GoBack);
+                OptionSelection<Booking>.Start(bookings1, OptionSelection<Booking>.GoBack);
             } else {
                 Console.WriteLine("This account doesnt have any bookings yet (Press any key to continue)");
                 Console.ReadKey();
@@ -102,5 +108,15 @@ public static class AccountBookings{
         List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
         accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
         return accountToUpdate;
+    }
+
+    public static List<Booking> CreateAccountBookingsList(List<Booking> bookings, bool outdated=false){
+        List<Booking> bookings1 = new List<Booking>();
+        foreach(Booking booking in bookings){
+            if (booking.Outdated == outdated){
+                bookings1.Add(booking);
+            }
+        }
+        return bookings1;
     }
 }

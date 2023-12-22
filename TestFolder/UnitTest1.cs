@@ -164,7 +164,7 @@ public class UnitTest1
         for (int i = 0; i < amount; i++){
             account.AccountBookings.Add(booking);
         }
-        int discount = Prices.GetCalcDiscount(account);
+        int discount = Prices.CalculateDiscount(account);
         Assert.IsTrue(discount == totalkorting);
     }
  
@@ -191,7 +191,7 @@ public class UnitTest1
     [TestMethod]
     [DataRow(100, 0.5, 50)]
     public void TestCalculatePrice(double totalprice, double percentagekorting, double totaltotalprice){
-        double answer = Prices.GetCalcPrice(totalprice, percentagekorting);
+        double answer = Prices.CalculatePrice(totalprice, percentagekorting);
         Assert.IsTrue(answer == totaltotalprice);
     }
  

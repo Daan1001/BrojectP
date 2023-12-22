@@ -171,12 +171,20 @@ public static class OptionSelection<T>{
                     List<string> option = new List<string>();
                     if(OptionSelection<Account>.selectedAccount is null){
                         option.Add("See my bookings");
+                        option.Add("See previous bookings");
                     } else {
                         option.Add("Book flight");
                         option.Add("See bookings");
+                        option.Add("See old bookings");
                     }
-                    option.Add("Edit booking");
-                    option.Add("Cancel booking");
+                    Account account = MainMenu.currentUser;
+                    if (OptionSelection<Account>.selectedAccount is not null){
+                        account = OptionSelection<Account>.selectedAccount;
+                    }
+                    if (AccountBookings.CreateAccountBookingsList(account.AccountBookings, false).Count() > 0){
+                        option.Add("Edit booking");
+                        option.Add("Cancel booking");
+                    }
                     option.Add("<-- Go back");
                     OptionSelection<string>.Start(option);
                     break;
@@ -326,16 +334,10 @@ public static class OptionSelection<T>{
             //     // airplane.Boeing737();
             //     break;
             case "Sort by ...": //gives the user options to sort the flights based on diffrent data
-                    List<String> option1 = new List<string>();
-                    option1.Add("Sort by country");
-                    option1.Add("Sort by city");
-                    option1.Add("Sort by price");
-                    option1.Add("Sort by type airplane");
-                    option1.Add("Sort by date");
-                    option1.Add("Sort by departure time");
+                    List<String> option1 = new List<string>(){"Sort by country","Sort by city","Sort by price","Sort by type airplane","Sort by date","Sort by departure time"};
                     OptionSelection<String>.Start(option1);
                     break;
-            case "Sort by departure time": //sort by departure time
+            case "Sort by departure time": //sort by departure timem
                 List<Flight> SortedTimeList = flights.OrderBy(o=>o.DepartureTime).ToList();
                 ShowFlights.Column2(SortedTimeList);
                 break;
@@ -403,6 +405,12 @@ public static class OptionSelection<T>{
                 break; 
             case "See bookings":
                 AccountBookings.ShowBooking(OptionSelection<Account>.selectedAccount!);
+                break;
+            case "See old bookings":
+                AccountBookings.ShowBooking(OptionSelection<Account>.selectedAccount!, true);
+                break;
+            case "See previous bookings":
+                AccountBookings.ShowBooking(MainMenu.currentUser!, true);
                 break;
             case "See food selection":
                 List<string> option3 = new List<string>();

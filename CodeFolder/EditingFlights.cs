@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 public class EditingFlights{
     // code that allows the admin to change flights.
-    public static List<string[]> airports = AddingFlights.airports;
+    private static List<string[]> airports = AddingFlights.airports;
     public static List<string> airportstring = new List<string>();
-    public static Flight? SelectedFlight;
+    private static Flight? SelectedFlight;
     public static void EditDestination(Flight selectedFlight){
         // Use LINQ to write the airports into the desired format
         airportstring.Clear();
