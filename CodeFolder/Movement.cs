@@ -84,44 +84,4 @@ public class Movement{
             airplane.RedrawSeats();
         }
     }
-
-    // public virtual void MoveUp(){
-    //     if (cursorRow > 1){
-    //         cursorRow--;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         RedrawSeats();
-    //     }
-    // }
-
-    // public virtual void MoveDown(){
-    //     if (cursorRow < NumberOfRows){
-    //         cursorRow++;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         RedrawSeats();
-    //     }
-    // }
-    // public virtual void MoveLeft(){
-    //     if (cursorSeat > 0){
-    //         cursorSeat--;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         RedrawSeats();
-    //     }
-    // }
-    // public virtual void MoveRight(){
-    //     if (cursorSeat < LetterSeat - 'A'){
-    //         cursorSeat++;
-    //         RedrawSeats();
-    //     }
-    //     else {
-    //         RedrawSeats();
-    //     }
-    // }
-
-
 }

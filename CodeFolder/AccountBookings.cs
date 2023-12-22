@@ -93,14 +93,4 @@ public static class AccountBookings{
         }
     }
 
-    // public static void UpdateUser(){
-    //     MainMenu.currentUser = UpdateAccount(MainMenu.currentUser!);
-    // }
-    // public static Account UpdateAccount(Account accountToUpdate){
-    //     string filePath = "DataSources/Accounts.json";
-    //     string jsonContent = File.ReadAllText(filePath);
-    //     List<Account> newBookings = JsonConvert.DeserializeObject<List<Account>>(jsonContent)!;
-    //     accountToUpdate = newBookings.FirstOrDefault(account => account.username == accountToUpdate.username)!;
-    //     return accountToUpdate;
-    // }
 }

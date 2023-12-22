@@ -9,7 +9,6 @@ public static class OptionSelection<T>{
     private static ConsoleKeyInfo keyInfo;
     public static String[] GoBack = {"<-- Go back"};
     public static Boolean stop = false;
-    // public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static void Start(List<T> list){
         Start(list, null);
     }
@@ -125,15 +124,12 @@ public static class OptionSelection<T>{
             string plane = FlightSelection.Selection(selectedOption);
             switch (plane){
                 case "Boeing 787":
-                    // Boeing787 boeing787 = new('I',28);
                     Airplane.boeing787.Start(selectedFlight2!);
                     break;
                 case "Boeing 737":
-                    // Airplane.boeing737 = new('F', 33);
                     Airplane.boeing737.Start(selectedFlight2!);
                     break;
                 case "Airbus 330":
-                    // Airbus330 airbus330 = new('I',44);
                     Airplane.airbus330.Start(selectedFlight2!);
                     break;
             }
@@ -149,11 +145,14 @@ public static class OptionSelection<T>{
             OptionSelection<String>.Start(option2);
         }
         if (sub == "("){
-            if(OptionSelection<Account>.selectedAccount is null){
-                AccountBookings.DeleteBooking(selectedOption, MainMenu.currentUser!);
-            } else {
-                AccountBookings.DeleteBooking(selectedOption, OptionSelection<Account>.selectedAccount);
-            }
+            // if(OptionSelection<Account>.selectedAccount is null){
+            //     AccountBookings.DeleteBooking(selectedOption, MainMenu.currentUser!);
+            // } else {
+            //     AccountBookings.DeleteBooking(selectedOption, OptionSelection<Account>.selectedAccount);
+            // }
+            //##########################################################################
+            AccountBookings.DeleteBooking(selectedOption, SelectedOrCurrentAccount());
+            //##########################################################################
         }
         if (EditingFlights.airportstring.Contains(selectedOption)){ //Sends the admin back to editingflights after choosing a location to fly to
             EditingFlights.EditDestination2(selectedOption);
@@ -195,11 +194,14 @@ public static class OptionSelection<T>{
                 AccountBookings.ShowBooking();
                 break;
             case "Cancel booking":
-                if(OptionSelection<Account>.selectedAccount is null){
-                    AccountBookings.CancelBooking(MainMenu.currentUser!);
-                } else {
-                    AccountBookings.CancelBooking(OptionSelection<Account>.selectedAccount);
-                }
+                // if(OptionSelection<Account>.selectedAccount is null){
+                //     AccountBookings.CancelBooking(MainMenu.currentUser!);
+                // } else {
+                //     AccountBookings.CancelBooking(OptionSelection<Account>.selectedAccount);
+                // }
+                //##########################################################################
+                AccountBookings.CancelBooking(SelectedOrCurrentAccount());
+                //##########################################################################
                 break;
             case "Edit booking":
                 AccountBookings.EditBooking();
@@ -233,15 +235,12 @@ public static class OptionSelection<T>{
                 break;
             case "Change class seat prices": // change class seat price all of this kind of plane.
                 if(selectedFlight2!.AirplaneType == "Boeing 737"){
-                    // Boeing737 boeing737 = new('F', 33);
                     Airplane.boeing737.SetClassPrices();
                 }
                 if(selectedFlight2.AirplaneType == "Boeing 787"){
-                    // Boeing787 boeing787 = new('I',28);
                     Airplane.boeing787.SetClassPrices();
                 }
                 if(selectedFlight2.AirplaneType == "Airbus 330"){
-                    // Airbus330 airbus330 = new('I', 44);
                     Airplane.airbus330.SetClassPrices();
                 }
                 
@@ -321,10 +320,6 @@ public static class OptionSelection<T>{
             case "Book flight -->": // Not sure if this is still required
                 ShowFlights.Column2(flights);
                 break;
-            // case "Book a seat":
-            //     Airplane airplane = new();
-            //     // airplane.Boeing737();
-            //     break;
             case "Sort by ...": //gives the user options to sort the flights based on diffrent data
                     List<String> option1 = new List<string>();
                     option1.Add("Sort by country");
@@ -373,7 +368,6 @@ public static class OptionSelection<T>{
                 Color.Black("y", false);
                 Color.Cyan("e", false);
                 Color.Red("!", false);
-                // Console.WriteLine("Goodbye!");
                 Environment.Exit(0);
                 break;
             case "Delete account(!)": // deletes the users account
@@ -475,6 +469,14 @@ public static class OptionSelection<T>{
                     boeing787.Start((selectedOption as Booking)!.BookedFlight);
                 }
             }
+        }
+    }
+
+    public static Account SelectedOrCurrentAccount(){
+        if(OptionSelection<Account>.selectedAccount is not null){
+            return OptionSelection<Account>.selectedAccount;
+        } else {
+            return MainMenu.currentUser!;
         }
     }
 }
