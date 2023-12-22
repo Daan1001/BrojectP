@@ -35,13 +35,6 @@ public class Boeing737 : Airplane
                 }
             }
         }
-        Console.WriteLine("AFTER INITS CHANGES");
-        Console.WriteLine(FirstClassPrice);
-        Console.WriteLine(BusinessClassPrice);
-        Console.WriteLine(EconomyClassPrice);
-        Console.ReadKey();
-
-
     }
 
     public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){

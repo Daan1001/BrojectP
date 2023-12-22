@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using CodeFolder;
 using Newtonsoft.Json;
 public abstract class Airplane 
@@ -35,11 +36,21 @@ public abstract class Airplane
         LoadBookedSeatsFromJson(newFilePath);
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
+
+        // string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
+        // bookedSeats.Clear();
+        // Seat.Seats.Clear();
+        // LoadBookedSeatsFromJson(new_filePath); 
+        // InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+        // DisplaySeats();
     }
 
     public virtual void Start(Flight currentFlight)
     {
-        UpdateSeat(currentFlight);
+        // UpdateSeat(currentFlight);
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");
+        // Console.ReadKey();
         cursorRow = 1;
         cursorSeat = 0;
         bool isBookingComplete = false;
@@ -49,7 +60,13 @@ public abstract class Airplane
             isBookingComplete = Movement.MovementInPut(this);
         }
         Console.Clear();
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");f
+        // Console.ReadKey();
         Prices.TicketPrices(currentFlight);
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");
+        // Console.ReadKey();
         bool confirmBooking = ConfirmBooking(currentFlight); // Ask for confirmation after finishing the booking
         //###############################
 
@@ -157,34 +174,73 @@ public abstract class Airplane
         if (key.Key == ConsoleKey.Y){
             if (Airplane.TemporarlySeat.Count() > 0){
                 if (MainMenu.currentUser is not null){
-                    if (AccountBookings.editing){
-                        ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, Booking.seatsstring);
+                    Boolean SameList = false;;
+                    try{
+                        if (AccountBookings.editing){
+                            // Account account;
+                            // if(OptionSelection<Account>.selectedAccount is not null){
+                            //     account = OptionSelection<Account>.selectedAccount;
+                            // } else {
+                            //     account = MainMenu.currentUser;
+                            // }
+                            //#######################################################################
+                            Account account = OptionSelection<Account>.SelectedOrCurrentAccount();
+                            //#######################################################################
+                            if(account.AccountBookings.Any(b => b.BookedFlight == currentflight)){
+                                Boolean SameCount = account.AccountBookings.Where(b => b.BookedFlight == currentflight).Select(b => b.BookedSeats).First().Count() == Airplane.TemporarlySeat.Count();
+                                SameList = SameCount && account.AccountBookings.Where(b => b.BookedFlight == currentflight).Select(b => b.BookedSeats).First().All(Airplane.TemporarlySeat.Contains);
+                                if(SameList){
+                                    Console.WriteLine("\nNo changes made.");
+                                    Console.WriteLine("Press any key to continue..");
+                                    Console.ReadKey();
+                                }
+                            }                            
+                            ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, Booking.seatsstring);
+                        }
+                        else{
+                            ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", Booking.seatsstring);
+                        }
+                    } catch(SocketException){
+                        if(!SameList){
+                        Console.WriteLine("\nNo internet connection.");
+                        Console.WriteLine("Sending email failed.");
+                        Console.WriteLine("Please contact customer support for more information or help.");
+                        Console.WriteLine("Press any key to continue..");
+                        Console.ReadKey();
+                        }
                     }
-                    else{
-                        ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", Booking.seatsstring);
-                    }
-                    if(OptionSelection<Account>.selectedAccount is not null){
-                        OptionSelection<Account>.selectedAccount.DeleteFromJson();
-                        AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
-                    } else {
-                        MainMenu.currentUser.DeleteFromJson();
-                        AddBooking(currentflight, MainMenu.currentUser);
-                    }
+                    // if(OptionSelection<Account>.selectedAccount is not null){
+                    //     OptionSelection<Account>.selectedAccount.DeleteFromJson();
+                    //     AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
+                    // } else {
+                    //     MainMenu.currentUser.DeleteFromJson();
+                    //     AddBooking(currentflight, MainMenu.currentUser);
+                    // }
+                    //#######################################################################
+                    OptionSelection<Account>.SelectedOrCurrentAccount().DeleteFromJson();
+                    AddBooking(currentflight, OptionSelection<Account>.SelectedOrCurrentAccount());
+                    //#######################################################################
                     JsonFile<Account>.Read("DataSources/Accounts.json");
-                    if(OptionSelection<Account>.selectedAccount is null){
-                        JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
-                    } else {
-                        JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
-                    }
+                    // if(OptionSelection<Account>.selectedAccount is null){
+                    //     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    // } else {
+                    //     JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
+                    // }
+                    //#######################################################################
+                    JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.SelectedOrCurrentAccount());
+                    //#######################################################################
                 }
             } else {
                 if(AccountBookings.editing){
-                    Account account;
-                    if(OptionSelection<Account>.selectedAccount is null){
-                        account = MainMenu.currentUser!;
-                    } else {
-                        account = OptionSelection<Account>.selectedAccount;
-                    }
+                    // Account account;
+                    // if(OptionSelection<Account>.selectedAccount is null){
+                    //     account = MainMenu.currentUser!;
+                    // } else {
+                    //     account = OptionSelection<Account>.selectedAccount;
+                    // }
+                    //#######################################################################
+                    Account account = OptionSelection<Account>.SelectedOrCurrentAccount();
+                    //#######################################################################
                     account!.DeleteFromJson();
                     account!.AccountBookings.Remove(account.AccountBookings.Where(b => b.BookedFlight == currentflight).First());
                     JsonFile<Account>.Write("DataSources/Accounts.json", account);

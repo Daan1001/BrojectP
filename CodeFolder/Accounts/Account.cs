@@ -13,9 +13,7 @@ public class Account: IEquatable<Account>{
     public string? passwordHash;
     [JsonProperty(Order = 5)]
     public List<Booking> AccountBookings = new List<Booking>();
-    // public DateTime dateOfBirth;
     public string email;
-    // public int phoneNumber;
     public Account(string username, string password, string email, bool isAdmin, bool isSuperAdmin){
         this.username = username;
         if(password != null){
@@ -185,13 +183,4 @@ public class Account: IEquatable<Account>{
     public static bool operator !=(Account one, Account two){
        return !(one == two);
     }
-
-    // public static bool ConfirmDoB(string dateOfBirth)
-    // {
-    //     bool test =  DateTime.TryParseExact(dateOfBirth, "dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None, out DateTime result);
-    //     if(test){
-    //         DateTime test2 = result;
-    //     }
-    //     return test;
-    // }
 }
