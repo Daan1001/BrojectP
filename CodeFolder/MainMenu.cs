@@ -27,7 +27,6 @@ public class MainMenu{
             options.Add("Log out");
         }
         options.Add("Exit");
-        // OptionSelection.Start(MainMenu.options);
         OptionSelection<String>.Start(MainMenu.options);
     }
     public static void AirportName(){
