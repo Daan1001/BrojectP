@@ -9,26 +9,18 @@ public class Movement{
         {
             case ConsoleKey.UpArrow:
                 MoveUp(airplane);
-                Console.WriteLine($"cursorRow:  {Airplane.cursorRow}");
-                Console.WriteLine($"cursorSeat: {Airplane.cursorSeat}");
                 break;
 
             case ConsoleKey.DownArrow:
                 MoveDown(airplane);
-                Console.WriteLine($"cursorRow:  {Airplane.cursorRow}");
-                Console.WriteLine($"cursorSeat: {Airplane.cursorSeat}");
                 break;
 
             case ConsoleKey.LeftArrow:
                 MoveLeft(airplane);
-                Console.WriteLine($"cursorRow:  {Airplane.cursorRow}");
-                Console.WriteLine($"cursorSeat: {Airplane.cursorSeat}");
                 break;
 
             case ConsoleKey.RightArrow:
                 MoveRight(airplane);
-                Console.WriteLine($"cursorRow:  {Airplane.cursorRow}");
-                Console.WriteLine($"cursorSeat: {Airplane.cursorSeat}");
                 break;
 
             case ConsoleKey.Enter:
