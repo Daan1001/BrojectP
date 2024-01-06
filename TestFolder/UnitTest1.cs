@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace TestFolder;
  
 [TestClass]
@@ -123,7 +125,7 @@ public class UnitTest1
         account.AccountBookings.Add(booking);
         MainMenu.currentUser = account;
         AccountBookings.DeleteBooking(flight2.ToString(flights), account);
-        AccountBookings.UpdateUser();
+        Account.UpdateUser();
         Assert.IsTrue(MainMenu.currentUser.AccountBookings.Count == 0);
     }
  
@@ -208,12 +210,58 @@ public class UnitTest1
     [DataRow(1200, 900, 600)]
     public void SetPrices_UpdatesPricesCorrectly(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
-        Boeing787 boeing787 = new Boeing787('A', 1);
-        boeing787.SetPrices(firstClassPrice, businessClassPrice, economyClassPrice);
- 
+        Airplane.boeing787.SetPrices(firstClassPrice, businessClassPrice, economyClassPrice);
         // Assert
-        Assert.AreEqual(firstClassPrice, Boeing787.FirstClassPrice);
-        Assert.AreEqual(businessClassPrice, Boeing787.BusinessClassPrice);
-        Assert.AreEqual(economyClassPrice, Boeing787.EconomyClassPrice);
+        Assert.AreEqual(firstClassPrice, Airplane.boeing787.FirstClassPrice);
+        Assert.AreEqual(businessClassPrice, Airplane.boeing787.BusinessClassPrice);
+        Assert.AreEqual(economyClassPrice, Airplane.boeing787.EconomyClassPrice);
+    }
+
+    [TestMethod]
+    [DataRow("Admin")]
+    [DataRow("PeterPannenkoek")]
+    [DataRow("B&BVL")]
+    public void ChangeUsernameTest(String NewUsername){
+        Account account = new Account("Testing", "Password123!","admin@gmail.com", true, true);
+        account.changeUsername(NewUsername);
+
+        Assert.IsTrue(account.username == NewUsername);
+    }
+
+    [TestMethod]
+    [DataRow("PaSsWoRd123!")]
+    [DataRow("2004")]
+    [DataRow("2782004")]
+    public void ChangePasswordTest(String NewPassword){
+        Account account = new Account("admin", "Testing123!","admin@gmail.com", true, true);
+        account.ChangePassword(NewPassword);
+
+        Assert.IsTrue(account.passwordHash == Password.Encrypt(NewPassword));
+    }
+
+    [TestMethod]
+    [DataRow(2)]
+    [DataRow(3)]
+    [DataRow(7)]
+    [DataRow(10)]
+    public void DeleteFromJsonTest(int NumberOfAccounts){
+        List<Account> accounts = new List<Account>();
+        // int i = 1;
+        string username = "UserName";
+        string password = "Password123!";
+        // while(accounts.Any(Account => Account.username == username)){ // checks if the username is the same as one made by a previous test
+        //     i++;
+        //     username = "UserName"+i;
+        // }
+        for(int i = 0; i < NumberOfAccounts; i++){
+            accounts.Add(new Account(username+i, password, "1064928@hr.nl", true, true)); // makes account
+        }
+
+        string json = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+        File.WriteAllText("DataSources/Accounts.json", json);
+        accounts[1].DeleteFromJson();
+        JsonFile<Account>.Read("DataSources/Accounts.json");
+        accounts = JsonFile<Account>.listOfObjects!;
+        Assert.AreEqual(NumberOfAccounts-1, accounts.Count());
     }
 }

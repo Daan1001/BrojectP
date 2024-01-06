@@ -1,3 +1,5 @@
+using System.Net.Sockets;
+using CodeFolder;
 using Newtonsoft.Json;
 public abstract class Airplane 
 {
@@ -7,33 +9,50 @@ public abstract class Airplane
     public static List<Seat> TemporarlySeat = new List<Seat>();
     public char LetterSeat { get; private set; }
     public int NumberOfRows { get; private set; }   
-    public static int FirstClassPrice{get; protected set;}
-    public static int BusinessClassPrice {get; protected set;}
-    public static int EconomyClassPrice {get; protected set;}
+    public abstract int FirstClassPrice{get; set;}
+    public abstract int BusinessClassPrice {get; set;}
+    public abstract int EconomyClassPrice {get; set;}
+
+    public static Boeing737 boeing737 = new('F', 33);
+    public static Boeing787 boeing787 = new('I', 28);
+    public static Airbus330 airbus330 = new('I',44);
+
     public Airplane(char letterseat, int numberofrows){
         LetterSeat = letterseat;
         NumberOfRows = numberofrows;
     }
     public abstract void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice);
     public abstract void DisplaySeats();
-
-    public abstract void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice);
+    public void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice){
+        FirstClassPrice = firstClassPrice;
+        BusinessClassPrice = businessClassPrice;
+        EconomyClassPrice = economyClassPrice;
+        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
+    }
     public abstract void SetClassPrices();
 
-    public virtual void UpdateSeat(Flight currentFlight){
+    public void UpdateSeat(Flight currentFlight){
         string newFilePath = $"DataSources/{currentFlight.FlightId}.json";
-        // cursorRow = 1;
-        // cursorSeat = 0;
         bookedSeats.Clear();
         Seat.Seats.Clear();
         LoadBookedSeatsFromJson(newFilePath);
         InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
         DisplaySeats();
+
+        // string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
+        // bookedSeats.Clear();
+        // Seat.Seats.Clear();
+        // LoadBookedSeatsFromJson(new_filePath); 
+        // InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
+        // DisplaySeats();
     }
 
-    public virtual void Start(Flight currentFlight)
+    public void Start(Flight currentFlight)
     {
-        UpdateSeat(currentFlight);
+        // UpdateSeat(currentFlight);
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");
+        // Console.ReadKey();
         cursorRow = 1;
         cursorSeat = 0;
         bool isBookingComplete = false;
@@ -43,7 +62,14 @@ public abstract class Airplane
             isBookingComplete = Movement.MovementInPut(this);
         }
         Console.Clear();
-        bool confirmBooking = Prices.TicketPrices(currentFlight); // Ask for confirmation after finishing the booking
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");f
+        // Console.ReadKey();
+        Prices.TicketPrices(currentFlight);
+        // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        // Console.WriteLine("TEST");
+        // Console.ReadKey();
+        bool confirmBooking = ConfirmBooking(currentFlight); // Ask for confirmation after finishing the booking
         if (confirmBooking)
         {
             Console.Clear();
@@ -81,7 +107,7 @@ public abstract class Airplane
         else{
             // Roll back the booked seats to available
             foreach (var seat in TemporarlySeat){
-                
+  
                 seat.ResetSeat();
             }
             Console.Clear();
@@ -134,36 +160,120 @@ public abstract class Airplane
         File.WriteAllText(filePath, json);
         //Console.WriteLine($"Booked seats saved to {filePath}");
     }
-    // public bool ConfirmBooking(){
-    //     Console.WriteLine("Confirmation Screen:");
-    //     Console.WriteLine("Selected Seats:");
-    //     foreach (var seat in TemporarlySeat){
-    //         if(seat.Booked == true){
-    //             Console.WriteLine(seat.ShowSeat());
-    //         }   
-    //         // gotta include the price but, have to change the Seat class constructor also the inittializedseat methode 
-    //     }
-        
-    //     bool check =true;
-    //     bool confirm = false;
-    //     while(!confirm){
-    //         Console.Write("Confirm booking? (Y/N): ");
-    //         ConsoleKeyInfo key = Console.ReadKey();
-    //         if(key.Key == ConsoleKey.Y){
-    //             confirm = true;
-    //             check = true;    
-    //         }
-    //         else if (key.Key == ConsoleKey.N){
-    //             confirm = false;
-    //             check = false;
-    //         }
-    //         return false;
-    //     }
-    //     return check;
-    //     // Return true if the user pressed 'Y' (yes), otherwise return false
-    //}
+    public Boolean ConfirmBooking(Flight currentflight){
+        // string seatsstring = $"Price P.P: {currentflight.BasePrice}.\nSelected seats:";
+        // seatsstring = seatsstring + $"\nPrice before discount: €{totalprice}\nCurrent discount: {Korting}%\nTotal price: €{TotalpriceDouble}\nHave a great flight!";
+        Console.Write("Confirm booking? (Y/N): ");
+        ConsoleKeyInfo key;
+        do{
+            key = Console.ReadKey();
+            Console.WriteLine();
+        } while(!(key.Key == ConsoleKey.Y || key.Key == ConsoleKey.N));
+
+        if (key.Key == ConsoleKey.Y){
+            if (Airplane.TemporarlySeat.Count() > 0){
+                if (MainMenu.currentUser is not null){
+                    Boolean SameList = false;;
+                    try{
+                        if (AccountBookings.editing){
+                            // Account account;
+                            // if(OptionSelection<Account>.selectedAccount is not null){
+                            //     account = OptionSelection<Account>.selectedAccount;
+                            // } else {
+                            //     account = MainMenu.currentUser;
+                            // }
+                            //#######################################################################
+                            Account account = OptionSelection<Account>.SelectedOrCurrentAccount();
+                            //#######################################################################
+                            if(account.AccountBookings.Any(b => b.BookedFlight == currentflight)){
+                                Boolean SameCount = account.AccountBookings.Where(b => b.BookedFlight == currentflight).Select(b => b.BookedSeats).First().Count() == Airplane.TemporarlySeat.Count();
+                                SameList = SameCount && account.AccountBookings.Where(b => b.BookedFlight == currentflight).Select(b => b.BookedSeats).First().All(Airplane.TemporarlySeat.Contains);
+                                if(SameList){
+                                    Console.WriteLine("\nNo changes made.");
+                                    Console.WriteLine("Press any key to continue..");
+                                    Console.ReadKey();
+                                }
+                            }                            
+                            ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, Booking.seatsstring);
+                        }
+                        else{
+                            ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", Booking.seatsstring);
+                        }
+                    } catch(SocketException){
+                        if(!SameList){
+                        Console.WriteLine("\nNo internet connection.");
+                        Console.WriteLine("Sending email failed.");
+                        Console.WriteLine("Please contact customer support for more information or help.");
+                        Console.WriteLine("Press any key to continue..");
+                        Console.ReadKey();
+                        }
+                    }
+                    // if(OptionSelection<Account>.selectedAccount is not null){
+                    //     OptionSelection<Account>.selectedAccount.DeleteFromJson();
+                    //     AddBooking(currentflight, OptionSelection<Account>.selectedAccount);
+                    // } else {
+                    //     MainMenu.currentUser.DeleteFromJson();
+                    //     AddBooking(currentflight, MainMenu.currentUser);
+                    // }
+                    //#######################################################################
+                    OptionSelection<Account>.SelectedOrCurrentAccount().DeleteFromJson();
+                    AddBooking(currentflight, OptionSelection<Account>.SelectedOrCurrentAccount());
+                    //#######################################################################
+                    JsonFile<Account>.Read("DataSources/Accounts.json");
+                    // if(OptionSelection<Account>.selectedAccount is null){
+                    //     JsonFile<Account>.Write("DataSources/Accounts.json", MainMenu.currentUser);
+                    // } else {
+                    //     JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.selectedAccount);
+                    // }
+                    //#######################################################################
+                    JsonFile<Account>.Write("DataSources/Accounts.json", OptionSelection<Account>.SelectedOrCurrentAccount());
+                    //#######################################################################
+                }
+            } else {
+                if(AccountBookings.editing){
+                    // Account account;
+                    // if(OptionSelection<Account>.selectedAccount is null){
+                    //     account = MainMenu.currentUser!;
+                    // } else {
+                    //     account = OptionSelection<Account>.selectedAccount;
+                    // }
+                    //#######################################################################
+                    Account account = OptionSelection<Account>.SelectedOrCurrentAccount();
+                    //#######################################################################
+                    account!.DeleteFromJson();
+                    account!.AccountBookings.Remove(account.AccountBookings.Where(b => b.BookedFlight == currentflight).First());
+                    JsonFile<Account>.Write("DataSources/Accounts.json", account);
+                }
+            }
+            AccountBookings.editing = false;
+        }
+        // Return true if the user pressed 'Y' (yes), otherwise return false
+        return key.Key == ConsoleKey.Y;
+    }
+
+    private static void AddBooking(Flight currentflight, Account account){
+        Flight accountFlight = currentflight;
+        List<Seat> seats = Airplane.TemporarlySeat;
+        Booking accountbookings = new Booking(accountFlight, seats);
+        if(account.AccountBookings.Any(b => b == accountbookings)){
+            Booking existingBooking = account.AccountBookings.Where(a => a == accountbookings).ToList()[0];
+            if(!AccountBookings.editing){
+                for(int i = 0; i < accountbookings.BookedSeats.Count(); i++){
+                    if(existingBooking.BookedSeats.Any(s => s == accountbookings.BookedSeats[i])){
+                        accountbookings.BookedSeats.Remove(accountbookings.BookedSeats[i]);
+                        i--;
+                    }
+                }
+                accountbookings = (existingBooking + accountbookings)!;
+            } else {
+                accountbookings.BookedSeats = seats;
+            }
+            account.AccountBookings.Remove(existingBooking);
+        }
+        account.AccountBookings.Add(accountbookings);
+    }
+
     public void RedrawSeats(){
-        //Console.SetCursorPosition(0, 0);
         DisplaySeats();
     }
 }

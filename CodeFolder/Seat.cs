@@ -23,7 +23,6 @@ public class Seat: IEquatable<Seat>
     }
 
     public override string ToString(){
-        // return $"Letter: {Letter}, Row: {Row}";
         return $"Seat: {Letter}-{Row}";
     }
     public void Book(){
@@ -38,7 +37,6 @@ public class Seat: IEquatable<Seat>
         else{
             Console.WriteLine($"Seat: {this.Letter}{this.Row} is already booked. Please choose another seat.");
         }
-         // Console.WriteLine("TEST");
     }
 
     public void ResetBooking()

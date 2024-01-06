@@ -4,9 +4,10 @@ using Spectre.Console;
 
 public class Boeing787 : Airplane
 {
-    public static int FirstClassPrice = 250;
-    public static int BusinessClassPrice = 90;
-    public static int EconomyClassPrice = 50;
+    public override int FirstClassPrice {get;set;} = 250;
+    public override int BusinessClassPrice{get;set;} = 90;
+    public override int EconomyClassPrice{get;set;} = 50;
+
     public Boeing787(char letter, int numbers) : base (letter, numbers) {}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
@@ -28,48 +29,31 @@ public class Boeing787 : Airplane
         }
 
         // Initialize business-class seats
-        for (char letter = 'A'; letter <= 'I'; letter++)
-        {
-            for (int row = 7; row <= 16; row++)
-            {
+        for (char letter = 'A'; letter <= 'I'; letter++){
+            for (int row = 7; row <= 16; row++){
                 Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(businessClassPrice * 1.2) : businessClassPrice;
-
-                if (existingSeat != null)
-                {
+                if (existingSeat != null){
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
-                else
-                {
+                else{
                     new BusinessClass("Business Class", letter, row, false, seatPrice);
                 }
             }
         }
         // Initialize economy-class seats
-        for (char letter = 'A'; letter <= 'I'; letter++)
-        {
-            for (int row = 17; row <= 28; row++)
-            {
+        for (char letter = 'A'; letter <= 'I'; letter++){
+            for (int row = 17; row <= 28; row++){
                 Seat? existingSeat = Airplane.bookedSeats.Find(s => s.Row == row && s.Letter == letter);
                 int seatPrice = (letter == 'A' || letter == 'I') ? (int)(economyClassPrice * 1.2) : economyClassPrice;
-
-                if (existingSeat != null)
-                {
+                if (existingSeat != null){
                     new Seat(existingSeat.TypeClass, letter, row, true, existingSeat.Price);
                 }
-                else
-                {
+                else{
                     new EconomyClass("Economy Class", letter, row, false, seatPrice);
                 }
             }
         }
-    }
-    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
-    {
-        FirstClassPrice = firstClassPrice;
-        BusinessClassPrice = businessClassPrice;
-        EconomyClassPrice = economyClassPrice;
-        InitializeSeats(firstClassPrice, businessClassPrice, economyClassPrice);
     }
     public override void SetClassPrices(){
         int firstclassPrice, businessclassPrice, economyclassPrice;
@@ -201,18 +185,5 @@ public class Boeing787 : Airplane
             }
         }
         Console.WriteLine($"  +{new string('-', totalWidth - 3)}+");
-    }
-    public override void UpdateSeat(Flight currentFlight){
-        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
-        bookedSeats.Clear();
-        Seat.Seats.Clear();
-        LoadBookedSeatsFromJson(new_filePath); 
-        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        DisplaySeats();
-    }
-    public override void Start(Flight currentFlight){
-        Console.Clear();
-        UpdateSeat(currentFlight);
-        base.Start(currentFlight);
     }
 }

@@ -4,6 +4,5 @@ public class Program{
         CheckingFlights.OrderingFlightsInJson();
         CheckingFlights.UpdateDates();
         MainMenu.Start();
-        // Color.PrintAll();
     }
 }

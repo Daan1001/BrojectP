@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 public class Airbus330 : Airplane
-{
-    public static int FirstClassPrice = 250;
-    public static int BusinessClassPrice = 90;
-    public static int EconomyClassPrice = 50;
+{   
+    public override int FirstClassPrice {get;set;} = 250;
+    public override int BusinessClassPrice{get;set;} = 0;
+    public override int EconomyClassPrice{get;set;} = 50;
     public Airbus330(char letter, int numbers) : base(letter, numbers){}
     public override void InitializeSeats(int firstClassPrice, int businessClassPrice, int economyClassPrice)
     {
@@ -50,13 +50,6 @@ public class Airbus330 : Airplane
             }
         }
     }
-    public override void SetPrices(int firstClassPrice, int businessClassPrice, int economyClassPrice)
-    {
-        FirstClassPrice = firstClassPrice;
-        BusinessClassPrice = businessClassPrice;
-        EconomyClassPrice = economyClassPrice;
-        InitializeSeats(FirstClassPrice, BusinessClassPrice, economyClassPrice);
-    }
     public override void SetClassPrices(){
         int firstclassPrice, businessclassPrice, economyclassPrice;
         do{
@@ -65,21 +58,15 @@ public class Airbus330 : Airplane
             Console.Write(">>> ");
         } while (!int.TryParse(Console.ReadLine(), out firstclassPrice) || firstclassPrice <= 0);
         do{
-            Console.WriteLine($"This is the current Business Class seat price: {BusinessClassPrice}");
-            Console.WriteLine("What is the new Business Class seat price (positive number only): ");
-            Console.Write(">>> ");
-        } while (!int.TryParse(Console.ReadLine(), out businessclassPrice) || businessclassPrice <= 0);
-        do{
             Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
             Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
             Console.Write(">>> ");
         } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
         Console.Clear();
-        SetPrices(firstclassPrice, businessclassPrice, economyclassPrice);
-        if(FirstClassPrice == firstclassPrice && BusinessClassPrice ==businessclassPrice &&  EconomyClassPrice == economyclassPrice ){
+        SetPrices(firstclassPrice, 0, economyclassPrice);
+        if(FirstClassPrice == firstclassPrice && BusinessClassPrice ==0 &&  EconomyClassPrice == economyclassPrice ){
             Console.WriteLine("The new prices has been set.");
             Console.WriteLine($"First Class seat price: {firstclassPrice}.");
-            Console.WriteLine($"Business Class seat price: {businessclassPrice}.");
             Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");
             Console.WriteLine();
             Console.WriteLine("Press any button to continue.");
@@ -174,19 +161,5 @@ public class Airbus330 : Airplane
             }
         }
         Console.WriteLine();
-    }
-    public override void UpdateSeat(Flight currentFlight){
-        string new_filePath = $"DataSources/{currentFlight.FlightId}.json";
-        bookedSeats.Clear();
-        Seat.Seats.Clear();
-        LoadBookedSeatsFromJson(new_filePath); 
-        InitializeSeats(FirstClassPrice, BusinessClassPrice, EconomyClassPrice);
-        DisplaySeats();
-    }
-    public override void Start(Flight currentFlight)
-    {
-        Console.Clear();
-        UpdateSeat(currentFlight);
-        base.Start(currentFlight);
     }
 }

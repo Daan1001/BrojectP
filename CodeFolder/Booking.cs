@@ -8,7 +8,8 @@ public class Booking: IEquatable<Booking>{
     public List<Seat> BookedSeats;
     [JsonProperty]
     public bool Outdated;
-
+    public static String seatsstring;
+  
     public Booking(Flight BookedFlight, List<Seat> BookedSeats, bool outdated=false){
         this.BookedFlight = BookedFlight;
         this.BookedSeats = BookedSeats;

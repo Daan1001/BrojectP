@@ -20,7 +20,7 @@ public static class AccountBookings{
     }
 
     public static void DeleteBooking(string booking, Account account){
-        account = AccountBookings.UpdateAccount(account);
+        account = Account.UpdateAccount(account);
         List<Flight> flights2 = account.AccountBookings.Select(b => b.BookedFlight).ToList();
 
         foreach (Booking bookings in account.AccountBookings.Where( b => ("("+b.BookedFlight.ToString(flights2)+")").Substring(1, 6) == booking.Substring(1, 6))){
@@ -57,7 +57,7 @@ public static class AccountBookings{
     }
 
     public static void ShowBooking(){
-        UpdateUser();
+        Account.UpdateUser();
         ShowBooking(MainMenu.currentUser!);
     }
 
