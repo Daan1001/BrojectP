@@ -49,7 +49,7 @@ public abstract class Airplane
 
     public void Start(Flight currentFlight)
     {
-        // UpdateSeat(currentFlight);
+        UpdateSeat(currentFlight);
         // // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
         // Console.WriteLine("TEST");
         // Console.ReadKey();
