@@ -6,12 +6,14 @@ public class Booking: IEquatable<Booking>{
     public Flight BookedFlight;
     [JsonProperty]
     public List<Seat> BookedSeats;
-
+    [JsonProperty]
+    public bool Outdated;
     public static String seatsstring;
-
-    public Booking(Flight BookedFlight, List<Seat> BookedSeats){
+  
+    public Booking(Flight BookedFlight, List<Seat> BookedSeats, bool outdated=false){
         this.BookedFlight = BookedFlight;
         this.BookedSeats = BookedSeats;
+        this.Outdated = outdated;
     }
 
     public override string ToString(){

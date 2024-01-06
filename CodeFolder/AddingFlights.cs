@@ -1,7 +1,7 @@
 using CodeFolder;
 using Newtonsoft.Json;
 public class AddingFlights{
-    public static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
+    private static List<Flight> flights = ShowFlights.LoadFlightsFromJson("DataSources/flights.json");
     public static List<string[]> airports = new List<string[]> //list of available flights
         {
             new string[] { "Istanbul", "Turkey", "3" },
@@ -144,11 +144,19 @@ public class AddingFlights{
     }
 
     public static string GetRandomNumber(){//get random flight id
+        List<Flight> flights2 = flights;
+        string filePath = "DataSources/Accounts.json";
+        List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(filePath))!;
+        foreach (Account account in accounts){
+            foreach (Booking booking in account.AccountBookings){
+                flights2.Add(booking.BookedFlight);
+            }
+        }
         var chars = "0123456789";
         var random = new Random();
         var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
         string flightId = result.ToString();
-        foreach (Flight flight in flights){
+        foreach (Flight flight in flights2){
             if (flight.FlightId == flightId){
                 GetRandomNumber();
             }
@@ -174,15 +182,7 @@ public class AddingFlights{
         string data = selectedFlight.ToString(flights1);
         Console.WriteLine(data);
         Console.ReadKey();
-        List<string> option2 = new List<string>();
-        option2.Add("Destination");
-        option2.Add("Type airplane");
-        option2.Add("Gate");
-        option2.Add("Date");
-        option2.Add("Time");
-        option2.Add("Price");
-        option2.Add("Save changes");
-        option2.Add("<-- Go back");
+        List<string> option2 = new List<string>(){"Destination","Type airplane","Gate","Time","Price","Save changes","<-- Go back"};
         OptionSelection<String>.Start(option2);
     }
     public static void CancelFlights(string selectedOption){

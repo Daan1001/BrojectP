@@ -47,10 +47,7 @@ Have a great flight!";
         Console.WriteLine($"Total price: €{TotalpriceDouble}");
     }
 
-    public static int GetCalcDiscount(Account account){
-        return CalculateDiscount(account);
-    }
-    private static int CalculateDiscount(Account account){
+    public static int CalculateDiscount(Account account){ // has to be public for unit test
         int korting = 0;
         int count = account.AccountBookings.Count();
         if(AccountBookings.editing){
@@ -74,10 +71,7 @@ Have a great flight!";
         }
         return korting;
     }
-    public static double GetCalcPrice(double totalprice, double percentagekorting){
-        return CalculatePrice(totalprice, percentagekorting);
-    }
-    private static double CalculatePrice(double totalprice, double percentagekorting){
+    public static double CalculatePrice(double totalprice, double percentagekorting){ // has to be public for unit test
         return totalprice * percentagekorting;
     }
 
