@@ -59,8 +59,8 @@ public class Movement{
             if (Airplane.cursorRow > 1){  // Access static field using class name
                 if(Airplane.cursorRow == 7 && Airplane.cursorSeat == 2 ||
                    Airplane.cursorRow == 7 && Airplane.cursorSeat == 4 ||
-                   Airplane.cursorRow == 7 && Airplane.cursorSeat == 4 ){
-                
+                   Airplane.cursorRow == 7 && Airplane.cursorSeat == 3 ){
+                    
                     Airplane.cursorRow--;
                     Airplane.cursorSeat--;
                     airplane.RedrawSeats();
