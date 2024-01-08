@@ -8,13 +8,13 @@ public class CheckingFlights{
             DateTime lessflightDate = flightDate.AddDays(-1);
             if (lessflightDate <= DateTime.Now){
                 if (Convert.ToInt32(flight.SeatsAvailable) < Convert.ToInt32(flight.TotalSeats)){
-                    Random r = new Random();
-                    int rInt = r.Next(0, 5);
-                    flightDate = DateTime.Now.AddMonths(rInt);
                     flight.FlightId = AddingFlights.GetRandomNumber();
-                    flight.SeatsAvailable = flight.TotalSeats;
-                    flight.FlightDate = flightDate.ToString("dd-MM-yyyy");
                 }
+                Random r = new Random();
+                int rInt = r.Next(1, 6);
+                flightDate = DateTime.Now.AddMonths(rInt);
+                flight.SeatsAvailable = flight.TotalSeats;
+                flight.FlightDate = flightDate.ToString("dd-MM-yyyy");
             }
         }
         string updatedJson = JsonConvert.SerializeObject(flights, Formatting.Indented);

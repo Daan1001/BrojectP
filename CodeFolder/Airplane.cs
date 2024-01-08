@@ -198,7 +198,12 @@ public abstract class Airplane
                             ConfirmationEmail.SendEditNotification(MainMenu.currentUser.username, MainMenu.currentUser.email, currentflight.FlightId, Booking.seatsstring);
                         }
                         else{
+                            if(OptionSelection<Account>.selectedAccount! != null!){
+                                ConfirmationEmail.SendConfirmation($"{OptionSelection<Account>.selectedAccount.username}", $"{OptionSelection<Account>.selectedAccount.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", Booking.seatsstring);
+                            }
+                            else{
                             ConfirmationEmail.SendConfirmation($"{MainMenu.currentUser.username}", $"{MainMenu.currentUser.email}", $"{currentflight.FlightId}", $"Rotterdam", $"{currentflight.Destination}", $"{currentflight.DepartureTime}", $"{currentflight.ArrivalTime}", Booking.seatsstring);
+                            }
                         }
                     } catch(SocketException){
                         if(!SameList){
