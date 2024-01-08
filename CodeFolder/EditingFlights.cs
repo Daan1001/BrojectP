@@ -33,9 +33,11 @@ public class EditingFlights{
         }
     }
     public static void EditGate(Flight selectedFlight){
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         Console.WriteLine("Current gate: " + selectedFlight.Terminal);
         Console.WriteLine("Enter the new gate");
         string gate = Console.ReadLine()!;
+        MainMenu.Return(gate);
         if (gate != null){
             if (gate.Length == 2){
                 gate = "Gate " + gate;
@@ -53,9 +55,11 @@ public class EditingFlights{
         }  
     }
     public static void EditTypeAirplane(Flight selectedFlight){
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         Console.WriteLine("Current type airplane: " + selectedFlight.AirplaneType);
         Console.Write("Enter the new type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
         string airplaneType = Console.ReadLine()!;
+        MainMenu.Return(airplaneType);
         if (airplaneType != null){
             if (airplaneType.ToLower() == "boeing 787"){
                 selectedFlight.AirplaneType = "Boeing 787";
@@ -95,8 +99,11 @@ public class EditingFlights{
         Console.WriteLine("Current flight date: " + selectedFlight.FlightDate);
         Console.Write("enter new flight date (dd-MM-yyyy): ");
         DateTime flightDate;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
+        String input = Console.ReadLine();
+        while (!DateTime.TryParseExact(input, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
+            MainMenu.Return(input);
             Console.WriteLine("Invalid date format. Please enter the date in dd-MM-yyyy format.");
+            input = Console.ReadLine();
         }
         string flightDatestring = flightDate.ToString("dd-MM-yyyy");
         selectedFlight.FlightDate = flightDatestring;
@@ -123,10 +130,12 @@ public class EditingFlights{
             }
         AddingFlights.EditFlight(selectedFlight);
     }
-    public static void EditPrice(Flight selectedFlight){
+    public static void EditPrice(Flight selectedFlight){        
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         Console.WriteLine($"Current price: {selectedFlight.BasePrice}");
         Console.Write("Base Price (in Euro): ");
         string baseprice = Console.ReadLine()!;
+        MainMenu.Return(baseprice);
         if (baseprice != null){
             baseprice = "€" + baseprice;
             selectedFlight.BasePrice = baseprice;

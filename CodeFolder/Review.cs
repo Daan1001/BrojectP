@@ -15,10 +15,13 @@ public class Review{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         Console.WriteLine("What is the subject of this review?");
         String? Subject = Console.ReadLine();
+        MainMenu.Return(Subject!);
         Console.WriteLine("What is the content of this review?");
         String? Content = Console.ReadLine();
+        MainMenu.Return(Content!);
         if(Subject == ""){
             Subject = "Reviewer didnt bother to fill this in.";
         }

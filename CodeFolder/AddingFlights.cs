@@ -33,19 +33,26 @@ public class AddingFlights{
         OptionSelection<string>.Start(airportstring);
     }
 
-    public static void AddFlight2(string selectedoption){
+    public static void AddFlight2(string selectedoption){    
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");    
         Console.CursorVisible = true;
         // Code that allows the admin to add flights
         Console.WriteLine("Enter the following details for the new flight:");
         Console.Write("Flight Date (dd-MM-yyyy): ");
         DateTime flightDate;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
+        String input = Console.ReadLine()!;
+        while (!DateTime.TryParseExact(input, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out flightDate)){
+            MainMenu.Return(input);
             Console.WriteLine("Invalid date format. Please enter the date in dd-MM-yyyy format.");
+            input = Console.ReadLine()!;
         }
         Console.Write("Departure Time (HH:mm): ");
         DateTime departureTime;
-        while (!DateTime.TryParseExact(Console.ReadLine(), "HH:mm", null, System.Globalization.DateTimeStyles.None, out departureTime)){
+        String input2 = Console.ReadLine()!;
+        while (!DateTime.TryParseExact(input2, "HH:mm", null, System.Globalization.DateTimeStyles.None, out departureTime)){
+            MainMenu.Return(input2);
             Console.WriteLine("Invalid time format. Please enter the time in HH:mm format.");
+            input2 = Console.ReadLine()!;
         }
         string country = "";
         string city = "";
@@ -72,6 +79,7 @@ public class AddingFlights{
         while(select){
             Console.Write("Type Airplane (Boeing 787, Airbus 330, Boeing 737): ");
             airplaneType = Console.ReadLine()!;
+            MainMenu.Return(airplaneType);
             if (airplaneType.ToLower() == "boeing 787" || airplaneType.ToLower() == "boeing 737" || airplaneType.ToLower() == "airbus 330"){
                 select = false;
             }
@@ -84,6 +92,7 @@ public class AddingFlights{
         while(select2){
             Console.WriteLine("Enter the gate(1-20)");
             gate = Console.ReadLine()!;
+            MainMenu.Return(gate);
             if(int.TryParse(gate, out _)){
                 int gateint = Convert.ToInt32(gate);
                 if (gateint < 20 && gateint > 0){

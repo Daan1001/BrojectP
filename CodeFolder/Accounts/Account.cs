@@ -73,9 +73,11 @@ public class Account: IEquatable<Account>{
         List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
         Boolean correctUsername = false;
         Console.CursorVisible = true;
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         while(!correctUsername){
             Console.WriteLine("What will be the new username?");
             String NewUsername = Console.ReadLine()!;
+            MainMenu.Return(NewUsername);
             if(!allAccountList.Any(Account => Account.username == NewUsername)){
                 Console.CursorVisible = false;
                 changeUsername(NewUsername);
@@ -106,9 +108,11 @@ public class Account: IEquatable<Account>{
         List<Account> allAccountList = JsonFile<Account>.listOfObjects!;
         Console.CursorVisible = true;
         String NewPassword = "";
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         do{
             Console.WriteLine("What will be the new password?");
             NewPassword = Console.ReadLine()!;
+            MainMenu.Return(NewPassword);
         }while(!Password.CheckPasswordSecurity(NewPassword));
         Console.CursorVisible = false;
         ChangePassword(NewPassword);

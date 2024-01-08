@@ -1,6 +1,7 @@
 using System;
 using CodeFolder;
 
+
 public class Prices{
     public static int Korting;
     public static double TotalpriceDouble;

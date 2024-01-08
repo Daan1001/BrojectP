@@ -163,11 +163,12 @@ public abstract class Airplane
     public Boolean ConfirmBooking(Flight currentflight){
         // string seatsstring = $"Price P.P: {currentflight.BasePrice}.\nSelected seats:";
         // seatsstring = seatsstring + $"\nPrice before discount: €{totalprice}\nCurrent discount: {Korting}%\nTotal price: €{TotalpriceDouble}\nHave a great flight!";
-        Console.Write("Confirm booking? (Y/N): ");
+        Console.Write("Confirm booking? (Y/N) (BKSP/ESC to cancel): ");
         ConsoleKeyInfo key;
         do{
             key = Console.ReadKey();
             Console.WriteLine();
+            MainMenu.Return(key);
         } while(!(key.Key == ConsoleKey.Y || key.Key == ConsoleKey.N));
 
         if (key.Key == ConsoleKey.Y){

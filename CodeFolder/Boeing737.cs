@@ -38,11 +38,15 @@ public class Boeing737 : Airplane
     }
     public override void SetClassPrices(){
         int economyclassPrice;
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input anytime to cancel.");
+        Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
+        Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
+        String input;
         do{
-            Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
-            Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
             Console.Write(">>> ");
-        } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
+            input = Console.ReadLine()!;
+            MainMenu.Return(input);
+        } while (!int.TryParse(input, out economyclassPrice) || economyclassPrice <= 0);
         Console.Clear();
         Console.WriteLine("The new prices has been set.");
         Console.WriteLine($"Economy Class seat price: {economyclassPrice}.");

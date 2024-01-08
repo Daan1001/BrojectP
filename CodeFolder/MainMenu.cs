@@ -52,4 +52,15 @@ public class MainMenu{
         Console.WriteLine("-Pay for your ticket (if we find out you skipped this part, we know where you live)");
         Console.WriteLine();
     }
+    public static void Return(ConsoleKeyInfo KeyPressed){
+        if(KeyPressed.Key == ConsoleKey.Backspace || KeyPressed.Key == ConsoleKey.Escape){
+            Console.WriteLine("This is just here so that pressing escape doesnt break the application. Don't remove this.");
+            Start();
+        }
+    }
+    public static void Return(String input){
+        if(input.ToUpper() == "CANCEL" || input.ToUpper() == "QUIT"){
+            Start();
+        }
+    }
 }

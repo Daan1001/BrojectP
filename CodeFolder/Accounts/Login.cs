@@ -19,10 +19,13 @@ public static class Login{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
-        Console.WriteLine("What is your Username?");
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
+        Console.WriteLine("What is your username?");
         String? a = Console.ReadLine();
+        MainMenu.Return(a!);
         Console.WriteLine("What is your password?");
         String? b = Console.ReadLine();
+        MainMenu.Return(b!);
         LogIn(a!, b!);
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();

@@ -25,6 +25,7 @@ public static class NewAccount{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
+        Console.WriteLine("Press Backspace or Escape anytime when asked for a key to cancel.");
         if(MainMenu.currentUser! != null!){ 
             if(MainMenu.currentUser!.isSuperAdmin){ 
                 Console.WriteLine("Will it be an admin account? (Y/N)");
@@ -32,14 +33,23 @@ public static class NewAccount{
                 do{
                     KeyPressed = Console.ReadKey();
                     Console.WriteLine();
+                    MainMenu.Return(KeyPressed);
                 } while(!(KeyPressed.Key == ConsoleKey.Y || KeyPressed.Key == ConsoleKey.N));
                 newStandardAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 if(newStandardAdminAccount){
-                    Console.WriteLine("Will it be a super admin account? (Y/N)");
+                    Console.WriteLine("Will it be an admin account? (Y/N)");
                     do{
                         KeyPressed = Console.ReadKey();
                         Console.WriteLine();
-                    } while(!(KeyPressed.Key == ConsoleKey.Y || KeyPressed.Key == ConsoleKey.N));
+                        MainMenu.Return(KeyPressed);
+                    } while(!(KeyPressed.Key == ConsoleKey.Y || KeyPressed.Key == ConsoleKey.N || KeyPressed.Key == ConsoleKey.Backspace));
+
+
+                    if(KeyPressed.Key == ConsoleKey.Backspace){
+                        return;
+                    }
+
+
                     newSuperAdminAccount = KeyPressed.Key == ConsoleKey.Y;
                 }
             }
@@ -47,19 +57,23 @@ public static class NewAccount{
         string username;
         string password;
         string email = "";
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input to cancel.");
         Console.WriteLine("Fill in the username:");
         do{
             username = Console.ReadLine()!;
-        } while(!CheckUsernameSecurity(username));
+            MainMenu.Return(username!);
+        } while(!CheckUsernameSecurity(username!));
         Console.WriteLine("Fill in the password: (Password must be 8 characters long and contain both at least one number and symbol)");
         do{
             password = Console.ReadLine()!;
+            MainMenu.Return(password);
         } while (!Password.CheckPasswordSecurity(password));
 
         do
         {
             Console.WriteLine("Enter your email address: ");
             email = Console.ReadLine()!;
+            MainMenu.Return(email);
         } while (!IsValidEmail(email));
         Make(username, password, email);
         Console.WriteLine("Press any key to continue");

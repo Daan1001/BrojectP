@@ -57,21 +57,29 @@ public class Boeing787 : Airplane
     }
     public override void SetClassPrices(){
         int firstclassPrice, businessclassPrice, economyclassPrice;
+        Console.WriteLine("Type \"Cancel\" or \"Quit\" anytime when asked for input anytime to cancel.");
+        Console.WriteLine($"This is the current First Class seat price: {FirstClassPrice}");
+        Console.WriteLine("What is the new First Class seat price (positive number only): ");
+        String input;
         do{
-            Console.WriteLine($"This is the current First Class seat price: {FirstClassPrice}");
-            Console.WriteLine("What is the new First Class seat price (positive number only): ");
             Console.Write(">>> ");
-        } while (!int.TryParse(Console.ReadLine(), out firstclassPrice) || firstclassPrice <= 0);
+            input = Console.ReadLine()!;
+            MainMenu.Return(input);
+        } while (!int.TryParse(input, out firstclassPrice) || firstclassPrice <= 0);
+        Console.WriteLine($"This is the current Business Class seat price: {BusinessClassPrice}");
+        Console.WriteLine("What is the new Business Class seat price (positive number only): ");
         do{
-            Console.WriteLine($"This is the current Business Class seat price: {BusinessClassPrice}");
-            Console.WriteLine("What is the new Business Class seat price (positive number only): ");
             Console.Write(">>> ");
-        } while (!int.TryParse(Console.ReadLine(), out businessclassPrice) || businessclassPrice <= 0);
+            input = Console.ReadLine()!;
+            MainMenu.Return(input);
+        } while (!int.TryParse(input, out businessclassPrice) || businessclassPrice <= 0);
+        Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
+        Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
         do{
-            Console.WriteLine($"This is the current Economy Class seat price: {EconomyClassPrice}");
-            Console.WriteLine("What is the new Economy Class seat price (positive number only): ");
             Console.Write(">>> ");
-        } while (!int.TryParse(Console.ReadLine(), out economyclassPrice) || economyclassPrice <= 0);
+            input = Console.ReadLine()!;
+            MainMenu.Return(input);
+        } while (!int.TryParse(input, out economyclassPrice) || economyclassPrice <= 0);
         Console.Clear();
         Console.WriteLine("The new prices has been set.");
         Console.WriteLine($"First Class seat price: {firstclassPrice}.");

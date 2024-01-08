@@ -1,5 +1,5 @@
 public static class Legend{
-    public static void print(int row, char letter, Airplane airplane){
+    public static void print(int row, char letter, Airplane airplane){        
         if(airplane is Airbus330){
             if(row == 3 && letter =='I'){
                 Console.ResetColor();
