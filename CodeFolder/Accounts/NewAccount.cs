@@ -25,9 +25,9 @@ public static class NewAccount{
         Console.Clear();
         MainMenu.AirportName();
         Console.CursorVisible = true;
-        Console.WriteLine("Press Backspace or Escape anytime when asked for a key to cancel.");
         if(MainMenu.currentUser! != null!){ 
             if(MainMenu.currentUser!.isSuperAdmin){ 
+                Console.WriteLine("Press Backspace or Escape anytime when asked for a key to cancel.");
                 Console.WriteLine("Will it be an admin account? (Y/N)");
                 ConsoleKeyInfo KeyPressed;
                 do{
