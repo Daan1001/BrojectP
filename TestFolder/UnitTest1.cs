@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestFolder;
  
@@ -112,7 +113,7 @@ public class UnitTest1
  
     //tests if reservations are deleted
     [TestMethod]
-    [DataRow("Sander", "Password", false, false)]
+    [DataRow("UserName0", "Password1!", false, false)]
     public void TestDeleteReservation(string name, string password, bool bool1, bool bool2 ){
         Flight flight2 = AddingFlights.CreateFlight("105491", "Boeing 737", "Gate 05", "Frankfurt", "Germany", "10-10-2024", "10:00:00", "12:00:00", "198", "198", "€60");
         List<Flight> flights = new List<Flight>();
